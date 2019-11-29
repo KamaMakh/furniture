@@ -102,7 +102,6 @@
     .header{
         max-width: 1920px;
         margin: 0 auto;
-        padding: 0 20px;
         display: flex;
         justify-content: space-between;
         height: 45px;
@@ -148,11 +147,7 @@
                     text-decoration: none;
                     color: transparent;
                     background: #688E74;
-                    -webkit-transition: all 0.5s;
-                    -moz-transition: all 0.5s;
-                    -ms-transition: all 0.5s;
-                    -o-transition: all 0.5s;
-                    transition: all 0.5s;
+                    transition: all 0.3s;
                     overflow: hidden;
                     &:hover{
                         background: #999;
@@ -222,6 +217,47 @@
             cursor: pointer;
             &:hover{
                 background: #999;
+            }
+        }
+    }
+
+    @media screen and(max-width: 768px){
+        .header-menu {
+            ul {
+                display: flex;
+                padding: 0;
+                margin: 0;
+                list-style: none;
+
+                li {
+                    a {
+                        font-size: 0 !important;
+                        width: 45px !important;
+                        height: 45px !important;
+                        min-width: 0 !important;
+                    }
+                }
+            }
+            &__icon{
+                margin: 0 !important;
+            }
+        }
+        .header {
+            overflow: scroll;
+            &__logo {
+                flex: 1 0 auto;
+            }
+        }
+    }
+
+    @media screen and(max-width: 640px) {
+        .options{
+            &__btn{
+                font-size: 0;
+                padding: 13px;
+            }
+            &__icon{
+                margin: 0;
             }
         }
     }

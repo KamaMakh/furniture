@@ -5,7 +5,7 @@
                 <AppTop :leftMenuShow="leftMenuShow" @clicked-to-logo="leftMenuToggle"/>
             </div>
             <div class="container-wrap__content content">
-                <div class="content__left-menu" :style="{marginLeft: leftMenuShow ? '0' : '-100%'}">
+                <div class="content__left-menu" :class="{opened: leftMenuShow}">
                     <AppLeft/>
                 </div>
                 <div class="content__body">
@@ -71,6 +71,10 @@
     .content{
         &__left-menu{
             transition: 0.8s;
+            margin-left: -100%;
+            &.opened{
+                margin-left: 0;
+            }
         }
         &__body{
             display: flex;
@@ -80,6 +84,33 @@
             -webkit-box-sizing: border-box;
             -moz-box-sizing: border-box;
             box-sizing: border-box;
+        }
+    }
+
+    @media screen and(max-width: 1200px) {
+        .content {
+            &__body {
+                overflow-x: scroll;
+            }
+        }
+    }
+    @media screen and(max-width: 959px) {
+        .content{
+            flex-flow:wrap;
+            align-content: center;
+            justify-content: center;
+            &__body{
+                padding: 20px 25px;
+            }
+            &__left-menu{
+                position: absolute;
+                top: 45px;
+                left: -100%;
+                bottom: 0;
+                &.opened{
+                    left: 0;
+                }
+            }
         }
     }
 </style>

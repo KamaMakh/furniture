@@ -15,9 +15,12 @@
 </script>
 
 <style lang="scss">
-    html, body{
-        height: 100%;
+    @media screen and(min-width: 960px) {
+        html, body{
+            height: 100%;
+        }
     }
+
     body{
         margin: 0;
     }
