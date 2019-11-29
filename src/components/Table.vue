@@ -4,12 +4,17 @@
             <thead>
             <tr>
                 <td v-for="(item,key) in titles" :key="key">
+                    <span v-if="key == 0" @click="hideAll" class="icon" style="cursor: pointer">
+                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M16 0H2C0.89 0 0 0.9 0 2V16C0 17.1 0.89 18 2 18H16C17.1 18 18 17.1 18 16V2C18 0.9 17.1 0 16 0ZM16 16H2V2.00001H16V16ZM10 14H8V10H4V8.00001H8V4.00001H10V8.00001H14V10H10V14Z" fill="#C4C4C4"/>
+                        </svg>
+                    </span>
                     {{ item }}
                 </td>
             </tr>
             </thead>
             <tbody>
-            <tr v-for="(item, key) in rows" :key="key" :class="{odd: key%2 === 0 || key === 0, hidden: groups && !item.isParent && groups[item.parentName+item.parentId]}">
+            <tr v-for="(item, key) in rows" :key="key" :class="{odd: key%2 === 0 || key === 0, hidden: groups && (!item.isParent && groups[item.parentName+item.parentId]) || hideAllRows, parent: item.isParent}">
                 <td v-if="item.isParent">
                     <span class="icon" style="cursor: pointer" @click="toggleRows(item.name+item.id)">
                         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -58,11 +63,17 @@
     export default {
         name: "Table",
         props: ['titles', 'rows', 'groups'],
+        data(){
+            return{
+                hideAllRows: false
+            }
+        },
         methods:{
             toggleRows(item){
-                console.log(item);
                 this.groups[item] = !this.groups[item];
-                // item.closed = !item.closed
+            },
+            hideAll(){
+                this.hideAllRows = !this.hideAllRows;
             }
         }
     }
@@ -80,11 +91,12 @@
             max-width: 100%;
         }
         tr{
-            border-bottom: 1px solid #DADADA;
+            border-top: 1px solid #DADADA;
             background: #fff;
             font-family: $ffamily;
             color: #868686;
             font-size: 14px;
+            transition: 0.3s;
             &.odd{
                 background: #F5F5F6;
             }
@@ -92,6 +104,13 @@
                 border: none;
                 display: flex;
                 align-items: center;
+                font-weight: bold;
+            }
+            &.parent{
+                border-top: 1px solid #C4C4C4;
+            }
+            &:hover{
+                background: rgba(214, 232, 206, 0.69);
             }
         }
         td,th{
@@ -99,7 +118,7 @@
             -webkit-box-sizing: border-box;
             -moz-box-sizing: border-box;
             box-sizing: border-box;
-            padding: 9px;
+            padding: 1px 9px;
         }
         tbody{
             tr{
@@ -110,8 +129,8 @@
         }
         .icon{
             margin-right: 14px;
-            width: 41px;
-            height: 29px;
+            width: 30px;
+            height: 26px;
             display: flex;
             align-items: center;
             justify-content: center;

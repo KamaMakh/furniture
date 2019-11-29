@@ -154,7 +154,7 @@
                         width: auto;
                         min-width: 185px;
                         font-size: 18px;
-                        color: #D6E8CE;
+                        color: #fff;
                         .header-menu__icon{
                             margin-right: 11px;
                         }
