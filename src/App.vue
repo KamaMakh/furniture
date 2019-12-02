@@ -1,17 +1,18 @@
 <template>
   <div id="app">
+    <notifications group="warn"/>
     <router-view />
   </div>
 </template>
 
 <script>
-    // import AppTop from 'src/views/AppTop'
-    export default{
-        name: "AppContainer",
-        // components: {
-        //     AppTop
-        // }
-    }
+/* eslint-disable */
+export default{
+  name: "AppContainer",
+  created() {
+    this.$i18n.locale = this.$store.state.lang;
+  }
+};
 </script>
 
 <style lang="scss">

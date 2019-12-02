@@ -1,51 +1,69 @@
 <template>
-    <div style="height: 100%">
-        <div class="container-wrap">
-            <div class="container-wrap__navigation">
-                <AppTop :leftMenuShow="leftMenuShow" @clicked-to-logo="leftMenuToggle"/>
-            </div>
-            <div class="container-wrap__content content">
-                <div class="content__left-menu" :class="{opened: leftMenuShow}">
-                    <AppLeft/>
-                </div>
-                <div class="content__body">
-                    <router-view />
-                </div>
-            </div>
+  <div style="height: 100%">
+    <div class="container-wrap">
+      <div class="container-wrap__navigation">
+        <AppTop
+          :leftMenuShow="leftMenuShow"
+          @clicked-to-logo="leftMenuToggle"
+        />
+      </div>
+      <div class="container-wrap__content content">
+        <div class="content__left-menu" :class="{ opened: leftMenuShow }">
+          <AppLeft />
         </div>
+        <div class="content__body">
+          <router-view />
+        </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
 /*eslint-disable */
-    import AppTop from '@/components/AppTop';
-    import AppLeft from '@/components/AppLeft';
-    export default {
-        name: "AppContainer",
-        components: {
-            AppTop,
-            AppLeft
-        },
-        data(){
-            return{
-                leftMenuShow: true
-            }
-        },
-        methods:{
-            leftMenuToggle(data){
-                this.leftMenuShow = data
-                console.log(this.leftMenuShow);
-            }
-        },
-        metaInfo: {
-            title: 'Vue App',
-            meta: [
-                { vmid: 'description', property: 'description', content: 'Vue App' },
-                { vmid: 'og:title', property: 'og:title', content: 'Vue App' },
-                { vmid: 'og:description', property: 'og:description', content: 'Vue App' },
-            ],
-        },
-    }
+import { mapGetters } from 'vuex';
+import AppTop from '@/components/AppTop';
+import AppLeft from '@/components/AppLeft';
+export default {
+  name: "AppContainer",
+  components: {
+      AppTop,
+      AppLeft
+  },
+  data(){
+      return{
+          leftMenuShow: true
+      }
+  },
+  methods:{
+      leftMenuToggle(data){
+        this.leftMenuShow = data;
+      }
+  },
+  metaInfo: {
+      title: 'Vue App',
+      meta: [
+          { vmid: 'description', property: 'description', content: 'Vue App' },
+          { vmid: 'og:title', property: 'og:title', content: 'Vue App' },
+          { vmid: 'og:description', property: 'og:description', content: 'Vue App' },
+      ],
+  },
+  computed: {
+    lang: {
+      get() {
+        return this.$store.state.lang;
+      },
+      set(lang) {
+        this.$i18n.locale = lang;
+        // import(`quasar/lang/${lang}`).then((l) => {
+        //   this.$q.lang.set(l.default);
+        // });
+        this.$store.commit('setLang', lang);
+      },
+    },
+    ...mapGetters(['loggedIn']),
+  },
+}
 </script>
 
 <style scoped lang="scss">
