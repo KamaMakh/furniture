@@ -63,7 +63,7 @@ export default {
 
       this.$store.dispatch('user/login', {
         email: this.form.email,
-        password: this.form.password,
+        password: this.form.password.toLowerCase(),
       })
         .then(() => {
           this.$router.push({ name: 'Furniture' })

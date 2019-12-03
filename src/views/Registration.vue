@@ -1,5 +1,5 @@
 <template>
-  <form action="" @submit="register">
+  <form @submit="register">
     <div class="register">
       <div class="register__item">
         <input type="text" name="fio" autocomplete="username" v-model="form.name" :placeholder="$t('name')" required>
@@ -130,7 +130,7 @@ export default {
       this.$store.dispatch('user/register', {
         fio: this.form.name,
         email: this.form.email,
-        password: this.form.password,
+        password: this.form.password.toLowerCase(),
         phone: this.form.phone,
         role: role,
         info: this.form.info
