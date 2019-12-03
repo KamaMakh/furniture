@@ -22,5 +22,6 @@
   "invalid_password_confirm": "Пароли не совпадают",
   "register_error": "Произошла ошибка при регистрации",
   "register_invalid": "Заполните все поля формы",
+  "login_invalid": "Не правильный логин или пароль",
   "attention": "Внимание!"
 }

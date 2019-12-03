@@ -22,5 +22,6 @@
   "invalid_password_confirm": "Passwords do not match",
   "register_error": "An error occurred while registering.",
   "register_invalid": "Fill in all form fields",
+  "login_invalid": "Incorrect login or password",
   "attention": "Attention!"
 }

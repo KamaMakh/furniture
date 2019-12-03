@@ -7,7 +7,6 @@ function resetUser(state) {
 }
 
 function setUsers(state, data) {
-  state.usersTotal = parseInt(data.total, 10);
   state.users = data.users;
 }
 

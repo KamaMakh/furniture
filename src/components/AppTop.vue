@@ -77,7 +77,7 @@
                     </span>
                     Настройки
                 </div>
-                <div class="options__logout">
+                <div class="options__logout" @click="logout">
                     <span class="options__logout-icon"></span>
                 </div>
             </div>
@@ -90,9 +90,12 @@
         name: "AppTop",
         props: ['leftMenuShow'],
         methods:{
-            toggleLeftMenu(){
-                this.$emit('clicked-to-logo', !this.leftMenuShow);
-            }
+          toggleLeftMenu(){
+            this.$emit('clicked-to-logo', !this.leftMenuShow);
+          },
+          logout() {
+            this.$store.dispatch('user/logout', {})
+          },
         }
     }
 </script>

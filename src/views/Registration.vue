@@ -4,14 +4,14 @@
       <div class="register__item">
         <input type="text" name="fio" autocomplete="username" v-model="form.name" :placeholder="$t('name')" required>
       </div>
-      <div class="register__item" :class="{ 'is-danger': $v.form.email.$invalid && form.email}">
+      <div class="register__item" :class="{ 'is-danger': $v.form.email.$invalid && (form.email || showFormErrors)}">
         <input type="email" name="email" autocomplete="email" v-model.trim="form.email" :placeholder="$t('email')" required>
         <div class="error" v-if="!$v.form.email.email && form.email">{{ $t("invalid_email") }}</div>
       </div>
       <div class="register__item">
         <input type="text" name="phone" v-mask="'+7 (###) ###-##-##'" autocomplete="phone" v-model="form.phone" :placeholder="$t('phone')" required>
       </div>
-      <div class="register__item" :class="{ 'is-danger': $v.form.password.$invalid && form.password}">
+      <div class="register__item" :class="{ 'is-danger': $v.form.password.$invalid && (form.password || showFormErrors)}">
         <input type="password" name="password" autocomplete="current-password" v-model="form.password" :placeholder="$t('password')" required>
         <div class="error" v-if="!$v.form.password.minLength">{{ $t("invalid_password_length", {length: $v.form.password.$params.minLength.min}) }}</div>
         <div class="error" v-if="(
@@ -25,7 +25,7 @@
         <input type="password" name="c_password" autocomplete="current-password" v-model="form.c_password" :placeholder="$t('c_password')" required>
         <div class="error" v-if="!$v.form.c_password.sameAsPassword && form.c_password">{{ $t("invalid_password_confirm") }}</div>
       </div>
-      <div class="register__item">
+      <div class="register__item" :class="{ 'is-danger': $v.form.role.$invalid && (form.role || showFormErrors)}">
         <v-select
           class="style-chooser"
           :placeholder="$t('role')"
@@ -35,7 +35,7 @@
         </v-select>
       </div>
       <div class="register__item">
-        <textarea name="info" cols="30" rows="3" :placeholder="$t('info')" required></textarea>
+        <textarea name="info" cols="30" rows="3" :placeholder="$t('info')" v-model="form.info" required></textarea>
       </div>
       <div class="register__item">
         <label>
@@ -65,17 +65,23 @@ import VueMask from "v-mask";
 Vue.use(VueMask);
 Vue.use(Validations);
 
-import { axios } from "@/boot/axios";
 export default {
   name: "Registration",
   data() {
     return {
-       roles: [
-         this.$i18n.messages[this.$i18n.locale]["supervisor"],
-         this.$i18n.messages[this.$i18n.locale]["magazine"],
-         this.$i18n.messages[this.$i18n.locale]["client"],
-         this.$i18n.messages[this.$i18n.locale]["architect"]
-       ],
+      showFormErrors: false,
+      roles: [
+        this.$i18n.messages[this.$i18n.locale]["supervisor"],
+        this.$i18n.messages[this.$i18n.locale]["magazine"],
+        this.$i18n.messages[this.$i18n.locale]["client"],
+        this.$i18n.messages[this.$i18n.locale]["architect"]
+      ],
+      roles_value:[
+        "SUPERVISOR",
+        "MAGAZINE",
+        "CLIENT",
+        "ARCHITECT"
+      ],
       form: {},
       policy: false
     }
@@ -103,15 +109,21 @@ export default {
   methods: {
     register(e) {
       e.preventDefault();
-      if(this.$v.form.$pending || this.$v.form.$error || !this.policy){
+      let role;
+      if(this.form.role){
+        role = this.roles_value[this.roles.indexOf(this.form.role)];
+      }
+
+      if(this.$v.form.$pending || this.$v.form.$error || this.$v.form.$invalid || !this.policy || !role){
         Vue.notify({
           group: 'warn',
           title: this.$i18n.messages[this.$i18n.locale]["attention"],
           text: this.$i18n.messages[this.$i18n.locale]["register_invalid"],
           type: 'warn',
           closeOnClick: true,
-          duration: 30000
+          duration: 4000
         });
+        this.showFormErrors = true;
         return;
       }
 
@@ -120,12 +132,11 @@ export default {
         email: this.form.email,
         password: this.form.password,
         phone: this.form.phone,
-        role: "client",
-        info: "test"
+        role: role,
+        info: this.form.info
       })
         .then((response) => {
-          console.log(response);
-          // this.$router.push({ name: 'Furniture' })
+          this.$router.push({ name: 'Furniture' })
         })
         .catch((error) => {
           this.$notify({
@@ -186,8 +197,8 @@ $ffamily: "Tharlon", sans-serif;
       margin-bottom: 0;
     }
     &.is-danger{
-      input{
-        border-bottom-color: #f04124;
+      input, .vs__selected-options{
+        border-bottom-color: #f04124 !important;
         color: #f04124;
       }
     }

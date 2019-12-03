@@ -1,15 +1,16 @@
 <template>
-  <form>
+  <form @submit="login">
     <div class="login">
-      <div class="login__item">
-        <input type="email" name="email" :placeholder="$t('email')">
+      <div class="login__item" :class="{ 'is-danger': $v.form.email.$invalid && (form.email || showFormErrors)}">
+        <input type="email" name="email" autocomplete="email" :placeholder="$t('email')" v-model.trim="form.email">
+        <div class="error" v-if="!$v.form.email.email && form.email">{{ $t("invalid_email") }}</div>
       </div>
-      <div class="login__item">
-        <input type="password" name="password" :placeholder="$t('password')">
+      <div class="login__item" :class="{ 'is-danger': $v.form.password.$invalid && (form.password || showFormErrors)}">
+        <input type="password" name="password" autocomplete="current-password" :placeholder="$t('password')" v-model="form.password">
       </div>
       <div class="login__button">
-        <button class="btn" type="button">
-          {{ $t("registration") }}
+        <button class="btn" type="button"  @click="login">
+          {{ $t("login") }}
         </button>
       </div>
     </div>
@@ -17,8 +18,66 @@
 </template>
 
 <script>
+/* eslint-disable */
+import Vue from 'vue'
+import Validations from 'vuelidate'
+import { required, email } from "vuelidate/lib/validators";
+
+Vue.use(Validations);
+
 export default {
-  name: "Login"
+  name: "Login",
+  data() {
+    return {
+      form: {},
+      showFormErrors: false
+    }
+  },
+  validations: {
+    form: {
+      email: {
+        required,
+        email,
+      },
+      password: {
+        required,
+      },
+    }
+  },
+  methods: {
+    login(e) {
+      e.preventDefault();
+
+      if(this.$v.form.$pending || this.$v.form.$error || this.$v.form.$invalid){
+        Vue.notify({
+          group: 'warn',
+          title: this.$i18n.messages[this.$i18n.locale]["attention"],
+          text: this.$i18n.messages[this.$i18n.locale]["register_invalid"],
+          type: 'warn',
+          closeOnClick: true,
+          duration: 4000
+        });
+        this.showFormErrors = true;
+        return;
+      }
+
+      this.$store.dispatch('user/login', {
+        email: this.form.email,
+        password: this.form.password,
+      })
+        .then(() => {
+          this.$router.push({ name: 'Furniture' })
+        })
+        .catch((error) => {
+          this.$notify({
+            group: 'warn',
+            type: 'error',
+            title: this.$i18n.messages[this.$i18n.locale]["attention"],
+            text: this.$i18n.messages[this.$i18n.locale]["login_invalid"]
+          });
+        });
+    }
+  }
 };
 </script>
 
@@ -28,12 +87,13 @@ $ffamily: "Tharlon", sans-serif;
   display: flex;
   flex-direction: column;
   &__item {
+    margin-bottom: 70px;
+    text-align: left;
     input {
       border: none;
       background: none;
       border-bottom: 2px solid rgba(255, 255, 255, 0.72);
       width: 100%;
-      margin-bottom: 70px;
       font-size: 19px;
       line-height: 28px;
       color: #fff;
@@ -46,8 +106,12 @@ $ffamily: "Tharlon", sans-serif;
       }
     }
     &:last-child {
-      input {
-        margin-bottom: 0;
+      margin-bottom: 0;
+    }
+    &.is-danger{
+      input, .vs__selected-options{
+        border-bottom-color: #f04124 !important;
+        color: #f04124;
       }
     }
   }

@@ -27,7 +27,7 @@ const routes = [
   },
   {
     path: "/auth",
-    name: "AuthContainer",
+    // name: "AuthContainer",
     component: AuthContainer,
     props: true,
     children: [
