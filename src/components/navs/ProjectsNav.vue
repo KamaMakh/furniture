@@ -1,6 +1,6 @@
 <template>
   <div class="sidebar">
-    <div class="sidebar__btn" @click="showAddModal = true">
+    <div class="sidebar__btn" @click="showAddModal = true; newConstruction = {}">
       {{ $t("add_constr") }}
       <span class="icon">
         <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
