@@ -9,7 +9,7 @@
       </div>
       <div class="container-wrap__content content">
         <div class="content__left-menu" :class="{ opened: leftMenuShow }">
-          <AppLeft />
+          <AppLeft :navsType="navsType"/>
         </div>
         <div class="content__body">
           <router-view />
@@ -30,9 +30,17 @@ export default {
       AppTop,
       AppLeft
   },
+  beforeRouteEnter(to, from, next) {
+    next(vm => (vm.navsType = to.name))
+  },
+  beforeRouteUpdate (to, from, next) {
+    this.navsType = to.name;
+    next();
+  },
   data(){
       return{
-          leftMenuShow: true
+        leftMenuShow: true,
+        navsType: null
       }
   },
   methods:{

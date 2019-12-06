@@ -23,5 +23,21 @@
   "register_error": "An error occurred while registering.",
   "register_invalid": "Fill in all form fields",
   "login_invalid": "Incorrect login or password",
-  "attention": "Attention!"
+  "attention": "Attention!",
+  "orders": "Orders and warehouse",
+  "statistics": "Statistics",
+  "furniture": "Furniture",
+  "planning": "Planning",
+  "users": "Users",
+  "acceptance": "Acceptance",
+  "projects": "Проекты",
+  "add_constr": "Add construction",
+  "construct_name": "Title",
+  "save": "Save",
+  "close": "Close",
+  "address": "Address",
+  "order": "Order",
+  "construction": "Construction",
+  "warehouse": "Warehouse",
+  "documents": "Documents"
 }

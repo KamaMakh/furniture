@@ -3,6 +3,7 @@ import Vuex from "vuex";
 import VueCookies from "vue-cookies"
 
 import user from "./user";
+import projects from "./projects";
 
 Vue.use(VueCookies)
 Vue.use(Vuex);
@@ -12,7 +13,8 @@ VueCookies.config("40d")
 export default function () {
   const Store = new Vuex.Store({
     modules: {
-      user
+      user,
+      projects
     },
     state: {
       lang: VueCookies.get("lang") || "en",

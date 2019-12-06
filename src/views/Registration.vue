@@ -71,10 +71,10 @@ export default {
     return {
       showFormErrors: false,
       roles: [
-        this.$i18n.messages[this.$i18n.locale]["supervisor"],
-        this.$i18n.messages[this.$i18n.locale]["magazine"],
-        this.$i18n.messages[this.$i18n.locale]["client"],
-        this.$i18n.messages[this.$i18n.locale]["architect"]
+        this.$i18n.messages[this.$cookies.get("lang")]["supervisor"],
+        this.$i18n.messages[this.$cookies.get("lang")]["magazine"],
+        this.$i18n.messages[this.$cookies.get("lang")]["client"],
+        this.$i18n.messages[this.$cookies.get("lang")]["architect"]
       ],
       roles_value:[
         "SUPERVISOR",

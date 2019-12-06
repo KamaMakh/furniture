@@ -23,5 +23,20 @@
   "register_error": "An error occurred while registering.",
   "register_invalid": "Remplir tous les champs du formulaire",
   "login_invalid": "Nom d'utilisateur ou mot de passe invalide",
-  "attention": "Attention!"
+  "attention": "Attention!",
+  "orders": "Commandes et entrepôt",
+  "statistics": "Statistiques",
+  "furniture": "Matériel informatique",
+  "planning": "Planification",
+  "users": "Les utilisateurs",
+  "acceptance": "Acceptation",
+  "projects": "Проекты",
+  "add_constr": "Ajouter chantier",
+  "construct_name": "Le titre",
+  "save": "Enregistrer",
+  "close": "Proche",
+  "address": "Adresse",
+  "order": "Ordre",
+  "construction": "Chantier",
+  "documents": "Les documents"
 }

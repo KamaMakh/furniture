@@ -7,6 +7,8 @@ import i18n from "./i18n";
 import vSelect from "vue-select";
 import Notifications from "vue-notification";
 import VueCookies from "vue-cookies";
+import "bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 // import api from "./shared/api";
 /* eslint-disable */
 Vue.component("v-select", vSelect);

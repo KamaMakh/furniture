@@ -43,7 +43,7 @@ $ffamily: "Tharlon", sans-serif;
 
 .auth {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   background: url("../assets/authbg.jpeg") fixed no-repeat;
   -webkit-background-size: cover;
@@ -76,13 +76,13 @@ $ffamily: "Tharlon", sans-serif;
     display: flex;
     text-transform: uppercase;
     a {
-      text-decoration: none;
-      font-family: $ffamily;
+      text-decoration: none !important;
+      font-family: $ffamily !important;
       font-style: normal;
       font-weight: normal;
       font-size: 21px;
       line-height: 30px;
-      color: #fff;
+      color: #fff !important;
       transition: all 0.3s;
       padding-bottom: 11px;
       border-bottom: 3px solid transparent;

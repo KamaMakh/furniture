@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import AppContainer from "../containers/AppContainer";
 import AuthContainer from "../containers/AuthContainer";
 import Furniture from "../views/Furniture";
+import Projects from "../views/Projects";
 import Login from "../views/Login";
 import Registration from "../views/Registration";
 
@@ -19,9 +20,14 @@ const routes = [
     props: true,
     children: [
       {
-        path: "/",
+        path: "/furniture",
         name: "Furniture",
         component: Furniture
+      },
+      {
+        path: "/projects",
+        name: "Projects",
+        component: Projects
       }
     ]
   },

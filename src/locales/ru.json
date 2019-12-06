@@ -23,5 +23,21 @@
   "register_error": "Произошла ошибка при регистрации",
   "register_invalid": "Заполните все поля формы",
   "login_invalid": "Не правильный логин или пароль",
-  "attention": "Внимание!"
+  "attention": "Внимание!",
+  "orders": "Заказы и склад",
+  "statistics": "Статистика",
+  "furniture": "Фурнитура",
+  "planning": "Планинг",
+  "users": "Пользователи",
+  "acceptance": "Приемка",
+  "projects": "Проекты",
+  "add_constr": "Добавить стройку",
+  "construct_name": "Название",
+  "save": "Сохранить",
+  "close": "Закрыть",
+  "address": "Адрес",
+  "order": "Заказ",
+  "construction": "Стройка",
+  "warehouse": "Склад",
+  "documents": "Документы"
 }

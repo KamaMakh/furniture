@@ -46,4 +46,11 @@ export default{
     }
   }
 }
+.btn-custom{
+  background: #688E74 !important;
+  color: #fff !important;
+  &:hover{
+    background: #999 !important;
+  }
+}
 </style>
