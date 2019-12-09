@@ -98,6 +98,7 @@ export default {
           transition: 0.8s;
           margin-left: -100%;
           z-index: 10;
+          height: 100%;
             &.opened{
                 margin-left: 0;
             }

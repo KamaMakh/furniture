@@ -1,7 +1,9 @@
 <template>
-    <div>
-        <Table :titles="titles" :rows="rows" :groups="groups"/>
+  <div class="flex-grow-1 furniture">
+    <div class="col col-12 p-0">
+      <Table :titles="titles" :rows="rows" :groups="groups"/>
     </div>
+  </div>
 </template>
 
 <script>
@@ -34,5 +36,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
+.furniture{
+  overflow-x: scroll;
+}
 </style>
