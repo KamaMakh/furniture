@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="header">
+    <div class="header" :class="{ scrollable: headerScroll }">
       <a class="header__logo" @click="toggleLeftMenu"></a>
       <div class="header__menu header-menu">
         <ul>
@@ -85,7 +85,7 @@
           <span class="options__icon"></span>
           Настройки
         </div>
-        <div class="options__lang">
+        <div class="options__lang" @click="toggleLang">
           <LocaleChanger :parentClass="'app-top'" />
         </div>
         <div class="options__logout" @click="logout">
@@ -105,13 +105,35 @@ export default {
   components:{
     LocaleChanger
   },
+  data() {
+    return {
+      headerScroll: true
+    }
+  },
   methods: {
-    toggleLeftMenu(){
+    toggleLeftMenu() {
       this.$emit('clicked-to-logo', !this.leftMenuShow);
     },
     logout() {
       this.$store.dispatch('user/logout', {})
     },
+    toggleLang(e) {
+      if(
+        e.target &&
+        (
+          e.target.classList.contains("vs__selected-options") ||
+          e.target.classList.contains("vs__dropdown-toggle") ||
+          e.target.classList.contains("vs__actions") ||
+          e.target.classList.contains("vs__selected") ||
+          e.target.classList.contains("vs__open-indicator") ||
+          e.target.classList.value === ""
+        )
+      ) {
+        this.headerScroll = false
+      } else {
+        this.headerScroll = true
+      }
+    }
   }
 }
 </script>
@@ -262,10 +284,12 @@ export default {
             }
         }
         .header {
+          &.scrollable{
             overflow: scroll;
-            &__logo {
-                flex: 1 0 auto;
-            }
+          }
+          &__logo {
+              flex: 1 0 auto;
+          }
         }
     }
 
