@@ -62,7 +62,7 @@ export default {
     }
   }
 }
-.auth {
+.auth-locale {
   cursor: pointer;
   .vs__clear, .vs__search{
     display: none !important;

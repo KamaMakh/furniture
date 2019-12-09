@@ -11,7 +11,7 @@
           </router-link>
         </div>
         <div class="form__lang">
-          <LocaleChanger :parentClass="'auth'"/>
+          <LocaleChanger :parentClass="'auth-locale'"/>
         </div>
       </div>
       <div class="form__body">
