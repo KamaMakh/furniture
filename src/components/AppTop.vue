@@ -85,6 +85,9 @@
           <span class="options__icon"></span>
           Настройки
         </div>
+        <div class="options__lang">
+          <LocaleChanger :parentClass="'app-top'" />
+        </div>
         <div class="options__logout" @click="logout">
           <span class="options__logout-icon"></span>
         </div>
@@ -94,18 +97,23 @@
 </template>
 
 <script>
-    export default {
-        name: "AppTop",
-        props: ['leftMenuShow'],
-        methods:{
-          toggleLeftMenu(){
-            this.$emit('clicked-to-logo', !this.leftMenuShow);
-          },
-          logout() {
-            this.$store.dispatch('user/logout', {})
-          },
-        }
-    }
+/* eslint-disable */
+import LocaleChanger from "@/components/LocaleChanger";
+export default {
+  name: "AppTop",
+  props: ['leftMenuShow'],
+  components:{
+    LocaleChanger
+  },
+  methods: {
+    toggleLeftMenu(){
+      this.$emit('clicked-to-logo', !this.leftMenuShow);
+    },
+    logout() {
+      this.$store.dispatch('user/logout', {})
+    },
+  }
+}
 </script>
 
 <style scoped lang="scss">

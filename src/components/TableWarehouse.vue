@@ -34,10 +34,10 @@
           </span>
         </td>
         <td>
-          Цена
+          {{ $t("price") }}
         </td>
         <td>
-          Итого
+          {{ $t("total") }}
         </td>
       </tr>
       </thead>

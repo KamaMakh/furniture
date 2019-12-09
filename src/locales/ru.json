@@ -39,5 +39,7 @@
   "order": "Заказ",
   "construction": "Стройка",
   "warehouse": "Склад",
-  "documents": "Документы"
+  "documents": "Документы",
+  "price": "Цена",
+  "total": "Итого"
 }

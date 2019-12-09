@@ -11,7 +11,7 @@
           </router-link>
         </div>
         <div class="form__lang">
-          <LocaleChanger/>
+          <LocaleChanger :parentClass="'auth'"/>
         </div>
       </div>
       <div class="form__body">
@@ -25,7 +25,7 @@
 /* eslint-disable */
 import Vue from "vue";
 import PrettyCheckbox from "pretty-checkbox-vue";
-import LocaleChanger from "@/components/LocaleChanger"
+import LocaleChanger from "@/components/LocaleChanger";
 
 Vue.use(PrettyCheckbox);
 export default {
@@ -39,7 +39,7 @@ export default {
 <style lang="scss">
 @import url(//fonts.googleapis.com/earlyaccess/tharlon.css);
 
-$ffamily: "Tharlon", sans-serif;
+$ffamily: "Roboto", sans-serif;
 
 .auth {
   display: flex;
@@ -70,7 +70,7 @@ $ffamily: "Tharlon", sans-serif;
   &__header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 75px;
+    margin-bottom: 35px;
   }
   &__tabs {
     display: flex;
@@ -92,7 +92,7 @@ $ffamily: "Tharlon", sans-serif;
       }
       &:hover,
       &.active {
-        border-bottom-color: #14e255;
+        border-bottom-color: #688E74;
       }
     }
   }

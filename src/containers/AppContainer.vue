@@ -95,20 +95,21 @@ export default {
     }
     .content{
         &__left-menu{
-            transition: 0.8s;
-            margin-left: -100%;
+          transition: 0.8s;
+          margin-left: -100%;
+          z-index: 10;
             &.opened{
                 margin-left: 0;
             }
         }
         &__body{
-            display: flex;
-            max-width: 100%;
-            flex: 1 1 auto;
-            padding: 50px 60px;
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            box-sizing: border-box;
+          display: flex;
+          max-width: 100%;
+          flex: 1 1 auto;
+          padding: 50px;
+          -webkit-box-sizing: border-box;
+          -moz-box-sizing: border-box;
+          box-sizing: border-box;
         }
     }
 

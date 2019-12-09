@@ -39,5 +39,7 @@
   "order": "Order",
   "construction": "Construction",
   "warehouse": "Warehouse",
-  "documents": "Documents"
+  "documents": "Documents",
+  "price": "Price",
+  "total": "Total"
 }

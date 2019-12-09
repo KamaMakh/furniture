@@ -82,12 +82,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
-$ffamily: "Tharlon", sans-serif;
+$ffamily: "Roboto", sans-serif;
 .login {
   display: flex;
   flex-direction: column;
   &__item {
-    margin-bottom: 70px;
+    margin-bottom: 35px;
     text-align: left;
     input {
       border: none;
@@ -116,7 +116,7 @@ $ffamily: "Tharlon", sans-serif;
     }
   }
   &__button{
-    margin-top: 40px;
+    /*margin-top: 40px;*/
     .btn {
       font-family: $ffamily;
       font-style: normal;

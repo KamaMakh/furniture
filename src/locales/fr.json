@@ -38,5 +38,7 @@
   "address": "Adresse",
   "order": "Ordre",
   "construction": "Chantier",
-  "documents": "Les documents"
+  "documents": "Les documents",
+  "price": "Prix",
+  "total": "Total"
 }
