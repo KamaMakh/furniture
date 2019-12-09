@@ -29,7 +29,9 @@
         <v-select
           class="style-chooser"
           :placeholder="$t('role')"
-          :options="roles"
+          :options="[
+            $t('supervisor'), $t('magazine'), $t('client'), $t('architect')
+          ]"
           v-model="form.role"
         >
         </v-select>
