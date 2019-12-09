@@ -41,7 +41,7 @@
         <label>
           <p-check class="pretty p-image p-plain" @click="policy" name="test" v-model="policy">
             <img slot="extra" class="image" src="../assets/policycheck.svg">
-            {{ $t("agree_text") }}
+            <span class="agree-text-wrap" @click="showModal = true">{{ $t("agree_text") }}</span>
           </p-check>
         </label>
       </div>
@@ -51,6 +51,27 @@
         </button>
       </div>
     </div>
+
+    <!--modals-->
+    <transition name="fade">
+      <div v-if="showModal">
+        <div class="modal-mask">
+          <div class="modal-wrapper">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-body">
+                  Тут будет текст...
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" @click="showModal = false">{{ $t("close") }}</button>
+                  <!--<button type="button" class="btn btn-custom" @click="addConstruction">{{ $t("save") }}</button>-->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </transition>
   </form>
 </template>
 
@@ -82,6 +103,7 @@ export default {
         "CLIENT",
         "ARCHITECT"
       ],
+      showModal: false,
       form: {},
       policy: false
     }
@@ -202,6 +224,12 @@ $ffamily: "Roboto", sans-serif;
         color: #f04124;
       }
     }
+    .agree-text-wrap{
+      display: block;
+      white-space: normal;
+      text-align: right;
+      cursor: pointer;
+    }
   }
 
   &__button{
@@ -297,5 +325,28 @@ $ffamily: "Roboto", sans-serif;
   }
 }
 
+.modal-mask {
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .5);
+  display: table;
+  transition: opacity .3s ease;
+}
+
+.modal-wrapper {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
+  opacity: 0;
+}
 </style>
 

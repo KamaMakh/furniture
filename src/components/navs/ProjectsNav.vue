@@ -17,8 +17,8 @@
     </div>
 
     <!--modals-->
-    <div v-if="showAddModal">
-      <transition name="modal">
+    <transition name="fade">
+      <div v-if="showAddModal">
         <div class="modal-mask">
           <div class="modal-wrapper">
             <div class="modal-dialog" role="document">
@@ -41,8 +41,8 @@
             </div>
           </div>
         </div>
-      </transition>
-    </div>
+      </div>
+    </transition>
   </div>
 </template>
 
