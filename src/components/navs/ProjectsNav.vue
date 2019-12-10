@@ -11,7 +11,7 @@
     <div class="sidebar_list menu-left">
       <ul v-if="constructions">
         <li v-for="(item, key) in constructions" :key="key">
-          <a href="#" @click="chooseConstruction(item.id)"><span @click="editConstruction(item)" class="icon"></span> {{ item.name }}</a>
+          <a :class="{active: construction.id === item.id}" @click="chooseConstruction(item)"><span @click="editConstruction(item)" class="icon"></span> {{ item.name }}</a>
         </li>
       </ul>
     </div>
@@ -58,11 +58,12 @@ export default {
     }
   },
   computed: {
-    ...mapState("projects", ["constructions"])
+    ...mapState("furniture", ["constructions"]),
+    ...mapState("furniture", ["construction"])
   },
   methods: {
     addConstruction() {
-      if (!this.newConstruction.name || !this.newConstruction.address) {
+      if (!this.newConstruction.name) {
         this.$notify({
           group: "warn",
           type: "error",
@@ -72,8 +73,10 @@ export default {
         return;
       }
       if(this.newConstruction.id === undefined) {
-        this.$store.dispatch("projects/addConstruction", this.newConstruction)
+        console.log("eeeee");
+        this.$store.dispatch("furniture/addConstruction", this.newConstruction)
           .then(() => {
+            console.log("success");
             this.showAddModal = false;
           })
           .catch((error) => {
@@ -81,11 +84,11 @@ export default {
               group: "warn",
               type: "error",
               title: this.$i18n.messages[this.$i18n.locale]["attention"],
-              text: error
+              text: error.text
             });
           });
       } else {
-        this.$store.dispatch("projects/updateConstruction", this.newConstruction)
+        this.$store.dispatch("furniture/updateConstruction", this.newConstruction)
           .then(() => {
             this.showAddModal = false;
           })
@@ -100,19 +103,9 @@ export default {
       }
       this.newConstruction = {};
     },
-    chooseConstruction(id) {
-      this.$store.dispatch("projects/getConstruction", id)
-        .then(() => {
-
-        })
-        .catch(() => {
-          this.$notify({
-            group: "warn",
-            type: "error",
-            title: this.$i18n.messages[this.$i18n.locale]["attention"],
-            text: this.$i18n.messages[this.$i18n.locale]["login_invalid"]
-          });
-        });
+    chooseConstruction(item) {
+      this.$store.dispatch("furniture/getFurniture", {projectId: item.id})
+      this.$store.dispatch("furniture/setConstruction", {id: item.id, name: item.name})
     },
     editConstruction(item) {
       this.newConstruction = item;

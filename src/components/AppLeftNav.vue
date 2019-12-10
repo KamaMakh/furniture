@@ -3,6 +3,9 @@
     <div v-if="navsType === 'Projects'" class="fullHeight">
       <ProjectsNav/>
     </div>
+    <div v-else-if="navsType === 'Furniture'">
+      <FurnitureNav/>
+    </div>
     <div v-else class="fullHeight">
       <DefaultNav/>
     </div>
@@ -13,12 +16,14 @@
 /*eslint-disable*/
 import DefaultNav from "@/components/navs/DefaultNav";
 import ProjectsNav from "@/components/navs/ProjectsNav";
+import FurnitureNav from "@/components/navs/FurnitureNav";
 export default {
   name: "AppLeftNav",
   props: ["navsType"],
   components:{
     DefaultNav,
-    ProjectsNav
+    ProjectsNav,
+    FurnitureNav
   },
   data() {
     return {
@@ -45,5 +50,6 @@ export default {
   padding-top: 60px;
   padding-right: 43px;
   background: #DADADA;
+  overflow-y: scroll;
 }
 </style>

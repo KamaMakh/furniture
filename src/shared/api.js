@@ -1,5 +1,5 @@
 let axios = require("axios");
-
+/*eslint-disable*/
 import router from "./../router";
 import VueCookies from "vue-cookies";
 
@@ -23,13 +23,13 @@ let axiosInstance = axios.create({
   }, ...axios.defaults.transformRequest],
   validateStatus: function(status) {
     if (status === 401 && !document.location.pathname.includes("auth/")) {
-      // VueCookies.remove("token");
-      // router.push("/auth");
+      VueCookies.remove("token");
+      router.push("/auth");
     } else if(
-      VueCookies.get("token") ||
+      VueCookies.get("token") &&
       ( document.location.pathname.includes("auth") ||
       document.location.pathname.includes("register") )) {
-      router.push("Furniture");
+      router.push("/furniture");
     } else {
       return true;
     }

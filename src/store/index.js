@@ -4,6 +4,7 @@ import VueCookies from "vue-cookies"
 
 import user from "./user";
 import projects from "./projects";
+import furniture from "./furniture";
 
 Vue.use(VueCookies)
 Vue.use(Vuex);
@@ -14,7 +15,8 @@ export default function () {
   const Store = new Vuex.Store({
     modules: {
       user,
-      projects
+      projects,
+      furniture
     },
     state: {
       lang: VueCookies.get("lang") || "en",

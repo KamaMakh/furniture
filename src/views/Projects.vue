@@ -74,9 +74,7 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch("projects/setConstruction", this.list[0]);
-    this.$store.dispatch("projects/setWarehouse", this.list[1]);
-    this.$store.dispatch("projects/setConstructions", this.list2);
+    this.$store.dispatch("furniture/getConstructions");
   }
 }
 </script>

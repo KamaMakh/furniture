@@ -9,7 +9,7 @@
               <path fill-rule="evenodd" clip-rule="evenodd" d="M6.33331 0.833313H17.3333C18.3416 0.833313 19.1666 1.65831 19.1666 2.66665V13.6666C19.1666 14.675 18.3416 15.5 17.3333 15.5H6.33331C5.32498 15.5 4.49998 14.675 4.49998 13.6666V2.66665C4.49998 1.65831 5.32498 0.833313 6.33331 0.833313ZM0.833313 4.49998H2.66665V17.3333H15.5V19.1666H2.66665C1.65831 19.1666 0.833313 18.3416 0.833313 17.3333V4.49998ZM17.3333 13.6666H6.33331V2.66665H17.3333V13.6666ZM12.75 12.75H10.9166V9.08331H7.24998V7.24998H10.9166V3.58331H12.75V7.24998H16.4166V9.08331H12.75V12.75Z" fill="#C4C4C4"/>
             </svg>
           </span>
-          {{ construction.projectName }}
+          {{ construction.name }}
         </td>
         <td>
           <span class="d-flex justify-content-end">
@@ -24,30 +24,30 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="(item, key) in construction.rows" :key="key" :class="{odd: key%2 === 0 || key === 0, hidden: construction.groups && (!item.isParent && construction.groups[item.parentName+item.parentId]) || hideAllRows, parent: item.isParent}">
-        <td v-if="item.isParent">
+        <tr v-for="(item, key) in rows" :key="key" :class="{odd: key%2 === 0 || key === 0, hidden: construction.groups && (!item.isParent && construction.groups[item.parentName+item.parentId]) || hideAllRows, parent: item.isParent}">
+          <td v-if="item.isParent">
           <span class="icon" style="cursor: pointer" @click="toggleRows(item.name+item.id)">
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd" d="M16 0H2C0.89 0 0 0.9 0 2V16C0 17.1 0.89 18 2 18H16C17.1 18 18 17.1 18 16V2C18 0.9 17.1 0 16 0ZM16 16H2V2.00001H16V16ZM10 14H8V10H4V8.00001H8V4.00001H10V8.00001H14V10H10V14Z" fill="#C4C4C4"/>
             </svg>
           </span>
-          {{ item.name }}
-        </td>
-        <td v-else-if="item.icon !== ''">
+            {{ item.name }}
+          </td>
+          <td v-else-if="item.icon !== ''">
           <span class="icon">
               <img :src="item.icon" alt="">
           </span>
-          {{item.name}}
-        </td>
-        <td v-else>
-          <div class="no-img icon"></div>
-          {{item.name}}
-        </td>
+            {{item.name}}
+          </td>
+          <td v-else>
+            <div class="no-img icon"></div>
+            {{item.name}}
+          </td>
 
-        <td :style="{color: item.statusType == 1 ? '#FF4081' : item.statusType == 2 ? '#154E85' : item.statusType == 3 ? '#9B51E0' : '#00670A'}">
-          {{ item.status }}
-        </td>
-      </tr>
+          <td :style="{color: item.statusType == 1 ? '#FF4081' : item.statusType == 2 ? '#154E85' : item.statusType == 3 ? '#9B51E0' : '#00670A'}">
+            {{ item.status }}
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>
@@ -59,7 +59,8 @@ export default {
   name: "TableConstruction",
   data() {
     return {
-      hideAllRows: false
+      hideAllRows: false,
+      titles: ["Кол-во", "Ед. изм", "Цена", "Ссылка", "Магазин", "Сроки", "Статус", "Цена Итого"]
     };
   },
   methods: {
@@ -71,7 +72,11 @@ export default {
     }
   },
   computed: {
-    ...mapState("projects", ["construction"])
+    ...mapState({
+      rows: state => state.furniture.furniture.groups || [],
+      furniture: state => state.furniture.furniture,
+      construction: state => state.furniture.construction
+    })
   }
 }
 </script>

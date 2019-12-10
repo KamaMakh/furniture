@@ -3,31 +3,24 @@ import Vue from "vue";
 import VueCookies from "vue-cookies";
 import api from "@/shared/api";
 import onError from "@/store/onError";
+import {furnitureConstructsUrl, createConstructUrl} from "@/store/urls"
 
 function addConstruction({ commit }, data) {
-  console.log(111);
   return new Promise((resolve, reject) => {
-    // api.post(loginUrl, data)
-    //   .then((response) => {
-    //     if (response.data.error) {
-    //       Vue.notify({
-    //         group: 'warn',
-    //         type: 'error',
-    //         text: response.data.message
-    //       });
-    //     } else if (response.data.accessToken) {
-    //       let token = response.data.accessToken
-    //       VueCookies.set("token",token,"40D");
-    //       resolve();
-    //     } else {
-    //       reject();
-    //     }
-    //     commit("setConstruct", data);
-    //     resolve();
-    //   })
-    //   .catch(error => onError(error, reject));
-    commit("addConstruction", data);
-    resolve();
+    api.post(createConstructUrl, data)
+      .then((response) => {
+        commit("addConstruction", response.data);
+        resolve();
+      })
+      .catch(error => {
+        if(error.response && error.response.status === 200) {
+          commit("addConstruction", error.response.data);
+          resolve();
+        }
+        if(error.response) {
+          console.log(error.response);
+        }
+      });
   });
 }
 
@@ -39,14 +32,21 @@ function updateConstruction({ commit }, data) {
   });
 }
 
-function getConstruction({ commit }, id) {
+function getConstructions({ commit }) {
   return new Promise((resolve, reject) => {
-    // let current = {};
-    // console.log(state.constructions);
-    //
-    // console.log(current);
-    // commit("setConstruction", current);
-    resolve();
+    api.get(furnitureConstructsUrl)
+      .then((response) => {
+        commit("setConstructions", response.data);
+        // resolve();
+      })
+      .catch(error => {
+        if(error.response && error.response.status === 200) {
+          commit("setConstructions", error.response.data);
+          // resolve();
+        } else {
+          reject();
+        }
+      });
   });
 }
 
@@ -67,7 +67,7 @@ export {
   addConstruction,
   setConstruction,
   setConstructions,
-  getConstruction,
+  getConstructions,
   updateConstruction,
   setWarehouse
 }
