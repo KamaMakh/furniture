@@ -55,4 +55,32 @@ export default{
     background: #999 !important;
   }
 }
+.date-picker {
+  margin-top: 47px;
+  .date-picker-input {
+    width: 140px;
+    height: 24px;
+    background: #F5F5F6;
+    border: none;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    text-align: right;
+    color: #868686;
+    padding-right: 17px;
+  }
+}
+.vc-container {
+  font-family: 'Roboto', sans-serif !important;
+  .vc-text-sm{
+    color: #333 !important;
+  }
+  .vc-bg-blue-600 {
+    background: #688E74 !important;
+  }
+}
 </style>

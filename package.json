@@ -15,6 +15,7 @@
     "jquery": "^3.4.1",
     "popper.js": "^1.16.0",
     "pretty-checkbox-vue": "^1.1.9",
+    "v-calendar": "^1.0.0-beta.23",
     "v-mask": "^2.0.2",
     "vue": "^2.6.10",
     "vue-cookies": "^1.5.13",

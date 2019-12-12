@@ -23,7 +23,7 @@ export default {
   data() {
     return {
       langs: ["en", "fr", "ru"],
-      currLang: "en"
+      currLang: this.$cookies.get("lang") || "en"
     }
   },
   methods: {
@@ -38,6 +38,7 @@ export default {
       }
       this.$i18n.locale = val;
       this.$cookies.set("lang", val);
+      this.$store.commit('setLang', val);
     }
   }
 }

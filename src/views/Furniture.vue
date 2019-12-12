@@ -1,7 +1,7 @@
 <template>
   <div class="flex-grow-1 furniture">
     <div class="col col-12 p-0">
-      <Table :titles="titles" :groups="groups"/>
+      <TableFurniture :titles="titles" :groups="groups"/>
     </div>
   </div>
 </template>
@@ -9,11 +9,11 @@
 <script>
 /*eslint-disable */
 import { mapState } from "vuex";
-import Table from '@/components/Table';
+import TableFurniture from '@/components/tables/TableFurniture';
 export default {
   name: "Furniture",
   components:{
-      Table
+    TableFurniture
   },
   data(){
       return{

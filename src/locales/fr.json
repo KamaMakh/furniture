@@ -30,7 +30,7 @@
   "planning": "Planification",
   "users": "Les utilisateurs",
   "acceptance": "Acceptation",
-  "projects": "Проекты",
+  "projects": "Projets",
   "add_constr": "Ajouter chantier",
   "construct_name": "Le titre",
   "save": "Enregistrer",
@@ -40,5 +40,8 @@
   "construction": "Chantier",
   "documents": "Les documents",
   "price": "Prix",
-  "total": "Total"
+  "total": "Total",
+  "count": "Compter",
+  "from": "De",
+  "to": "À"
 }

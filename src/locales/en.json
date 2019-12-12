@@ -30,7 +30,7 @@
   "planning": "Planning",
   "users": "Users",
   "acceptance": "Acceptance",
-  "projects": "Проекты",
+  "projects": "Projects",
   "add_constr": "Add construction",
   "construct_name": "Title",
   "save": "Save",
@@ -41,5 +41,8 @@
   "warehouse": "Warehouse",
   "documents": "Documents",
   "price": "Price",
-  "total": "Total"
+  "total": "Total",
+  "count": "Count",
+  "from": "From",
+  "to": "To"
 }

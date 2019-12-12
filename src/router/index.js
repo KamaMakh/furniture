@@ -4,6 +4,7 @@ import AppContainer from "../containers/AppContainer";
 import AuthContainer from "../containers/AuthContainer";
 import Furniture from "../views/Furniture";
 import Projects from "../views/Projects";
+import Statistics from "../views/Statistics";
 import Login from "../views/Login";
 import Registration from "../views/Registration";
 
@@ -28,6 +29,11 @@ const routes = [
         path: "/projects",
         name: "Projects",
         component: Projects
+      },
+      {
+        path: "/stats",
+        name: "Statistics",
+        component: Statistics
       }
     ]
   },

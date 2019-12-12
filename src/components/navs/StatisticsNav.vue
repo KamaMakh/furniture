@@ -1,13 +1,5 @@
 <template>
   <div class="sidebar">
-    <div class="sidebar__btn" @click="showAddModal = true; newConstruction = {}">
-      {{ $t("add_constr") }}
-      <span class="icon">
-        <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd" clip-rule="evenodd" d="M16.8889 0H2.11111C0.939444 0 0 0.95 0 2.11111V16.8889C0 18.05 0.939444 19 2.11111 19H16.8889C18.05 19 19 18.05 19 16.8889V2.11111C19 0.95 18.05 0 16.8889 0ZM16.8891 16.8889H2.11133V2.11111H16.8891V16.8889ZM10.5555 14.7778H8.44439V10.5556H4.22217V8.44444H8.44439V4.22222H10.5555V8.44444H14.7777V10.5556H10.5555V14.7778Z" fill="#868686"/>
-        </svg>
-      </span>
-    </div>
     <div class="sidebar_list menu-left">
       <ul v-if="constructions">
         <li v-for="(item, key) in constructions" :key="key">
@@ -15,146 +7,103 @@
         </li>
       </ul>
     </div>
-
-    <!--modals-->
-    <transition name="fade">
-      <div v-if="showAddModal">
-        <div class="modal-mask">
-          <div class="modal-wrapper">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-body">
-                  <form @submit="addConstruction">
-                    <div class="form-group">
-                      <input type="text" class="form-control" v-model="newConstruction.address" :placeholder="$t('address')">
-                    </div>
-                    <div class="form-group">
-                      <input type="text" class="form-control" v-model="newConstruction.name" :placeholder="$t('construct_name')">
-                    </div>
-                  </form>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" @click="showAddModal = false">{{ $t("close") }}</button>
-                  <button type="button" class="btn btn-custom" @click="addConstruction">{{ $t("save") }}</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+    <div class="date-picker">
+      <div class="date-item mb-1">
+        <span class="title">
+          {{ $t("from") }}
+        </span>
+        <span class="d-flex align-items-center justify-content-end">
+          <v-date-picker
+            :popover="{ placement: 'bottom', visibility: 'click' }"
+            v-model="dateFrom"
+            :input-props="{
+              class: 'date-picker-input'
+            }"
+            :locale='lang'
+            :masks="{L: 'YYYY/MM/DD'}"
+          />
+          <svg class="ml-2" width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M16 2H15V0H13V2H5V0H3V2H2C0.9 2 0 2.9 0 4V18C0 19.1 0.9 20 2 20H16C17.1 20 18 19.1 18 18V4C18 2.9 17.1 2 16 2ZM16 18H2V8H16V18ZM2 4V6H16V4H2ZM6 10V12H4V10H6ZM6 16V14H4V16H6Z" fill="#868686"/>
+            <path d="M12 10H14V12H12V10Z" fill="#868686"/>
+            <path d="M12 14H14V16H12V14Z" fill="#868686"/>
+            <path d="M8 10H10V12H8V10Z" fill="#868686"/>
+            <rect x="8" y="14" width="2" height="2" fill="#868686"/>
+          </svg>
+        </span>
       </div>
-    </transition>
+      <div class="date-item">
+        <span class="title">
+          {{ $t("to") }}
+        </span>
+        <span class="d-flex align-items-center justify-content-end">
+          <v-date-picker
+            :popover="{ placement: 'bottom', visibility: 'click' }"
+            v-model="dateTo"
+            :input-props="{
+              class: 'date-picker-input'
+            }"
+            :locale='lang'
+            :masks="{L: 'YYYY/MM/DD'}"
+          />
+          <svg class="ml-2" width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M16 2H15V0H13V2H5V0H3V2H2C0.9 2 0 2.9 0 4V18C0 19.1 0.9 20 2 20H16C17.1 20 18 19.1 18 18V4C18 2.9 17.1 2 16 2ZM16 18H2V8H16V18ZM2 4V6H16V4H2ZM6 10V12H4V10H6ZM6 16V14H4V16H6Z" fill="#868686"/>
+            <path d="M12 10H14V12H12V10Z" fill="#868686"/>
+            <path d="M12 14H14V16H12V14Z" fill="#868686"/>
+            <path d="M8 10H10V12H8V10Z" fill="#868686"/>
+            <rect x="8" y="14" width="2" height="2" fill="#868686"/>
+          </svg>
+        </span>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-/* eslint-disable */
 import { mapState } from "vuex";
+import Vue from "vue";
+import VCalendar from "v-calendar";
+Vue.use(VCalendar);
+
 export default {
-  name: "ProjectsNav",
+  name: "StatisticsNav",
   data() {
     return {
-      showAddModal: false,
-      newConstruction: {}
-    }
+      dateTo: new Date(),
+      dateLocale: {}
+    };
   },
   computed: {
     ...mapState("furniture", ["constructions"]),
-    ...mapState("furniture", ["construction"])
+    ...mapState("furniture", ["construction"]),
+    ...mapState(["lang"]),
+    dateFrom: {
+      get() {
+        let date = new Date();
+        return new Date(date.setMonth(date.getMonth() - 1));
+      },
+      set(value) {
+        return value;
+      }
+    }
   },
   methods: {
-    addConstruction() {
-      if (!this.newConstruction.name) {
-        this.$notify({
-          group: "warn",
-          type: "error",
-          title: this.$i18n.messages[this.$i18n.locale]["attention"],
-          text: this.$i18n.messages[this.$i18n.locale]["login_invalid"]
-        });
-        return;
-      }
-      if(this.newConstruction.id === undefined) {
-        console.log("eeeee");
-        this.$store.dispatch("furniture/addConstruction", this.newConstruction)
-          .then(() => {
-            console.log("success");
-            this.showAddModal = false;
-          })
-          .catch((error) => {
-            this.$notify({
-              group: "warn",
-              type: "error",
-              title: this.$i18n.messages[this.$i18n.locale]["attention"],
-              text: error.text
-            });
-          });
-      } else {
-        this.$store.dispatch("furniture/updateConstruction", this.newConstruction)
-          .then(() => {
-            this.showAddModal = false;
-          })
-          .catch((error) => {
-            this.$notify({
-              group: "warn",
-              type: "error",
-              title: this.$i18n.messages[this.$i18n.locale]["attention"],
-              text: error
-            });
-          });
-      }
-      this.newConstruction = {};
-    },
     chooseConstruction(item) {
-      this.$store.dispatch("furniture/getFurniture", {projectId: item.id})
-      this.$store.dispatch("furniture/setConstruction", {id: item.id, name: item.name})
-    },
-    editConstruction(item) {
-      this.newConstruction = item;
-      this.showAddModal = true;
+      this.$store.dispatch("furniture/getFurniture", {
+        projectId: item.id
+      });
+      this.$store.dispatch("furniture/setConstruction", {
+        id: item.id,
+        name: item.name
+      });
     }
   }
-}
+};
 </script>
 
 <style scoped lang="scss">
 $ffamily: "Roboto", sans-serif;
 .sidebar {
   height: 100%;
-  &__btn {
-    font-family: $ffamily;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 18px;
-    line-height: 21px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    text-align: right;
-    color: #868686;
-    margin-bottom: 12px;
-    cursor: pointer;
-    .icon {
-      width: 19px;
-      height: 19px;
-      margin-left: 11px;
-      cursor: pointer;
-    }
-  }
-}
-.modal-mask {
-  position: fixed;
-  z-index: 9998;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, .5);
-  display: table;
-  transition: opacity .3s ease;
-}
-
-.modal-wrapper {
-  display: table-cell;
-  vertical-align: middle;
 }
 .menu-left {
   ul {
@@ -200,7 +149,23 @@ $ffamily: "Roboto", sans-serif;
     }
   }
 }
-.vue-notification-group{
+.date-picker {
+  .title {
+    font-family: $ffamily;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    text-align: right;
+    color: #868686;
+    padding-right: 42px;
+  }
+  .date-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+}
+.vue-notification-group {
   z-index: 9999 !important;
 }
 </style>
