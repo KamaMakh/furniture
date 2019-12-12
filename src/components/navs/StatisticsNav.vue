@@ -15,19 +15,14 @@
         <span class="d-flex align-items-center justify-content-end">
           <v-date-picker
             :popover="{ placement: 'bottom', visibility: 'hidden' }"
-            v-model="dateFrom"
+            v-model="dateFromV"
             :input-props="{
               class: 'date-picker-input'
             }"
-            :locale='lang'
-            :masks="{L: 'YYYY/MM/DD'}"
           />
           <v-date-picker
             :popover="{ placement: 'bottom', visibility: 'click' }"
             v-model="dateFrom"
-            :input-props="{
-              class: 'date-picker-input'
-            }"
             :locale='lang'
             :masks="{L: 'YYYY/MM/DD'}"
           >
@@ -89,7 +84,8 @@ export default {
   data() {
     return {
       dateTo: new Date(),
-      dateLocale: {}
+      dateLocale: {},
+      dateFromV: new Date()
     };
   },
   computed: {
@@ -102,6 +98,7 @@ export default {
         return new Date(date.setMonth(date.getMonth() - 1));
       },
       set(value) {
+        this.dateFromV = value;
         return value;
       }
     }
