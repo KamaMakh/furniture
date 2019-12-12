@@ -16,6 +16,7 @@
           <v-date-picker
             :popover="{ placement: 'bottom', visibility: 'hidden' }"
             v-model="dateFromV"
+            :masks="{L: 'YYYY/MM/DD'}"
             :input-props="{
               class: 'date-picker-input'
             }"
@@ -53,9 +54,6 @@
           <v-date-picker
             :popover="{ placement: 'bottom', visibility: 'click' }"
             v-model="dateTo"
-            :input-props="{
-              class: 'date-picker-input'
-            }"
             :locale='lang'
             :masks="{L: 'YYYY/MM/DD'}"
           >
