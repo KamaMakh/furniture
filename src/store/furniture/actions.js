@@ -3,16 +3,12 @@ import Vue from "vue";
 import VueCookies from "vue-cookies";
 import api from "@/shared/api";
 import onError from "@/store/onError";
-import {furnitureConstructsUrl, createConstructUrl, createFurnitureGroup, getFurniture as furnitureUrl} from "@/store/urls";
+import {furnitureConstructsUrl, createConstructUrl, createFurnitureGroup, getFurniture as furnitureUrl, getUnitsUrl, createNomenclatureUrl, getNomenclatureUrl} from "@/store/urls";
 
 function addConstruction({ commit }, data) {
-  console.log("start111");
   return new Promise((resolve, reject) => {
-    console.log("start222");
     api.post(createConstructUrl, data)
       .then((response) => {
-        console.log("start333");
-        console.log(response.data);
         commit("addConstruction", response.data);
         resolve();
       })
@@ -93,11 +89,68 @@ function getFurniture({ commit }, data) {
   });
 }
 
+function setUnits({ commit }, data) {
+  return new Promise((resolve, reject) => {
+    api.get(getUnitsUrl)
+      .then((response) => {
+        commit("setUnits", response.data);
+        // resolve();
+      })
+      .catch(error => {
+        if(error.response && error.response.status === 200) {
+          commit("setUnits", error.response.data);
+          // resolve();
+        } else {
+          reject();
+        }
+      });
+  });
+}
+
+function setNomenclature({ commit }, data) {
+  return new Promise((resolve, reject) => {
+    api.get(getNomenclatureUrl, {params: {groupId: data.id}})
+      .then((response) => {
+        commit("setNomenclatures", {response: response.data, group: data});
+        // resolve();
+      })
+      .catch(error => {
+        if(error.response && error.response.status === 200) {
+          commit("setNomenclatures", error.response.data);
+          // resolve();
+        } else {
+          reject();
+        }
+      });
+  });
+}
+
+function addNomenclature({ commit }, data) {
+  return new Promise((resolve, reject) => {
+    api.post(createNomenclatureUrl, data.data)
+      .then((response) => {
+        commit("setNomenclature", {response: response.data, group: data.group});
+        resolve(response.data);
+      })
+      .catch(error => {
+        if(error.response && error.response.status === 200) {
+          commit("setNomenclature", {response: error.response.data, group: data.group});
+          resolve(error.response);
+        } else {
+          reject(error);
+        }
+      });
+  });
+}
+
 export {
   addConstruction,
   getConstructions,
   updateConstruction,
   addGroup,
   setConstruction,
-  getFurniture
+  getFurniture,
+  setUnits,
+  addNomenclature,
+  setNomenclature
 }

@@ -97,7 +97,6 @@ export default {
         &__left-menu{
           transition: 0.8s;
           margin-left: -100%;
-          z-index: 10;
           height: 100%;
             &.opened{
                 margin-left: 0;
@@ -121,23 +120,24 @@ export default {
             }
         }
     }
-    @media screen and(max-width: 959px) {
-        .content{
-            flex-flow:wrap;
-            align-content: center;
-            justify-content: center;
-            &__body{
-                padding: 20px 25px;
-            }
-            &__left-menu{
-                position: absolute;
-                top: 45px;
-                left: -100%;
-                bottom: 0;
-                &.opened{
-                    left: 0;
-                }
-            }
-        }
+@media screen and(max-width: 959px) {
+  .content{
+    flex-flow:wrap;
+    align-content: center;
+    justify-content: center;
+    &__body{
+      padding: 20px 25px;
     }
+    &__left-menu{
+      position: absolute;
+      top: 45px;
+      left: -100%;
+      bottom: 0;
+      z-index: 10;
+      &.opened{
+          left: 0;
+      }
+    }
+  }
+}
 </style>

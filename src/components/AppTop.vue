@@ -82,7 +82,7 @@
       <div class="header__options options">
         <div class="options__btn">
           <span class="options__icon"></span>
-          Настройки
+          {{ $t("settings") }}
         </div>
         <div class="options__lang" @click="toggleLang">
           <LocaleChanger :parentClass="'app-top'" />

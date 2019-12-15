@@ -83,4 +83,55 @@ export default{
     background: #688E74 !important;
   }
 }
+
+.vux-uploader_bd {
+  display: flex;
+  flex-flow: wrap;
+  input {
+    cursor: pointer;
+  }
+}
+.vux-uploader_files {
+  padding: 0;
+  margin: 0;
+}
+.vux-uploader {
+  flex: 1 1 auto;
+}
+.vux-uploader_input-box, .vux-uploader_input {
+  cursor: pointer;
+}
+.nomenclature-select {
+  .vs__dropdown-toggle{
+    border: none;
+    border-bottom: 1px solid #000;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+  }
+  .vs__actions {
+    display: none;
+  }
+  input {
+    padding-left: 0;
+    padding-right: 0;
+    &::placeholder{
+      color: #C4C4C4;
+    }
+  }
+  .vs__selected {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 0;
+  }
+  &.is-danger {
+    .vs__dropdown-toggle {
+      border-bottom-color: #f04124 !important;
+    }
+  }
+}
+
+.vue-notification-group {
+  z-index: 9999;
+}
 </style>

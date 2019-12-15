@@ -3,7 +3,7 @@
     <div class="sidebar_list menu-left">
       <ul v-if="constructions">
         <li v-for="(item, key) in constructions" :key="key">
-          <a :class="{active: construction.id === item.id}" @click="chooseConstruction(item)"><span @click="editConstruction(item)" class="icon"></span> {{ item.name }}</a>
+          <a :class="{active: construction.id === item.id}" @click="chooseConstruction(item)">{{ item.name }}</a>
         </li>
       </ul>
     </div>

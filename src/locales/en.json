@@ -44,5 +44,14 @@
   "total": "Total",
   "count": "Count",
   "from": "From",
-  "to": "To"
+  "to": "To",
+  "settings": "Settings",
+  "count_sh": "Count",
+  "unit_sh": "Unit",
+  "link": "Link",
+  "deadlines": "Deadlines",
+  "status": "Status",
+  "sum_price": "Total price",
+  "add_image": "Upload images",
+  "term": "Term"
 }

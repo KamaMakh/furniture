@@ -43,5 +43,14 @@
   "total": "Total",
   "count": "Compter",
   "from": "De",
-  "to": "À"
+  "to": "À",
+  "settings": "Paramètres",
+  "count_sh": "Compter",
+  "unit_sh": "Unité",
+  "link": "Lien",
+  "deadlines": "Délais",
+  "status": "Statut",
+  "sum_price": "Prix total",
+  "add_image": "Importer des images",
+  "term": "Terme"
 }

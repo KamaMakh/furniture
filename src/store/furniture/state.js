@@ -1,5 +1,6 @@
 export default {
   furniture: {},
   construction: {},
-  constructions: []
+  constructions: [],
+  units: []
 };
