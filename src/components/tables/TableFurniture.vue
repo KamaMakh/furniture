@@ -20,31 +20,33 @@
       </thead>
       <tbody>
         <tr style="cursor: pointer" v-for="(item, key) in rows" :key="key" :class="{odd: key%2 === 0 || key === 0}">
-          <td v-if="!item.price" @click="toggleGroupRows(item, $event)" :child="enabledGroups[item.id]" width="20%">
-            <span class="icon" style="cursor: pointer" @click="showNomenclature(item)">
+          <td v-if="!item.price" colspan="9" class="d-table-cell border-right" @click="toggleGroupRows(item, $event)" :child="enabledGroups[item.id]">
+            <span class="d-flex align-items-center justify-content-start">
+              <span class="icon" style="cursor: pointer" @click="showNomenclature(item)">
               <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M16 0H2C0.89 0 0 0.9 0 2V16C0 17.1 0.89 18 2 18H16C17.1 18 18 17.1 18 16V2C18 0.9 17.1 0 16 0ZM16 16H2V2.00001H16V16ZM10 14H8V10H4V8.00001H8V4.00001H10V8.00001H14V10H10V14Z" fill="#C4C4C4"/>
               </svg>
             </span>
             {{ item.name }}
+            </span>
           </td>
-          <td v-else @click="showEditNomenclature(item)" width="20%">
+          <td v-else @click="showEditNomenclature(item)">
             <span v-if="item.photos && item.photos[0]" class="icon">
               <img :src="serverUrl + item.photos[0]['pathUrl']" alt="" />
             </span>
             <span v-else class="icon no-img"></span>
             {{ item.name }}
           </td>
-          <td width="8%">{{ item.count }}</td>
-          <td width="8%">{{ item.units ? item.units.name: "" }}</td>
-          <td width="12%">{{ item.price }}</td>
-          <td width="8%">{{ item.shop }}</td>
-          <td width="8%">{{ item.term }}</td>
-          <td width="8%" :style="{color: item.statusType == 1 ? '#FF4081' : item.statusType == 2 ? '#154E85' : item.statusType == 3 ? '#9B51E0' : '#00670A'}">
+          <td v-if="item.price" width="8%">{{ item.count }}</td>
+          <td v-if="item.price"  width="8%">{{ item.units ? item.units.name: "" }}</td>
+          <td v-if="item.price"  width="12%">{{ item.price }}</td>
+          <td v-if="item.price"  width="8%">{{ item.shop }}</td>
+          <td v-if="item.price"  width="8%">{{ item.term }}</td>
+          <td v-if="item.price"  width="8%" :style="{color: item.statusType == 1 ? '#FF4081' : item.statusType == 2 ? '#154E85' : item.statusType == 3 ? '#9B51E0' : '#00670A'}">
               <!--{{item.status}}-->
           </td>
-          <td width="8%">{{item.price_sum}}</td>
-          <td width="20%">{{ item.link }}</td>
+          <td v-if="item.price"  width="8%">{{item.price_sum}}</td>
+          <td v-if="item.price"  width="20%">{{ item.link }}</td>
         </tr>
       </tbody>
     </table>
@@ -268,7 +270,7 @@ export default {
       // };
     },
     toggleGroupRows(group, event) {
-      if(event.target.tagName === "TD") {
+      if(event.target.tagName === "TD" || (event.target.tagName !== "svg" && event.target.tagName !== "path" && !event.target.classList.contains("icon"))) {
         if(!this.enabledGroups[group.id]) {
           this.enabledGroups[group.id] = true;
           this.$store.dispatch("furniture/setNomenclature", group)
@@ -329,7 +331,6 @@ $ffamily: 'Roboto', sans-serif;
         display: flex;
         align-items: center;
         font-weight: bold;
-        width: 100%;
       }
       &.parent{
           border-top: 1px solid #C4C4C4;
