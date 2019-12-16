@@ -136,6 +136,14 @@
                             <input type="text" class="form-control" v-model="nomenclature.magazine" :placeholder="$t('magazine')">
                           </div>
                         </div>
+                        <div class="form-group">
+                          <label v-for="(item, key) in nomenclature.status" :key="key" :class="{disabled: roles.indexOf(item.userRole) < 0 || nomenclature.id === updatingId}" @click="updateConfirm(nomenclature)">
+                            <p-check class="pretty p-image p-plain text-left" name="test" v-model="nomenclature.status[key]['confirmed']">
+                              <img slot="extra" class="image" src="../../assets/policycheck.svg">
+                              {{ $t("confirmed") }} {{ $t(item.userRole.split("_")[1].toLowerCase()) }}
+                            </p-check>
+                          </label>
+                        </div>
                         <div class="form-group row justify-content-end pr-3">
                           <button type="button" class="btn btn-secondary btn-close mr-2" @click="showNomekModal = false">{{ $t("close") }}</button>
                           <button v-if="!nomenclature.disabled" type="button" class="btn btn-custom" @click="addNomenclature">{{ $t("save") }}</button>
@@ -179,7 +187,8 @@ export default {
       showFormErrors: false,
       enabledGroups: [],
       serverUrl: serverUrl,
-      tdWidths: [20, 8, 8, 12, 8, 8, 8, 8, 20]
+      tdWidths: [20, 8, 8, 12, 8, 8, 8, 8, 20],
+      updatingId: null
     }
   },
   validations: {
@@ -277,11 +286,20 @@ export default {
         }
       }
     },
-    getImg(url) {
-      this.$store.dispatch("getImg", url)
-        .then(response => {
-          console.log(response);
-          return response;
+    updateConfirm(nomenclature) {
+      this.updatingId = nomenclature.id;
+      this.$store.dispatch("furniture/statusConfirm", {furnitureNomenclatureId: nomenclature.id})
+        .then(() => {
+          this.updatingId = null;
+        })
+        .catch((error) => {
+          this.$notify({
+            group: 'warn',
+            type: 'error',
+            title: this.$i18n.messages[this.$i18n.locale]["attention"],
+            text: error.response
+          });
+          this.updatingId = null;
         });
     }
   },
@@ -290,6 +308,7 @@ export default {
       rows: state => state.furniture.furniture.groups || [],
       furniture: state => state.furniture.furniture,
       construction: state => state.furniture.construction,
+      roles: state => state.user.roles,
       units(state) {
         let unitsList = [];
         state.furniture.units.forEach((item, key, arr) => {
@@ -441,5 +460,14 @@ $ffamily: 'Roboto', sans-serif;
   .nomenclature-column {
     flex-direction: column;
   }
+}
+.disabled {
+  pointer-events: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: none;
+  opacity: 0.6;
 }
 </style>

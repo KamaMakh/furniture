@@ -3,7 +3,7 @@ import Vue from "vue";
 import VueCookies from "vue-cookies";
 import api from "@/shared/api";
 import onError from "@/store/onError";
-import {furnitureConstructsUrl, createConstructUrl, createFurnitureGroup, getFurniture as furnitureUrl, getUnitsUrl, createNomenclatureUrl, getNomenclatureUrl} from "@/store/urls";
+import {furnitureConstructsUrl, createConstructUrl, createFurnitureGroup, getFurniture as furnitureUrl, getUnitsUrl, createNomenclatureUrl, getNomenclatureUrl, statusConfirmUrl} from "@/store/urls";
 
 function addConstruction({ commit }, data) {
   return new Promise((resolve, reject) => {
@@ -143,6 +143,22 @@ function addNomenclature({ commit }, data) {
   });
 }
 
+function statusConfirm({ commit }, data) {
+  return new Promise((resolve, reject) => {
+    api.post(statusConfirmUrl, data)
+      .then((response) => {
+        resolve(response.data);
+      })
+      .catch(error => {
+        if(error.response && error.response.status === 200) {
+          resolve(error.response);
+        } else {
+          reject(error);
+        }
+      });
+  });
+}
+
 export {
   addConstruction,
   getConstructions,
@@ -152,5 +168,6 @@ export {
   getFurniture,
   setUnits,
   addNomenclature,
-  setNomenclature
+  setNomenclature,
+  statusConfirm
 }

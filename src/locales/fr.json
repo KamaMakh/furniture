@@ -52,5 +52,6 @@
   "status": "Statut",
   "sum_price": "Prix total",
   "add_image": "Importer des images",
-  "term": "Terme"
+  "term": "Terme",
+  "confirmed": "Confirmé par l'utilisateur"
 }

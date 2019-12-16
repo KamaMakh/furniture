@@ -1,6 +1,6 @@
 /* eslint-disable */
 import api from "@/shared/api";
-import { registerUrl, loginUrl } from "@/store/urls";
+import { registerUrl, loginUrl, getMe } from "@/store/urls";
 import onError from "@/store/onError";
 import Vue from "vue";
 import router from "@/router";
@@ -60,6 +60,24 @@ function login({ commit }, data) {
 function logout({ commit }) {
   VueCookies.remove("token");
   router.push("/auth");
+}
+
+function checkUser({ commit }) {
+  return new Promise((resolve, reject) => {
+    api.post(getMe)
+      .then((response) => {
+        const user = response.data.data;
+
+        if (user) {
+          commit('setUser', user);
+        } else {
+          commit('resetUser');
+        }
+
+        resolve();
+      })
+      .catch(error => onError(error, reject));
+  });
 }
 
 export {

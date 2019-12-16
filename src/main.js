@@ -9,7 +9,8 @@ import Notifications from "vue-notification";
 import VueCookies from "vue-cookies";
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-// import api from "./shared/api";
+import { getMe } from "@/store/urls";
+import api from "./shared/api";
 /* eslint-disable */
 Vue.component("v-select", vSelect);
 Vue.use(Meta);
@@ -27,10 +28,12 @@ router.beforeEach(async function(to, from, next) {
     }
   } else {
     try {
-      // if (!store.state.user) {
-      // let res = await api.get('/me');
-      // store.commit('user', res.data);
-      // }
+      // console.log(store.state);
+      // store.dispatch('user/checkUser')
+      if (!store.state.user.user.id) {
+        let res = await api.get(getMe);
+        store.commit('user/setUser', res.data);
+      }
       if (!VueCookies.get("token")) {
         router.push({name: "Login"});
       } else {

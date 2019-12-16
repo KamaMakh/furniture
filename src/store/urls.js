@@ -8,6 +8,8 @@ const getFurniture = `${serverUrl}/api/furniture/get`;
 const getUnitsUrl = `${serverUrl}/api/directory/units/get`;
 const createNomenclatureUrl = `${serverUrl}/api/furniture/nomenclature/create`;
 const getNomenclatureUrl = `${serverUrl}/api/furniture/nomenclature/get`;
+const getMe = `${serverUrl}/api/user/profile/get`;
+const statusConfirmUrl = `${serverUrl}/api/furniture/nomenclature/status/confirm`;
 
 export {
   serverUrl,
@@ -19,5 +21,7 @@ export {
   getFurniture,
   getUnitsUrl,
   createNomenclatureUrl,
-  getNomenclatureUrl
+  getNomenclatureUrl,
+  getMe,
+  statusConfirmUrl
 };

@@ -53,5 +53,6 @@
   "status": "Status",
   "sum_price": "Total price",
   "add_image": "Upload images",
-  "term": "Term"
+  "term": "Term",
+  "confirmed": "Confirmed by"
 }

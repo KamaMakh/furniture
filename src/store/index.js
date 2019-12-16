@@ -11,8 +11,8 @@ Vue.use(Vuex);
 
 VueCookies.config("40d")
 
-export default function () {
-  const Store = new Vuex.Store({
+// export default function () {
+  export default new Vuex.Store({
     modules: {
       user,
       projects,
@@ -36,5 +36,5 @@ export default function () {
       }
     }
   });
-  return Store;
-}
+  // return Store;
+// }
