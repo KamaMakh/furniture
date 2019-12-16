@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import VueCookies from "vue-cookies"
+import VueCookies from "vue-cookies";
 
 import user from "./user";
 import projects from "./projects";
@@ -19,7 +19,7 @@ export default function () {
       furniture
     },
     state: {
-      lang: VueCookies.get("lang") || "en",
+      lang: VueCookies.get("lang") || "en"
     },
     getters: {
       loggedIn(state) {
@@ -35,6 +35,6 @@ export default function () {
         state.lang = lang;
       }
     }
-  })
+  });
   return Store;
 }

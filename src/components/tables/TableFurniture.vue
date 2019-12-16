@@ -84,7 +84,7 @@
               <div class="modal-content">
                 <div class="modal-body">
                   <form @submit="addNomenclature">
-                    <div class="row ml-0 mr-0">
+                    <div class="row ml-0 mr-0 nomenclature-column">
                       <div class="body-left col col-lg-6 col-md-12">
                         <div class="form-group row">
                           <uploader v-model="nomenclature.file" limit="3" :title="$t('add_image')" :autoUpload="false" :multiple="true"></uploader>
@@ -276,6 +276,13 @@ export default {
           this.$store.dispatch("furniture/setNomenclature", group)
         }
       }
+    },
+    getImg(url) {
+      this.$store.dispatch("getImg", url)
+        .then(response => {
+          console.log(response);
+          return response;
+        });
     }
   },
   computed: {
@@ -428,6 +435,11 @@ $ffamily: 'Roboto', sans-serif;
 @media all and(min-width: 768px) {
   .nomenclature-modal {
     max-width: 850px;
+  }
+}
+@media all and(max-width: 480px) {
+  .nomenclature-column {
+    flex-direction: column;
   }
 }
 </style>

@@ -73,7 +73,6 @@ export default {
         return;
       }
       if(this.newConstruction.id === undefined) {
-        console.log("eeeee");
         this.$store.dispatch("furniture/addConstruction", this.newConstruction)
           .then(() => {
             console.log("success");
