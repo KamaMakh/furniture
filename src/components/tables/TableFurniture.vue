@@ -103,10 +103,10 @@
                         </div>
                         <div class="form-group row">
                           <div class="col col-lg-4 col-md-4 col-sm-12">
-                            <input type="number" step="any" class="form-control" :class="{ 'is-danger': $v.nomenclature.price.$invalid && (nomenclature.price || showFormErrors)}" :placeholder="$t('price')" v-model="nomenclature.price">
+                            <input type="number" step="1000" class="form-control" :class="{ 'is-danger': $v.nomenclature.price.$invalid && (nomenclature.price || showFormErrors)}" :placeholder="$t('price')" v-model="price">
                           </div>
                           <div class="col col-lg-4 col-md-4 col-sm-12">
-                            <input type="text" class="form-control" v-model="nomenclature.nds">
+                            <input type="text" class="form-control" v-model="nomenclature.magazine" :placeholder="$t('magazine')">
                           </div>
                           <div class="col col-lg-4 col-md-4 col-sm-12 d-flex align-self-end">
                             <v-select
@@ -122,7 +122,7 @@
                         </div>
                         <div class="form-group row">
                           <div class="col col-lg-4 col-md-4 col-sm-12">
-                            <input type="number" step="any" class="form-control" :class="{ 'is-danger': $v.nomenclature.count.$invalid && (nomenclature.count || showFormErrors)}" :placeholder="$t('count')" v-model="nomenclature.count">
+                            <input type="number" step="1" class="form-control" :class="{ 'is-danger': $v.nomenclature.count.$invalid && (nomenclature.count || showFormErrors)}" :placeholder="$t('count')" v-model="nomenclature.count">
                           </div>
                           <div class="col col-lg-4 col-md-4 col-sm-12">
                             <input type="text" v-mask="'##.##.####'" class="form-control" :class="{ 'is-danger': $v.nomenclature.term.$invalid && (nomenclature.term || showFormErrors)}" :placeholder="$t('term')" v-model="nomenclature.term">
@@ -132,8 +132,14 @@
                           </div>
                         </div>
                         <div class="form-group row">
-                          <div class="col col-12">
-                            <input type="text" class="form-control" v-model="nomenclature.magazine" :placeholder="$t('magazine')">
+                          <div class="col col-lg-4 col-md-4 col-sm-12">
+                            <input type="number" step="1" class="form-control" :class="{ 'is-danger': $v.nomenclature.nds.$invalid && (nomenclature.nds || showFormErrors)}" :placeholder="$t('nds')" v-model="nomenclature.nds" @change="updatePrices">
+                          </div>
+                          <div class="col col-lg-4 col-md-4 col-sm-12">
+                            <input type="number" disabled step="any" class="form-control" :placeholder="$t('ndsValue')" v-model="nomenclature.ndsValue">
+                          </div>
+                          <div class="col col-lg-4 col-md-4 col-sm-12">
+                            <input type="number" disabled step="any" class="form-control" :placeholder="$t('priceWithoutNds')" v-model="nomenclature.priceWithoutNds">
                           </div>
                         </div>
                         <div class="form-group">
@@ -188,7 +194,8 @@ export default {
       enabledGroups: [],
       serverUrl: serverUrl,
       tdWidths: [20, 8, 8, 12, 8, 8, 8, 8, 20],
-      updatingId: null
+      updatingId: null,
+      price: 0
     }
   },
   validations: {
@@ -197,7 +204,8 @@ export default {
       unit: {required},
       count: {required},
       price: {required},
-      term: {required}
+      term: {required},
+      nds: {required},
     }
   },
   methods:{
@@ -235,6 +243,9 @@ export default {
       formData.append( "unitId", this.nomenclature.unit.id);
       formData.append( "price", this.nomenclature.price );
       formData.append( "term", this.nomenclature.term );
+      formData.append( "nds", this.nomenclature.nds );
+      formData.append( "ndsValue", this.nomenclature.ndsValue );
+      formData.append( "priceWithoutNds", this.nomenclature.priceWithoutNds );
       if(this.nomenclature.link) {
         formData.append( "link", this.nomenclature.link );
       }
@@ -266,8 +277,13 @@ export default {
       this.showNomekModal = true;
       this.nomenclature = {
         group: item,
-        groupId: item.id
+        groupId: item.id,
+        nds: this.construction.nds,
+        price: 0,
+        ndsValue: 0,
+        priceWithoutNds: 0
       };
+      this.price = 0;
     },
     showEditNomenclature(item) {
       this.showNomekModal = true;
@@ -301,6 +317,12 @@ export default {
           });
           this.updatingId = null;
         });
+    },
+    updatePrices() {
+      if(this.nomenclature.price) {
+        this.nomenclature["ndsValue"] = (this.nomenclature.price * this.nomenclature.nds)/(100+this.nomenclature.nds);
+        this.nomenclature["priceWithoutNds"] = this.nomenclature.price - this.nomenclature["ndsValue"];
+      }
     }
   },
   computed: {
@@ -325,6 +347,14 @@ export default {
   watch: {
     furniture() {
       this.enabledGroups = [];
+    },
+    price(val) {
+      this.nomenclature.price = val;
+      this.updatePrices();
+      // if(this.nomenclature.nds) {
+      //   this.nomenclature["ndsValue"] = (val*this.nomenclature.nds)/(100+this.nomenclature.nds);
+      //   this.nomenclature["priceWithoutNds"] = val - this.nomenclature["ndsValue"];
+      // }
     }
   }
 }

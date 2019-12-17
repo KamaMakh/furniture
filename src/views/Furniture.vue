@@ -24,10 +24,7 @@ export default {
         .then((response) => {
           if(!this.$store.state.furniture.furniture.groups && this.$store.state.furniture.constructions[0]) {
             this.$store.dispatch("furniture/getFurniture", {"projectId":this.$store.state.furniture.constructions[0]["id"]});
-            this.$store.dispatch("furniture/setConstruction", {
-              "id":this.$store.state.furniture.constructions[0]["id"],
-              "name":this.$store.state.furniture.constructions[0]["name"],
-            });
+            this.$store.dispatch("furniture/setConstruction", this.$store.state.furniture.constructions[0]);
           }
         });
     })

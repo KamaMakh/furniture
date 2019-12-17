@@ -54,5 +54,8 @@
   "sum_price": "Цена итого",
   "add_image": "Загрузить картинки",
   "term": "Срок",
-  "confirmed": "Подтверждено"
+  "confirmed": "Подтверждено",
+  "nds": "НДС",
+  "ndsValue": "Выделенный НДС",
+  "priceWithoutNds": "Цена без НДС"
 }

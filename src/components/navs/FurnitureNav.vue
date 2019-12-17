@@ -31,6 +31,9 @@
                     <div class="form-group">
                       <input type="text" class="form-control" v-model="newConstruction.name" :placeholder="$t('construct_name')">
                     </div>
+                    <div class="form-group">
+                      <input type="number" step="any" class="form-control" v-model="newConstruction.nds" :placeholder="$t('nds')">
+                    </div>
                   </form>
                 </div>
                 <div class="modal-footer">
@@ -63,19 +66,18 @@ export default {
   },
   methods: {
     addConstruction() {
-      if (!this.newConstruction.name) {
+      if (!this.newConstruction.name || !this.newConstruction.nds) {
         this.$notify({
           group: "warn",
           type: "error",
           title: this.$i18n.messages[this.$i18n.locale]["attention"],
-          text: this.$i18n.messages[this.$i18n.locale]["login_invalid"]
+          text: this.$i18n.messages[this.$i18n.locale]["register_invalid"]
         });
         return;
       }
       if(this.newConstruction.id === undefined) {
         this.$store.dispatch("furniture/addConstruction", this.newConstruction)
           .then(() => {
-            console.log("success");
             this.showAddModal = false;
           })
           .catch((error) => {
@@ -104,7 +106,7 @@ export default {
     },
     chooseConstruction(item) {
       this.$store.dispatch("furniture/getFurniture", {projectId: item.id})
-      this.$store.dispatch("furniture/setConstruction", {id: item.id, name: item.name})
+      this.$store.dispatch("furniture/setConstruction", item)
     },
     editConstruction(item) {
       this.newConstruction = item;
@@ -118,6 +120,7 @@ export default {
   $ffamily: "Roboto", sans-serif;
   .sidebar {
     height: 100%;
+    position: relative;
     &__btn {
       font-family: $ffamily;
       font-style: normal;

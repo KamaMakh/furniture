@@ -54,5 +54,8 @@
   "sum_price": "Total price",
   "add_image": "Upload images",
   "term": "Term",
-  "confirmed": "Confirmed by"
+  "confirmed": "Confirmed by",
+  "nds": "VAT",
+  "ndsValue": "Allocated VAT",
+  "priceWithoutNds": "Price without VAT"
 }
