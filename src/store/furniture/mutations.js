@@ -43,9 +43,15 @@ function setNomenclature(state, data) {
 }
 
 function deleteNomenclatures(state, data) {
-  console.log(data.nomenclature);
   if (state.furniture.groups.indexOf(data.nomenclature) !== -1) {
     state.furniture.groups.splice(state.furniture.groups.indexOf(data.nomenclature), 1);
+  }
+}
+
+function deleteNomenclaturePhoto(state, data) {
+  console.log(data);
+  if(state.furniture.groups.indexOf(data.nomenclature) > -1) {
+    state.furniture.groups[state.furniture.groups.indexOf(data.nomenclature)]["photos"] = data.response;
   }
 }
 
@@ -59,5 +65,6 @@ export {
   setUnits,
   setNomenclatures,
   setNomenclature,
-  deleteNomenclatures
+  deleteNomenclatures,
+  deleteNomenclaturePhoto
 };

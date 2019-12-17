@@ -108,7 +108,6 @@
         </div>
       </div>
     </transition>
-
     <transition name="fade">
       <div v-if="showNomekModal">
         <div class="modal-mask">
@@ -124,14 +123,25 @@
 
                           <div v-if="nomenclature.id" style="flex: 1 1 100%;">
                             <gallery :images="photos" :index="index" @close="index = null"></gallery>
-                            <div
-                              class="image"
-                              style="cursor: pointer;"
-                              v-for="(image, imageIndex) in photos"
-                              :key="imageIndex"
-                              @click="index = imageIndex"
-                              :style="{ backgroundImage: 'url(' + image + ')', width: '100px', height: '100px' }"
-                            ></div>
+                            <div class="d-flex flex-wrap">
+                              <div
+                                class="images-list-wrap position-relative"
+                                v-for="(image, imageIndex) in nomenclature.photos"
+                                :key="imageIndex">
+                                <div
+                                  class="nomenclature-image"
+                                  style="cursor: pointer;"
+                                  @click="index = imageIndex"
+                                  :style="{ backgroundImage: 'url(' + serverUrl + image.pathUrl + '&type=200px)', width: '100px', height: '100px' }"
+                                ></div>
+                                <span class="delete-icon" @click="deletePhotoModal(image)">
+                                <svg version="1.1" id="IconsRepoEditor" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 60.167 60.167" style="enable-background:new 0 0 60.167 60.167;" xml:space="preserve" width="18px" height="18px" fill="lightblue" stroke="lightblue" stroke-width="3px">
+                                  <g id="IconsRepo_bgCarrier"></g>
+                                  <path d="M54.5,11.667H39.88V3.91c0-2.156-1.754-3.91-3.91-3.91H24.196c-2.156,0-3.91,1.754-3.91,3.91v7.756H5.667 c-0.552,0-1,0.448-1,1s0.448,1,1,1h2.042v40.5c0,3.309,2.691,6,6,6h32.75c3.309,0,6-2.691,6-6v-40.5H54.5c0.552,0,1-0.448,1-1 S55.052,11.667,54.5,11.667z M22.286,3.91c0-1.053,0.857-1.91,1.91-1.91H35.97c1.053,0,1.91,0.857,1.91,1.91v7.756H22.286V3.91z M50.458,54.167c0,2.206-1.794,4-4,4h-32.75c-2.206,0-4-1.794-4-4v-40.5h40.75V54.167z M38.255,46.153V22.847c0-0.552,0.448-1,1-1 s1,0.448,1,1v23.306c0,0.552-0.448,1-1,1S38.255,46.706,38.255,46.153z M29.083,46.153V22.847c0-0.552,0.448-1,1-1s1,0.448,1,1 v23.306c0,0.552-0.448,1-1,1S29.083,46.706,29.083,46.153z M19.911,46.153V22.847c0-0.552,0.448-1,1-1s1,0.448,1,1v23.306 c0,0.552-0.448,1-1,1S19.911,46.706,19.911,46.153z"></path>
+                                </svg>
+                              </span>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -204,6 +214,27 @@
         </div>
       </div>
     </transition>
+    <transition name="slide-fade">
+      <div v-if="showRemovePhotoModal">
+        <div class="modal-mask">
+          <div class="modal-wrapper">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-body">
+                  <div class="d-flex align-items-center justify-content-center">
+                    {{ $t("delete") }} "{{ image.id }}"?
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" @click="showRemovePhotoModal = false">{{ $t("close") }}</button>
+                  <button type="button" class="btn btn-custom" @click="deletePhoto">{{ $t("delete") }}</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -231,6 +262,7 @@ export default {
       showAddModal: false,
       showRemoveNomekModal: false,
       showNomekModal: false,
+      showRemovePhotoModal: false,
       group: {},
       nomenclature: {},
       showFormErrors: false,
@@ -240,6 +272,7 @@ export default {
       updatingId: null,
       price: 0,
       photos: [],
+      image: {},
       index: null
     }
   },
@@ -421,6 +454,25 @@ export default {
           });
         });
     },
+    deletePhotoModal(image) {
+      this.image = image;
+      this.showRemovePhotoModal = true;
+    },
+    deletePhoto() {
+      console.log(this.image);
+      this.$store.dispatch("furniture/deleteNomenclaturePhoto", {photoId: this.image.id, nomenclature: this.nomenclature})
+        .then(() => {
+          this.showRemovePhotoModal = false;
+        })
+        .catch((error) => {
+          this.$notify({
+            group: 'warn',
+            type: 'error',
+            title: this.$i18n.messages[this.$i18n.locale]["attention"],
+            text: error
+          });
+        });
+    },
     toggleGroupRows(group, event) {
       if(event.target.tagName === "TD" || (event.target.tagName !== "svg" && event.target.tagName !== "path" && !event.target.classList.contains("icon"))) {
         if(!this.enabledGroups[group.id]) {
@@ -450,15 +502,6 @@ export default {
         this.nomenclature["ndsValue"] = (this.nomenclature.price * this.nomenclature.nds)/(100+this.nomenclature.nds);
         this.nomenclature["priceWithoutNds"] = this.nomenclature.price - this.nomenclature["ndsValue"];
       }
-    },
-    toArrayUnits(object) {
-      let unitsList = [];
-      unitsList.push({
-        label: object.name,
-        id: object.id,
-        selected: true
-      });
-      return unitsList;
     }
   },
   computed: {
@@ -637,12 +680,24 @@ $ffamily: 'Roboto', sans-serif;
   cursor: none;
   opacity: 0.6;
 }
-.image {
-  float: left;
+.images-list-wrap {
+  display: flex;
+  flex-flow: wrap row;
+  margin: 5px;
+  .delete-icon {
+    width: 20px;
+    height: 25px;
+    cursor: pointer;
+    position: absolute;
+    top: auto;
+    left: 8px;
+    bottom: 8px;
+  }
+}
+.nomenclature-image {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
   border: 1px solid #ebebeb;
-  margin: 5px;
 }
 </style>

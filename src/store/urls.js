@@ -13,6 +13,7 @@ const deleteNomenclatureUrl = `${serverUrl}/api/furniture/nomenclature/delete`;
 const updateNomenclatureUrl = `${serverUrl}/api/furniture/nomenclature/update`;
 const getMe = `${serverUrl}/api/user/profile/get`;
 const statusConfirmUrl = `${serverUrl}/api/furniture/nomenclature/status/confirm`;
+const deletePhotoUrl = `${serverUrl}/api/furniture/nomenclature/photo/delete`;
 
 export {
   serverUrl,
@@ -29,5 +30,6 @@ export {
   getMe,
   statusConfirmUrl,
   deleteNomenclatureUrl,
-  updateNomenclatureUrl
+  updateNomenclatureUrl,
+  deletePhotoUrl
 };
