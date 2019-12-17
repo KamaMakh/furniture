@@ -3,14 +3,29 @@ import Vue from "vue";
 import VueCookies from "vue-cookies";
 import api from "@/shared/api";
 import onError from "@/store/onError";
-import {furnitureConstructsUrl, createConstructUrl, createFurnitureGroup, updateFurnitureGroup, getFurniture as furnitureUrl, getUnitsUrl, createNomenclatureUrl, getNomenclatureUrl, statusConfirmUrl} from "@/store/urls";
+import {
+  furnitureConstructsUrl,
+  createConstructUrl,
+  createFurnitureGroup,
+  updateFurnitureGroup,
+  getFurniture as furnitureUrl,
+  getUnitsUrl,
+  createNomenclatureUrl,
+  getNomenclatureUrl,
+  statusConfirmUrl,
+  deleteNomenclatureUrl
+} from "@/store/urls";
 
 function addConstruction({ commit }, data) {
   return new Promise((resolve, reject) => {
     api.post(createConstructUrl, data)
       .then((response) => {
-        commit("addConstruction", response.data);
-        resolve();
+        if(response.status === 200) {
+          commit("addConstruction", response.data);
+          resolve();
+        } else {
+          reject(response.data.message)
+        }
       })
       .catch(error => {
         if(error.response && error.response.status === 200) {
@@ -38,8 +53,12 @@ function getConstructions({ commit }) {
   return new Promise((resolve, reject) => {
     api.get(furnitureConstructsUrl)
       .then((response) => {
-        commit("setConstructions", response.data);
-        resolve(response);
+        if(response.status === 200) {
+          commit("setConstructions", response.data);
+          resolve(response);
+        } else {
+          reject(response.data.message)
+        }
       })
       .catch(error => {
         if(error.response && error.response.status === 200) {
@@ -56,8 +75,12 @@ function addGroup({ commit }, data) {
   return new Promise((resolve, reject) => {
     api.post(createFurnitureGroup, data)
       .then((response) => {
-        commit("addGroup", response.data);
-        resolve();
+        if(response.status === 200) {
+          commit("addGroup", response.data);
+          resolve();
+        } else {
+          reject(response.data.message)
+        }
       })
       .catch(error => {
         if(error.response && error.response.status === 200) {
@@ -74,8 +97,11 @@ function updateGroup({ commit }, data) {
   return new Promise((resolve, reject) => {
     api.post(updateFurnitureGroup, data)
       .then((response) => {
-        // commit("addGroup", response.data);
-        resolve();
+        if(response.status === 200) {
+          resolve();
+        } else {
+          reject(response.data.message)
+        }
       })
       .catch(error => {
         if(error.response && error.response.status === 200) {
@@ -92,8 +118,12 @@ function getFurniture({ commit }, data) {
   return new Promise((resolve, reject) => {
     api.get(furnitureUrl, {params: data})
       .then((response) => {
-        commit("setFurniture", response.data);
-        // resolve();
+        if(response.status === 200) {
+          commit("setFurniture", response.data);
+          resolve();
+        } else {
+          reject(response.data.message)
+        }
       })
       .catch(error => {
         if(error.response && error.response.status === 200) {
@@ -110,8 +140,12 @@ function setUnits({ commit }, data) {
   return new Promise((resolve, reject) => {
     api.get(getUnitsUrl)
       .then((response) => {
-        commit("setUnits", response.data);
-        // resolve();
+        if(response.status === 200) {
+          commit("setUnits", response.data);
+          resolve();
+        } else {
+          reject(response.data.message)
+        }
       })
       .catch(error => {
         if(error.response && error.response.status === 200) {
@@ -128,8 +162,12 @@ function setNomenclature({ commit }, data) {
   return new Promise((resolve, reject) => {
     api.get(getNomenclatureUrl, {params: {groupId: data.id}})
       .then((response) => {
-        commit("setNomenclatures", {response: response.data, group: data});
-        // resolve();
+        if(response.status === 200) {
+          commit("setNomenclatures", {response: response.data, group: data});
+          resolve();
+        } else {
+          reject(response.data.message)
+        }
       })
       .catch(error => {
         if(error.response && error.response.status === 200) {
@@ -146,8 +184,12 @@ function addNomenclature({ commit }, data) {
   return new Promise((resolve, reject) => {
     api.post(createNomenclatureUrl, data.data)
       .then((response) => {
-        commit("setNomenclature", {response: response.data, group: data.group});
-        resolve(response.data);
+        if(response.status === 200) {
+          commit("setNomenclature", {response: response.data, group: data.group});
+          resolve(response.data);
+        } else {
+          reject(response.data.message)
+        }
       })
       .catch(error => {
         if(error.response && error.response.status === 200) {
@@ -160,11 +202,32 @@ function addNomenclature({ commit }, data) {
   });
 }
 
+function deleteNomenclature({ commit }, data) {
+  return new Promise((resolve, reject) => {
+    api.delete(deleteNomenclatureUrl+"?nomenclatureId="+data.id)
+      .then((response) => {
+        if(response.status === 200) {
+          commit("deleteNomenclatures", {response: response.data, nomenclature: data});
+          resolve();
+        } else {
+          reject(response.data.message)
+        }
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+}
+
 function statusConfirm({ commit }, data) {
   return new Promise((resolve, reject) => {
     api.post(statusConfirmUrl, data)
       .then((response) => {
-        resolve(response.data);
+        if(response.status === 200) {
+          resolve(response.data);
+        } else {
+          reject(response.data.message)
+        }
       })
       .catch(error => {
         if(error.response && error.response.status === 200) {
@@ -187,5 +250,6 @@ export {
   addNomenclature,
   setNomenclature,
   statusConfirm,
-  updateGroup
+  updateGroup,
+  deleteNomenclature
 }

@@ -39,8 +39,14 @@ function setNomenclatures(state, data) {
 }
 
 function setNomenclature(state, data) {
-  console.log(data);
   state.furniture.groups.splice(state.furniture.groups.indexOf(data.group)+1, 0, data.response)
+}
+
+function deleteNomenclatures(state, data) {
+  console.log(data.nomenclature);
+  if (state.furniture.groups.indexOf(data.nomenclature) !== -1) {
+    state.furniture.groups.splice(state.furniture.groups.indexOf(data.nomenclature), 1);
+  }
 }
 
 export {
@@ -52,5 +58,6 @@ export {
   addGroup,
   setUnits,
   setNomenclatures,
-  setNomenclature
+  setNomenclature,
+  deleteNomenclatures
 };

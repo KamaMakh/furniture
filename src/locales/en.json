@@ -57,5 +57,7 @@
   "confirmed": "Confirmed by",
   "nds": "VAT",
   "ndsValue": "Allocated VAT",
-  "priceWithoutNds": "Price without VAT"
+  "priceWithoutNds": "Price without VAT",
+  "delete": "Remove",
+  "nomenclature": "Nomenclature"
 }

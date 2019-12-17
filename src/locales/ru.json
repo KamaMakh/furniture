@@ -57,5 +57,7 @@
   "confirmed": "Подтверждено",
   "nds": "НДС",
   "ndsValue": "Выделенный НДС",
-  "priceWithoutNds": "Цена без НДС"
+  "priceWithoutNds": "Цена без НДС",
+  "delete": "Удалить",
+  "nomenclature": "Номенклатура"
 }

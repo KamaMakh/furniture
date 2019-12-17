@@ -35,11 +35,17 @@
               {{ item.name }}
             </span>
           </td>
-          <td v-else @click="showEditNomenclature(item)">
+          <td v-else @click="showEditNomenclature(item, $event)">
             <span v-if="item.photos && item.photos[0]" class="icon">
               <img :src="serverUrl + item.photos[0]['pathUrl']" alt="" />
             </span>
             <span v-else class="icon no-img"></span>
+            <span v-if="item.creatorId === user.id" style="width: 20px; height: 25px; cursor: pointer; margin-right: 5px;" @click="showDeleteNomenModal(item)">
+              <svg version="1.1" id="IconsRepoEditor" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 60.167 60.167" style="enable-background:new 0 0 60.167 60.167;" xml:space="preserve" width="18px" height="18px" fill="#999" stroke="#999" stroke-width="2px">
+                <g id="IconsRepo_bgCarrier"></g>
+                <path d="M54.5,11.667H39.88V3.91c0-2.156-1.754-3.91-3.91-3.91H24.196c-2.156,0-3.91,1.754-3.91,3.91v7.756H5.667 c-0.552,0-1,0.448-1,1s0.448,1,1,1h2.042v40.5c0,3.309,2.691,6,6,6h32.75c3.309,0,6-2.691,6-6v-40.5H54.5c0.552,0,1-0.448,1-1 S55.052,11.667,54.5,11.667z M22.286,3.91c0-1.053,0.857-1.91,1.91-1.91H35.97c1.053,0,1.91,0.857,1.91,1.91v7.756H22.286V3.91z M50.458,54.167c0,2.206-1.794,4-4,4h-32.75c-2.206,0-4-1.794-4-4v-40.5h40.75V54.167z M38.255,46.153V22.847c0-0.552,0.448-1,1-1 s1,0.448,1,1v23.306c0,0.552-0.448,1-1,1S38.255,46.706,38.255,46.153z M29.083,46.153V22.847c0-0.552,0.448-1,1-1s1,0.448,1,1 v23.306c0,0.552-0.448,1-1,1S29.083,46.706,29.083,46.153z M19.911,46.153V22.847c0-0.552,0.448-1,1-1s1,0.448,1,1v23.306 c0,0.552-0.448,1-1,1S19.911,46.706,19.911,46.153z"></path>
+              </svg>
+            </span>
             {{ item.name }}
           </td>
           <td v-if="item.price" width="8%">{{ item.count }}</td>
@@ -73,6 +79,28 @@
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" @click="showAddModal = false">{{ $t("close") }}</button>
                   <button type="button" class="btn btn-custom" @click="addGroup">{{ $t("save") }}</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </transition>
+
+    <transition name="fade">
+      <div v-if="showRemoveNomekModal">
+        <div class="modal-mask">
+          <div class="modal-wrapper">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-body">
+                  <div class="d-flex align-items-center justify-content-center">
+                    {{ $t("delete") }} "{{ nomenclature.name }}"?
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" @click="showRemoveNomekModal = false">{{ $t("close") }}</button>
+                  <button type="button" class="btn btn-custom" @click="deleteNomenclature">{{ $t("delete") }}</button>
                 </div>
               </div>
             </div>
@@ -192,6 +220,7 @@ export default {
     return{
       hideAllRows: false,
       showAddModal: false,
+      showRemoveNomekModal: false,
       showNomekModal: false,
       group: {},
       nomenclature: {},
@@ -319,14 +348,34 @@ export default {
       };
       this.price = 0;
     },
-    showEditNomenclature(item) {
-      this.showNomekModal = true;
-      this.nomenclature = item;
-      this.nomenclature["disabled"] = true;
+    showEditNomenclature(item, event) {
+      if(event.target.tagName === "TD") {
+        this.showNomekModal = true;
+        this.nomenclature = item;
+        this.nomenclature["disabled"] = true;
+      }
       // this.nomenclature = {
       //   group: item,
       //   groupId: item.id
       // };
+    },
+    showDeleteNomenModal(item) {
+      this.showRemoveNomekModal = true;
+      this.nomenclature = item;
+    },
+    deleteNomenclature() {
+      this.$store.dispatch("furniture/deleteNomenclature", this.nomenclature)
+        .then(() => {
+          this.showRemoveNomekModal = false;
+        })
+        .catch((error) => {
+          this.$notify({
+            group: 'warn',
+            type: 'error',
+            title: this.$i18n.messages[this.$i18n.locale]["attention"],
+            text: error
+          });
+        });
     },
     toggleGroupRows(group, event) {
       if(event.target.tagName === "TD" || (event.target.tagName !== "svg" && event.target.tagName !== "path" && !event.target.classList.contains("icon"))) {
@@ -364,6 +413,7 @@ export default {
       rows: state => state.furniture.furniture.groups || [],
       furniture: state => state.furniture.furniture,
       construction: state => state.furniture.construction,
+      user: state => state.user.user,
       roles: state => state.user.roles,
       units(state) {
         let unitsList = [];

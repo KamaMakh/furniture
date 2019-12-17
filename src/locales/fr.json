@@ -56,5 +56,7 @@
   "confirmed": "Confirmé par l'utilisateur",
   "nds": "La TVA",
   "ndsValue": "TVA allouée",
-  "priceWithoutNds": "Prix sans TVA"
+  "priceWithoutNds": "Prix sans TVA",
+  "delete": "Retirer",
+  "nomenclature": "Nomenclature"
 }
