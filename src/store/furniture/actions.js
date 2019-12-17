@@ -3,7 +3,7 @@ import Vue from "vue";
 import VueCookies from "vue-cookies";
 import api from "@/shared/api";
 import onError from "@/store/onError";
-import {furnitureConstructsUrl, createConstructUrl, createFurnitureGroup, getFurniture as furnitureUrl, getUnitsUrl, createNomenclatureUrl, getNomenclatureUrl, statusConfirmUrl} from "@/store/urls";
+import {furnitureConstructsUrl, createConstructUrl, createFurnitureGroup, updateFurnitureGroup, getFurniture as furnitureUrl, getUnitsUrl, createNomenclatureUrl, getNomenclatureUrl, statusConfirmUrl} from "@/store/urls";
 
 function addConstruction({ commit }, data) {
   return new Promise((resolve, reject) => {
@@ -63,9 +63,26 @@ function addGroup({ commit }, data) {
         if(error.response && error.response.status === 200) {
           commit("addGroup", error.response.data);
           resolve();
+        } else {
+          reject(error.response)
         }
-        if(error.response) {
-          console.log(error.response);
+      });
+  });
+}
+
+function updateGroup({ commit }, data) {
+  return new Promise((resolve, reject) => {
+    api.post(updateFurnitureGroup, data)
+      .then((response) => {
+        // commit("addGroup", response.data);
+        resolve();
+      })
+      .catch(error => {
+        if(error.response && error.response.status === 200) {
+          // commit("addGroup", error.response.data);
+          resolve();
+        } else {
+          reject(error.response)
         }
       });
   });
@@ -169,5 +186,6 @@ export {
   setUnits,
   addNomenclature,
   setNomenclature,
-  statusConfirm
+  statusConfirm,
+  updateGroup
 }
