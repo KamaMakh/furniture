@@ -165,7 +165,7 @@ function setNomenclature({ commit }, data) {
       .then((response) => {
         if(response.status === 200) {
           commit("setNomenclatures", {response: response.data, group: data});
-          resolve();
+          resolve(response);
         } else {
           reject(response.data.message)
         }
@@ -186,7 +186,9 @@ function addNomenclature({ commit }, data) {
     api.post(createNomenclatureUrl, data.data)
       .then((response) => {
         if(response.status === 200) {
-          commit("setNomenclature", {response: response.data, group: data.group});
+          if(data.onlyOne) {
+            commit("setNomenclature", {response: response.data, group: data.group});
+          }
           resolve(response.data);
         } else {
           reject(response.data.message)
@@ -194,7 +196,9 @@ function addNomenclature({ commit }, data) {
       })
       .catch(error => {
         if(error.response && error.response.status === 200) {
-          commit("setNomenclature", {response: error.response.data, group: data.group});
+          if(data.onlyOne) {
+            commit("setNomenclature", {response: error.response.data, group: data.group});
+          }
           resolve(error.response);
         } else {
           reject(error);

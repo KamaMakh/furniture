@@ -350,9 +350,13 @@ export default {
             });
           });
       } else {
-        this.$store.dispatch("furniture/addNomenclature", {data: formData, group: this.nomenclature.group})
+        this.$store.dispatch("furniture/addNomenclature", {data: formData, group: this.nomenclature.group, onlyOne: this.enabledGroups[this.nomenclature.group.id]})
           .then((response) => {
             this.showNomekModal = false;
+            if(!this.enabledGroups[this.nomenclature.group.id]) {
+              this.enabledGroups[this.nomenclature.group.id] = true;
+              this.$store.dispatch("furniture/setNomenclature", this.nomenclature.group)
+            }
           })
           .catch((error) => {
             this.$notify({
@@ -387,6 +391,7 @@ export default {
         this.showNomekModal = true;
         this.nomenclature = item;
         this.nomenclature.unit = item.units.name;
+        this.photos = [];
         if(item.photos) {
           item.photos.forEach(item => {
             this.photos.push(this.serverUrl+item.pathUrl+"&type=200px");
