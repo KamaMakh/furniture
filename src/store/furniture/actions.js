@@ -13,7 +13,8 @@ import {
   createNomenclatureUrl,
   getNomenclatureUrl,
   statusConfirmUrl,
-  deleteNomenclatureUrl
+  deleteNomenclatureUrl,
+  updateNomenclatureUrl
 } from "@/store/urls";
 
 function addConstruction({ commit }, data) {
@@ -202,6 +203,28 @@ function addNomenclature({ commit }, data) {
   });
 }
 
+function updateNomenclature({ commit }, data) {
+  return new Promise((resolve, reject) => {
+    api.post(updateNomenclatureUrl, data.data)
+      .then((response) => {
+        if(response.status === 200) {
+          // commit("setNomenclature", {response: response.data, group: data.group});
+          resolve(response.data);
+        } else {
+          reject(response.data.message)
+        }
+      })
+      .catch(error => {
+        if(error.response && error.response.status === 200) {
+          // commit("setNomenclature", {response: error.response.data, group: data.group});
+          resolve(error.response);
+        } else {
+          reject(error.response.message);
+        }
+      });
+  });
+}
+
 function deleteNomenclature({ commit }, data) {
   return new Promise((resolve, reject) => {
     api.delete(deleteNomenclatureUrl+"?nomenclatureId="+data.id)
@@ -233,7 +256,7 @@ function statusConfirm({ commit }, data) {
         if(error.response && error.response.status === 200) {
           resolve(error.response);
         } else {
-          reject(error);
+          reject(error.response.message);
         }
       });
   });
@@ -251,5 +274,6 @@ export {
   setNomenclature,
   statusConfirm,
   updateGroup,
-  deleteNomenclature
+  deleteNomenclature,
+  updateNomenclature
 }

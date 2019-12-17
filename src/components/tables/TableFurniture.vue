@@ -120,13 +120,20 @@
                     <div class="row ml-0 mr-0 nomenclature-column">
                       <div class="body-left col col-lg-6 col-md-12">
                         <div class="form-group row">
-                          <uploader v-model="nomenclature.file" limit="3" :title="$t('add_image')" :autoUpload="false" :multiple="true"></uploader>
-                          <!--<input type="file" v-model="nomenclature.fileList" multiple>-->
-                          <!--<input type="file" id="files" ref="files" multiple v-on:change="handleFileUploads()"/>-->
+                          <uploader v-if="!nomenclature.id" v-model="nomenclature.file" limit="3" :title="$t('add_image')" :autoUpload="false" :multiple="true"></uploader>
+
+                          <div v-if="nomenclature.id" style="flex: 1 1 100%;">
+                            <gallery :images="photos" :index="index" @close="index = null"></gallery>
+                            <div
+                              class="image"
+                              style="cursor: pointer;"
+                              v-for="(image, imageIndex) in photos"
+                              :key="imageIndex"
+                              @click="index = imageIndex"
+                              :style="{ backgroundImage: 'url(' + image + ')', width: '100px', height: '100px' }"
+                            ></div>
+                          </div>
                         </div>
-                        <!--<div class="form-group row ml-0 mr-0 justify-content-center align-self-end">-->
-                          <!--<button type="button" class="btn btn-custom" @click="addGroup">{{ $t("save") }}</button>-->
-                        <!--</div>-->
                       </div>
                       <div class="body-right col col-lg-6 col-md-12">
                         <div class="form-group row">
@@ -145,7 +152,7 @@
                             <v-select
                               class="nomenclature-select w-100"
                               :class="{ 'is-danger': $v.nomenclature.unit.$invalid && (nomenclature.unit || showFormErrors)}"
-                              :placeholder="$t('unit_sh')"
+                              :placeholder="nomenclature.id ? nomenclature.units.name : $t('unit_sh')"
                               :options="units"
                               v-model="nomenclature.unit"
                             >
@@ -185,7 +192,7 @@
                         </div>
                         <div class="form-group row justify-content-end pr-3">
                           <button type="button" class="btn btn-secondary btn-close mr-2" @click="showNomekModal = false">{{ $t("close") }}</button>
-                          <button v-if="!nomenclature.disabled" type="button" class="btn btn-custom" @click="addNomenclature">{{ $t("save") }}</button>
+                          <button type="button" class="btn btn-custom" @click="addNomenclature">{{ $t("save") }}</button>
                         </div>
                       </div>
                     </div>
@@ -209,12 +216,14 @@ import VueMask from "v-mask";
 import Validations from 'vuelidate'
 import { required } from "vuelidate/lib/validators";
 import { serverUrl } from "@/store/urls"
+import VueGallery from 'vue-gallery';
 Vue.use(VueMask);
 Vue.use(Validations);
 export default {
   name: "TableFurniture",
   components: {
-    Uploader
+    Uploader,
+    'gallery': VueGallery
   },
   data(){
     return{
@@ -229,7 +238,9 @@ export default {
       serverUrl: serverUrl,
       tdWidths: [20, 8, 8, 12, 8, 8, 8, 8, 20],
       updatingId: null,
-      price: 0
+      price: 0,
+      photos: [],
+      index: null
     }
   },
   validations: {
@@ -286,7 +297,7 @@ export default {
       }
     },
     addNomenclature() {
-      if(this.$v.nomenclature.$pending || this.$v.nomenclature.$error || this.$v.nomenclature.$invalid){
+      if(this.$v.nomenclature.$pending || this.$v.nomenclature.$error || this.$v.nomenclature.$invalid || (!this.nomenclature.file && !this.nomenclature.id)){
         Vue.notify({
           group: 'warn',
           title: this.$i18n.messages[this.$i18n.locale]["attention"],
@@ -300,10 +311,19 @@ export default {
       }
 
       let formData = new FormData();
-      formData.append( "groupId", this.nomenclature.groupId );
+
+      if(this.nomenclature.id) {
+        formData.append( "nomenclatureId", this.nomenclature.id );
+        formData.append( "unitId", this.nomenclature.units.id);
+      } else {
+        formData.append( "groupId", this.nomenclature.groupId );
+        formData.append( "unitId", this.nomenclature.unit.id);
+        for( let i = 0; i < this.nomenclature.file.length; i++ ){
+          formData.append(`file`, this.nomenclature.file[i].blob);
+        }
+      }
       formData.append( "name", this.nomenclature.name );
       formData.append( "count", this.nomenclature.count );
-      formData.append( "unitId", this.nomenclature.unit.id);
       formData.append( "price", this.nomenclature.price );
       formData.append( "term", this.nomenclature.term );
       formData.append( "nds", this.nomenclature.nds );
@@ -315,21 +335,34 @@ export default {
       if(this.nomenclature.magazine) {
         formData.append( "magazine", this.nomenclature.magazine);
       }
-      for( let i = 0; i < this.nomenclature.file.length; i++ ){
-        formData.append(`file`, this.nomenclature.file[i].blob);
-      }
-      this.$store.dispatch("furniture/addNomenclature", {data: formData, group: this.nomenclature.group})
-        .then((response) => {
-          this.showNomekModal = false;
-        })
-        .catch((error) => {
-          this.$notify({
-            group: 'warn',
-            type: 'error',
-            title: this.$i18n.messages[this.$i18n.locale]["attention"],
-            text: error.response
+
+      if(this.nomenclature.id) {
+        this.$store.dispatch("furniture/updateNomenclature", {data: formData, group: this.nomenclature.group})
+          .then((response) => {
+            this.showNomekModal = false;
+          })
+          .catch((error) => {
+            this.$notify({
+              group: 'warn',
+              type: 'error',
+              title: this.$i18n.messages[this.$i18n.locale]["attention"],
+              text: error
+            });
           });
-        });
+      } else {
+        this.$store.dispatch("furniture/addNomenclature", {data: formData, group: this.nomenclature.group})
+          .then((response) => {
+            this.showNomekModal = false;
+          })
+          .catch((error) => {
+            this.$notify({
+              group: 'warn',
+              type: 'error',
+              title: this.$i18n.messages[this.$i18n.locale]["attention"],
+              text: error
+            });
+          });
+      }
     },
     showModal(group) {
       this.showAddModal = true;
@@ -350,9 +383,15 @@ export default {
     },
     showEditNomenclature(item, event) {
       if(event.target.tagName === "TD") {
+        this.$store.dispatch("furniture/setUnits");
         this.showNomekModal = true;
         this.nomenclature = item;
-        this.nomenclature["disabled"] = true;
+        this.nomenclature.unit = item.units.name;
+        if(item.photos) {
+          item.photos.forEach(item => {
+            this.photos.push(this.serverUrl+item.pathUrl+"&type=200px");
+          })
+        }
       }
       // this.nomenclature = {
       //   group: item,
@@ -396,7 +435,7 @@ export default {
             group: 'warn',
             type: 'error',
             title: this.$i18n.messages[this.$i18n.locale]["attention"],
-            text: error.response
+            text: error
           });
           this.updatingId = null;
         });
@@ -406,6 +445,15 @@ export default {
         this.nomenclature["ndsValue"] = (this.nomenclature.price * this.nomenclature.nds)/(100+this.nomenclature.nds);
         this.nomenclature["priceWithoutNds"] = this.nomenclature.price - this.nomenclature["ndsValue"];
       }
+    },
+    toArrayUnits(object) {
+      let unitsList = [];
+      unitsList.push({
+        label: object.name,
+        id: object.id,
+        selected: true
+      });
+      return unitsList;
     }
   },
   computed: {
@@ -583,5 +631,13 @@ $ffamily: 'Roboto', sans-serif;
   user-select: none;
   cursor: none;
   opacity: 0.6;
+}
+.image {
+  float: left;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  border: 1px solid #ebebeb;
+  margin: 5px;
 }
 </style>
