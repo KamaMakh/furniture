@@ -620,30 +620,31 @@ $ffamily: 'Roboto', sans-serif;
   border-collapse: collapse;
   border: 1px solid #C4C4C4;
   img{
-      max-width: 100%;
+    max-width: 100%;
+    max-height: 100%;
   }
   tr{
-      border-top: 1px solid #DADADA;
-      background: #fff;
-      font-family: $ffamily;
-      color: #868686;
-      font-size: 14px;
-      transition: 0.3s;
-      &.odd{
-          background: #F5F5F6;
-      }
-      td:nth-child(1){
-        border: none;
-        display: flex;
-        align-items: center;
-        font-weight: bold;
-      }
-      &.parent{
-          border-top: 1px solid #C4C4C4;
-      }
-      &:hover{
-          background: rgba(214, 232, 206, 0.69);
-      }
+    border-top: 1px solid #DADADA;
+    background: #fff;
+    font-family: $ffamily;
+    color: #868686;
+    font-size: 14px;
+    transition: 0.3s;
+    &.odd{
+        background: #F5F5F6;
+    }
+    td:nth-child(1){
+      border: none;
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+    }
+    &.parent{
+        border-top: 1px solid #C4C4C4;
+    }
+    &:hover{
+        background: rgba(214, 232, 206, 0.69);
+    }
   }
   td,th{
     border-right: 1px solid #DADADA;
@@ -655,30 +656,30 @@ $ffamily: 'Roboto', sans-serif;
     /*width: 100%;*/
   }
   tbody{
-      tr{
-          td:last-child{
-              font-weight: 500;
-          }
+    tr{
+      td:last-child{
+        font-weight: 500;
       }
+    }
   }
   .icon{
-      margin-right: 14px;
-      width: 30px;
-      height: 26px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    margin-right: 14px;
+    width: 30px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .no-img{
-      background: #C4C4C4;
+    background: #C4C4C4;
   }
   .setting-icon{
-      display: flex; align-items: center; justify-content: center; margin-left: 13px; cursor: pointer;
-      &:hover{
-          path{
-              fill: #999;
-          }
+    display: flex; align-items: center; justify-content: center; margin-left: 13px; cursor: pointer;
+    &:hover{
+      path{
+        fill: #999;
       }
+    }
   }
 }
 .nomenclature-modal {
