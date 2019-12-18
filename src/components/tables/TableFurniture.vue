@@ -20,7 +20,7 @@
       </thead>
       <tbody>
         <tr style="cursor: pointer" v-for="(item, key) in rows" :key="key" :class="{odd: key%2 === 0 || key === 0}">
-          <td v-if="!item.price" colspan="10" class="d-table-cell border-right" @click="toggleGroupRows(item, $event)" :child="enabledGroups[item.id]">
+          <td v-if="item.price === undefined" colspan="10" class="d-table-cell border-right" @click="toggleGroupRows(item, $event)" :child="enabledGroups[item.id]">
             <span class="d-flex align-items-center justify-content-start">
               <span v-if="!item.price" @click="showModal(item)" :title="$t('edit_group')" class="setting-icon">
                 <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -42,8 +42,8 @@
             <span v-else class="icon no-img"></span>
             {{ item.name }}
           </td>
-          <td v-if="item.price" width="8%">{{ item.count }}</td>
-          <td v-if="item.price">
+          <td v-if="item.price || item.unit" width="8%">{{ item.count }}</td>
+          <td v-if="item.price || item.unit">
             <span v-if="item.creatorId === user.id" :title="$t('delete')" style="width: 20px; height: 25px; cursor: pointer; margin-right: 5px;" @click="showDeleteNomenModal(item)">
               <svg version="1.1" id="IconsRepoEditor" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 60.167 60.167" style="enable-background:new 0 0 60.167 60.167;" xml:space="preserve" width="18px" height="18px" fill="#999" stroke="#999" stroke-width="2px">
                 <g id="IconsRepo_bgCarrier"></g>
@@ -63,15 +63,15 @@
               </svg>
             </span>
           </td>
-          <td v-if="item.price"  width="8%">{{ item.units ? item.units.name: "" }}</td>
-          <td v-if="item.price"  width="12%">{{ item.price }}</td>
-          <td v-if="item.price"  width="8%">{{ item.shop }}</td>
-          <td v-if="item.price"  width="8%">{{ item.term }}</td>
-          <td v-if="item.price"  width="8%" :style="{color: item.statusType == 1 ? '#FF4081' : item.statusType == 2 ? '#154E85' : item.statusType == 3 ? '#9B51E0' : '#00670A'}">
+          <td v-if="item.price !== undefined"  width="8%">{{ item.units ? item.units.name: "" }}</td>
+          <td v-if="item.price !== undefined"  width="12%">{{ item.price }}</td>
+          <td v-if="item.price !== undefined"  width="8%">{{ item.shop }}</td>
+          <td v-if="item.price !== undefined"  width="8%">{{ item.term }}</td>
+          <td v-if="item.price !== undefined"  width="8%" :style="{color: item.statusType == 1 ? '#FF4081' : item.statusType == 2 ? '#154E85' : item.statusType == 3 ? '#9B51E0' : '#00670A'}">
               <!--{{item.status}}-->
           </td>
-          <td v-if="item.price"  width="8%">{{item.price_sum}}</td>
-          <td v-if="item.price"  width="20%">{{ item.link }}</td>
+          <td v-if="item.price !== undefined"  width="8%">{{item.price_sum}}</td>
+          <td v-if="item.price !== undefined"  width="20%">{{ item.link }}</td>
         </tr>
       </tbody>
     </table>
