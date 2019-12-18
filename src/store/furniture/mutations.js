@@ -48,8 +48,7 @@ function deleteNomenclatures(state, data) {
   }
 }
 
-function deleteNomenclaturePhoto(state, data) {
-  console.log(data);
+function updateNomenclaturePhoto(state, data) {
   if(state.furniture.groups.indexOf(data.nomenclature) > -1) {
     state.furniture.groups[state.furniture.groups.indexOf(data.nomenclature)]["photos"] = data.response;
   }
@@ -66,5 +65,5 @@ export {
   setNomenclatures,
   setNomenclature,
   deleteNomenclatures,
-  deleteNomenclaturePhoto
+  updateNomenclaturePhoto
 };

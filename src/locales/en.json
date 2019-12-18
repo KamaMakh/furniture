@@ -59,5 +59,9 @@
   "ndsValue": "Allocated VAT",
   "priceWithoutNds": "Price without VAT",
   "delete": "Remove",
-  "nomenclature": "Nomenclature"
+  "nomenclature": "Nomenclature",
+  "actions": "Actions",
+  "add_nomenclature": "Add a photo",
+  "edit_group": "Edit group",
+  "add_group": "Add group"
 }

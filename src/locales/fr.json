@@ -58,5 +58,9 @@
   "ndsValue": "TVA allouée",
   "priceWithoutNds": "Prix sans TVA",
   "delete": "Retirer",
-  "nomenclature": "Nomenclature"
+  "nomenclature": "Nomenclature",
+  "actions": "Actions",
+  "add_nomenclature": "Ajouter un élément",
+  "edit_group": "Modifier le groupe",
+  "add_group": "Ajouter un groupe"
 }

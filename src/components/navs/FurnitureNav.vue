@@ -17,7 +17,7 @@
     </div>
 
     <!--modals-->
-    <transition name="fade">
+    <transition name="fade-none">
       <div v-if="showAddModal">
         <div class="modal-mask">
           <div class="modal-wrapper">

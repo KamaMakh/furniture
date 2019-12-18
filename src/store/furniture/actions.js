@@ -15,7 +15,8 @@ import {
   statusConfirmUrl,
   deleteNomenclatureUrl,
   updateNomenclatureUrl,
-  deletePhotoUrl
+  deletePhotoUrl,
+  addPhotoUrl
 } from "@/store/urls";
 
 function addConstruction({ commit }, data) {
@@ -272,7 +273,7 @@ function deleteNomenclaturePhoto({ commit }, data) {
     api.delete(`${deletePhotoUrl}?photoId=${data.photoId}`)
       .then((response) => {
         if(response.status === 200) {
-          commit("deleteNomenclaturePhoto", {response: response.data, nomenclature: data.nomenclature});
+          commit("updateNomenclaturePhoto", {response: response.data, nomenclature: data.nomenclature});
           resolve();
         } else {
           reject(response.data.message)
@@ -280,6 +281,28 @@ function deleteNomenclaturePhoto({ commit }, data) {
       })
       .catch(error => {
         reject(error.response.message);
+      });
+  });
+}
+
+function addNomenclaturePhoto({ commit }, data) {
+  return new Promise((resolve, reject) => {
+    api.post(addPhotoUrl, data.data)
+      .then((response) => {
+        if(response.status === 200) {
+          commit("updateNomenclaturePhoto", {response: response.data, nomenclature: data.nomenclature});
+          resolve(response.data);
+        } else {
+          reject(response.data.message);
+        }
+      })
+      .catch(error => {
+        if(error.response && error.response.status === 200) {
+          commit("setNomenclature", {response: error.response.data, group: data.group});
+          resolve(error.response);
+        } else {
+          reject(error.response.message);
+        }
       });
   });
 }
@@ -298,5 +321,6 @@ export {
   updateGroup,
   deleteNomenclature,
   updateNomenclature,
-  deleteNomenclaturePhoto
+  deleteNomenclaturePhoto,
+  addNomenclaturePhoto
 }
