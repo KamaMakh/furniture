@@ -55,6 +55,8 @@
   "add_image": "Upload images",
   "term": "Term",
   "confirmed": "Confirmed by",
+  "confirmed_simple": "Confirmed",
+  "not_confirmed_simple": "Not confirmed",
   "nds": "VAT",
   "ndsValue": "Allocated VAT",
   "priceWithoutNds": "Price without VAT",

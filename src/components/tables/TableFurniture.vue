@@ -67,8 +67,8 @@
           <td v-if="item.price !== undefined"  width="12%">{{ item.price }}</td>
           <td v-if="item.price !== undefined"  width="8%">{{ item.shop }}</td>
           <td v-if="item.price !== undefined"  width="8%">{{ item.term }}</td>
-          <td v-if="item.price !== undefined"  width="8%" :style="{color: item.statusType == 1 ? '#FF4081' : item.statusType == 2 ? '#154E85' : item.statusType == 3 ? '#9B51E0' : '#00670A'}">
-              <!--{{item.status}}-->
+          <td v-if="item.price !== undefined"  width="8%" :style="{color: item.confirmed ? '#00670A' : '#999'}">
+              <!--{{item.confirmed ? $t("confirmed_simple") : $t("not_confirmed_simple")}}-->
           </td>
           <td v-if="item.price !== undefined"  width="8%">{{item.price_sum}}</td>
           <td v-if="item.price !== undefined"  width="20%">{{ item.link }}</td>

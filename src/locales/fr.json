@@ -54,6 +54,8 @@
   "add_image": "Importer des images",
   "term": "Terme",
   "confirmed": "Confirmé par l'utilisateur",
+  "confirmed_simple": "Confirmed",
+  "not_confirmed_simple": "Not confirmed",
   "nds": "La TVA",
   "ndsValue": "TVA allouée",
   "priceWithoutNds": "Prix sans TVA",

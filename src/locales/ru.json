@@ -55,6 +55,8 @@
   "add_image": "Загрузить картинки",
   "term": "Срок",
   "confirmed": "Подтверждено",
+  "confirmed_simple": "Confirmed",
+  "not_confirmed_simple": "Not confirmed",
   "nds": "НДС",
   "ndsValue": "Выделенный НДС",
   "priceWithoutNds": "Цена без НДС",
