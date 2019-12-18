@@ -70,7 +70,7 @@
     </table>
 
     <!--modals-->
-    <transition name="fade">
+    <transition name="fade-none">
       <div v-if="showAddModal">
         <div class="modal-mask">
           <div class="modal-wrapper">
@@ -94,7 +94,7 @@
       </div>
     </transition>
 
-    <transition name="fade">
+    <transition name="fade-none">
       <div v-if="showRemoveNomekModal">
         <div class="modal-mask">
           <div class="modal-wrapper">
@@ -116,7 +116,7 @@
       </div>
     </transition>
 
-    <transition name="fade">
+    <transition name="fade-none">
       <div v-if="showAddPhotoModal">
         <div class="modal-mask">
           <div class="modal-wrapper">
@@ -138,7 +138,7 @@
       </div>
     </transition>
 
-    <transition name="fade">
+    <transition name="fade-none">
       <div v-if="showNomekModal">
         <div class="modal-mask">
           <div class="modal-wrapper">
@@ -243,7 +243,7 @@
         </div>
       </div>
     </transition>
-    <transition name="slide-fade">
+    <transition name="fade-none">
       <div v-if="showRemovePhotoModal">
         <div class="modal-mask">
           <div class="modal-wrapper">
