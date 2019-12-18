@@ -298,7 +298,7 @@ function addNomenclaturePhoto({ commit }, data) {
       })
       .catch(error => {
         if(error.response && error.response.status === 200) {
-          commit("setNomenclature", {response: error.response.data, group: data.group});
+          commit("updateNomenclaturePhoto", {response: error.response.data, nomenclature: data.nomenclature});
           resolve(error.response);
         } else {
           reject(error.response.message);

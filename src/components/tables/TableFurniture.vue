@@ -50,9 +50,16 @@
                 <path d="M54.5,11.667H39.88V3.91c0-2.156-1.754-3.91-3.91-3.91H24.196c-2.156,0-3.91,1.754-3.91,3.91v7.756H5.667 c-0.552,0-1,0.448-1,1s0.448,1,1,1h2.042v40.5c0,3.309,2.691,6,6,6h32.75c3.309,0,6-2.691,6-6v-40.5H54.5c0.552,0,1-0.448,1-1 S55.052,11.667,54.5,11.667z M22.286,3.91c0-1.053,0.857-1.91,1.91-1.91H35.97c1.053,0,1.91,0.857,1.91,1.91v7.756H22.286V3.91z M50.458,54.167c0,2.206-1.794,4-4,4h-32.75c-2.206,0-4-1.794-4-4v-40.5h40.75V54.167z M38.255,46.153V22.847c0-0.552,0.448-1,1-1 s1,0.448,1,1v23.306c0,0.552-0.448,1-1,1S38.255,46.706,38.255,46.153z M29.083,46.153V22.847c0-0.552,0.448-1,1-1s1,0.448,1,1 v23.306c0,0.552-0.448,1-1,1S29.083,46.706,29.083,46.153z M19.911,46.153V22.847c0-0.552,0.448-1,1-1s1,0.448,1,1v23.306 c0,0.552-0.448,1-1,1S19.911,46.706,19.911,46.153z"></path>
               </svg>
             </span>
-            <span v-if="item.creatorId === user.id" :title="$t('add_image')" class="mr-1" @click="addPhotoModal(item)">
-              <svg width="12" height="22" viewBox="0 0 12 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M9.66634 5.50002V16.0417C9.66634 18.0675 8.02551 19.7084 5.99967 19.7084C3.97384 19.7084 2.33301 18.0675 2.33301 16.0417V4.58335C2.33301 3.31835 3.35967 2.29169 4.62467 2.29169C5.88968 2.29169 6.91634 3.31835 6.91634 4.58335V14.2084C6.91634 14.7125 6.50384 15.125 5.99967 15.125C5.49551 15.125 5.08301 14.7125 5.08301 14.2084V5.50002H3.70801V14.2084C3.70801 15.4734 4.73467 16.5 5.99967 16.5C7.26468 16.5 8.29134 15.4734 8.29134 14.2084V4.58335C8.29134 2.55752 6.65051 0.916687 4.62467 0.916687C2.59884 0.916687 0.958008 2.55752 0.958008 4.58335V16.0417C0.958008 18.8284 3.21301 21.0834 5.99967 21.0834C8.78634 21.0834 11.0413 18.8284 11.0413 16.0417V5.50002H9.66634Z" fill="#C4C4C4"/>
+            <!--<span v-if="item.creatorId === user.id" :title="$t('add_image')" class="mr-1" @click="addPhotoModal(item)">-->
+              <!--<svg width="12" height="22" viewBox="0 0 12 22" fill="none" xmlns="http://www.w3.org/2000/svg">-->
+                <!--<path d="M9.66634 5.50002V16.0417C9.66634 18.0675 8.02551 19.7084 5.99967 19.7084C3.97384 19.7084 2.33301 18.0675 2.33301 16.0417V4.58335C2.33301 3.31835 3.35967 2.29169 4.62467 2.29169C5.88968 2.29169 6.91634 3.31835 6.91634 4.58335V14.2084C6.91634 14.7125 6.50384 15.125 5.99967 15.125C5.49551 15.125 5.08301 14.7125 5.08301 14.2084V5.50002H3.70801V14.2084C3.70801 15.4734 4.73467 16.5 5.99967 16.5C7.26468 16.5 8.29134 15.4734 8.29134 14.2084V4.58335C8.29134 2.55752 6.65051 0.916687 4.62467 0.916687C2.59884 0.916687 0.958008 2.55752 0.958008 4.58335V16.0417C0.958008 18.8284 3.21301 21.0834 5.99967 21.0834C8.78634 21.0834 11.0413 18.8284 11.0413 16.0417V5.50002H9.66634Z" fill="#C4C4C4"/>-->
+              <!--</svg>-->
+            <!--</span>-->
+            <span v-if="item.creatorId === user.id" @click="showEditNomenclature(item, $event)" style="width: 20px; height: 25px; cursor: pointer; margin-right: 5px;">
+              <svg version="1.1" id="IconsRepoEditor" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 612 612" style="enable-background:new 0 0 612 612;" xml:space="preserve" width="18px" height="18px" fill="#999" stroke="#999" stroke-width="0">
+                <g id="IconsRepo_bgCarrier"></g>
+                <path d="M239.486,368.979c3.389,3.388,7.828,5.081,12.267,5.081c4.442,0,8.88-1.695,12.27-5.081L447.32,185.683 c6.775-6.777,6.775-17.762,0-24.536c-6.774-6.775-17.762-6.775-24.538,0L239.486,344.441 C232.711,351.218,232.711,362.202,239.486,368.979z"></path>
+                <path d="M604.149,110.573c-6.702-20.057-21.54-41.957-42.922-63.333C539.68,25.69,506.868,0,472.925,0 c-15.226,0-29.255,5.354-40.679,15.501c-0.596,0.457-1.164,0.956-1.7,1.492l-65.823,65.821H20.838 c-9.582,0-17.35,7.769-17.35,17.35V594.65c0,9.582,7.769,17.35,17.35,17.35h494.485c9.582,0,17.35-7.769,17.35-17.35V240.19 c0-1.081-0.113-2.134-0.302-3.161l57.622-57.623c0.116-0.114,0.231-0.227,0.344-0.343c0.003-0.001,0.006-0.004,0.009-0.007 l1.129-1.131c0.534-0.534,1.022-1.09,1.47-1.673C608.724,158.554,612.602,135.88,604.149,110.573z M236.139,469.784 l-122.416,35.331l27.797-129.951L236.139,469.784z M267.877,452.447L156.023,340.592l260.97-260.974l111.856,111.856 L267.877,452.447z M425.445,512.469H213.384l56.919-16.428c2.818-0.814,5.383-2.328,7.458-4.401l220.211-220.211v305.871H38.188 V117.515h291.836L118.818,328.723c-2.367,2.367-3.999,5.367-4.699,8.64L73.73,526.188c-1.277,5.964,0.675,12.161,5.137,16.321 c3.256,3.033,7.498,4.659,11.833,4.659c0.927,0,334.745,0,334.745,0 M566.49,153.768c-0.189,0.202-0.373,0.409-0.551,0.619 l-0.124,0.123c-0.059,0.059-0.121,0.119-0.181,0.178l-12.248,12.246L441.531,55.08l12.53-12.53 c0.217-0.184,0.432-0.373,0.641-0.571c5.315-4.965,11.107-7.278,18.224-7.278c16.963,0,40.208,13.513,63.767,37.078 C549.597,84.681,589.886,128.729,566.49,153.768z"></path>
               </svg>
             </span>
           </td>
@@ -148,8 +155,13 @@
                   <form @submit="addNomenclature">
                     <div class="row ml-0 mr-0 nomenclature-column">
                       <div class="body-left col col-lg-6 col-md-12">
+                        <div v-if="nomenclature.id && nomenclature.creatorId === user.id" class="form-group row" style="border-bottom: 1px solid #999;">
+                          <uploader v-model="files" limit="1" :title="$t('add_image')" :autoUpload="false" :multiple="true"></uploader>
+                        </div>
+                        <div v-else-if="!nomenclature.id" class="form-group row">
+                          <uploader v-model="nomenclature.file" limit="3" :title="$t('add_image')" :autoUpload="false" :multiple="true"></uploader>
+                        </div>
                         <div class="form-group row">
-                          <uploader v-if="!nomenclature.id" v-model="nomenclature.file" limit="3" :title="$t('add_image')" :autoUpload="false" :multiple="true"></uploader>
                           <div v-if="nomenclature.id" style="flex: 1 1 100%;">
                             <gallery :images="photos" :index="index" @close="index = null"></gallery>
                             <div class="d-flex flex-wrap">
@@ -163,7 +175,7 @@
                                   @click="index = imageIndex"
                                   :style="{ backgroundImage: 'url(' + serverUrl + image.pathUrl + '&type=200px)', width: '100px', height: '100px' }"
                                 ></div>
-                                <span class="delete-icon" @click="deletePhotoModal(image)">
+                                <span v-if="nomenclature.creatorId === user.id" class="delete-icon" @click="deletePhotoModal(image)">
                                 <svg version="1.1" id="IconsRepoEditor" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 60.167 60.167" style="enable-background:new 0 0 60.167 60.167;" xml:space="preserve" width="18px" height="18px" fill="lightblue" stroke="lightblue" stroke-width="3px">
                                   <g id="IconsRepo_bgCarrier"></g>
                                   <path d="M54.5,11.667H39.88V3.91c0-2.156-1.754-3.91-3.91-3.91H24.196c-2.156,0-3.91,1.754-3.91,3.91v7.756H5.667 c-0.552,0-1,0.448-1,1s0.448,1,1,1h2.042v40.5c0,3.309,2.691,6,6,6h32.75c3.309,0,6-2.691,6-6v-40.5H54.5c0.552,0,1-0.448,1-1 S55.052,11.667,54.5,11.667z M22.286,3.91c0-1.053,0.857-1.91,1.91-1.91H35.97c1.053,0,1.91,0.857,1.91,1.91v7.756H22.286V3.91z M50.458,54.167c0,2.206-1.794,4-4,4h-32.75c-2.206,0-4-1.794-4-4v-40.5h40.75V54.167z M38.255,46.153V22.847c0-0.552,0.448-1,1-1 s1,0.448,1,1v23.306c0,0.552-0.448,1-1,1S38.255,46.706,38.255,46.153z M29.083,46.153V22.847c0-0.552,0.448-1,1-1s1,0.448,1,1 v23.306c0,0.552-0.448,1-1,1S29.083,46.706,29.083,46.153z M19.911,46.153V22.847c0-0.552,0.448-1,1-1s1,0.448,1,1v23.306 c0,0.552-0.448,1-1,1S19.911,46.706,19.911,46.153z"></path>
@@ -177,19 +189,24 @@
                       <div class="body-right col col-lg-6 col-md-12">
                         <div class="form-group row">
                           <div class="col col-12">
-                            <input type="text" class="form-control" :class="{ 'is-danger': $v.nomenclature.name.$invalid && (nomenclature.name || showFormErrors)}" v-model="nomenclature.name" :placeholder="$t('construct_name')">
+                            <label class="title" for="nName">{{ $t("construct_name") }}</label>
+                            <input type="text" id="nName" class="form-control" :class="{ 'is-danger': $v.nomenclature.name.$invalid && (nomenclature.name || showFormErrors)}" v-model="nomenclature.name" :placeholder="$t('construct_name')">
                           </div>
                         </div>
                         <div class="form-group row">
                           <div class="col col-lg-4 col-md-4 col-sm-12">
-                            <input type="number" step="1000" class="form-control" :class="{ 'is-danger': $v.nomenclature.price.$invalid && (nomenclature.price || showFormErrors)}" :placeholder="$t('price')" v-model="price">
+                            <label class="title" for="nPrice">{{ $t("price") }}</label>
+                            <input type="number" id="nPrice" step="1000" class="form-control" :class="{ 'is-danger': $v.nomenclature.price.$invalid && (nomenclature.price || showFormErrors)}" :placeholder="$t('price')" v-model="price">
                           </div>
                           <div class="col col-lg-4 col-md-4 col-sm-12">
-                            <input type="text" class="form-control" v-model="nomenclature.magazine" :placeholder="$t('magazine')">
+                            <label class="title" for="nShop">{{ $t("magazine") }}</label>
+                            <input type="text" id="nShop" class="form-control" v-model="nomenclature.magazine" :placeholder="$t('magazine')">
                           </div>
-                          <div class="col col-lg-4 col-md-4 col-sm-12 d-flex align-self-end">
+                          <div class="col col-lg-4 col-md-4 col-sm-12 d-flex align-self-end flex-column">
+                            <label class="title" for="nRole" style="margin-bottom: 3px;">{{ $t("unit_sh") }}</label>
                             <v-select
                               class="nomenclature-select w-100"
+                              id="nRole"
                               :class="{ 'is-danger': $v.nomenclature.unit.$invalid && (nomenclature.unit || showFormErrors)}"
                               :placeholder="nomenclature.id ? nomenclature.units.name : $t('unit_sh')"
                               :options="units"
@@ -201,24 +218,30 @@
                         </div>
                         <div class="form-group row">
                           <div class="col col-lg-4 col-md-4 col-sm-12">
-                            <input type="number" step="1" class="form-control" :class="{ 'is-danger': $v.nomenclature.count.$invalid && (nomenclature.count || showFormErrors)}" :placeholder="$t('count')" v-model="nomenclature.count">
+                            <label class="title" for="nCount">{{ $t("count") }}</label>
+                            <input type="number" id="nCount" step="1" class="form-control" :class="{ 'is-danger': $v.nomenclature.count.$invalid && (nomenclature.count || showFormErrors)}" :placeholder="$t('count')" v-model="nomenclature.count">
                           </div>
                           <div class="col col-lg-4 col-md-4 col-sm-12">
-                            <input type="text" v-mask="'##.##.####'" class="form-control" :class="{ 'is-danger': $v.nomenclature.term.$invalid && (nomenclature.term || showFormErrors)}" :placeholder="$t('term')" v-model="nomenclature.term">
+                            <label class="title" for="nTerm">{{ $t("term") }}</label>
+                            <input type="text" id="nTerm" v-mask="'##.##.####'" class="form-control" :class="{ 'is-danger': $v.nomenclature.term.$invalid && (nomenclature.term || showFormErrors)}" :placeholder="$t('term')" v-model="nomenclature.term">
                           </div>
                           <div class="col col-lg-4 col-md-4 col-sm-12">
-                            <input type="text" class="form-control" :placeholder="$t('link')" v-model="nomenclature.link">
+                            <label class="title" for="nLink">{{ $t("link") }}</label>
+                            <input type="text" id="nLink" class="form-control" :placeholder="$t('link')" v-model="nomenclature.link">
                           </div>
                         </div>
                         <div class="form-group row">
                           <div class="col col-lg-4 col-md-4 col-sm-12">
-                            <input type="number" step="1" class="form-control" :class="{ 'is-danger': $v.nomenclature.nds.$invalid && (nomenclature.nds || showFormErrors)}" :placeholder="$t('nds')" v-model="nomenclature.nds" @change="updatePrices">
+                            <label class="title" for="nNds">{{ $t("nds") }}</label>
+                            <input type="number" id="nNds" step="1" class="form-control" :class="{ 'is-danger': $v.nomenclature.nds.$invalid && (nomenclature.nds || showFormErrors)}" :placeholder="$t('nds')" v-model="nomenclature.nds" @change="updatePrices">
                           </div>
                           <div class="col col-lg-4 col-md-4 col-sm-12">
-                            <input type="number" disabled step="any" class="form-control" :placeholder="$t('ndsValue')" v-model="nomenclature.ndsValue">
+                            <label class="title" for="nNdsValue">{{ $t("ndsValue") }}</label>
+                            <input type="number" id="nNdsValue" disabled step="any" class="form-control" :placeholder="$t('ndsValue')" v-model="nomenclature.ndsValue">
                           </div>
                           <div class="col col-lg-4 col-md-4 col-sm-12">
-                            <input type="number" disabled step="any" class="form-control" :placeholder="$t('priceWithoutNds')" v-model="nomenclature.priceWithoutNds">
+                            <label class="title" for="nPriceWithoutNds">{{ $t("priceWithoutNds") }}</label>
+                            <input type="number" id="nPriceWithoutNds" disabled step="any" class="form-control" :placeholder="$t('priceWithoutNds')" v-model="nomenclature.priceWithoutNds">
                           </div>
                         </div>
                         <div class="form-group">
@@ -231,7 +254,7 @@
                         </div>
                         <div class="form-group row justify-content-end pr-3">
                           <button type="button" class="btn btn-secondary btn-close mr-2" @click="showNomekModal = false">{{ $t("close") }}</button>
-                          <button type="button" class="btn btn-custom" @click="addNomenclature">{{ $t("save") }}</button>
+                          <button v-if="nomenclature.creatorId === user.id" type="button" class="btn btn-custom" @click="addNomenclature">{{ $t("save") }}</button>
                         </div>
                       </div>
                     </div>
@@ -404,6 +427,9 @@ export default {
         this.$store.dispatch("furniture/updateNomenclature", {data: formData, group: this.nomenclature.group})
           .then((response) => {
             this.showNomekModal = false;
+            if(this.files) {
+              this.addPhoto();
+            }
           })
           .catch((error) => {
             this.$notify({
@@ -450,7 +476,7 @@ export default {
       this.price = 0;
     },
     showEditNomenclature(item, event) {
-      if(event.target.tagName === "TD") {
+      // if(event.target.tagName === "TD") {
         this.$store.dispatch("furniture/setUnits");
         this.showNomekModal = true;
         this.nomenclature = item;
@@ -459,10 +485,10 @@ export default {
         this.price = item.price;
         if(item.photos) {
           item.photos.forEach(item => {
-            this.photos.push(this.serverUrl+item.pathUrl+"&type=200px");
+            this.photos.push(this.serverUrl+item.pathUrl+"&type=1000px");
           })
         }
-      }
+      // }
       // this.nomenclature = {
       //   group: item,
       //   groupId: item.id
@@ -504,30 +530,13 @@ export default {
           });
         });
     },
-    addPhotoModal(nomenclature) {
-      this.nomenclature = nomenclature;
-      this.showAddPhotoModal = true;
-    },
     addPhoto() {
-      if(!this.nomenclature.file && !this.nomenclature.id){
-        Vue.notify({
-          group: 'warn',
-          title: this.$i18n.messages[this.$i18n.locale]["attention"],
-          text: this.$i18n.messages[this.$i18n.locale]["register_invalid"],
-          type: 'warn',
-          closeOnClick: true,
-          duration: 4000
-        });
-        return;
-      }
       let formData = new FormData();
-
       formData.append( "nomenclatureId", this.nomenclature.id );
 
       for( let i = 0; i < this.files.length; i++ ){
         formData.append(`file`, this.files[i].blob);
       }
-
       this.$store.dispatch("furniture/addNomenclaturePhoto", {data: formData, nomenclature: this.nomenclature})
         .then(() => {
           this.showAddPhotoModal = false;
@@ -569,8 +578,11 @@ export default {
     },
     updatePrices() {
       if(this.nomenclature.price) {
-        this.nomenclature["ndsValue"] = (this.nomenclature.price * this.nomenclature.nds)/(100+this.nomenclature.nds);
-        this.nomenclature["priceWithoutNds"] = this.nomenclature.price - this.nomenclature["ndsValue"];
+        // this.nomenclature["ndsValue"] = (this.nomenclature.price * this.nomenclature.nds)/(100+this.nomenclature.nds);
+        // this.nomenclature["priceWithoutNds"] = this.nomenclature.price - this.nomenclature["ndsValue"];
+        console.log(parseFloat('1.' + this.nomenclature.nds), this.nomenclature.nds);
+        this.nomenclature["priceWithoutNds"] = parseFloat(this.nomenclature.price / parseFloat('1.' + this.nomenclature.nds));
+        this.nomenclature["ndsValue"] = this.nomenclature.price - this.nomenclature["priceWithoutNds"];
       }
     }
   },
@@ -770,5 +782,14 @@ $ffamily: 'Roboto', sans-serif;
   background-repeat: no-repeat;
   background-position: center center;
   border: 1px solid #ebebeb;
+}
+
+label.title{
+  display: block;
+  text-align: left;
+  color: #000;
+  font-weight: bold;
+  margin-bottom: 0;
+  font-size: 12px;
 }
 </style>
