@@ -188,9 +188,15 @@
                       </div>
                       <div class="body-right col col-lg-6 col-md-12">
                         <div class="form-group row">
-                          <div class="col col-12">
+                          <div class="col col-8">
                             <label class="title" for="nName">{{ $t("construct_name") }}</label>
                             <input type="text" id="nName" class="form-control" :class="{ 'is-danger': $v.nomenclature.name.$invalid && (nomenclature.name || showFormErrors)}" v-model="nomenclature.name" :placeholder="$t('construct_name')">
+                          </div>
+                          <div class="col col-4">
+                            <div class="custom-control custom-switch">
+                              <input type="checkbox" class="custom-control-input" :checked="nomenclature.ndsBool" v-model="nomenclature.ndsBool" @change="updatePrices" id="customSwitch1" style="cursor: pointer">
+                              <label class="custom-control-label" for="customSwitch1" style="cursor: pointer">{{ $t("nds") }}</label>
+                            </div>
                           </div>
                         </div>
                         <div class="form-group row">
@@ -231,11 +237,11 @@
                           </div>
                         </div>
                         <div class="form-group row">
-                          <div class="col col-lg-4 col-md-4 col-sm-12">
+                          <div class="col col-lg-4 col-md-4 col-sm-12" :class="{ disabled: !nomenclature.ndsBool }">
                             <label class="title" for="nNds">{{ $t("nds") }}</label>
                             <input type="number" id="nNds" step="1" class="form-control" :class="{ 'is-danger': $v.nomenclature.nds.$invalid && (nomenclature.nds || showFormErrors)}" :placeholder="$t('nds')" v-model="nomenclature.nds" @change="updatePrices">
                           </div>
-                          <div class="col col-lg-4 col-md-4 col-sm-12">
+                          <div class="col col-lg-4 col-md-4 col-sm-12" :class="{ disabled: !nomenclature.ndsBool }">
                             <label class="title" for="nNdsValue">{{ $t("ndsValue") }}</label>
                             <input type="number" id="nNdsValue" disabled step="any" class="form-control" :placeholder="$t('ndsValue')" v-model="nomenclature.ndsValue">
                           </div>
@@ -411,11 +417,21 @@ export default {
       }
       formData.append( "name", this.nomenclature.name );
       formData.append( "count", this.nomenclature.count );
-      formData.append( "price", this.nomenclature.price );
       formData.append( "term", this.nomenclature.term );
-      formData.append( "nds", this.nomenclature.nds );
-      formData.append( "ndsValue", this.nomenclature.ndsValue );
+      formData.append( "ndsBool", this.nomenclature.ndsBool );
+
+      if(this.nomenclature.ndsBool) {
+        formData.append( "price", this.nomenclature.price );
+        formData.append( "nds", this.nomenclature.nds );
+        formData.append( "ndsValue", this.nomenclature.ndsValue );
+      } else {
+        formData.append( "price", "0" );
+        formData.append( "nds", "0" );
+        formData.append( "ndsValue", "0" );
+      }
+
       formData.append( "priceWithoutNds", this.nomenclature.priceWithoutNds );
+
       if(this.nomenclature.link) {
         formData.append( "link", this.nomenclature.link );
       }
@@ -427,7 +443,7 @@ export default {
         this.$store.dispatch("furniture/updateNomenclature", {data: formData, group: this.nomenclature.group})
           .then((response) => {
             this.showNomekModal = false;
-            if(this.files) {
+            if(this.files.length) {
               this.addPhoto();
             }
           })
@@ -476,7 +492,6 @@ export default {
       this.price = 0;
     },
     showEditNomenclature(item, event) {
-      // if(event.target.tagName === "TD") {
         this.$store.dispatch("furniture/setUnits");
         this.showNomekModal = true;
         this.nomenclature = item;
@@ -488,11 +503,9 @@ export default {
             this.photos.push(this.serverUrl+item.pathUrl+"&type=1000px");
           })
         }
-      // }
-      // this.nomenclature = {
-      //   group: item,
-      //   groupId: item.id
-      // };
+        if(!item.ndsBool) {
+          this.nomenclature.price = this.nomenclature.priceWithoutNds;
+        }
     },
     showDeleteNomenModal(item) {
       this.showRemoveNomekModal = true;
@@ -557,6 +570,17 @@ export default {
         if(!this.enabledGroups[group.id]) {
           this.enabledGroups[group.id] = true;
           this.$store.dispatch("furniture/setNomenclature", group)
+            .then(() => {
+              //ignore
+            })
+            .catch(error => {
+              this.$notify({
+                group: 'warn',
+                type: 'error',
+                title: this.$i18n.messages[this.$i18n.locale]["attention"],
+                text: error
+              });
+            })
         }
       }
     },
@@ -578,11 +602,13 @@ export default {
     },
     updatePrices() {
       if(this.nomenclature.price) {
-        // this.nomenclature["ndsValue"] = (this.nomenclature.price * this.nomenclature.nds)/(100+this.nomenclature.nds);
-        // this.nomenclature["priceWithoutNds"] = this.nomenclature.price - this.nomenclature["ndsValue"];
-        console.log(parseFloat('1.' + this.nomenclature.nds), this.nomenclature.nds);
-        this.nomenclature["priceWithoutNds"] = parseFloat(this.nomenclature.price / parseFloat('1.' + this.nomenclature.nds));
-        this.nomenclature["ndsValue"] = this.nomenclature.price - this.nomenclature["priceWithoutNds"];
+        if(this.nomenclature.ndsBool) {
+          this.nomenclature["priceWithoutNds"] = Math.round(this.nomenclature.price / parseFloat('1.' + this.nomenclature.nds));
+          this.nomenclature["ndsValue"] = Math.round(this.nomenclature.price - this.nomenclature["priceWithoutNds"]);
+        } else {
+          this.nomenclature["priceWithoutNds"] = this.nomenclature.price;
+          // this.nomenclature["ndsValue"] = this.nomenclature.price - this.nomenclature["priceWithoutNds"];
+        }
       }
     }
   },
@@ -755,13 +781,13 @@ $ffamily: 'Roboto', sans-serif;
   }
 }
 .disabled {
-  pointer-events: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  cursor: none;
-  opacity: 0.6;
+  pointer-events: none !important;
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+  cursor: none !important;
+  opacity: 0.6 !important;
 }
 .images-list-wrap {
   display: flex;

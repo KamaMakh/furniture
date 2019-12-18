@@ -177,7 +177,7 @@ function setNomenclature({ commit }, data) {
           commit("setNomenclatures", error.response.data);
           // resolve();
         } else {
-          reject();
+          reject(error.response.message);
         }
       });
   });
