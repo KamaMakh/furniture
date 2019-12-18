@@ -42,8 +42,8 @@
             <span v-else class="icon no-img"></span>
             {{ item.name }}
           </td>
-          <td v-if="item.price || item.unit" width="8%">{{ item.count }}</td>
-          <td v-if="item.price || item.unit">
+          <td v-if="item.price !== undefined" width="8%">{{ item.count }}</td>
+          <td v-if="item.price !== undefined">
             <span v-if="item.creatorId === user.id" :title="$t('delete')" style="width: 20px; height: 25px; cursor: pointer; margin-right: 5px;" @click="showDeleteNomenModal(item)">
               <svg version="1.1" id="IconsRepoEditor" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 60.167 60.167" style="enable-background:new 0 0 60.167 60.167;" xml:space="preserve" width="18px" height="18px" fill="#999" stroke="#999" stroke-width="2px">
                 <g id="IconsRepo_bgCarrier"></g>
@@ -492,20 +492,20 @@ export default {
       this.price = 0;
     },
     showEditNomenclature(item, event) {
-        this.$store.dispatch("furniture/setUnits");
-        this.showNomekModal = true;
-        this.nomenclature = item;
-        this.nomenclature.unit = item.units.name;
-        this.photos = [];
-        this.price = item.price;
-        if(item.photos) {
-          item.photos.forEach(item => {
-            this.photos.push(this.serverUrl+item.pathUrl+"&type=1000px");
-          })
-        }
-        if(!item.ndsBool) {
-          this.nomenclature.price = this.nomenclature.priceWithoutNds;
-        }
+      this.$store.dispatch("furniture/setUnits");
+      this.showNomekModal = true;
+      this.nomenclature = item;
+      this.nomenclature.unit = item.units.name;
+      this.photos = [];
+      this.price = item.price;
+      if(item.photos) {
+        item.photos.forEach(item => {
+          this.photos.push(this.serverUrl+item.pathUrl+"&type=1000px");
+        })
+      }
+      if(!item.ndsBool) {
+        this. price = this.nomenclature.price = this.nomenclature.priceWithoutNds;
+      }
     },
     showDeleteNomenModal(item) {
       this.showRemoveNomekModal = true;
