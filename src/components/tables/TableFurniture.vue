@@ -260,7 +260,7 @@
                         </div>
                         <div class="form-group row justify-content-end pr-3">
                           <button type="button" class="btn btn-secondary btn-close mr-2" @click="showNomekModal = false">{{ $t("close") }}</button>
-                          <button v-if="nomenclature.creatorId === user.id" type="button" class="btn btn-custom" @click="addNomenclature">{{ $t("save") }}</button>
+                          <button v-if="nomenclature.creatorId === user.id || !nomenclature.id" type="button" class="btn btn-custom" @click="addNomenclature">{{ $t("save") }}</button>
                         </div>
                       </div>
                     </div>
