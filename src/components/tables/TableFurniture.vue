@@ -487,7 +487,8 @@ export default {
         nds: this.construction.nds,
         price: 0,
         ndsValue: 0,
-        priceWithoutNds: 0
+        priceWithoutNds: 0,
+        ndsBool: false
       };
       this.price = 0;
     },
