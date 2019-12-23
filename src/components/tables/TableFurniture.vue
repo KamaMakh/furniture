@@ -3,13 +3,15 @@
     <table class="table">
       <thead>
         <tr>
-          <td v-for="(item, key) in [this.construction.name, $t('count_sh'), $t('actions'), $t('unit_sh'), $t('price'), $t('magazine'), $t('deadlines'), $t('status'), $t('sum_price'), $t('link')]" :key="key" :width="tdWidths[key]+'%'">
+          <td v-for="(item, key) in [this.construction.name, $t('count_sh'), $t('unit_sh'), $t('deadlines'), $t('status'), $t('vatRate'), $t('priceWithoutNds'), $t('price'), $t('nds'), $t('sum_price'), $t('magazine'), $t('link')]" :key="key" :width="tdWidths[key]+'%'" :title="item">
             <span v-if="key === 0" @click="showModal" :title="$t('add_group')" class="icon" style="cursor: pointer">
               <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M16 0H2C0.89 0 0 0.9 0 2V16C0 17.1 0.89 18 2 18H16C17.1 18 18 17.1 18 16V2C18 0.9 17.1 0 16 0ZM16 16H2V2.00001H16V16ZM10 14H8V10H4V8.00001H8V4.00001H10V8.00001H14V10H10V14Z" fill="#C4C4C4"/>
               </svg>
             </span>
-            {{ item }}
+            <span class="ellipsis">
+              {{ item }}
+            </span>
             <span v-if="key === 0" class="setting-icon">
               <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M15.877 9.99998C15.877 10.3116 15.8495 10.605 15.8129 10.8983L17.747 12.4108C17.9212 12.5483 17.967 12.7958 17.857 12.9975L16.0237 16.1691C15.9412 16.3158 15.7854 16.3983 15.6295 16.3983C15.5745 16.3983 15.5195 16.3891 15.4645 16.3708L13.182 15.4541C12.7054 15.8116 12.192 16.1233 11.6329 16.3525L11.2845 18.7816C11.257 19.0016 11.0645 19.1666 10.8354 19.1666H7.16872C6.93955 19.1666 6.74705 19.0016 6.71955 18.7816L6.37122 16.3525C5.81205 16.1233 5.29872 15.8208 4.82205 15.4541L2.53955 16.3708C2.49372 16.3891 2.43872 16.3983 2.38372 16.3983C2.21872 16.3983 2.06288 16.3158 1.98038 16.1691L0.14705 12.9975C0.0370501 12.7958 0.0828834 12.5483 0.25705 12.4108L2.19122 10.8983C2.15455 10.605 2.12705 10.3025 2.12705 9.99998C2.12705 9.69748 2.15455 9.39498 2.19122 9.10165L0.25705 7.58915C0.0828834 7.45165 0.0278834 7.20415 0.14705 7.00248L1.98038 3.83081C2.06288 3.68415 2.21872 3.60165 2.37455 3.60165C2.42955 3.60165 2.48455 3.61081 2.53955 3.62915L4.82205 4.54581C5.29872 4.18831 5.81205 3.87665 6.37122 3.64748L6.71955 1.21831C6.74705 0.998313 6.93955 0.833313 7.16872 0.833313H10.8354C11.0645 0.833313 11.257 0.998313 11.2845 1.21831L11.6329 3.64748C12.192 3.87665 12.7054 4.17915 13.182 4.54581L15.4645 3.62915C15.5104 3.61081 15.5654 3.60165 15.6204 3.60165C15.7854 3.60165 15.9412 3.68415 16.0237 3.83081L17.857 7.00248C17.967 7.20415 17.9212 7.45165 17.747 7.58915L15.8129 9.10165C15.8495 9.39498 15.877 9.68831 15.877 9.99998ZM14.0437 9.99998C14.0437 9.80748 14.0346 9.61498 13.9979 9.33081L13.8696 8.29498L14.6854 7.65331L15.6662 6.87415L15.0246 5.76498L13.8604 6.23248L12.8887 6.62665L12.0546 5.98498C11.6879 5.70998 11.3212 5.49915 10.9271 5.33415L9.95538 4.93998L9.80872 3.90415L9.63455 2.66665H8.36038L8.17705 3.90415L8.03038 4.93998L7.05872 5.33415C6.68288 5.48998 6.30705 5.70998 5.91288 6.00331L5.08788 6.62665L4.13455 6.24165L2.97038 5.77415L2.32872 6.88331L3.31872 7.65331L4.13455 8.29498L4.00622 9.33081C3.97872 9.60581 3.96038 9.81665 3.96038 9.99998C3.96038 10.1833 3.97872 10.3941 4.00622 10.6783L4.13455 11.7141L3.31872 12.3558L2.32872 13.1258L2.97038 14.235L4.13455 13.7675L5.10622 13.3733L5.94038 14.015C6.30705 14.29 6.67372 14.5008 7.06788 14.6658L8.03955 15.06L8.18622 16.0958L8.36038 17.3333H9.64372L9.82705 16.0958L9.97372 15.06L10.9454 14.6658C11.3212 14.51 11.6971 14.29 12.0912 13.9966L12.9162 13.3733L13.8696 13.7583L15.0337 14.2258L15.6754 13.1166L14.6854 12.3466L13.8696 11.705L13.9979 10.6691C14.0254 10.3941 14.0437 10.1925 14.0437 9.99998ZM9.00204 6.33331C6.97621 6.33331 5.33537 7.97415 5.33537 9.99998C5.33537 12.0258 6.97621 13.6666 9.00204 13.6666C11.0279 13.6666 12.6687 12.0258 12.6687 9.99998C12.6687 7.97415 11.0279 6.33331 9.00204 6.33331ZM7.16872 9.99998C7.16872 11.0083 7.99372 11.8333 9.00205 11.8333C10.0104 11.8333 10.8354 11.0083 10.8354 9.99998C10.8354 8.99165 10.0104 8.16665 9.00205 8.16665C7.99372 8.16665 7.16872 8.99165 7.16872 9.99998Z" fill="#DADADA"/>
@@ -20,7 +22,7 @@
       </thead>
       <tbody>
         <tr style="cursor: pointer" v-for="(item, key) in rows" :key="key" :class="{odd: key%2 === 0 || key === 0}">
-          <td v-if="item.price === undefined" colspan="10" class="d-table-cell border-right" @click="toggleGroupRows(item, $event)" :child="enabledGroups[item.id]">
+          <td v-if="item.price === undefined" colspan="12" class="d-table-cell border-right" @click="toggleGroupRows(item, $event)" :child="enabledGroups[item.id]">
             <span class="d-flex align-items-center justify-content-start">
               <span v-if="!item.price" @click="showModal(item)" :title="$t('edit_group')" class="setting-icon">
                 <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -40,38 +42,44 @@
               <img :src="serverUrl + item.photos[0]['pathUrl']" alt="" />
             </span>
             <span v-else class="icon no-img"></span>
-            {{ item.name }}
-          </td>
-          <td v-if="item.price !== undefined" width="8%">{{ item.count }}</td>
-          <td v-if="item.price !== undefined">
-            <span v-if="item.creatorId === user.id" :title="$t('delete')" style="width: 20px; height: 25px; cursor: pointer; margin-right: 5px;" @click="showDeleteNomenModal(item)">
+            <span class="ellipsis" :title="item.name">
+              {{ item.name }}
+            </span>
+            <span v-if="item.creatorId === user.id" :title="$t('delete')" style="width: 20px; height: 25px; cursor: pointer; margin-left: 5px;" @click="showDeleteNomenModal(item)">
               <svg version="1.1" id="IconsRepoEditor" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 60.167 60.167" style="enable-background:new 0 0 60.167 60.167;" xml:space="preserve" width="18px" height="18px" fill="#999" stroke="#999" stroke-width="2px">
                 <g id="IconsRepo_bgCarrier"></g>
                 <path d="M54.5,11.667H39.88V3.91c0-2.156-1.754-3.91-3.91-3.91H24.196c-2.156,0-3.91,1.754-3.91,3.91v7.756H5.667 c-0.552,0-1,0.448-1,1s0.448,1,1,1h2.042v40.5c0,3.309,2.691,6,6,6h32.75c3.309,0,6-2.691,6-6v-40.5H54.5c0.552,0,1-0.448,1-1 S55.052,11.667,54.5,11.667z M22.286,3.91c0-1.053,0.857-1.91,1.91-1.91H35.97c1.053,0,1.91,0.857,1.91,1.91v7.756H22.286V3.91z M50.458,54.167c0,2.206-1.794,4-4,4h-32.75c-2.206,0-4-1.794-4-4v-40.5h40.75V54.167z M38.255,46.153V22.847c0-0.552,0.448-1,1-1 s1,0.448,1,1v23.306c0,0.552-0.448,1-1,1S38.255,46.706,38.255,46.153z M29.083,46.153V22.847c0-0.552,0.448-1,1-1s1,0.448,1,1 v23.306c0,0.552-0.448,1-1,1S29.083,46.706,29.083,46.153z M19.911,46.153V22.847c0-0.552,0.448-1,1-1s1,0.448,1,1v23.306 c0,0.552-0.448,1-1,1S19.911,46.706,19.911,46.153z"></path>
               </svg>
             </span>
+          </td>
+          <td v-if="item.price !== undefined" width="8%">{{ item.count }}</td>
+          <!--<td v-if="item.price !== undefined">-->
             <!--<span v-if="item.creatorId === user.id" :title="$t('add_image')" class="mr-1" @click="addPhotoModal(item)">-->
               <!--<svg width="12" height="22" viewBox="0 0 12 22" fill="none" xmlns="http://www.w3.org/2000/svg">-->
                 <!--<path d="M9.66634 5.50002V16.0417C9.66634 18.0675 8.02551 19.7084 5.99967 19.7084C3.97384 19.7084 2.33301 18.0675 2.33301 16.0417V4.58335C2.33301 3.31835 3.35967 2.29169 4.62467 2.29169C5.88968 2.29169 6.91634 3.31835 6.91634 4.58335V14.2084C6.91634 14.7125 6.50384 15.125 5.99967 15.125C5.49551 15.125 5.08301 14.7125 5.08301 14.2084V5.50002H3.70801V14.2084C3.70801 15.4734 4.73467 16.5 5.99967 16.5C7.26468 16.5 8.29134 15.4734 8.29134 14.2084V4.58335C8.29134 2.55752 6.65051 0.916687 4.62467 0.916687C2.59884 0.916687 0.958008 2.55752 0.958008 4.58335V16.0417C0.958008 18.8284 3.21301 21.0834 5.99967 21.0834C8.78634 21.0834 11.0413 18.8284 11.0413 16.0417V5.50002H9.66634Z" fill="#C4C4C4"/>-->
               <!--</svg>-->
             <!--</span>-->
-            <span v-if="item.creatorId === user.id" @click="showEditNomenclature(item, $event)" style="width: 20px; height: 25px; cursor: pointer; margin-right: 5px;">
-              <svg version="1.1" id="IconsRepoEditor" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 612 612" style="enable-background:new 0 0 612 612;" xml:space="preserve" width="18px" height="18px" fill="#999" stroke="#999" stroke-width="0">
-                <g id="IconsRepo_bgCarrier"></g>
-                <path d="M239.486,368.979c3.389,3.388,7.828,5.081,12.267,5.081c4.442,0,8.88-1.695,12.27-5.081L447.32,185.683 c6.775-6.777,6.775-17.762,0-24.536c-6.774-6.775-17.762-6.775-24.538,0L239.486,344.441 C232.711,351.218,232.711,362.202,239.486,368.979z"></path>
-                <path d="M604.149,110.573c-6.702-20.057-21.54-41.957-42.922-63.333C539.68,25.69,506.868,0,472.925,0 c-15.226,0-29.255,5.354-40.679,15.501c-0.596,0.457-1.164,0.956-1.7,1.492l-65.823,65.821H20.838 c-9.582,0-17.35,7.769-17.35,17.35V594.65c0,9.582,7.769,17.35,17.35,17.35h494.485c9.582,0,17.35-7.769,17.35-17.35V240.19 c0-1.081-0.113-2.134-0.302-3.161l57.622-57.623c0.116-0.114,0.231-0.227,0.344-0.343c0.003-0.001,0.006-0.004,0.009-0.007 l1.129-1.131c0.534-0.534,1.022-1.09,1.47-1.673C608.724,158.554,612.602,135.88,604.149,110.573z M236.139,469.784 l-122.416,35.331l27.797-129.951L236.139,469.784z M267.877,452.447L156.023,340.592l260.97-260.974l111.856,111.856 L267.877,452.447z M425.445,512.469H213.384l56.919-16.428c2.818-0.814,5.383-2.328,7.458-4.401l220.211-220.211v305.871H38.188 V117.515h291.836L118.818,328.723c-2.367,2.367-3.999,5.367-4.699,8.64L73.73,526.188c-1.277,5.964,0.675,12.161,5.137,16.321 c3.256,3.033,7.498,4.659,11.833,4.659c0.927,0,334.745,0,334.745,0 M566.49,153.768c-0.189,0.202-0.373,0.409-0.551,0.619 l-0.124,0.123c-0.059,0.059-0.121,0.119-0.181,0.178l-12.248,12.246L441.531,55.08l12.53-12.53 c0.217-0.184,0.432-0.373,0.641-0.571c5.315-4.965,11.107-7.278,18.224-7.278c16.963,0,40.208,13.513,63.767,37.078 C549.597,84.681,589.886,128.729,566.49,153.768z"></path>
-              </svg>
-            </span>
-          </td>
-          <td v-if="item.price !== undefined"  width="8%">{{ item.units ? item.units.name: "" }}</td>
-          <td v-if="item.price !== undefined"  width="12%">{{ item.price }}</td>
-          <td v-if="item.price !== undefined"  width="8%">{{ item.shop }}</td>
-          <td v-if="item.price !== undefined"  width="8%">{{ item.term }}</td>
-          <td v-if="item.price !== undefined"  width="8%" :style="{color: item.confirmed ? '#00670A' : '#999'}">
+            <!--<span v-if="item.creatorId === user.id" @click="showEditNomenclature(item, $event)" style="width: 20px; height: 25px; cursor: pointer; margin-right: 5px;">-->
+              <!--<svg version="1.1" id="IconsRepoEditor" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 612 612" style="enable-background:new 0 0 612 612;" xml:space="preserve" width="18px" height="18px" fill="#999" stroke="#999" stroke-width="0">-->
+                <!--<g id="IconsRepo_bgCarrier"></g>-->
+                <!--<path d="M239.486,368.979c3.389,3.388,7.828,5.081,12.267,5.081c4.442,0,8.88-1.695,12.27-5.081L447.32,185.683 c6.775-6.777,6.775-17.762,0-24.536c-6.774-6.775-17.762-6.775-24.538,0L239.486,344.441 C232.711,351.218,232.711,362.202,239.486,368.979z"></path>-->
+                <!--<path d="M604.149,110.573c-6.702-20.057-21.54-41.957-42.922-63.333C539.68,25.69,506.868,0,472.925,0 c-15.226,0-29.255,5.354-40.679,15.501c-0.596,0.457-1.164,0.956-1.7,1.492l-65.823,65.821H20.838 c-9.582,0-17.35,7.769-17.35,17.35V594.65c0,9.582,7.769,17.35,17.35,17.35h494.485c9.582,0,17.35-7.769,17.35-17.35V240.19 c0-1.081-0.113-2.134-0.302-3.161l57.622-57.623c0.116-0.114,0.231-0.227,0.344-0.343c0.003-0.001,0.006-0.004,0.009-0.007 l1.129-1.131c0.534-0.534,1.022-1.09,1.47-1.673C608.724,158.554,612.602,135.88,604.149,110.573z M236.139,469.784 l-122.416,35.331l27.797-129.951L236.139,469.784z M267.877,452.447L156.023,340.592l260.97-260.974l111.856,111.856 L267.877,452.447z M425.445,512.469H213.384l56.919-16.428c2.818-0.814,5.383-2.328,7.458-4.401l220.211-220.211v305.871H38.188 V117.515h291.836L118.818,328.723c-2.367,2.367-3.999,5.367-4.699,8.64L73.73,526.188c-1.277,5.964,0.675,12.161,5.137,16.321 c3.256,3.033,7.498,4.659,11.833,4.659c0.927,0,334.745,0,334.745,0 M566.49,153.768c-0.189,0.202-0.373,0.409-0.551,0.619 l-0.124,0.123c-0.059,0.059-0.121,0.119-0.181,0.178l-12.248,12.246L441.531,55.08l12.53-12.53 c0.217-0.184,0.432-0.373,0.641-0.571c5.315-4.965,11.107-7.278,18.224-7.278c16.963,0,40.208,13.513,63.767,37.078 C549.597,84.681,589.886,128.729,566.49,153.768z"></path>-->
+              <!--</svg>-->
+            <!--</span>-->
+          <!--</td>-->
+          <td v-if="item.price !== undefined" width="6%">{{ item.units ? item.units.name: "" }}</td>
+
+          <td v-if="item.price !== undefined" width="10%">{{ item.term }}</td>
+          <td v-if="item.price !== undefined" width="6%" :style="{color: item.confirmed ? '#00670A' : '#999'}">
               <!--{{item.confirmed ? $t("confirmed_simple") : $t("not_confirmed_simple")}}-->
           </td>
-          <td v-if="item.price !== undefined"  width="8%">{{item.price_sum}}</td>
-          <td v-if="item.price !== undefined"  width="20%">{{ item.link }}</td>
+          <td v-if="item.price !== undefined" width="6%">{{ item.nds }}</td>
+          <td v-if="item.price !== undefined" width="6%">{{ item.priceWithoutNds }}</td>
+          <td v-if="item.price !== undefined" width="6%">{{ item.price }}</td>
+          <td v-if="item.price !== undefined" width="6%">{{ item.ndsValue }}</td>
+          <td v-if="item.price !== undefined" width="6%">{{ item.totalPrice }}</td>
+          <td v-if="item.price !== undefined" width="6%">{{ item.magazine }}</td>
+          <td v-if="item.price !== undefined" width="18%">{{ item.link }}</td>
         </tr>
       </tbody>
     </table>
@@ -327,7 +335,7 @@ export default {
       showFormErrors: false,
       enabledGroups: [],
       serverUrl: serverUrl,
-      tdWidths: [20, 8, 8, 12, 8, 8, 8, 8, 20],
+      tdWidths: [18, 6, 6, 10, 6, 6, 6, 6, 6, 6, 6, 18],
       updatingId: null,
       price: 0,
       photos: [],
@@ -684,6 +692,9 @@ $ffamily: 'Roboto', sans-serif;
     &:hover{
         background: rgba(214, 232, 206, 0.69);
     }
+    td:nth-child(2) {
+      border-left: 1px solid #DADADA;
+    }
   }
   td,th{
     border-right: 1px solid #DADADA;
@@ -696,9 +707,29 @@ $ffamily: 'Roboto', sans-serif;
   }
   tbody{
     tr{
-      td:last-child{
+      td:last-child {
         font-weight: 500;
       }
+      td span.ellipsis {
+        max-width: 85px;
+        white-space: nowrap;
+        overflow: hidden;
+        margin: 0 auto;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+  thead {
+    td .ellipsis {
+      max-width: 70px;
+      white-space: nowrap;
+      overflow: hidden !important;
+      text-overflow: ellipsis;
+      display: block;
+      margin: 0 auto;
+    }
+    td:first-child {
+      width: 100%;
     }
   }
   .icon{
@@ -774,6 +805,11 @@ $ffamily: 'Roboto', sans-serif;
 @media all and(min-width: 768px) {
   .nomenclature-modal {
     max-width: 850px;
+  }
+}
+@media all and(max-width: 768px) {
+  td {
+    word-break: break-word;
   }
 }
 @media all and(max-width: 480px) {

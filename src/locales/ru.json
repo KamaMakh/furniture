@@ -60,6 +60,8 @@
   "nds": "НДС",
   "ndsValue": "Выделенный НДС",
   "priceWithoutNds": "Цена без НДС",
+  "priceWithNds": "Цена с НДС",
+  "vatRate": "Ставка НДС",
   "delete": "Удалить",
   "nomenclature": "Номенклатура",
   "actions": "Действия",

@@ -60,6 +60,8 @@
   "nds": "VAT",
   "ndsValue": "Allocated VAT",
   "priceWithoutNds": "Price without VAT",
+  "priceWithNds": "Price with VAT",
+  "vatRate": "VAT rate",
   "delete": "Remove",
   "nomenclature": "Nomenclature",
   "actions": "Actions",

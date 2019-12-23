@@ -59,6 +59,8 @@
   "nds": "La TVA",
   "ndsValue": "TVA allouée",
   "priceWithoutNds": "Prix sans TVA",
+  "priceWithNds": "Prix avec TVA",
+  "vatRate": "Taux de TVA",
   "delete": "Retirer",
   "nomenclature": "Nomenclature",
   "actions": "Actions",
