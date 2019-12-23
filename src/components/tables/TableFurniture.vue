@@ -1,9 +1,14 @@
 <template>
   <div>
+    <div class="custom-control custom-switch">
+      <input type="checkbox" class="custom-control-input" :checked="ndsColumns" v-model="ndsColumns" @change="hideNdsColumns" id="customSwitch2" style="cursor: pointer">
+      <label class="custom-control-label" for="customSwitch2" style="cursor: pointer">{{ $t("nds") }}</label>
+    </div>
     <table class="table">
       <thead>
         <tr>
-          <td v-for="(item, key) in [this.construction.name, $t('count_sh'), $t('unit_sh'), $t('deadlines'), $t('status'), $t('vatRate'), $t('priceWithoutNds'), $t('price'), $t('nds'), $t('sum_price'), $t('magazine'), $t('link')]" :key="key" :width="tdWidths[key]+'%'" :title="item">
+          <!--<td v-for="(item, key) in [this.construction.name, $t('count_sh'), $t('unit_sh'), $t('deadlines'), $t('status'), $t('vatRate'), $t('priceWithoutNds'), $t('price'), $t('nds'), $t('sum_price'), $t('magazine'), $t('link')]" :key="key" :width="tdWidths[key]+'%'" :title="item">-->
+          <td v-for="(item, key) in [this.construction.name, ...titles]" :key="key" :width="tdWidths[key]+'%'" :title="item">
             <span v-if="key === 0" @click="showModal" :title="$t('add_group')" class="icon" style="cursor: pointer">
               <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M16 0H2C0.89 0 0 0.9 0 2V16C0 17.1 0.89 18 2 18H16C17.1 18 18 17.1 18 16V2C18 0.9 17.1 0 16 0ZM16 16H2V2.00001H16V16ZM10 14H8V10H4V8.00001H8V4.00001H10V8.00001H14V10H10V14Z" fill="#C4C4C4"/>
@@ -73,13 +78,13 @@
           <td v-if="item.price !== undefined" width="6%" :style="{color: item.confirmed ? '#00670A' : '#999'}">
               <!--{{item.confirmed ? $t("confirmed_simple") : $t("not_confirmed_simple")}}-->
           </td>
-          <td v-if="item.price !== undefined" width="6%">{{ item.nds }}</td>
-          <td v-if="item.price !== undefined" width="6%">{{ item.priceWithoutNds }}</td>
+          <td v-if="item.price !== undefined && ndsColumns" width="6%">{{ item.nds }}</td>
+          <td v-if="item.price !== undefined && ndsColumns" width="6%">{{ item.priceWithoutNds }}</td>
           <td v-if="item.price !== undefined" width="6%">{{ item.price }}</td>
-          <td v-if="item.price !== undefined" width="6%">{{ item.ndsValue }}</td>
+          <td v-if="item.price !== undefined && ndsColumns" width="6%">{{ item.ndsValue }}</td>
           <td v-if="item.price !== undefined" width="6%">{{ item.totalPrice }}</td>
           <td v-if="item.price !== undefined" width="6%">{{ item.magazine }}</td>
-          <td v-if="item.price !== undefined" width="18%">{{ item.link }}</td>
+          <td v-if="item.price !== undefined" width="20%">{{ item.link }}</td>
         </tr>
       </tbody>
     </table>
@@ -335,13 +340,28 @@ export default {
       showFormErrors: false,
       enabledGroups: [],
       serverUrl: serverUrl,
-      tdWidths: [18, 6, 6, 10, 6, 6, 6, 6, 6, 6, 6, 18],
+      tdWidths: [18, 6, 6, 10, 6, 6, 6, 6, 6, 6, 6, 20],
       updatingId: null,
       price: 0,
       photos: [],
       image: {},
       index: null,
-      files: []
+      files: [],
+      ndsColumns: true,
+      titles: [
+        this.$i18n.messages[this.$cookies.get("lang")]["count_sh"],
+        this.$i18n.messages[this.$cookies.get("lang")]["unit_sh"],
+        this.$i18n.messages[this.$cookies.get("lang")]["deadlines"],
+        this.$i18n.messages[this.$cookies.get("lang")]["status"],
+        this.$i18n.messages[this.$cookies.get("lang")]["vatRate"],
+        this.$i18n.messages[this.$cookies.get("lang")]["priceWithoutNds"],
+        this.$i18n.messages[this.$cookies.get("lang")]["price"],
+        this.$i18n.messages[this.$cookies.get("lang")]["nds"],
+        this.$i18n.messages[this.$cookies.get("lang")]["sum_price"],
+        this.$i18n.messages[this.$cookies.get("lang")]["magazine"],
+        this.$i18n.messages[this.$cookies.get("lang")]["link"],
+      ]
+      // $t('count_sh'), $t('unit_sh'), $t('deadlines'), $t('status'), $t('vatRate'), $t('priceWithoutNds'), $t('price'), $t('nds'), $t('sum_price'), $t('magazine'), $t('link')
     }
   },
   validations: {
@@ -619,6 +639,9 @@ export default {
           // this.nomenclature["ndsValue"] = this.nomenclature.price - this.nomenclature["priceWithoutNds"];
         }
       }
+    },
+    hideNdsColumns() {
+      console.log(this.ndsColumns);
     }
   },
   computed: {
@@ -652,6 +675,62 @@ export default {
       //   this.nomenclature["ndsValue"] = (val*this.nomenclature.nds)/(100+this.nomenclature.nds);
       //   this.nomenclature["priceWithoutNds"] = val - this.nomenclature["ndsValue"];
       // }
+    },
+    lang() {
+      if(this.ndsColumns) {
+        this.titles = [
+          this.$i18n.messages[this.lang]["count_sh"],
+          this.$i18n.messages[this.lang]["unit_sh"],
+          this.$i18n.messages[this.lang]["deadlines"],
+          this.$i18n.messages[this.lang]["status"],
+          this.$i18n.messages[this.lang]["vatRate"],
+          this.$i18n.messages[this.lang]["priceWithoutNds"],
+          this.$i18n.messages[this.lang]["price"],
+          this.$i18n.messages[this.lang]["nds"],
+          this.$i18n.messages[this.lang]["sum_price"],
+          this.$i18n.messages[this.lang]["magazine"],
+          this.$i18n.messages[this.lang]["link"],
+        ]
+      } else {
+        this.titles = [
+          this.$i18n.messages[this.lang]["count_sh"],
+          this.$i18n.messages[this.lang]["unit_sh"],
+          this.$i18n.messages[this.lang]["deadlines"],
+          this.$i18n.messages[this.lang]["status"],
+          this.$i18n.messages[this.lang]["price"],
+          this.$i18n.messages[this.lang]["sum_price"],
+          this.$i18n.messages[this.lang]["magazine"],
+          this.$i18n.messages[this.lang]["link"],
+        ]
+      }
+    },
+    ndsColumns() {
+      if(this.ndsColumns) {
+        this.titles = [
+          this.$i18n.messages[this.lang]["count_sh"],
+          this.$i18n.messages[this.lang]["unit_sh"],
+          this.$i18n.messages[this.lang]["deadlines"],
+          this.$i18n.messages[this.lang]["status"],
+          this.$i18n.messages[this.lang]["vatRate"],
+          this.$i18n.messages[this.lang]["priceWithoutNds"],
+          this.$i18n.messages[this.lang]["price"],
+          this.$i18n.messages[this.lang]["nds"],
+          this.$i18n.messages[this.lang]["sum_price"],
+          this.$i18n.messages[this.lang]["magazine"],
+          this.$i18n.messages[this.lang]["link"],
+        ]
+      } else {
+        this.titles = [
+          this.$i18n.messages[this.lang]["count_sh"],
+          this.$i18n.messages[this.lang]["unit_sh"],
+          this.$i18n.messages[this.lang]["deadlines"],
+          this.$i18n.messages[this.lang]["status"],
+          this.$i18n.messages[this.lang]["price"],
+          this.$i18n.messages[this.lang]["sum_price"],
+          this.$i18n.messages[this.lang]["magazine"],
+          this.$i18n.messages[this.lang]["link"],
+        ]
+      }
     }
   }
 }
@@ -704,6 +783,7 @@ $ffamily: 'Roboto', sans-serif;
     padding: 1px 9px;
     border-top: none;
     /*width: 100%;*/
+    word-break: break-word;
   }
   tbody{
     tr{

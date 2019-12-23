@@ -106,7 +106,7 @@ export default {
           display: flex;
           max-width: 100%;
           flex: 1 1 auto;
-          padding: 50px;
+          padding: 50px 20px;
           -webkit-box-sizing: border-box;
           -moz-box-sizing: border-box;
           box-sizing: border-box;
