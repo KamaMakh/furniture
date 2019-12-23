@@ -881,10 +881,21 @@ $ffamily: 'Roboto', sans-serif;
     }
   }
 }
+.modal-mask {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: scroll;
+}
 
 @media all and(min-width: 768px) {
   .nomenclature-modal {
     max-width: 850px;
+  }
+}
+@media all and(max-width: 960px){
+  .modal-mask {
+    align-items: flex-start;
   }
 }
 @media all and(max-width: 768px) {
