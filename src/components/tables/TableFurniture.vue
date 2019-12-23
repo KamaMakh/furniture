@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="custom-control custom-switch">
+    <div class="custom-control custom-switch d-flex mb-2">
       <input type="checkbox" class="custom-control-input" :checked="ndsColumns" v-model="ndsColumns" @change="hideNdsColumns" id="customSwitch2" style="cursor: pointer">
       <label class="custom-control-label" for="customSwitch2" style="cursor: pointer">{{ $t("nds") }}</label>
     </div>
@@ -79,8 +79,8 @@
               <!--{{item.confirmed ? $t("confirmed_simple") : $t("not_confirmed_simple")}}-->
           </td>
           <td v-if="item.price !== undefined && ndsColumns" width="6%">{{ item.nds }}</td>
-          <td v-if="item.price !== undefined && ndsColumns" width="6%">{{ item.priceWithoutNds }}</td>
-          <td v-if="item.price !== undefined" width="6%">{{ item.price }}</td>
+          <td v-if="item.price !== undefined" width="6%">{{ item.priceWithoutNds }}</td>
+          <td v-if="item.price !== undefined && ndsColumns" width="6%">{{ item.price }}</td>
           <td v-if="item.price !== undefined && ndsColumns" width="6%">{{ item.ndsValue }}</td>
           <td v-if="item.price !== undefined" width="6%">{{ item.totalPrice }}</td>
           <td v-if="item.price !== undefined" width="6%">{{ item.magazine }}</td>
@@ -697,7 +697,7 @@ export default {
           this.$i18n.messages[this.lang]["unit_sh"],
           this.$i18n.messages[this.lang]["deadlines"],
           this.$i18n.messages[this.lang]["status"],
-          this.$i18n.messages[this.lang]["price"],
+          this.$i18n.messages[this.lang]["priceWithoutNds"],
           this.$i18n.messages[this.lang]["sum_price"],
           this.$i18n.messages[this.lang]["magazine"],
           this.$i18n.messages[this.lang]["link"],
@@ -725,7 +725,7 @@ export default {
           this.$i18n.messages[this.lang]["unit_sh"],
           this.$i18n.messages[this.lang]["deadlines"],
           this.$i18n.messages[this.lang]["status"],
-          this.$i18n.messages[this.lang]["price"],
+          this.$i18n.messages[this.lang]["priceWithoutNds"],
           this.$i18n.messages[this.lang]["sum_price"],
           this.$i18n.messages[this.lang]["magazine"],
           this.$i18n.messages[this.lang]["link"],
@@ -890,6 +890,9 @@ $ffamily: 'Roboto', sans-serif;
 @media all and(max-width: 768px) {
   td {
     word-break: break-word;
+    span.ellipsis {
+      max-width: 100px;
+    }
   }
 }
 @media all and(max-width: 480px) {
