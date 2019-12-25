@@ -56,12 +56,16 @@
               </svg>
             </span>
           </td>
-          <td v-if="item.price !== undefined" width="8%">{{ item.count }}</td>
+          <td v-if="item.price !== undefined" width="6%">{{ item.count }}</td>
           <td v-if="item.price !== undefined" width="6%">{{ item.units ? item.units.name: "" }}</td>
 
-          <td v-if="item.price !== undefined" width="10%">{{ item.term }}</td>
-          <td v-if="item.price !== undefined" width="6%" :style="{color: item.confirmed ? '#00670A' : '#999'}">
-              <!--{{item.confirmed ? $t("confirmed_simple") : $t("not_confirmed_simple")}}-->
+          <td v-if="item.price !== undefined" width="8%">{{ item.term }}</td>
+          <td v-if="item.price !== undefined" width="10%" style="word-break: initial">
+            <span v-for="(user, key) in item.status" :key="key">
+              <span v-if="user.confirmed">
+                {{ $t("confirmed_simple") }} - {{ getFirstLetter(user.userRole) }}
+              </span>
+            </span>
           </td>
           <td v-if="item.price !== undefined && ndsColumns" width="6%">{{ item.nds }}</td>
           <td v-if="item.price !== undefined" width="6%">{{ item.priceWithoutNds }}</td>
@@ -617,7 +621,7 @@ export default {
       // console.log(this.ndsColumns);
     },
     sort(column, event) {
-      if(column.sortable && event.target.tagName === "TD" || event.target.classList.contains("ellipsis")) {
+      if(column.sortable && (event.target.tagName === "TD" || event.target.classList.contains("ellipsis"))) {
         let groupKeys = [];
         this.rows.forEach((item, key) => {
           if(item.children && item.children > 1) {
@@ -649,6 +653,9 @@ export default {
         });
         this.currentSort = column.code;
       }
+    },
+    getFirstLetter(role) {
+      return role.split("_")[1][0];
     }
   },
   computed: {
