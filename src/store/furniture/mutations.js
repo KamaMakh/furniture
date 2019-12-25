@@ -61,6 +61,13 @@ function updateNomenclaturePhoto(state, data) {
   }
 }
 
+function clearState(state, data) {
+  state.furniture = {};
+  state.construction = {};
+  state.constructions = [];
+  state.units = [];
+}
+
 export {
   setFurniture,
   setConstructions,
@@ -72,5 +79,6 @@ export {
   setNomenclatures,
   setNomenclature,
   deleteNomenclatures,
-  updateNomenclaturePhoto
+  updateNomenclaturePhoto,
+  clearState
 };

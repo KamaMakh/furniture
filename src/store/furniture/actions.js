@@ -307,6 +307,10 @@ function addNomenclaturePhoto({ commit }, data) {
   });
 }
 
+function clearState({ commit }, data) {
+  commit("clearState", data);
+}
+
 export {
   addConstruction,
   getConstructions,
@@ -322,5 +326,6 @@ export {
   deleteNomenclature,
   updateNomenclature,
   deleteNomenclaturePhoto,
-  addNomenclaturePhoto
+  addNomenclaturePhoto,
+  clearState
 }

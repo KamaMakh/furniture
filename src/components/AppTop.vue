@@ -111,10 +111,11 @@ export default {
   },
   methods: {
     toggleLeftMenu() {
-      this.$emit('clicked-to-logo', !this.leftMenuShow);
+      this.$emit("clicked-to-logo", !this.leftMenuShow);
     },
     logout() {
-      this.$store.dispatch('user/logout', {})
+      this.$store.dispatch("user/logout", {});
+      this.$store.dispatch("furniture/clearState", {});
     },
     toggleLang(e) {
       if(
