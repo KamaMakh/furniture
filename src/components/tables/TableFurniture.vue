@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="construction && construction.id">
     <div class="custom-control custom-switch d-flex mb-2">
       <input type="checkbox" class="custom-control-input" :checked="ndsColumns" v-model="ndsColumns" @change="hideNdsColumns" id="customSwitch2" style="cursor: pointer">
       <label class="custom-control-label" for="customSwitch2" style="cursor: pointer">{{ $t("nds") }}</label>
