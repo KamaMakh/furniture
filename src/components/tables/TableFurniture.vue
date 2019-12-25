@@ -712,6 +712,7 @@ export default {
   },
   watch: {
     furniture() {
+      this.currentSort = "";
       this.enabledGroups = [];
     },
     price(val) {
