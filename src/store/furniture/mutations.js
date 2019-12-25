@@ -31,7 +31,7 @@ function updateConstruction(state, construction) {
 }
 
 function addGroup(state, group) {
-  state.furniture.groups.unshift(group);
+  state.furniture.groups.push(group);
 }
 
 function setNomenclatures(state, data) {
