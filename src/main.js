@@ -7,15 +7,19 @@ import i18n from "./i18n";
 import vSelect from "vue-select";
 import Notifications from "vue-notification";
 import VueCookies from "vue-cookies";
-import "bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
+// import "bootstrap";
+// import "bootstrap/dist/css/bootstrap.min.css";
 import { getMe } from "@/store/urls";
 import api from "./shared/api";
+import BootstrapVue from "bootstrap-vue";
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap-vue/dist/bootstrap-vue.css";
 /* eslint-disable */
 Vue.component("v-select", vSelect);
 Vue.use(Meta);
 Vue.use(Notifications);
 Vue.use(VueCookies);
+Vue.use(BootstrapVue);
 
 Vue.config.productionTip = false;
 

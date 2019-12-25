@@ -7,15 +7,14 @@
     <table class="table">
       <thead>
         <tr>
-          <!--<td v-for="(item, key) in [this.construction.name, $t('count_sh'), $t('unit_sh'), $t('deadlines'), $t('status'), $t('vatRate'), $t('priceWithoutNds'), $t('price'), $t('nds'), $t('sum_price'), $t('magazine'), $t('link')]" :key="key" :width="tdWidths[key]+'%'" :title="item">-->
-          <td v-for="(item, key) in [this.construction.name, ...titles]" :key="key" :width="tdWidths[key]+'%'" :title="item">
+          <td v-for="(item, key) in titles" :key="key" :width="tdWidths[key]+'%'" :title="item.name" @click="sort(item, $event)" style="cursor: pointer" :class="{bold: item.code === currentSort}">
             <span v-if="key === 0" @click="showModal" :title="$t('add_group')" class="icon" style="cursor: pointer">
               <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M16 0H2C0.89 0 0 0.9 0 2V16C0 17.1 0.89 18 2 18H16C17.1 18 18 17.1 18 16V2C18 0.9 17.1 0 16 0ZM16 16H2V2.00001H16V16ZM10 14H8V10H4V8.00001H8V4.00001H10V8.00001H14V10H10V14Z" fill="#C4C4C4"/>
               </svg>
             </span>
             <span class="ellipsis">
-              {{ item }}
+              {{ item.name }}
             </span>
             <span v-if="key === 0" class="setting-icon">
               <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -58,20 +57,6 @@
             </span>
           </td>
           <td v-if="item.price !== undefined" width="8%">{{ item.count }}</td>
-          <!--<td v-if="item.price !== undefined">-->
-            <!--<span v-if="item.creatorId === user.id" :title="$t('add_image')" class="mr-1" @click="addPhotoModal(item)">-->
-              <!--<svg width="12" height="22" viewBox="0 0 12 22" fill="none" xmlns="http://www.w3.org/2000/svg">-->
-                <!--<path d="M9.66634 5.50002V16.0417C9.66634 18.0675 8.02551 19.7084 5.99967 19.7084C3.97384 19.7084 2.33301 18.0675 2.33301 16.0417V4.58335C2.33301 3.31835 3.35967 2.29169 4.62467 2.29169C5.88968 2.29169 6.91634 3.31835 6.91634 4.58335V14.2084C6.91634 14.7125 6.50384 15.125 5.99967 15.125C5.49551 15.125 5.08301 14.7125 5.08301 14.2084V5.50002H3.70801V14.2084C3.70801 15.4734 4.73467 16.5 5.99967 16.5C7.26468 16.5 8.29134 15.4734 8.29134 14.2084V4.58335C8.29134 2.55752 6.65051 0.916687 4.62467 0.916687C2.59884 0.916687 0.958008 2.55752 0.958008 4.58335V16.0417C0.958008 18.8284 3.21301 21.0834 5.99967 21.0834C8.78634 21.0834 11.0413 18.8284 11.0413 16.0417V5.50002H9.66634Z" fill="#C4C4C4"/>-->
-              <!--</svg>-->
-            <!--</span>-->
-            <!--<span v-if="item.creatorId === user.id" @click="showEditNomenclature(item, $event)" style="width: 20px; height: 25px; cursor: pointer; margin-right: 5px;">-->
-              <!--<svg version="1.1" id="IconsRepoEditor" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 612 612" style="enable-background:new 0 0 612 612;" xml:space="preserve" width="18px" height="18px" fill="#999" stroke="#999" stroke-width="0">-->
-                <!--<g id="IconsRepo_bgCarrier"></g>-->
-                <!--<path d="M239.486,368.979c3.389,3.388,7.828,5.081,12.267,5.081c4.442,0,8.88-1.695,12.27-5.081L447.32,185.683 c6.775-6.777,6.775-17.762,0-24.536c-6.774-6.775-17.762-6.775-24.538,0L239.486,344.441 C232.711,351.218,232.711,362.202,239.486,368.979z"></path>-->
-                <!--<path d="M604.149,110.573c-6.702-20.057-21.54-41.957-42.922-63.333C539.68,25.69,506.868,0,472.925,0 c-15.226,0-29.255,5.354-40.679,15.501c-0.596,0.457-1.164,0.956-1.7,1.492l-65.823,65.821H20.838 c-9.582,0-17.35,7.769-17.35,17.35V594.65c0,9.582,7.769,17.35,17.35,17.35h494.485c9.582,0,17.35-7.769,17.35-17.35V240.19 c0-1.081-0.113-2.134-0.302-3.161l57.622-57.623c0.116-0.114,0.231-0.227,0.344-0.343c0.003-0.001,0.006-0.004,0.009-0.007 l1.129-1.131c0.534-0.534,1.022-1.09,1.47-1.673C608.724,158.554,612.602,135.88,604.149,110.573z M236.139,469.784 l-122.416,35.331l27.797-129.951L236.139,469.784z M267.877,452.447L156.023,340.592l260.97-260.974l111.856,111.856 L267.877,452.447z M425.445,512.469H213.384l56.919-16.428c2.818-0.814,5.383-2.328,7.458-4.401l220.211-220.211v305.871H38.188 V117.515h291.836L118.818,328.723c-2.367,2.367-3.999,5.367-4.699,8.64L73.73,526.188c-1.277,5.964,0.675,12.161,5.137,16.321 c3.256,3.033,7.498,4.659,11.833,4.659c0.927,0,334.745,0,334.745,0 M566.49,153.768c-0.189,0.202-0.373,0.409-0.551,0.619 l-0.124,0.123c-0.059,0.059-0.121,0.119-0.181,0.178l-12.248,12.246L441.531,55.08l12.53-12.53 c0.217-0.184,0.432-0.373,0.641-0.571c5.315-4.965,11.107-7.278,18.224-7.278c16.963,0,40.208,13.513,63.767,37.078 C549.597,84.681,589.886,128.729,566.49,153.768z"></path>-->
-              <!--</svg>-->
-            <!--</span>-->
-          <!--</td>-->
           <td v-if="item.price !== undefined" width="6%">{{ item.units ? item.units.name: "" }}</td>
 
           <td v-if="item.price !== undefined" width="10%">{{ item.term }}</td>
@@ -232,7 +217,6 @@
                               v-model="nomenclature.unit"
                             >
                             </v-select>
-                            <!--<input type="text" class="form-control" :placeholder="$t('unit_sh')" v-model="nomenclature.unit">-->
                           </div>
                         </div>
                         <div class="form-group row">
@@ -348,20 +332,8 @@ export default {
       index: null,
       files: [],
       ndsColumns: true,
-      titles: [
-        this.$i18n.messages[this.$cookies.get("lang")]["count_sh"],
-        this.$i18n.messages[this.$cookies.get("lang")]["unit_sh"],
-        this.$i18n.messages[this.$cookies.get("lang")]["deadlines"],
-        this.$i18n.messages[this.$cookies.get("lang")]["status"],
-        this.$i18n.messages[this.$cookies.get("lang")]["vatRate"],
-        this.$i18n.messages[this.$cookies.get("lang")]["priceWithoutNds"],
-        this.$i18n.messages[this.$cookies.get("lang")]["price"],
-        this.$i18n.messages[this.$cookies.get("lang")]["nds"],
-        this.$i18n.messages[this.$cookies.get("lang")]["sum_price"],
-        this.$i18n.messages[this.$cookies.get("lang")]["magazine"],
-        this.$i18n.messages[this.$cookies.get("lang")]["link"],
-      ]
-      // $t('count_sh'), $t('unit_sh'), $t('deadlines'), $t('status'), $t('vatRate'), $t('priceWithoutNds'), $t('price'), $t('nds'), $t('sum_price'), $t('magazine'), $t('link')
+      currentSort: "",
+      currentSortDir: "asc"
     }
   },
   validations: {
@@ -521,19 +493,21 @@ export default {
       this.price = 0;
     },
     showEditNomenclature(item, event) {
-      this.$store.dispatch("furniture/setUnits");
-      this.showNomekModal = true;
-      this.nomenclature = item;
-      this.nomenclature.unit = item.units.name;
-      this.photos = [];
-      this.price = item.price;
-      if(item.photos) {
-        item.photos.forEach(item => {
-          this.photos.push(this.serverUrl+item.pathUrl+"&type=1000px");
-        })
-      }
-      if(!item.ndsBool) {
-        this. price = this.nomenclature.price = this.nomenclature.priceWithoutNds;
+      if(event.target.tagName === "TD" || event.target.classList.contains("icon") || event.target.classList.contains("ellipsis")) {
+        this.$store.dispatch("furniture/setUnits");
+        this.showNomekModal = true;
+        this.nomenclature = item;
+        this.nomenclature.unit = item.units.name;
+        this.photos = [];
+        this.price = item.price;
+        if(item.photos) {
+          item.photos.forEach(item => {
+            this.photos.push(this.serverUrl+item.pathUrl+"&type=1000px");
+          })
+        }
+        if(!item.ndsBool) {
+          this. price = this.nomenclature.price = this.nomenclature.priceWithoutNds;
+        }
       }
     },
     showDeleteNomenModal(item) {
@@ -636,12 +610,45 @@ export default {
           this.nomenclature["ndsValue"] = Math.round(this.nomenclature.price - this.nomenclature["priceWithoutNds"]);
         } else {
           this.nomenclature["priceWithoutNds"] = this.nomenclature.price;
-          // this.nomenclature["ndsValue"] = this.nomenclature.price - this.nomenclature["priceWithoutNds"];
         }
       }
     },
     hideNdsColumns() {
-      console.log(this.ndsColumns);
+      // console.log(this.ndsColumns);
+    },
+    sort(column, event) {
+      if(column.sortable && event.target.tagName === "TD" || event.target.classList.contains("ellipsis")) {
+        let groupKeys = [];
+        this.rows.forEach((item, key) => {
+          if(item.children && item.children > 1) {
+            groupKeys.push({start: key, length: item.children})
+          }
+        });
+        groupKeys.forEach(item => {
+          let children = this.rows.slice(item.start + 1, item.length + item.start + 1);
+          children.sort((a, b) => {
+            if(this.currentSort === column.code) {
+              return 0;
+            }
+            if(column.code === "term") {
+              let date1 = a[column.code].split(".");
+              let date2 = b[column.code].split(".");
+              date1 = date1[2] + "-" + date1[1] + "-" + date1[0];
+              date2 = date2[2] + "-" + date2[1] + "-" + date2[0];
+              return new Date(date1) - new Date(date2);
+            } else {
+              if (a[column.code] >= b[column.code]) {
+                return -1;
+              }
+            }
+          });
+          if(this.currentSort === column.code) {
+            children.reverse();
+          }
+          this.rows.splice(item.start + 1, children.length, ...children);
+        });
+        this.currentSort = column.code;
+      }
     }
   },
   computed: {
@@ -658,10 +665,40 @@ export default {
             label: item.name,
             id: item.id
           });
-        })
+        });
         return unitsList;
       },
-      lang: state => state.lang
+      lang: state => state.lang,
+      titles(state) {
+          if(this.ndsColumns) {
+            return [
+              {name: state.furniture.construction.name, sortable: true, code: "name"},
+              {name: this.$i18n.messages[state.lang]["count_sh"], sortable: true, code: "count"},
+              {name: this.$i18n.messages[state.lang]["unit_sh"], sortable: false, code: "units"},
+              {name: this.$i18n.messages[state.lang]["deadlines"], sortable: true, code: "term"},
+              {name: this.$i18n.messages[state.lang]["status"], sortable: false, code: "status"},
+              {name: this.$i18n.messages[state.lang]["vatRate"], sortable: true, code: "nds"},
+              {name: this.$i18n.messages[state.lang]["priceWithoutNds"], sortable: true, code: "priceWithoutNds"},
+              {name: this.$i18n.messages[state.lang]["price"], sortable: true, code: "price"},
+              {name: this.$i18n.messages[state.lang]["nds"], sortable: true, code: "ndsValue"},
+              {name: this.$i18n.messages[state.lang]["sum_price"], sortable: true, code: "totalPrice"},
+              {name: this.$i18n.messages[state.lang]["magazine"], sortable: true, code: "magazine"},
+              {name: this.$i18n.messages[state.lang]["link"], sortable: false, code: "link"}
+            ]
+          } else {
+            return [
+              {name: state.furniture.construction.name, sortable: true, code: "name"},
+              {name: this.$i18n.messages[state.lang]["count_sh"], sortable: true, code: "count"},
+              {name: this.$i18n.messages[state.lang]["unit_sh"], sortable: false, code: "units"},
+              {name: this.$i18n.messages[state.lang]["deadlines"], sortable: true, code: "term"},
+              {name: this.$i18n.messages[state.lang]["status"], sortable: false, code: "status"},
+              {name: this.$i18n.messages[state.lang]["priceWithoutNds"], sortable: true, code: "priceWithoutNds"},
+              {name: this.$i18n.messages[state.lang]["sum_price"], sortable: true, code: "totalPrice"},
+              {name: this.$i18n.messages[state.lang]["magazine"], sortable: true, code: "magazine"},
+              {name: this.$i18n.messages[state.lang]["link"], sortable: false, code: "link"}
+            ]
+          }
+        }
     })
   },
   watch: {
@@ -671,66 +708,6 @@ export default {
     price(val) {
       this.nomenclature.price = val;
       this.updatePrices();
-      // if(this.nomenclature.nds) {
-      //   this.nomenclature["ndsValue"] = (val*this.nomenclature.nds)/(100+this.nomenclature.nds);
-      //   this.nomenclature["priceWithoutNds"] = val - this.nomenclature["ndsValue"];
-      // }
-    },
-    lang() {
-      if(this.ndsColumns) {
-        this.titles = [
-          this.$i18n.messages[this.lang]["count_sh"],
-          this.$i18n.messages[this.lang]["unit_sh"],
-          this.$i18n.messages[this.lang]["deadlines"],
-          this.$i18n.messages[this.lang]["status"],
-          this.$i18n.messages[this.lang]["vatRate"],
-          this.$i18n.messages[this.lang]["priceWithoutNds"],
-          this.$i18n.messages[this.lang]["price"],
-          this.$i18n.messages[this.lang]["nds"],
-          this.$i18n.messages[this.lang]["sum_price"],
-          this.$i18n.messages[this.lang]["magazine"],
-          this.$i18n.messages[this.lang]["link"],
-        ]
-      } else {
-        this.titles = [
-          this.$i18n.messages[this.lang]["count_sh"],
-          this.$i18n.messages[this.lang]["unit_sh"],
-          this.$i18n.messages[this.lang]["deadlines"],
-          this.$i18n.messages[this.lang]["status"],
-          this.$i18n.messages[this.lang]["priceWithoutNds"],
-          this.$i18n.messages[this.lang]["sum_price"],
-          this.$i18n.messages[this.lang]["magazine"],
-          this.$i18n.messages[this.lang]["link"],
-        ]
-      }
-    },
-    ndsColumns() {
-      if(this.ndsColumns) {
-        this.titles = [
-          this.$i18n.messages[this.lang]["count_sh"],
-          this.$i18n.messages[this.lang]["unit_sh"],
-          this.$i18n.messages[this.lang]["deadlines"],
-          this.$i18n.messages[this.lang]["status"],
-          this.$i18n.messages[this.lang]["vatRate"],
-          this.$i18n.messages[this.lang]["priceWithoutNds"],
-          this.$i18n.messages[this.lang]["price"],
-          this.$i18n.messages[this.lang]["nds"],
-          this.$i18n.messages[this.lang]["sum_price"],
-          this.$i18n.messages[this.lang]["magazine"],
-          this.$i18n.messages[this.lang]["link"],
-        ]
-      } else {
-        this.titles = [
-          this.$i18n.messages[this.lang]["count_sh"],
-          this.$i18n.messages[this.lang]["unit_sh"],
-          this.$i18n.messages[this.lang]["deadlines"],
-          this.$i18n.messages[this.lang]["status"],
-          this.$i18n.messages[this.lang]["priceWithoutNds"],
-          this.$i18n.messages[this.lang]["sum_price"],
-          this.$i18n.messages[this.lang]["magazine"],
-          this.$i18n.messages[this.lang]["link"],
-        ]
-      }
     }
   }
 }
@@ -763,7 +740,7 @@ $ffamily: 'Roboto', sans-serif;
       border: none;
       display: flex;
       align-items: center;
-      font-weight: bold;
+      font-weight: 500;
     }
     &.parent{
         border-top: 1px solid #C4C4C4;
@@ -948,5 +925,8 @@ label.title{
   font-weight: bold;
   margin-bottom: 0;
   font-size: 12px;
+}
+.bold {
+  font-weight: bold !important;
 }
 </style>

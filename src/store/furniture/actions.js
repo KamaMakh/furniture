@@ -223,7 +223,7 @@ function updateNomenclature({ commit }, data) {
       .catch(error => {
         if(error.response && error.response.status === 200) {
           // commit("setNomenclature", {response: error.response.data, group: data.group});
-          resolve(error.response);
+          resolve(error.response.message);
         } else {
           reject(error.response.message);
         }

@@ -35,7 +35,8 @@ function addGroup(state, group) {
 }
 
 function setNomenclatures(state, data) {
-  state.furniture.groups.splice(state.furniture.groups.indexOf(data.group)+1, 0, ...data.response)
+  state.furniture.groups[state.furniture.groups.indexOf(data.group)]["children"] = data.response.length;
+  state.furniture.groups.splice(state.furniture.groups.indexOf(data.group)+1, 0, ...data.response);
 }
 
 function setNomenclature(state, data) {
