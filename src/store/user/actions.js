@@ -60,6 +60,7 @@ function login({ commit }, data) {
 function logout({ commit }) {
   VueCookies.remove("token");
   router.push("/auth");
+  commit('resetUser');
 }
 
 function checkUser({ commit }) {
