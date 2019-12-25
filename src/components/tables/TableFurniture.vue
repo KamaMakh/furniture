@@ -485,6 +485,7 @@ export default {
     showNomenclature(item) {
       this.$store.dispatch("furniture/setUnits");
       this.showNomekModal = true;
+      this.files = [];
       this.nomenclature = {
         group: item,
         groupId: item.id,
@@ -503,6 +504,7 @@ export default {
         this.nomenclature = item;
         this.nomenclature.unit = item.units.name;
         this.photos = [];
+        this.files = [];
         this.price = item.price;
         if(item.photos) {
           item.photos.forEach(item => {
