@@ -36,16 +36,22 @@ function addGroup(state, group) {
 
 function setNomenclatures(state, data) {
   state.furniture.groups[state.furniture.groups.indexOf(data.group)]["children"] = data.response.length;
+  data.response.forEach((item, key) => {
+    data.response[key]["group"] = data.group;
+  });
   state.furniture.groups.splice(state.furniture.groups.indexOf(data.group)+1, 0, ...data.response);
 }
 
 function setNomenclature(state, data) {
-  state.furniture.groups.splice(state.furniture.groups.indexOf(data.group)+1, 0, data.response)
+  state.furniture.groups[state.furniture.groups.indexOf(data.group)]["children"] += 1;
+  data.response["group"] = data.group;
+  state.furniture.groups.splice(state.furniture.groups.indexOf(data.group)+1, 0, data.response);
 }
 
 function deleteNomenclatures(state, data) {
   if (state.furniture.groups.indexOf(data.nomenclature) !== -1) {
     state.furniture.groups.splice(state.furniture.groups.indexOf(data.nomenclature), 1);
+    state.furniture.groups[state.furniture.groups.indexOf(data.nomenclature.group)]["children"] -= 1;
   }
 }
 
