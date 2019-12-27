@@ -51,7 +51,13 @@ function setNomenclature(state, data) {
 function deleteNomenclatures(state, data) {
   if (state.furniture.groups.indexOf(data.nomenclature) !== -1) {
     state.furniture.groups.splice(state.furniture.groups.indexOf(data.nomenclature), 1);
-    state.furniture.groups[state.furniture.groups.indexOf(data.nomenclature.group)]["children"] -= 1;
+
+    if(
+        state.furniture.groups[state.furniture.groups.indexOf(data.nomenclature.group)] &&
+        state.furniture.groups[state.furniture.groups.indexOf(data.nomenclature.group)].hasOwnProperty("children")
+      ) {
+      state.furniture.groups[state.furniture.groups.indexOf(data.nomenclature.group)]["children"] -= 1;
+    }
   }
 }
 
