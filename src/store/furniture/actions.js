@@ -98,9 +98,10 @@ function addGroup({ commit }, data) {
 
 function updateGroup({ commit }, data) {
   return new Promise((resolve, reject) => {
-    api.post(updateFurnitureGroup, data)
+    api.post(updateFurnitureGroup, data.data)
       .then((response) => {
         if(response.status === 200) {
+          commit("updateGroup", {response: response.data, group: data.group});
           resolve();
         } else {
           reject(response.data.message)
@@ -108,10 +109,10 @@ function updateGroup({ commit }, data) {
       })
       .catch(error => {
         if(error.response && error.response.status === 200) {
-          // commit("addGroup", error.response.data);
+          commit("updateGroup", {response: error.response.data, group: data.group});
           resolve();
         } else {
-          reject(error.response)
+          reject(error.response.message)
         }
       });
   });

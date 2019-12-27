@@ -375,7 +375,7 @@ export default {
         formData.append("groupId", this.group.id);
         formData.append("name", this.group.name);
 
-        this.$store.dispatch("furniture/updateGroup", formData)
+        this.$store.dispatch("furniture/updateGroup", {data: formData, group: this.group})
           .then(response => {
             this.showAddModal = false;
           })
