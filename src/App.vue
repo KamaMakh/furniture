@@ -18,31 +18,30 @@ export default{
 </script>
 
 <style lang="scss">
-    @media screen and(min-width: 960px) {
-        html, body{
-            height: 100%;
-        }
-    }
+$ffamily: 'Roboto', sans-serif;
+@media screen and(min-width: 960px) {
+  html, body{
+    height: 100%;
+  }
+}
 
-    body{
-        margin: 0;
-    }
+body{
+  margin: 0;
+}
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-    height: 100%;
+  height: 100%;
 }
 
 #nav {
   padding: 30px;
-
   a {
     font-weight: bold;
     color: #2c3e50;
-
     &.router-link-exact-active {
       color: #42b983;
     }
@@ -133,5 +132,21 @@ export default{
 
 .vue-notification-group {
   z-index: 9999 !important;
+}
+
+input.nomenclature {
+  border: none;
+  background: none;
+  border-bottom: 1px solid #000;
+  border-radius: 0;
+  padding-left: 0;
+  padding-right: 0;
+  font-family: $ffamily;
+  &::placeholder{
+    color: #C4C4C4;
+  }
+  &.is-danger {
+    border-bottom: 1px solid #f04124 !important;
+  }
 }
 </style>

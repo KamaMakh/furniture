@@ -160,7 +160,7 @@
                         <div v-if="nomenclature.id && nomenclature.creatorId === user.id" class="form-group row" style="border-bottom: 1px solid #999;">
                           <uploader v-model="files" limit="1" :title="$t('add_image')" :autoUpload="false" :multiple="true"></uploader>
                         </div>
-                        <div v-else-if="!nomenclature.id" class="form-group row">
+                        <div v-else-if="!nomenclature.id" class="form-group row" :class="{ 'is-danger': !nomenclature.file && showFormErrors}">
                           <uploader v-model="nomenclature.file" limit="3" :title="$t('add_image')" :autoUpload="false" :multiple="true"></uploader>
                         </div>
                         <div class="form-group row">
@@ -230,7 +230,17 @@
                           </div>
                           <div class="col col-lg-4 col-md-4 col-sm-12">
                             <label class="title" for="nTerm">{{ $t("term") }}</label>
-                            <input type="text" id="nTerm" v-mask="'##.##.####'" class="form-control" :class="{ 'is-danger': $v.nomenclature.term.$invalid && (nomenclature.term || showFormErrors)}" :placeholder="$t('term')" v-model="nomenclature.term">
+                            <!--<input type="text" id="nTerm" class="form-control" :class="{ 'is-danger': $v.nomenclature.term.$invalid && (nomenclature.term || showFormErrors)}" :placeholder="$t('term')" v-model="nomenclature.term">-->
+                            <v-date-picker
+                              :popover="{ placement: 'bottom', visibility: 'click' }"
+                              v-model="nomenclature.termString"
+                              :input-props="{
+                                class: `form-control nomenclature ${!nomenclature.termString && showFormErrors ? 'is-danger' : ''}`,
+                                id: 'nTerm'
+                              }"
+                              :locale='lang'
+                              :masks="{L: 'DD.MM.YYYY'}"
+                            />
                           </div>
                           <div class="col col-lg-4 col-md-4 col-sm-12">
                             <label class="title" for="nLink">{{ $t("link") }}</label>
@@ -307,6 +317,8 @@ import Validations from 'vuelidate'
 import { required } from "vuelidate/lib/validators";
 import { serverUrl } from "@/store/urls"
 import VueGallery from 'vue-gallery';
+import VCalendar from "v-calendar";
+Vue.use(VCalendar);
 Vue.use(VueMask);
 Vue.use(Validations);
 export default {
@@ -346,7 +358,7 @@ export default {
       unit: {required},
       count: {required},
       price: {required},
-      term: {required},
+      termString: {required},
       nds: {required},
     }
   },
@@ -421,7 +433,9 @@ export default {
       }
       formData.append( "name", this.nomenclature.name );
       formData.append( "count", this.nomenclature.count );
-      formData.append( "term", this.nomenclature.term );
+
+      let term = this.formatDate(this.nomenclature.termString);
+      formData.append( "term", term );
       formData.append( "ndsBool", this.nomenclature.ndsBool );
 
       if(this.nomenclature.ndsBool) {
@@ -444,7 +458,7 @@ export default {
       }
 
       if(this.nomenclature.id) {
-        this.$store.dispatch("furniture/updateNomenclature", {data: formData, group: this.nomenclature.group})
+        this.$store.dispatch("furniture/updateNomenclature", {data: formData, group: this.nomenclature.group, nomenclature: this.nomenclature})
           .then((response) => {
             this.showNomekModal = false;
             if(this.files.length) {
@@ -482,9 +496,23 @@ export default {
       this.showAddModal = true;
       this.group = group || {}
     },
+    formatDate(date) {
+      let d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+      if (month.length < 2)
+        month = '0' + month;
+      if (day.length < 2)
+        day = '0' + day;
+
+      return [day, month, year].join('.');
+    },
     showNomenclature(item) {
       this.$store.dispatch("furniture/setUnits");
       this.showNomekModal = true;
+      this.showFormErrors = false;
       this.files = [];
       this.nomenclature = {
         group: item,
@@ -493,7 +521,8 @@ export default {
         price: 0,
         ndsValue: 0,
         priceWithoutNds: 0,
-        ndsBool: false
+        ndsBool: false,
+        termString: new Date()
       };
       this.price = 0;
     },
@@ -501,6 +530,10 @@ export default {
       if(event.target.tagName === "TD" || event.target.classList.contains("icon") || event.target.classList.contains("ellipsis")) {
         this.$store.dispatch("furniture/setUnits");
         this.showNomekModal = true;
+
+        let term = item.term.split(".");
+        term = term[2] + "." + term[1] + "." + term[0];
+        item.termString = new Date(term);
         this.nomenclature = item;
         this.nomenclature.unit = item.units.name;
         this.photos = [];
@@ -863,9 +896,6 @@ $ffamily: 'Roboto', sans-serif;
     &::placeholder{
       color: #C4C4C4;
     }
-    &.is-danger {
-      border-bottom-color: #f04124 !important;
-    }
   }
 }
 .modal-mask {
@@ -873,6 +903,10 @@ $ffamily: 'Roboto', sans-serif;
   justify-content: center;
   align-items: center;
   overflow: scroll;
+}
+
+.is-danger {
+  border-bottom: 1px solid #f04124 !important;
 }
 
 @media all and(min-width: 768px) {

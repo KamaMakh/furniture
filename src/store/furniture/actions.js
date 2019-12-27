@@ -214,7 +214,7 @@ function updateNomenclature({ commit }, data) {
     api.post(updateNomenclatureUrl, data.data)
       .then((response) => {
         if(response.status === 200) {
-          // commit("setNomenclature", {response: response.data, group: data.group});
+          commit("updateNomenclature", {response: response.data, nomenclature: data.nomenclature});
           resolve(response.data);
         } else {
           reject(response.data.message)
@@ -222,7 +222,7 @@ function updateNomenclature({ commit }, data) {
       })
       .catch(error => {
         if(error.response && error.response.status === 200) {
-          // commit("setNomenclature", {response: error.response.data, group: data.group});
+          commit("updateNomenclature", {response: error.response.data});
           resolve(error.response.message);
         } else {
           reject(error.response.message);
