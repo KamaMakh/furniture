@@ -973,4 +973,9 @@ label.title{
 .bold {
   font-weight: bold !important;
 }
+
+.custom-control-input:checked ~ .custom-control-label::before {
+  background: #688E74;
+  border-color: #688E74;
+}
 </style>
