@@ -73,7 +73,9 @@
           <td v-if="item.price !== undefined && ndsColumns" width="6%">{{ item.ndsValue }}</td>
           <td v-if="item.price !== undefined" width="6%">{{ item.totalPrice }}</td>
           <td v-if="item.price !== undefined" width="6%">{{ item.magazine }}</td>
-          <td v-if="item.price !== undefined" width="20%">{{ item.link }}</td>
+          <td v-if="item.price !== undefined" width="20%">
+            <a :href="item.link" target="_blank">{{ item.link }}</a>
+          </td>
         </tr>
       </tbody>
     </table>
