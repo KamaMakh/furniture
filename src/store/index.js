@@ -12,29 +12,29 @@ Vue.use(Vuex);
 VueCookies.config("40d")
 
 // export default function () {
-  export default new Vuex.Store({
-    modules: {
-      user,
-      projects,
-      furniture
+export default new Vuex.Store({
+  modules: {
+    user,
+    projects,
+    furniture
+  },
+  state: {
+    lang: VueCookies.get("lang") || navigator.language || navigator.userLanguage || "en"
+  },
+  getters: {
+    loggedIn(state) {
+      return Boolean(state.user.user.id);
     },
-    state: {
-      lang: VueCookies.get("lang") || "en"
-    },
-    getters: {
-      loggedIn(state) {
-        return Boolean(state.user.user.id);
-      },
-      isAdmin(state) {
-        return Boolean(state.user.user.isAdmin);
-      }
-    },
-    mutations: {
-      setLang(state, lang) {
-        VueCookies.set("lang", lang);
-        state.lang = lang;
-      }
+    isAdmin(state) {
+      return Boolean(state.user.user.isAdmin);
     }
-  });
-  // return Store;
+  },
+  mutations: {
+    setLang(state, lang) {
+      VueCookies.set("lang", lang);
+      state.lang = lang;
+    }
+  }
+});
+// return Store;
 // }

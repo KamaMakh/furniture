@@ -23,7 +23,7 @@ export default {
   data() {
     return {
       langs: ["en", "fr", "ru"],
-      currLang: this.$cookies.get("lang") || "en"
+      currLang: this.$cookies.get("lang") || navigator.language || navigator.userLanguage || "en"
     }
   },
   methods: {

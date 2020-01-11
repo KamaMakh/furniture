@@ -4,10 +4,10 @@
       <div class="form__header">
         <div class="form__tabs">
           <router-link :to="{ name: 'Login'}" class="card-header-action btn-setting">
-            Sign in
+            {{ $t("sign_in") }}
           </router-link>
           <router-link :to="{ name: 'Registration'}" class="card-header-action btn-setting">
-            Sign up
+            {{ $t("sign_up") }}
           </router-link>
         </div>
         <div class="form__lang">

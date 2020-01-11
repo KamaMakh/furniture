@@ -67,5 +67,7 @@
   "actions": "Actions",
   "add_nomenclature": "Add a photo",
   "edit_group": "Edit group",
-  "add_group": "Add group"
+  "add_group": "Add group",
+  "sign_in": "Sign in",
+  "sign_up": "Sign up"
 }

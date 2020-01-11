@@ -66,5 +66,7 @@
   "actions": "Actions",
   "add_nomenclature": "Ajouter un élément",
   "edit_group": "Modifier le groupe",
-  "add_group": "Ajouter un groupe"
+  "add_group": "Ajouter un groupe",
+  "sign_in": "Se connecter",
+  "sign_up": "S'inscrire"
 }
