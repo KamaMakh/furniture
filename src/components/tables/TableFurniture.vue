@@ -249,11 +249,11 @@
                           </div>
                         </div>
                         <div class="form-group row">
-                          <div class="col col-lg-4 col-md-4 col-sm-12" :class="{ disabled: !nomenclature.ndsBool }">
+                          <div v-if="nomenclature.ndsBool" class="col col-lg-4 col-md-4 col-sm-12" :class="{ disabled: !nomenclature.ndsBool }">
                             <label class="title" for="nNds">{{ $t("nds") }}</label>
                             <input type="number" id="nNds" step="1" class="form-control" :class="{ 'is-danger': $v.nomenclature.nds.$invalid && (nomenclature.nds || showFormErrors)}" :placeholder="$t('nds')" v-model="nomenclature.nds" @change="updatePrices">
                           </div>
-                          <div class="col col-lg-4 col-md-4 col-sm-12" :class="{ disabled: !nomenclature.ndsBool }">
+                          <div v-if="nomenclature.ndsBool" class="col col-lg-4 col-md-4 col-sm-12" :class="{ disabled: !nomenclature.ndsBool }">
                             <label class="title" for="nNdsValue">{{ $t("ndsValue") }}</label>
                             <input type="number" id="nNdsValue" disabled step="any" class="form-control" :placeholder="$t('ndsValue')" v-model="nomenclature.ndsValue">
                           </div>
@@ -649,6 +649,8 @@ export default {
           this.nomenclature["priceWithoutNds"] = Math.round(this.nomenclature.price / parseFloat('1.' + this.nomenclature.nds));
           this.nomenclature["ndsValue"] = Math.round(this.nomenclature.price - this.nomenclature["priceWithoutNds"]);
         } else {
+          this.nomenclature.nds = 0;
+          this.nomenclature["ndsValue"] = 0;
           this.nomenclature["priceWithoutNds"] = this.nomenclature.price;
         }
       }
