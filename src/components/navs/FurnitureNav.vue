@@ -17,6 +17,45 @@
     </div>
 
     <!--modals-->
+    <!--<b-form @submit="addConstruction" v-if="showAddModal">-->
+      <!--<b-form-group-->
+        <!--id="input-group-1"-->
+        <!--label="Email address:"-->
+        <!--label-for="input-1"-->
+        <!--description="We'll never share your email with anyone else."-->
+      <!--&gt;-->
+        <!--<b-form-input-->
+          <!--id="input-1"-->
+          <!--v-model="newConstruction.address"-->
+          <!--:placeholder="$t('address')"-->
+          <!--type="email"-->
+          <!--required-->
+        <!--&gt;</b-form-input>-->
+      <!--</b-form-group>-->
+
+      <!--<b-form-group id="input-group-2" label="Your Name:" label-for="input-2">-->
+        <!--<b-form-input-->
+          <!--id="input-2"-->
+          <!--v-model="newConstruction.name"-->
+          <!--:placeholder="$t('construct_name')"-->
+          <!--required-->
+        <!--&gt;</b-form-input>-->
+      <!--</b-form-group>-->
+
+      <!--<b-form-group id="input-group-2" label="Your Name:" label-for="input-2">-->
+        <!--<b-form-input-->
+          <!--id="input-2"-->
+          <!--v-model="newConstruction.nds"-->
+          <!--:placeholder="$t('nds')"-->
+          <!--required-->
+        <!--&gt;</b-form-input>-->
+      <!--</b-form-group>-->
+
+      <!--<button type="button" class="btn btn-secondary" @click="showAddModal = false">{{ $t("close") }}</button>-->
+      <!--<button type="button" class="btn btn-custom" @click="addConstruction">{{ $t("save") }}</button>-->
+    <!--</b-form>-->
+
+
     <transition name="fade-none">
       <div v-if="showAddModal">
         <div class="modal-mask">
@@ -25,19 +64,58 @@
               <div class="modal-content">
                 <div class="modal-body">
                   <form @submit="addConstruction">
-                    <div class="form-group">
-                      <input type="text" class="form-control" v-model="newConstruction.address" :placeholder="$t('address')">
-                    </div>
-                    <div class="form-group">
-                      <input type="text" class="form-control" v-model="newConstruction.name" :placeholder="$t('construct_name')">
-                    </div>
-                    <div class="form-group">
-                      <input type="number" step="any" class="form-control" v-model="newConstruction.nds" :placeholder="$t('nds')">
-                    </div>
+                    <!--<div class="form-group">-->
+                      <b-form-group
+                        id="input-group-1"
+                        :label="$t('address')"
+                        label-for="input-1"
+                        >
+                        <b-form-input
+                          id="input-1"
+                          v-model="newConstruction.address"
+                          :placeholder="$t('address')"
+                          type="text"
+                          required
+                        ></b-form-input>
+                      </b-form-group>
+                      <!--<input type="text" class="form-control" v-model="newConstruction.address" :placeholder="$t('address')">-->
+                    <!--</div>-->
+                    <!--<div class="form-group">-->
+                      <b-form-group
+                        id="input-group-2"
+                        :label="$t('construct_name')"
+                        label-for="input-2"
+                      >
+                        <b-form-input
+                          id="input-2"
+                          v-model="newConstruction.name"
+                          :placeholder="$t('construct_name')"
+                          type="text"
+                          required
+                        ></b-form-input>
+                      </b-form-group>
+                      <!--<input type="text" class="form-control" v-model="newConstruction.name" :placeholder="$t('construct_name')">-->
+                    <!--</div>-->
+                    <!--<div class="form-group">-->
+                      <b-form-group
+                        id="input-group-3"
+                        :label="$t('nds')"
+                        label-for="input-3"
+                      >
+                        <b-form-input
+                          id="input-3"
+                          v-model="newConstruction.nds"
+                          :placeholder="$t('nds')"
+                          type="number"
+                          required
+                        ></b-form-input>
+                      </b-form-group>
+                      <!--<input type="number" step="any" class="form-control" v-model="newConstruction.nds" :placeholder="$t('nds')">-->
+                    <!--</div>-->
                   </form>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" @click="showAddModal = false">{{ $t("close") }}</button>
+                  <button type="button" class="btn btn-secondary" style="border-radius: 14px" @click="showAddModal = false">{{ $t("close") }}</button>
                   <button type="button" class="btn btn-custom" @click="addConstruction">{{ $t("save") }}</button>
                 </div>
               </div>
@@ -141,22 +219,6 @@ export default {
         cursor: pointer;
       }
     }
-  }
-  .modal-mask {
-    position: fixed;
-    z-index: 9998;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, .5);
-    display: table;
-    transition: opacity .3s ease;
-  }
-
-  .modal-wrapper {
-    display: table-cell;
-    vertical-align: middle;
   }
   .menu-left {
     ul {

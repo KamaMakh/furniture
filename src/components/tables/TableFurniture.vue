@@ -88,7 +88,8 @@
                 <div class="modal-body">
                   <form @submit="addGroup">
                     <div class="form-group">
-                      <input type="text" class="form-control" v-model="group.name" :placeholder="$t('construct_name')">
+                      <label for="input-name">{{ $t('construct_name') }}</label>
+                      <input type="text" id="input-name" class="form-control" v-model="group.name" :placeholder="$t('construct_name')">
                     </div>
                   </form>
                 </div>

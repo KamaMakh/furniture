@@ -48,10 +48,13 @@ body{
   }
 }
 .btn-custom{
-  background: #688E74 !important;
   color: #fff !important;
+  background: linear-gradient(98.69deg, #688E74 11.52%, #8AC29C 90.26%) !important;
+  border-radius: 14px !important;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
   &:hover{
-    background: #999 !important;
+    opacity: 0.8;
   }
 }
 .date-picker {
@@ -147,6 +150,61 @@ input.nomenclature {
   }
   &.is-danger {
     border-bottom: 1px solid #f04124 !important;
+  }
+}
+
+.modal-mask {
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .5);
+  display: table;
+  transition: opacity .3s ease;
+  input {
+    border: none;
+    background: none;
+    border-bottom: 1px solid #000;
+    border-radius: 0;
+    padding-left: 0;
+    padding-right: 0;
+    font-family: "Roboto", sans-serif;
+  }
+  label {
+    display: block;
+    text-align: left;
+    color: #000;
+    font-weight: bold;
+    margin-bottom: 0;
+    font-size: 12px;
+  }
+}
+
+.modal-wrapper {
+  display: table-cell;
+  vertical-align: middle;
+  .modal-dialog {
+    background: #fff;
+    border-radius: 1rem;
+  }
+  .modal-content {
+    background: linear-gradient(90deg, #E1E1E1 0%, rgba(236, 232, 232, 0) 20.31%);
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    border-radius: 1rem;
+  }
+  .modal-footer {
+    border: none;
+    button {
+      border-radius: 14px;
+    }
+  }
+}
+.vs__selected-options {
+  input {
+    border: none;
   }
 }
 </style>
