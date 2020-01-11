@@ -7,7 +7,7 @@ function setConstructions(state, constructions) {
 }
 
 function addConstruction(state, construction) {
-  state.constructions.unshift(construction)
+  state.constructions.unshift(construction);
 }
 
 function updateConstruction(state, construction) {

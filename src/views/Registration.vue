@@ -2,48 +2,138 @@
   <form @submit="register">
     <div class="register">
       <div class="register__item">
-        <input type="text" name="fio" autocomplete="username" v-model="form.name" :placeholder="$t('name')" required>
+        <input
+          type="text"
+          name="fio"
+          autocomplete="username"
+          v-model="form.name"
+          :placeholder="$t('name')"
+          required
+        />
       </div>
-      <div class="register__item" :class="{ 'is-danger': $v.form.email.$invalid && (form.email || showFormErrors)}">
-        <input type="email" name="email" autocomplete="email" v-model.trim="form.email" :placeholder="$t('email')" required>
-        <div class="error" v-if="!$v.form.email.email && form.email">{{ $t("invalid_email") }}</div>
+      <div
+        class="register__item"
+        :class="{
+          'is-danger': $v.form.email.$invalid && (form.email || showFormErrors)
+        }"
+      >
+        <input
+          type="email"
+          name="email"
+          autocomplete="email"
+          v-model.trim="form.email"
+          :placeholder="$t('email')"
+          required
+        />
+        <div class="error" v-if="!$v.form.email.email && form.email">
+          {{ $t("invalid_email") }}
+        </div>
       </div>
       <div class="register__item">
-        <input type="text" name="phone" v-mask="'+7 (###) ###-##-##'" autocomplete="phone" v-model="form.phone" :placeholder="$t('phone')" required>
+        <input
+          type="text"
+          name="phone"
+          v-mask="'+7 (###) ###-##-##'"
+          autocomplete="phone"
+          v-model="form.phone"
+          :placeholder="$t('phone')"
+          required
+        />
       </div>
-      <div class="register__item" :class="{ 'is-danger': $v.form.password.$invalid && (form.password || showFormErrors)}">
-        <input type="password" name="password" autocomplete="current-password" v-model="form.password" :placeholder="$t('password')" required>
-        <div class="error" v-if="!$v.form.password.minLength">{{ $t("invalid_password_length", {length: $v.form.password.$params.minLength.min}) }}</div>
-        <div class="error" v-if="(
-            !$v.form.password.isHasNumber ||
-            !$v.form.password.isNotCyrillic ||
-            !$v.form.password.isHasEnglishLetter) && form.password">
+      <div
+        class="register__item"
+        :class="{
+          'is-danger':
+            $v.form.password.$invalid && (form.password || showFormErrors)
+        }"
+      >
+        <input
+          type="password"
+          name="password"
+          autocomplete="current-password"
+          v-model="form.password"
+          :placeholder="$t('password')"
+          required
+        />
+        <div class="error" v-if="!$v.form.password.minLength">
+          {{
+            $t("invalid_password_length", {
+              length: $v.form.password.$params.minLength.min
+            })
+          }}
+        </div>
+        <div
+          class="error"
+          v-if="
+            (!$v.form.password.isHasNumber ||
+              !$v.form.password.isNotCyrillic ||
+              !$v.form.password.isHasEnglishLetter) &&
+              form.password
+          "
+        >
           {{ $t("invalid_password_content") }}
         </div>
       </div>
-      <div class="register__item" :class="{ 'is-danger': $v.form.c_password.$invalid && form.c_password}">
-        <input type="password" name="c_password" autocomplete="current-password" v-model="form.c_password" :placeholder="$t('c_password')" required>
-        <div class="error" v-if="!$v.form.c_password.sameAsPassword && form.c_password">{{ $t("invalid_password_confirm") }}</div>
+      <div
+        class="register__item"
+        :class="{ 'is-danger': $v.form.c_password.$invalid && form.c_password }"
+      >
+        <input
+          type="password"
+          name="c_password"
+          autocomplete="current-password"
+          v-model="form.c_password"
+          :placeholder="$t('c_password')"
+          required
+        />
+        <div
+          class="error"
+          v-if="!$v.form.c_password.sameAsPassword && form.c_password"
+        >
+          {{ $t("invalid_password_confirm") }}
+        </div>
       </div>
-      <div class="register__item" :class="{ 'is-danger': $v.form.role.$invalid && (form.role || showFormErrors)}">
+      <div
+        class="register__item"
+        :class="{
+          'is-danger': $v.form.role.$invalid && (form.role || showFormErrors)
+        }"
+      >
         <v-select
           class="style-chooser"
           :placeholder="$t('role')"
           :options="[
-            $t('supervisor'), $t('magazine'), $t('client'), $t('architect')
+            $t('supervisor'),
+            $t('magazine'),
+            $t('client'),
+            $t('architect')
           ]"
           v-model="form.role"
         >
         </v-select>
       </div>
       <div class="register__item">
-        <textarea name="info" cols="30" rows="3" :placeholder="$t('info')" v-model="form.info" required></textarea>
+        <textarea
+          name="info"
+          cols="30"
+          rows="3"
+          :placeholder="$t('info')"
+          v-model="form.info"
+          required
+        ></textarea>
       </div>
       <div class="register__item">
         <label>
-          <p-check class="pretty p-image p-plain" @click="policy" name="test" v-model="policy">
-            <img slot="extra" class="image" src="../assets/policycheck.svg">
-            <span class="agree-text-wrap" @click="showModal = true">{{ $t("agree_text") }}</span>
+          <p-check
+            class="pretty p-image p-plain"
+            @click="policy"
+            name="test"
+            v-model="policy"
+          >
+            <img slot="extra" class="image" src="../assets/policycheck.svg" />
+            <span class="agree-text-wrap" @click="showModal = true">{{
+              $t("agree_text")
+            }}</span>
           </p-check>
         </label>
       </div>
@@ -65,7 +155,13 @@
                   Тут будет текст...
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" @click="showModal = false">{{ $t("close") }}</button>
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    @click="showModal = false"
+                  >
+                    {{ $t("close") }}
+                  </button>
                   <!--<button type="button" class="btn btn-custom" @click="addConstruction">{{ $t("save") }}</button>-->
                 </div>
               </div>

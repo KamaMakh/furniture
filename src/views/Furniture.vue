@@ -1,7 +1,7 @@
 <template>
   <div class="flex-grow-1 furniture">
     <div class="col col-12 p-0">
-      <TableFurniture/>
+      <TableFurniture />
     </div>
   </div>
 </template>

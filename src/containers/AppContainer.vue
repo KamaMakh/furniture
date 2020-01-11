@@ -9,7 +9,7 @@
       </div>
       <div class="container-wrap__content content">
         <div class="content__left-menu" :class="{ opened: leftMenuShow }">
-          <AppLeft :navsType="navsType"/>
+          <AppLeft :navsType="navsType" />
         </div>
         <div class="content__body">
           <router-view />

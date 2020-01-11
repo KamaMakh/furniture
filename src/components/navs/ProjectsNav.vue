@@ -1,17 +1,22 @@
 <template>
   <div class="sidebar">
     <!--<div class="sidebar__btn" @click="showAddModal = true; newConstruction = {}">-->
-      <!--{{ $t("add_constr") }}-->
-      <!--<span class="icon">-->
-        <!--<svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">-->
-          <!--<path fill-rule="evenodd" clip-rule="evenodd" d="M16.8889 0H2.11111C0.939444 0 0 0.95 0 2.11111V16.8889C0 18.05 0.939444 19 2.11111 19H16.8889C18.05 19 19 18.05 19 16.8889V2.11111C19 0.95 18.05 0 16.8889 0ZM16.8891 16.8889H2.11133V2.11111H16.8891V16.8889ZM10.5555 14.7778H8.44439V10.5556H4.22217V8.44444H8.44439V4.22222H10.5555V8.44444H14.7777V10.5556H10.5555V14.7778Z" fill="#868686"/>-->
-        <!--</svg>-->
-      <!--</span>-->
+    <!--{{ $t("add_constr") }}-->
+    <!--<span class="icon">-->
+    <!--<svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">-->
+    <!--<path fill-rule="evenodd" clip-rule="evenodd" d="M16.8889 0H2.11111C0.939444 0 0 0.95 0 2.11111V16.8889C0 18.05 0.939444 19 2.11111 19H16.8889C18.05 19 19 18.05 19 16.8889V2.11111C19 0.95 18.05 0 16.8889 0ZM16.8891 16.8889H2.11133V2.11111H16.8891V16.8889ZM10.5555 14.7778H8.44439V10.5556H4.22217V8.44444H8.44439V4.22222H10.5555V8.44444H14.7777V10.5556H10.5555V14.7778Z" fill="#868686"/>-->
+    <!--</svg>-->
+    <!--</span>-->
     <!--</div>-->
     <div class="sidebar_list menu-left">
       <ul v-if="constructions">
         <li v-for="(item, key) in constructions" :key="key">
-          <a :class="{active: construction.id === item.id}" @click="chooseConstruction(item)"><span @click="editConstruction(item)" class="icon"></span> {{ item.name }}</a>
+          <a
+            :class="{ active: construction.id === item.id }"
+            @click="chooseConstruction(item)"
+            ><span @click="editConstruction(item)" class="icon"></span>
+            {{ item.name }}</a
+          >
         </li>
       </ul>
     </div>
@@ -26,16 +31,38 @@
                 <div class="modal-body">
                   <form @submit="addConstruction">
                     <div class="form-group">
-                      <input type="text" class="form-control" v-model="newConstruction.address" :placeholder="$t('address')">
+                      <input
+                        type="text"
+                        class="form-control"
+                        v-model="newConstruction.address"
+                        :placeholder="$t('address')"
+                      />
                     </div>
                     <div class="form-group">
-                      <input type="text" class="form-control" v-model="newConstruction.name" :placeholder="$t('construct_name')">
+                      <input
+                        type="text"
+                        class="form-control"
+                        v-model="newConstruction.name"
+                        :placeholder="$t('construct_name')"
+                      />
                     </div>
                   </form>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" @click="showAddModal = false">{{ $t("close") }}</button>
-                  <button type="button" class="btn btn-custom" @click="addConstruction">{{ $t("save") }}</button>
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    @click="showAddModal = false"
+                  >
+                    {{ $t("close") }}
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-custom"
+                    @click="addConstruction"
+                  >
+                    {{ $t("save") }}
+                  </button>
                 </div>
               </div>
             </div>

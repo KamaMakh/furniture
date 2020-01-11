@@ -3,15 +3,21 @@
     <div class="auth__form form">
       <div class="form__header">
         <div class="form__tabs">
-          <router-link :to="{ name: 'Login'}" class="card-header-action btn-setting">
+          <router-link
+            :to="{ name: 'Login' }"
+            class="card-header-action btn-setting"
+          >
             {{ $t("sign_in") }}
           </router-link>
-          <router-link :to="{ name: 'Registration'}" class="card-header-action btn-setting">
+          <router-link
+            :to="{ name: 'Registration' }"
+            class="card-header-action btn-setting"
+          >
             {{ $t("sign_up") }}
           </router-link>
         </div>
         <div class="form__lang">
-          <LocaleChanger :parentClass="'auth-locale'"/>
+          <LocaleChanger :parentClass="'auth-locale'" />
         </div>
       </div>
       <div class="form__body">

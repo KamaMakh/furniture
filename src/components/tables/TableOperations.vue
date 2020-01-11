@@ -6,7 +6,7 @@
           <td></td>
           <td>
             <span class="d-flex font-weight-bold">
-            {{ date }} Логист Александр
+              {{ date }} Логист Александр
             </span>
           </td>
           <td class="border-0"></td>

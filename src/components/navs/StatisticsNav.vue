@@ -3,7 +3,11 @@
     <div class="sidebar_list menu-left">
       <ul v-if="constructions">
         <li v-for="(item, key) in constructions" :key="key">
-          <a :class="{active: construction.id === item.id}" @click="chooseConstruction(item)">{{ item.name }}</a>
+          <a
+            :class="{ active: construction.id === item.id }"
+            @click="chooseConstruction(item)"
+            >{{ item.name }}</a
+          >
         </li>
       </ul>
     </div>
@@ -16,7 +20,7 @@
           <v-date-picker
             :popover="{ placement: 'bottom', visibility: 'hidden' }"
             v-model="dateFromV"
-            :masks="{L: 'YYYY/MM/DD'}"
+            :masks="{ L: 'YYYY/MM/DD' }"
             :input-props="{
               class: 'date-picker-input'
             }"
@@ -24,15 +28,28 @@
           <v-date-picker
             :popover="{ placement: 'bottom', visibility: 'click' }"
             v-model="dateFrom"
-            :locale='lang'
-            :masks="{L: 'YYYY/MM/DD'}"
+            :locale="lang"
+            :masks="{ L: 'YYYY/MM/DD' }"
           >
-            <svg class="ml-2" style="cursor: pointer;" width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M16 2H15V0H13V2H5V0H3V2H2C0.9 2 0 2.9 0 4V18C0 19.1 0.9 20 2 20H16C17.1 20 18 19.1 18 18V4C18 2.9 17.1 2 16 2ZM16 18H2V8H16V18ZM2 4V6H16V4H2ZM6 10V12H4V10H6ZM6 16V14H4V16H6Z" fill="#868686"/>
-              <path d="M12 10H14V12H12V10Z" fill="#868686"/>
-              <path d="M12 14H14V16H12V14Z" fill="#868686"/>
-              <path d="M8 10H10V12H8V10Z" fill="#868686"/>
-              <rect x="8" y="14" width="2" height="2" fill="#868686"/>
+            <svg
+              class="ml-2"
+              style="cursor: pointer;"
+              width="18"
+              height="20"
+              viewBox="0 0 18 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M16 2H15V0H13V2H5V0H3V2H2C0.9 2 0 2.9 0 4V18C0 19.1 0.9 20 2 20H16C17.1 20 18 19.1 18 18V4C18 2.9 17.1 2 16 2ZM16 18H2V8H16V18ZM2 4V6H16V4H2ZM6 10V12H4V10H6ZM6 16V14H4V16H6Z"
+                fill="#868686"
+              />
+              <path d="M12 10H14V12H12V10Z" fill="#868686" />
+              <path d="M12 14H14V16H12V14Z" fill="#868686" />
+              <path d="M8 10H10V12H8V10Z" fill="#868686" />
+              <rect x="8" y="14" width="2" height="2" fill="#868686" />
             </svg>
           </v-date-picker>
         </span>
@@ -48,21 +65,34 @@
             :input-props="{
               class: 'date-picker-input'
             }"
-            :locale='lang'
-            :masks="{L: 'YYYY/MM/DD'}"
+            :locale="lang"
+            :masks="{ L: 'YYYY/MM/DD' }"
           />
           <v-date-picker
             :popover="{ placement: 'bottom', visibility: 'click' }"
             v-model="dateTo"
-            :locale='lang'
-            :masks="{L: 'YYYY/MM/DD'}"
+            :locale="lang"
+            :masks="{ L: 'YYYY/MM/DD' }"
           >
-            <svg class="ml-2" style="cursor: pointer;" width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M16 2H15V0H13V2H5V0H3V2H2C0.9 2 0 2.9 0 4V18C0 19.1 0.9 20 2 20H16C17.1 20 18 19.1 18 18V4C18 2.9 17.1 2 16 2ZM16 18H2V8H16V18ZM2 4V6H16V4H2ZM6 10V12H4V10H6ZM6 16V14H4V16H6Z" fill="#868686"/>
-              <path d="M12 10H14V12H12V10Z" fill="#868686"/>
-              <path d="M12 14H14V16H12V14Z" fill="#868686"/>
-              <path d="M8 10H10V12H8V10Z" fill="#868686"/>
-              <rect x="8" y="14" width="2" height="2" fill="#868686"/>
+            <svg
+              class="ml-2"
+              style="cursor: pointer;"
+              width="18"
+              height="20"
+              viewBox="0 0 18 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M16 2H15V0H13V2H5V0H3V2H2C0.9 2 0 2.9 0 4V18C0 19.1 0.9 20 2 20H16C17.1 20 18 19.1 18 18V4C18 2.9 17.1 2 16 2ZM16 18H2V8H16V18ZM2 4V6H16V4H2ZM6 10V12H4V10H6ZM6 16V14H4V16H6Z"
+                fill="#868686"
+              />
+              <path d="M12 10H14V12H12V10Z" fill="#868686" />
+              <path d="M12 14H14V16H12V14Z" fill="#868686" />
+              <path d="M8 10H10V12H8V10Z" fill="#868686" />
+              <rect x="8" y="14" width="2" height="2" fill="#868686" />
             </svg>
           </v-date-picker>
         </span>
@@ -140,10 +170,11 @@ $ffamily: "Roboto", sans-serif;
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
         box-sizing: border-box;
-        background: #F5F5F6;
-        border-bottom: 1px solid #DADADA;
+        background: #f5f5f6;
+        border-bottom: 1px solid #dadada;
         cursor: pointer;
-        &:hover, &.active {
+        &:hover,
+        &.active {
           background: #999;
           color: #fff;
           .icon {

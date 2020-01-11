@@ -1,16 +1,16 @@
 <template>
   <div class="fullHeight navs-wrap">
     <div v-if="navsType === 'Projects'" class="fullHeight">
-      <ProjectsNav/>
+      <ProjectsNav />
     </div>
     <div v-else-if="navsType === 'Furniture'">
-      <FurnitureNav/>
+      <FurnitureNav />
     </div>
     <div v-else-if="navsType === 'Statistics'">
-      <StatisticsNav/>
+      <StatisticsNav />
     </div>
     <div v-else class="fullHeight">
-      <DefaultNav/>
+      <DefaultNav />
     </div>
   </div>
 </template>

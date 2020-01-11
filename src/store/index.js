@@ -6,10 +6,10 @@ import user from "./user";
 import projects from "./projects";
 import furniture from "./furniture";
 
-Vue.use(VueCookies)
+Vue.use(VueCookies);
 Vue.use(Vuex);
 
-VueCookies.config("40d")
+VueCookies.config("40d");
 
 // export default function () {
 export default new Vuex.Store({
@@ -19,7 +19,11 @@ export default new Vuex.Store({
     furniture
   },
   state: {
-    lang: VueCookies.get("lang") || navigator.language || navigator.userLanguage || "en"
+    lang:
+      VueCookies.get("lang") ||
+      navigator.language ||
+      navigator.userLanguage ||
+      "en"
   },
   getters: {
     loggedIn(state) {

@@ -1,15 +1,40 @@
 <template>
   <form @submit="login">
     <div class="login">
-      <div class="login__item" :class="{ 'is-danger': $v.form.email.$invalid && (form.email || showFormErrors)}">
-        <input type="email" name="email" autocomplete="email" :placeholder="$t('email')" v-model.trim="form.email">
-        <div class="error" v-if="!$v.form.email.email && form.email">{{ $t("invalid_email") }}</div>
+      <div
+        class="login__item"
+        :class="{
+          'is-danger': $v.form.email.$invalid && (form.email || showFormErrors)
+        }"
+      >
+        <input
+          type="email"
+          name="email"
+          autocomplete="email"
+          :placeholder="$t('email')"
+          v-model.trim="form.email"
+        />
+        <div class="error" v-if="!$v.form.email.email && form.email">
+          {{ $t("invalid_email") }}
+        </div>
       </div>
-      <div class="login__item" :class="{ 'is-danger': $v.form.password.$invalid && (form.password || showFormErrors)}">
-        <input type="password" name="password" autocomplete="current-password" :placeholder="$t('password')" v-model="form.password">
+      <div
+        class="login__item"
+        :class="{
+          'is-danger':
+            $v.form.password.$invalid && (form.password || showFormErrors)
+        }"
+      >
+        <input
+          type="password"
+          name="password"
+          autocomplete="current-password"
+          :placeholder="$t('password')"
+          v-model="form.password"
+        />
       </div>
       <div class="login__button">
-        <button class="btn" type="button"  @click="login">
+        <button class="btn" type="button" @click="login">
           {{ $t("login") }}
         </button>
       </div>

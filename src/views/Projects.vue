@@ -2,10 +2,10 @@
   <div class="flex-grow-1">
     <div class="tables-wrap row">
       <div class="tables-wrap__left col col-lg-6 col-md-12 col-sm-12">
-        <TableConstruction/>
+        <TableConstruction />
       </div>
       <div class="tables-wrap__right col col-lg-6 col-md-12 col-sm-12">
-        <TableWarehouse/>
+        <TableWarehouse />
       </div>
     </div>
   </div>
