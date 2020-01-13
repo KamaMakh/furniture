@@ -1,8 +1,12 @@
 let axios = require("axios");
+const https = require("https");
 /*eslint-disable*/
 import router from "./../router";
 import VueCookies from "vue-cookies";
 
+const Agent = new https.Agent({
+  rejectUnauthorized: false
+});
 let axiosInstance = axios.create({
   headers: {
     // "Accept-Language": VueCookies.get("lang") || "en",
@@ -36,4 +40,5 @@ let axiosInstance = axios.create({
   }
   /* other custom settings */
 });
+axiosInstance.defaults.httpsAgent = Agent;
 export default axiosInstance;
