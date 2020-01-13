@@ -83,6 +83,12 @@ function updateNomenclature(state, data) {
 function updateNomenclaturePhoto(state, data) {
   if(state.furniture.groups.indexOf(data.nomenclature) > -1) {
     state.furniture.groups[state.furniture.groups.indexOf(data.nomenclature)]["photos"] = data.response;
+  } else {
+    state.furniture.groups.forEach((item, key) => {
+      if(item["id"] === data.nomenclature.id && item["count"] === data.nomenclature.count) {
+        state.furniture.groups[key]["photos"] = data.response;
+      }
+    })
   }
 }
 

@@ -341,94 +341,16 @@
                   <form @submit="addNomenclature">
                     <div class="row ml-0 mr-0 nomenclature-column">
                       <div class="body-left col col-lg-6 col-md-12">
-                        <div
-                          v-if="
-                            nomenclature.id &&
-                              nomenclature.creatorId === user.id
-                          "
-                          class="form-group row"
-                          style="border-bottom: 1px solid #999;"
-                        >
-                          <uploader
-                            v-model="files"
-                            limit="1"
-                            :title="$t('add_image')"
-                            :autoUpload="false"
-                            :multiple="true"
-                          ></uploader>
-                        </div>
-                        <div
-                          v-else-if="!nomenclature.id"
-                          class="form-group row"
-                          :class="{
-                            'is-danger': !nomenclature.file && showFormErrors
-                          }"
-                        >
-                          <uploader
-                            v-model="nomenclature.file"
-                            limit="3"
-                            :title="$t('add_image')"
-                            :autoUpload="false"
-                            :multiple="true"
-                          ></uploader>
-                        </div>
                         <div class="form-group row">
                           <div v-if="nomenclature.id" style="flex: 1 1 100%;">
-                            <gallery
-                              :images="photos"
-                              :index="index"
-                              @close="index = null"
-                            ></gallery>
-                            <div class="d-flex flex-wrap">
-                              <div
-                                class="images-list-wrap position-relative"
-                                v-for="(image,
-                                imageIndex) in nomenclature.photos"
-                                :key="imageIndex"
-                              >
-                                <div
-                                  class="nomenclature-image"
-                                  style="cursor: pointer;"
-                                  @click="index = imageIndex"
-                                  :style="{
-                                    backgroundImage:
-                                      'url(' +
-                                      serverUrl +
-                                      image.pathUrl +
-                                      '&type=200px)',
-                                    width: '100px',
-                                    height: '100px'
-                                  }"
-                                ></div>
-                                <span
-                                  v-if="nomenclature.creatorId === user.id"
-                                  class="delete-icon"
-                                  @click="deletePhotoModal(image)"
-                                >
-                                  <svg
-                                    version="1.1"
-                                    id="IconsRepoEditor"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                                    x="0px"
-                                    y="0px"
-                                    viewBox="0 0 60.167 60.167"
-                                    style="enable-background:new 0 0 60.167 60.167;"
-                                    xml:space="preserve"
-                                    width="18px"
-                                    height="18px"
-                                    fill="lightblue"
-                                    stroke="lightblue"
-                                    stroke-width="3px"
-                                  >
-                                    <g id="IconsRepo_bgCarrier"></g>
-                                    <path
-                                      d="M54.5,11.667H39.88V3.91c0-2.156-1.754-3.91-3.91-3.91H24.196c-2.156,0-3.91,1.754-3.91,3.91v7.756H5.667 c-0.552,0-1,0.448-1,1s0.448,1,1,1h2.042v40.5c0,3.309,2.691,6,6,6h32.75c3.309,0,6-2.691,6-6v-40.5H54.5c0.552,0,1-0.448,1-1 S55.052,11.667,54.5,11.667z M22.286,3.91c0-1.053,0.857-1.91,1.91-1.91H35.97c1.053,0,1.91,0.857,1.91,1.91v7.756H22.286V3.91z M50.458,54.167c0,2.206-1.794,4-4,4h-32.75c-2.206,0-4-1.794-4-4v-40.5h40.75V54.167z M38.255,46.153V22.847c0-0.552,0.448-1,1-1 s1,0.448,1,1v23.306c0,0.552-0.448,1-1,1S38.255,46.706,38.255,46.153z M29.083,46.153V22.847c0-0.552,0.448-1,1-1s1,0.448,1,1 v23.306c0,0.552-0.448,1-1,1S29.083,46.706,29.083,46.153z M19.911,46.153V22.847c0-0.552,0.448-1,1-1s1,0.448,1,1v23.306 c0,0.552-0.448,1-1,1S19.911,46.706,19.911,46.153z"
-                                    ></path>
-                                  </svg>
-                                </span>
-                              </div>
-                            </div>
+                            <CustomGallery
+                              :images="nomenclature.photos"
+                              :isCreator="nomenclature.creatorId === user.id"
+                              :files="files"
+                              @on-delete-new="deleteNewPhoto"
+                              @on-delete="deletePhotoModal"
+                              @on-add-file="readFile"
+                            />
                           </div>
                         </div>
                       </div>
@@ -750,9 +672,10 @@ import { mapState } from 'vuex';
 import VueMask from "v-mask";
 import Validations from 'vuelidate'
 import { required } from "vuelidate/lib/validators";
-import { serverUrl } from "@/store/urls"
-import VueGallery from 'vue-gallery';
+import { serverUrl } from "@/store/urls";
 import VCalendar from "v-calendar";
+import CustomGallery from "@/components/CustomGallery";
+
 Vue.use(VCalendar);
 Vue.use(VueMask);
 Vue.use(Validations);
@@ -760,7 +683,7 @@ export default {
   name: "TableFurniture",
   components: {
     Uploader,
-    'gallery': VueGallery
+    CustomGallery
   },
   data(){
     return{
@@ -862,8 +785,11 @@ export default {
       } else {
         formData.append( "groupId", this.nomenclature.groupId );
         formData.append( "unitId", this.nomenclature.unit.id);
-        for( let i = 0; i < this.nomenclature.file.length; i++ ){
-          formData.append(`file`, this.nomenclature.file[i].blob);
+        // for( let i = 0; i < this.nomenclature.file.length; i++ ){
+        //   formData.append(`file`, this.nomenclature.file[i].blob);
+        // }
+        for( let i = 0; i < this.files.length; i++ ){
+          formData.append(`file`, this.files[i]);
         }
       }
       formData.append( "name", this.nomenclature.name );
@@ -984,6 +910,19 @@ export default {
         }
       }
     },
+    readFile(newFile) {
+      if (newFile) {
+        let reader = new FileReader();
+        reader.onload = e => {
+          this.nomenclature.photos.push({
+            src: e.target.result,
+            isNew: true
+          });
+        };
+        reader.readAsDataURL(newFile);
+        this.files.push(newFile);
+      }
+    },
     showDeleteNomenModal(item) {
       this.showRemoveNomekModal = true;
       this.nomenclature = item;
@@ -1020,12 +959,16 @@ export default {
           });
         });
     },
+    deleteNewPhoto(image) {
+      this.files = [];
+      this.nomenclature.photos.splice(this.nomenclature.photos.indexOf(image), 1);
+    },
     addPhoto() {
       let formData = new FormData();
       formData.append( "nomenclatureId", this.nomenclature.id );
 
       for( let i = 0; i < this.files.length; i++ ){
-        formData.append(`file`, this.files[i].blob);
+        formData.append(`file`, this.files[i]);
       }
       this.$store.dispatch("furniture/addNomenclaturePhoto", {data: formData, nomenclature: this.nomenclature})
         .then(() => {
