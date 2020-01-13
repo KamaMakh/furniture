@@ -181,9 +181,9 @@
             width="10%"
             style="word-break: initial"
           >
+            <span>{{ $t("confirmed_simple") }}:</span>
             <span v-for="(user, key) in item.status" :key="key">
               <span v-if="user.confirmed">
-                {{ $t("confirmed_simple") }} -
                 {{ getFirstLetter(user.userRole) }}
               </span>
             </span>
@@ -452,7 +452,13 @@
                             />
                           </div>
                           <div class="col col-4">
-                            <div class="custom-control custom-switch">
+                            <div
+                              v-if="
+                                nomenclature.creatorId === user.id ||
+                                  !nomenclature.id
+                              "
+                              class="custom-control custom-switch"
+                            >
                               <input
                                 type="checkbox"
                                 class="custom-control-input"
