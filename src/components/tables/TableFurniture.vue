@@ -89,7 +89,7 @@
           >
             <span class="d-flex align-items-center justify-content-start">
               <span
-                v-if="!item.price"
+                v-if="!item.price && item.creatorId === user.id"
                 @click="showModal(item)"
                 :title="$t('edit_group')"
                 class="setting-icon"

@@ -31,7 +31,11 @@
           <a
             :class="{ active: construction.id === item.id }"
             @click="chooseConstruction(item)"
-            ><span @click="editConstruction(item)" class="icon"></span>
+            ><span
+              v-if="item.creatorId === user.id"
+              @click="editConstruction(item)"
+              class="icon"
+            ></span>
             {{ item.name }}</a
           >
         </li>
@@ -174,7 +178,8 @@ export default {
   },
   computed: {
     ...mapState("furniture", ["constructions"]),
-    ...mapState("furniture", ["construction"])
+    ...mapState("furniture", ["construction"]),
+    ...mapState("user", ["user"])
   },
   methods: {
     addConstruction() {
