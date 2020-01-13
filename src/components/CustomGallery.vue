@@ -16,7 +16,11 @@
             item.isNew ? item.src : serverUrl + item.pathUrl + '&type=200px'
           "
         />
-        <span v-if="isCreator" class="delete-icon" @click="deletePic(item)">
+        <span
+          v-if="isCreator || !nomenclature.id"
+          class="delete-icon"
+          @click="deletePic(item)"
+        >
           <svg
             version="1.1"
             id="IconsRepoEditor"
@@ -41,7 +45,10 @@
         </span>
       </div>
       <div
-        v-if="isCreator && images && images.length < 3 && !files.length"
+        v-if="
+          ((isCreator && images && images.length < 3) || !nomenclature.id) &&
+            !files.length
+        "
         class="add-file"
       >
         <b-form-file v-model="newFile"></b-form-file>
@@ -54,7 +61,7 @@
 /* eslint-disable */
 import { serverUrl } from "@/store/urls";
 export default {
-  props: ["images", "isCreator", "files"],
+  props: ["images", "isCreator", "files", "nomenclature"],
   name: "CustomGallery",
   data() {
     return {
@@ -87,7 +94,7 @@ export default {
       }
     },
     images(value) {
-      if(value[0]) {
+      if(value && value[0]) {
         this.mainPicSrc = {
           src: this.serverUrl + this.images[0].pathUrl + "&type=1000px",
           id : this.images[0]["id"]
@@ -99,7 +106,7 @@ export default {
     }
   },
   created() {
-    if (this.images[0]) {
+    if (this.images && this.images[0]) {
       this.mainPicSrc = {
         src: this.serverUrl + this.images[0].pathUrl + "&type=1000px",
         id : this.images[0]["id"]

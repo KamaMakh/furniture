@@ -342,8 +342,17 @@
                     <div class="row ml-0 mr-0 nomenclature-column">
                       <div class="body-left col col-lg-6 col-md-12">
                         <div class="form-group row">
-                          <div v-if="nomenclature.id" style="flex: 1 1 100%;">
+                          <div
+                            style="flex: 1 1 100%; padding-bottom: 5px"
+                            :class="{
+                              'is-danger':
+                                !nomenclature.id &&
+                                !files.length &&
+                                showFormErrors
+                            }"
+                          >
                             <CustomGallery
+                              :nomenclature="nomenclature"
                               :images="nomenclature.photos"
                               :isCreator="nomenclature.creatorId === user.id"
                               :files="files"
@@ -764,7 +773,7 @@ export default {
       }
     },
     addNomenclature() {
-      if(this.$v.nomenclature.$pending || this.$v.nomenclature.$error || this.$v.nomenclature.$invalid || (!this.nomenclature.file && !this.nomenclature.id)){
+      if(this.$v.nomenclature.$pending || this.$v.nomenclature.$error || this.$v.nomenclature.$invalid || (!this.files && !this.nomenclature.id)){
         Vue.notify({
           group: 'warn',
           title: this.$i18n.messages[this.$i18n.locale]["attention"],
@@ -883,7 +892,8 @@ export default {
         ndsValue: 0,
         priceWithoutNds: 0,
         ndsBool: false,
-        termString: new Date()
+        termString: new Date(),
+        photos: []
       };
       this.price = 0;
     },
@@ -914,6 +924,9 @@ export default {
       if (newFile) {
         let reader = new FileReader();
         reader.onload = e => {
+          if(!this.nomenclature.id) {
+            this.nomenclature.photos = [];
+          }
           this.nomenclature.photos.push({
             src: e.target.result,
             isNew: true
