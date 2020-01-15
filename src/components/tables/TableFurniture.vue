@@ -1014,6 +1014,9 @@ export default {
                 text: error
               });
             })
+        } else {
+          this.$store.dispatch("furniture/hideNomenclatures", group);
+          this.enabledGroups[group.id] = false;
         }
       }
     },
@@ -1036,6 +1039,12 @@ export default {
     updatePrices() {
       if(this.nomenclature.price) {
         if(this.nomenclature.ndsBool) {
+          if(!this.nomenclature.nds) {
+            this.nomenclature.nds = this.construction.nds;
+          }
+          if(this.nomenclature.nds < 0) {
+            this.nomenclature.nds = 0;
+          }
           this.nomenclature["priceWithoutNds"] = Math.round(this.nomenclature.price / parseFloat('1.' + this.nomenclature.nds));
           this.nomenclature["ndsValue"] = Math.round(this.nomenclature.price - this.nomenclature["priceWithoutNds"]);
         } else {

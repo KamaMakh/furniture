@@ -73,6 +73,18 @@ function deleteNomenclatures(state, data) {
   }
 }
 
+function hideNomenclatures(state, data) {
+  if (state.furniture.groups.indexOf(data.group) !== -1) {
+    if(
+      state.furniture.groups[state.furniture.groups.indexOf(data.group)] &&
+      state.furniture.groups[state.furniture.groups.indexOf(data.group)].hasOwnProperty("children")
+    ) {
+      state.furniture.groups.splice(state.furniture.groups.indexOf(data.group)+1, data.group.children);
+      state.furniture.groups[state.furniture.groups.indexOf(data.group)]["children"] = 0;
+    }
+  }
+}
+
 function updateNomenclature(state, data) {
   if(state.furniture.groups.indexOf(data.nomenclature) > -1) {
     data.response["group"] = data.nomenclature["group"];
@@ -113,5 +125,6 @@ export {
   deleteNomenclatures,
   updateNomenclaturePhoto,
   updateNomenclature,
-  clearState
+  clearState,
+  hideNomenclatures
 };

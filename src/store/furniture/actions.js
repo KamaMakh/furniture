@@ -249,6 +249,13 @@ function deleteNomenclature({ commit }, data) {
   });
 }
 
+function hideNomenclatures({ commit }, data) {
+  if(data && data.children === 0) {
+    return;
+  }
+  commit("hideNomenclatures", {group: data});
+}
+
 function statusConfirm({ commit }, data) {
   return new Promise((resolve, reject) => {
     api.post(statusConfirmUrl, data)
@@ -328,5 +335,6 @@ export {
   updateNomenclature,
   deleteNomenclaturePhoto,
   addNomenclaturePhoto,
-  clearState
+  clearState,
+  hideNomenclatures
 }
