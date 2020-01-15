@@ -38,7 +38,7 @@ export default {
             "as opposed to using",
             "Content here, content here"
           ],
-          button_text: "Премиум на год"
+          button_text: "Зарегистрироваться"
         },
         {
           ico:
@@ -129,20 +129,21 @@ export default {
     .btn {
       margin-top: 20px;
       button {
-        background: #688e74;
         border-radius: 7px;
         font-size: 14px;
         font-weight: bold;
-        color: #fff;
-        border: 2px solid transparent;
+        background: none;
+        color: #364b3c;
+        border: 2px solid #364b3c;
         &:hover {
-          background: none;
-          color: #364b3c;
-          border: 2px solid #364b3c;
+          background: #688e74;
+          color: #fff;
+          border: 2px solid transparent;
         }
       }
     }
     .flag {
+      text-transform: uppercase;
       position: absolute;
       background: #364b3c;
       left: 0;
