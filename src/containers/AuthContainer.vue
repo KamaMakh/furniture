@@ -51,7 +51,7 @@ $ffamily: "Roboto", sans-serif;
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  background: url("../assets/authbg.jpeg") fixed no-repeat;
+  background: url("../assets/authbg2.png") fixed no-repeat;
   -webkit-background-size: cover;
   background-size: cover;
   min-height: 100%;

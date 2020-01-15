@@ -14,7 +14,11 @@ import api from "./shared/api";
 import BootstrapVue from "bootstrap-vue";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
-/* eslint-disable */
+import PerfectScrollbar from "vue2-perfect-scrollbar";
+import "vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css";
+
+Vue.use(PerfectScrollbar);
+
 Vue.component("v-select", vSelect);
 Vue.use(Meta);
 Vue.use(Notifications);
@@ -26,7 +30,7 @@ Vue.config.productionTip = false;
 router.beforeEach(async function(to, from, next) {
   if (["Registration", "Login"].indexOf(to.name) > -1) {
     if (VueCookies.get("token")) {
-      router.push({name: "Furniture"});
+      router.push({ name: "Furniture" });
     } else {
       next();
     }
@@ -36,10 +40,10 @@ router.beforeEach(async function(to, from, next) {
       // store.dispatch('user/checkUser')
       if (!store.state.user.user.id) {
         let res = await api.get(getMe);
-        store.commit('user/setUser', res.data);
+        store.commit("user/setUser", res.data);
       }
       if (!VueCookies.get("token")) {
-        router.push({name: "Login"});
+        router.push({ name: "Login" });
       } else {
         next();
       }

@@ -25,6 +25,13 @@ $ffamily: 'Roboto', sans-serif;
   }
 }
 
+@media screen and(max-width: 960px) {
+  html, body{
+    height: 100%;
+    min-height: 100%;
+  }
+}
+
 body{
   margin: 0;
 }

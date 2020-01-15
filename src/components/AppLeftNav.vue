@@ -1,5 +1,5 @@
 <template>
-  <div class="fullHeight navs-wrap">
+  <perfect-scrollbar class="fullHeight navs-wrap">
     <div v-if="navsType === 'Projects'" class="fullHeight">
       <ProjectsNav />
     </div>
@@ -12,7 +12,7 @@
     <div v-else class="fullHeight">
       <DefaultNav />
     </div>
-  </div>
+  </perfect-scrollbar>
 </template>
 
 <script>
