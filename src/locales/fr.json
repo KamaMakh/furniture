@@ -68,5 +68,6 @@
   "edit_group": "Modifier le groupe",
   "add_group": "Ajouter un groupe",
   "sign_in": "Se connecter",
-  "sign_up": "S'inscrire"
+  "sign_up": "S'inscrire",
+  "currency": "Devise"
 }

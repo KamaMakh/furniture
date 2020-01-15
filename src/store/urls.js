@@ -15,6 +15,7 @@ const getMe = `${serverUrl}/api/user/profile/get`;
 const statusConfirmUrl = `${serverUrl}/api/furniture/nomenclature/status/confirm`;
 const deletePhotoUrl = `${serverUrl}/api/furniture/nomenclature/photo/delete`;
 const addPhotoUrl = `${serverUrl}/api/furniture/nomenclature/photo/add`;
+const getCurrenciesUrl = `${serverUrl}/api/directory/currency/get`;
 
 export {
   serverUrl,
@@ -33,5 +34,6 @@ export {
   deleteNomenclatureUrl,
   updateNomenclatureUrl,
   deletePhotoUrl,
-  addPhotoUrl
+  addPhotoUrl,
+  getCurrenciesUrl
 };

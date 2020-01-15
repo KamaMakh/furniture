@@ -112,6 +112,21 @@
         >
         </v-select>
       </div>
+      <div
+        class="register__item"
+        :class="{
+          'is-danger':
+            $v.form.currency.$invalid && (form.currency || showFormErrors)
+        }"
+      >
+        <v-select
+          class="style-chooser"
+          :placeholder="$t('currency')"
+          :options="currencies"
+          v-model="form.currency"
+        >
+        </v-select>
+      </div>
       <div class="register__item">
         <textarea
           name="info"
@@ -174,13 +189,17 @@
 </template>
 
 <script>
-/* eslint-disable */
-import Vue from 'vue'
-import Validations from 'vuelidate'
+import Vue from "vue";
+import Validations from "vuelidate";
 import { required, email, minLength, sameAs } from "vuelidate/lib/validators";
-import { isHasNumber, isNotCyrillic, isHasEnglishLetter } from "@/shared/validator";
+import {
+  isHasNumber,
+  isNotCyrillic,
+  isHasEnglishLetter
+} from "@/shared/validator";
 import "vue-select/dist/vue-select.css";
 import VueMask from "v-mask";
+import { mapState } from "vuex";
 Vue.use(VueMask);
 Vue.use(Validations);
 
@@ -195,24 +214,20 @@ export default {
         this.$i18n.messages[this.$store.state.lang]["client"],
         this.$i18n.messages[this.$store.state.lang]["architect"]
       ],
-      roles_value:[
-        "SUPERVISOR",
-        "MAGAZINE",
-        "CLIENT",
-        "ARCHITECT"
-      ],
+      roles_value: ["SUPERVISOR", "MAGAZINE", "CLIENT", "ARCHITECT"],
       showModal: false,
       form: {},
       policy: false
-    }
+    };
   },
   validations: {
     form: {
-      name: {required},
-      role: {required},
+      name: { required },
+      role: { required },
+      currency: { required },
       email: {
         required,
-        email,
+        email
       },
       password: {
         required,
@@ -222,24 +237,49 @@ export default {
         isHasEnglishLetter
       },
       c_password: {
-        sameAsPassword: sameAs('password')
+        sameAsPassword: sameAs("password")
       }
     }
+  },
+  computed: {
+    ...mapState({
+      currencies: state => {
+        let array = [];
+        state.user.currencies.forEach(item => {
+          array.push({
+            label: item.name,
+            code: item.id
+          });
+        });
+        return array;
+      },
+      lang: state => state.lang
+    })
   },
   methods: {
     register(e) {
       e.preventDefault();
-      let role;
-      if(this.form.role){
+      let role, currency;
+      if (this.form.role) {
         role = this.roles_value[this.roles.indexOf(this.form.role)];
       }
+      if (this.form.currency) {
+        currency = this.form.currency.code;
+      }
 
-      if(this.$v.form.$pending || this.$v.form.$error || this.$v.form.$invalid || !this.policy || !role){
+      if (
+        this.$v.form.$pending ||
+        this.$v.form.$error ||
+        this.$v.form.$invalid ||
+        !this.policy ||
+        !role ||
+        !currency
+      ) {
         Vue.notify({
-          group: 'warn',
+          group: "warn",
           title: this.$i18n.messages[this.$i18n.locale]["attention"],
           text: this.$i18n.messages[this.$i18n.locale]["register_invalid"],
-          type: 'warn',
+          type: "warn",
           closeOnClick: true,
           duration: 4000
         });
@@ -247,26 +287,36 @@ export default {
         return;
       }
 
-      this.$store.dispatch('user/register', {
-        fio: this.form.name,
-        email: this.form.email,
-        password: this.form.password.toLowerCase(),
-        phone: this.form.phone,
-        role: role,
-        info: this.form.info
-      })
-        .then((response) => {
-          this.$router.push({ name: 'Furniture' })
+      this.$store
+        .dispatch("user/register", {
+          fio: this.form.name,
+          email: this.form.email,
+          password: this.form.password.toLowerCase(),
+          phone: this.form.phone,
+          role: role,
+          currencyId: currency,
+          info: this.form.info
         })
-        .catch((error) => {
+        .then(() => {
+          this.$router.push({ name: "Furniture" });
+        })
+        .catch(() => {
           this.$notify({
-            group: 'warn',
-            type: 'error',
+            group: "warn",
+            type: "error",
             title: this.$i18n.messages[this.$i18n.locale]["attention"],
             text: this.$i18n.messages[this.$i18n.locale]["register_error"]
           });
         });
     }
+  },
+  watch: {
+    lang() {
+      this.$store.dispatch("user/setCurrencies");
+    }
+  },
+  mounted() {
+    this.$store.dispatch("user/setCurrencies");
   }
 };
 </script>
@@ -313,16 +363,17 @@ $ffamily: "Roboto", sans-serif;
         outline: none;
       }
     }
-    &:last-child{
+    &:last-child {
       margin-bottom: 0;
     }
-    &.is-danger{
-      input, .vs__selected-options{
+    &.is-danger {
+      input,
+      .vs__selected-options {
         border-bottom-color: #f04124 !important;
         color: #f04124;
       }
     }
-    .agree-text-wrap{
+    .agree-text-wrap {
       display: block;
       white-space: normal;
       text-align: right;
@@ -330,7 +381,7 @@ $ffamily: "Roboto", sans-serif;
     }
   }
 
-  &__button{
+  &__button {
     .btn {
       font-family: $ffamily;
       font-style: normal;
@@ -343,7 +394,7 @@ $ffamily: "Roboto", sans-serif;
       -moz-box-shadow: none;
       box-shadow: none;
       border: none;
-      background: #2AAD54;
+      background: #2aad54;
       border-radius: 30px;
       padding: 11px 29px;
       -webkit-box-sizing: border-box;
@@ -355,24 +406,24 @@ $ffamily: "Roboto", sans-serif;
         background: #47bf6d;
       }
     }
-    &.disabled{
+    &.disabled {
       opacity: 0.8;
       pointer-events: none;
     }
   }
 
   .style-chooser {
-    .vs__search{
+    .vs__search {
       padding: 0;
       margin: 0;
     }
-    .vs__search::placeholder{
+    .vs__search::placeholder {
       color: #fff !important;
     }
     .vs__dropdown-toggle {
       border: none;
     }
-    .vs__selected{
+    .vs__selected {
       color: #fff;
       font-size: 19px;
       font-family: $ffamily;
@@ -380,15 +431,16 @@ $ffamily: "Roboto", sans-serif;
       margin: 0;
       border: none;
     }
-    .vs__clear, .vs__open-indicator{
+    .vs__clear,
+    .vs__open-indicator {
       fill: #fff !important;
       cursor: pointer;
     }
-    input{
+    input {
       width: 50% !important;
       border: none !important;
     }
-    .vs__selected-options{
+    .vs__selected-options {
       border-bottom: 2px solid rgba(255, 255, 255, 0.72);
       -webkit-border-radius: 0;
       -moz-border-radius: 0;
@@ -396,25 +448,25 @@ $ffamily: "Roboto", sans-serif;
     }
   }
 
-  .pretty{
-    input{
+  .pretty {
+    input {
       min-width: 0;
       width: 17px;
       height: 17px;
     }
-    img{
+    img {
       width: 17px !important;
       height: 17px !important;
       transform: none !important;
       top: -1px !important;
     }
-    label{
+    label {
       color: #fff;
       font-size: 14px;
       font-family: $ffamily;
       padding-left: 20px;
       &:after,
-      &:before{
+      &:before {
         width: 17px;
         height: 17px;
         top: -1px;
@@ -430,9 +482,9 @@ $ffamily: "Roboto", sans-serif;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, .5);
+  background-color: rgba(0, 0, 0, 0.5);
   display: table;
-  transition: opacity .3s ease;
+  transition: opacity 0.3s ease;
 }
 
 .modal-wrapper {
@@ -440,11 +492,11 @@ $ffamily: "Roboto", sans-serif;
   vertical-align: middle;
 }
 
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
   opacity: 0;
 }
 </style>
-

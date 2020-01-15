@@ -1,6 +1,6 @@
 /* eslint-disable */
 import api from "@/shared/api";
-import { registerUrl, loginUrl, getMe } from "@/store/urls";
+import { registerUrl, loginUrl, getMe, getCurrenciesUrl } from "@/store/urls";
 import onError from "@/store/onError";
 import Vue from "vue";
 import router from "@/router";
@@ -81,8 +81,31 @@ function checkUser({ commit }) {
   });
 }
 
+function setCurrencies({ commit }, data) {
+  return new Promise((resolve, reject) => {
+    api.get(getCurrenciesUrl)
+      .then((response) => {
+        if(response.status === 200) {
+          commit("setCurrencies", response.data);
+          resolve();
+        } else {
+          reject(response.data.message)
+        }
+      })
+      .catch(error => {
+        if(error.response && error.response.status === 200) {
+          commit("setCurrencies", error.response.data);
+          // resolve();
+        } else {
+          reject();
+        }
+      });
+  });
+}
+
 export {
   register,
   login,
-  logout
+  logout,
+  setCurrencies
 }

@@ -5,9 +5,13 @@ function setUser(state, user) {
     let rolesArray = [];
     user.userRoleList.forEach(item => {
       rolesArray.push(item.authorities);
-    })
+    });
     setRoles(state, rolesArray);
   }
+}
+
+function setCurrencies(state, currencies) {
+  state.currencies = currencies;
 }
 
 function resetUser(state) {
@@ -27,5 +31,6 @@ export {
   setUser,
   resetUser,
   setUsers,
-  setRoles
+  setRoles,
+  setCurrencies
 };
