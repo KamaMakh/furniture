@@ -1045,8 +1045,8 @@ export default {
           if(this.nomenclature.nds < 0) {
             this.nomenclature.nds = 0;
           }
-          this.nomenclature["priceWithoutNds"] = Math.round(this.nomenclature.price / parseFloat('1.' + this.nomenclature.nds));
-          this.nomenclature["ndsValue"] = Math.round(this.nomenclature.price - this.nomenclature["priceWithoutNds"]);
+          this.nomenclature["priceWithoutNds"] = (this.nomenclature.price / parseFloat('1.' + this.nomenclature.nds)).toFixed(2);
+          this.nomenclature["ndsValue"] = (this.nomenclature.price - this.nomenclature["priceWithoutNds"]).toFixed(2);
         } else {
           this.nomenclature.nds = 0;
           this.nomenclature["ndsValue"] = 0;

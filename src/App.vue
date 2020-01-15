@@ -214,4 +214,7 @@ input.nomenclature {
     border: none;
   }
 }
+.viewer-container {
+  z-index: 9999 !important;
+}
 </style>

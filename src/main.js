@@ -16,7 +16,10 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import PerfectScrollbar from "vue2-perfect-scrollbar";
 import "vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css";
+import "viewerjs/dist/viewer.css";
+import Viewer from "v-viewer";
 
+Vue.use(Viewer);
 Vue.use(PerfectScrollbar);
 
 Vue.component("v-select", vSelect);

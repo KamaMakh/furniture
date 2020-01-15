@@ -1,7 +1,9 @@
 <template>
   <div class="custom-gallery">
     <div class="main-pic">
-      <img :src="mainPicSrc.src" alt="" />
+      <viewer :images="images">
+        <img :src="mainPicSrc.src" alt="" />
+      </viewer>
     </div>
     <div class="thumbs">
       <div

@@ -18,6 +18,7 @@
     "pretty-checkbox-vue": "^1.1.9",
     "v-calendar": "^1.0.0-beta.23",
     "v-mask": "^2.0.2",
+    "v-viewer": "^1.5.1",
     "vue": "^2.6.10",
     "vue-cookies": "^1.5.13",
     "vue-dropdowns": "^1.1.1",
