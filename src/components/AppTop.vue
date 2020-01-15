@@ -151,10 +151,10 @@
         </ul>
       </div>
       <div class="header__options options">
-        <div class="options__btn">
+        <b-link :to="{ name: 'Settings' }" class="options__btn">
           <span class="options__icon"></span>
           {{ $t("settings") }}
-        </div>
+        </b-link>
         <div class="options__lang" @click="toggleLang">
           <LocaleChanger :parentClass="'app-top'" />
         </div>
@@ -227,7 +227,7 @@ export default {
         &__menu{
             flex: 1 1 auto;
         }
-        &__opyions{
+        &__options{
 
         }
     }
@@ -283,28 +283,34 @@ export default {
     .options{
         display: flex;
         &__btn{
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            box-sizing: border-box;
-            background: #688E74;
-            font-family: 'Roboto', sans-serif;
-            font-style: normal;
-            font-weight: normal;
-            font-size: 18px;
-            line-height: 21px;
-            color: #D6E8CE;
-            display: flex;
-            align-items: center;
-            padding: 13px 13px 13px 30px;
-            cursor: pointer;
-            -webkit-transition: all 0.3s;
-            -moz-transition: all 0.3s;
-            -ms-transition: all 0.3s;
-            -o-transition: all 0.3s;
-            transition: all 0.3s;
-            &:hover{
-                background: #999;
+          -webkit-box-sizing: border-box;
+          -moz-box-sizing: border-box;
+          box-sizing: border-box;
+          background: #688E74;
+          font-family: 'Roboto', sans-serif;
+          font-style: normal;
+          font-weight: normal;
+          font-size: 18px;
+          line-height: 21px;
+          color: #D6E8CE;
+          display: flex;
+          align-items: center;
+          padding: 13px 13px 13px 30px;
+          cursor: pointer;
+          -webkit-transition: all 0.3s;
+          -moz-transition: all 0.3s;
+          -ms-transition: all 0.3s;
+          -o-transition: all 0.3s;
+          transition: all 0.3s;
+          text-decoration: none;
+          &:hover, &.active{
+            background: #999;
+            width: auto;
+            color: #fff;
+            .header-menu__icon{
+              margin-right: 11px;
             }
+          }
         }
         &__icon{
             width: 20px;

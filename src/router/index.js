@@ -7,6 +7,7 @@ import Projects from "../views/Projects";
 import Statistics from "../views/Statistics";
 import Login from "../views/Login";
 import Registration from "../views/Registration";
+import Settings from "../views/Settings";
 
 Vue.use(VueRouter);
 
@@ -34,6 +35,11 @@ const routes = [
         path: "/stats",
         name: "Statistics",
         component: Statistics
+      },
+      {
+        path: "/settings",
+        name: "Settings",
+        component: Settings
       }
     ]
   },

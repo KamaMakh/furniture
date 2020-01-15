@@ -11,9 +11,9 @@
         <div class="content__left-menu" :class="{ opened: leftMenuShow }">
           <AppLeft :navsType="navsType" />
         </div>
-        <div class="content__body">
+        <perfect-scrollbar class="content__body">
           <router-view />
-        </div>
+        </perfect-scrollbar>
       </div>
     </div>
   </div>
@@ -103,7 +103,7 @@ export default {
             }
         }
         &__body{
-          display: flex;
+          display: block;
           max-width: 100%;
           flex: 1 1 auto;
           padding: 50px 20px;
