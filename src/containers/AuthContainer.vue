@@ -77,6 +77,17 @@ $ffamily: "Roboto", sans-serif;
     display: flex;
     justify-content: space-between;
     margin-bottom: 35px;
+    @media all and(max-width: 400px) {
+      flex-wrap: wrap;
+    }
+  }
+  &__lang {
+    @media all and(max-width: 400px) {
+      order: -1;
+      margin-left: auto;
+      margin-bottom: 15px;
+      flex: 1 1 100%;
+    }
   }
   &__tabs {
     display: flex;
