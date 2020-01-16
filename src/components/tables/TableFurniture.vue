@@ -170,16 +170,33 @@
               </svg>
             </span>
           </td>
-          <td v-if="item.price !== undefined" width="6%">{{ item.count }}</td>
-          <td v-if="item.price !== undefined" width="6%">
+          <td
+            v-if="item.price !== undefined"
+            width="6%"
+            @click="showEditNomenclature(item, $event)"
+          >
+            {{ item.count }}
+          </td>
+          <td
+            v-if="item.price !== undefined"
+            width="6%"
+            @click="showEditNomenclature(item, $event)"
+          >
             {{ item.units ? item.units.name : "" }}
           </td>
 
-          <td v-if="item.price !== undefined" width="8%">{{ item.term }}</td>
+          <td
+            v-if="item.price !== undefined"
+            width="8%"
+            @click="showEditNomenclature(item, $event)"
+          >
+            {{ item.term }}
+          </td>
           <td
             v-if="item.price !== undefined"
             width="10%"
             style="word-break: initial"
+            @click="showEditNomenclature(item, $event)"
           >
             <span>{{ $t("confirmed_simple") }}:</span>
             <span v-for="(user, key) in item.status" :key="key">
@@ -188,22 +205,46 @@
               </span>
             </span>
           </td>
-          <td v-if="item.price !== undefined && ndsColumns" width="6%">
+          <td
+            v-if="item.price !== undefined && ndsColumns"
+            width="6%"
+            @click="showEditNomenclature(item, $event)"
+          >
             {{ item.nds }}
           </td>
-          <td v-if="item.price !== undefined" width="6%">
+          <td
+            v-if="item.price !== undefined"
+            width="6%"
+            @click="showEditNomenclature(item, $event)"
+          >
             {{ item.priceWithoutNds }}
           </td>
-          <td v-if="item.price !== undefined && ndsColumns" width="6%">
+          <td
+            v-if="item.price !== undefined && ndsColumns"
+            width="6%"
+            @click="showEditNomenclature(item, $event)"
+          >
             {{ item.price }}
           </td>
-          <td v-if="item.price !== undefined && ndsColumns" width="6%">
+          <td
+            v-if="item.price !== undefined && ndsColumns"
+            width="6%"
+            @click="showEditNomenclature(item, $event)"
+          >
             {{ item.ndsValue }}
           </td>
-          <td v-if="item.price !== undefined" width="6%">
+          <td
+            v-if="item.price !== undefined"
+            width="6%"
+            @click="showEditNomenclature(item, $event)"
+          >
             {{ item.totalPrice }}
           </td>
-          <td v-if="item.price !== undefined" width="6%">
+          <td
+            v-if="item.price !== undefined"
+            width="6%"
+            @click="showEditNomenclature(item, $event)"
+          >
             {{ item.magazine }}
           </td>
           <td v-if="item.price !== undefined" width="20%">
@@ -898,7 +939,10 @@ export default {
       this.price = 0;
     },
     showEditNomenclature(item, event) {
-      if(event.target.tagName === "TD" || event.target.classList.contains("icon") || event.target.classList.contains("ellipsis")) {
+      let tagName = event.target.tagName,
+          parentName = event.target.parentNode.tagName,
+          classList = event.target.classList;
+      if(tagName === "TD" || tagName === "IMG" || classList.contains("icon") || classList.contains("ellipsis") || parentName === "TD") {
         this.$store.dispatch("furniture/setUnits");
         this.showNomekModal = true;
 
