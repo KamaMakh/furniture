@@ -39,11 +39,10 @@ router.beforeEach(async function(to, from, next) {
     }
   } else {
     try {
-      // console.log(store.state);
-      // store.dispatch('user/checkUser')
       if (!store.state.user.user.id) {
         let res = await api.get(getMe);
         store.commit("user/setUser", res.data);
+        store.commit("user/setEnableModules");
       }
       if (!VueCookies.get("token")) {
         router.push({ name: "Login" });

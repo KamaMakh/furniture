@@ -718,7 +718,7 @@
 /*eslint-disable */
 import Vue from 'vue'
 import Uploader from "vux-uploader-component"
-import { mapState } from 'vuex';
+import { mapState } from "vuex";
 import VueMask from "v-mask";
 import Validations from 'vuelidate'
 import { required } from "vuelidate/lib/validators";
@@ -1146,6 +1146,7 @@ export default {
       construction: state => state.furniture.construction,
       user: state => state.user.user,
       roles: state => state.user.roles,
+      modules: state => state.user.modules,
       units(state) {
         let unitsList = [];
         state.furniture.units.forEach((item, key, arr) => {
@@ -1197,6 +1198,12 @@ export default {
     price(val) {
       this.nomenclature.price = val;
       this.updatePrices();
+    }
+  },
+  mounted() {
+    if(this.modules.indexOf(this.$route.name) < 0) {
+      this.$router.push("/settings");
+      return;
     }
   }
 }

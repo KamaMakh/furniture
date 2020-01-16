@@ -1,5 +1,6 @@
 export default {
   user: {},
   roles: [],
-  currencies: []
+  currencies: [],
+  modules: []
 };

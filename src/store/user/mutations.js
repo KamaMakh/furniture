@@ -27,10 +27,38 @@ function setRoles(state, data) {
   state.roles = data
 }
 
+function setEnableModules(state) {
+  if(state.roles[0] === "ROLE_ARCHITECT") {
+    state.modules = [
+      "Furniture",
+      "Documents"
+    ];
+  } else if(state.roles[0] === "ROLE_CLIENT") {
+    state.modules = [
+      "Furniture"
+    ];
+  } else if(state.roles[0] === "ROLE_MAGAZINE") {
+    state.modules = [
+      "Projects",
+      "Users"
+    ];
+  } else if(state.roles[0] === "ROLE_SUPERVISOR") {
+    state.modules = [
+      "Furniture",
+      "Documents",
+      "Projects",
+      "Users",
+      "Statistics",
+      "Planning"
+    ];
+  }
+}
+
 export {
   setUser,
   resetUser,
   setUsers,
   setRoles,
-  setCurrencies
+  setCurrencies,
+  setEnableModules
 };

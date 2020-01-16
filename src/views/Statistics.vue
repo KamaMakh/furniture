@@ -13,6 +13,7 @@
 
 <script>
 /*eslint-disable*/
+import { mapState } from "vuex";
 import TableOperations from "@/components/tables/TableOperations";
 import TableAllOperations from "@/components/tables/TableAllOperations";
 export default {
@@ -21,7 +22,16 @@ export default {
     TableOperations,
     TableAllOperations
   },
+  computed: {
+    ...mapState({
+      modules: state => state.user.modules
+    })
+  },
   mounted() {
+    if(this.modules.indexOf(this.$route.name) < 0) {
+      this.$router.push("/settings");
+      return;
+    }
     return new Promise((resolve, reject) => {
       this.$store.dispatch("furniture/getConstructions")
         .then((response) => {

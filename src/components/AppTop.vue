@@ -4,7 +4,7 @@
       <a class="header__logo" @click="toggleLeftMenu"></a>
       <div class="header__menu header-menu">
         <ul>
-          <li>
+          <li v-if="modules.indexOf('Furniture') > -1">
             <router-link :to="{ name: 'Furniture' }">
               <span class="header-menu__icon">
                 <svg
@@ -25,7 +25,7 @@
               {{ $t("furniture") }}
             </router-link>
           </li>
-          <li>
+          <li v-if="modules.indexOf('Projects') > -1">
             <router-link :to="{ name: 'Projects' }">
               <span class="header-menu__icon">
                 <svg
@@ -46,7 +46,7 @@
               {{ $t("projects") }}
             </router-link>
           </li>
-          <li>
+          <li v-if="modules.indexOf('Statistics') > -1">
             <router-link :to="{ name: 'Statistics' }">
               <span class="header-menu__icon">
                 <svg
@@ -75,8 +75,8 @@
               {{ $t("statistics") }}
             </router-link>
           </li>
-          <li>
-            <a href="#">
+          <li v-if="modules.indexOf('Documents') > -1">
+            <router-link :to="{ name: 'Documents' }">
               <span class="header-menu__icon">
                 <svg
                   width="20"
@@ -94,20 +94,10 @@
                 </svg>
               </span>
               {{ $t("documents") }}
-            </a>
+            </router-link>
           </li>
-          <!--<li>-->
-          <!--<a href="#">-->
-          <!--<span class="header-menu__icon">-->
-          <!--<svg width="22" height="19" viewBox="0 0 22 19" fill="none" xmlns="http://www.w3.org/2000/svg">-->
-          <!--<path fill-rule="evenodd" clip-rule="evenodd" d="M0 10.491L10.5882 0.961548L21.1765 10.491H18V18.9615H11.6471V12.6086H9.52941V18.9615H3.17647V10.491H0ZM15.8824 8.57443L10.5882 3.80972L5.29412 8.57443V16.8438H7.41177V10.4909H13.7647V16.8438H15.8824V8.57443Z" fill="white"/>-->
-          <!--</svg>-->
-          <!--</span>-->
-          <!--{{ $t("orders") }}-->
-          <!--</a>-->
-          <!--</li>-->
-          <li>
-            <a href="#">
+          <li v-if="modules.indexOf('Planning') > -1">
+            <router-link :to="{ name: 'Planning' }">
               <span class="header-menu__icon">
                 <svg
                   width="16"
@@ -125,10 +115,10 @@
                 </svg>
               </span>
               {{ $t("planning") }}
-            </a>
+            </router-link>
           </li>
-          <li>
-            <a href="#">
+          <li v-if="modules.indexOf('Users') > -1">
+            <router-link :to="{ name: 'Users' }">
               <span class="header-menu__icon">
                 <svg
                   width="18"
@@ -146,7 +136,7 @@
                 </svg>
               </span>
               {{ $t("users") }}
-            </a>
+            </router-link>
           </li>
         </ul>
       </div>
@@ -167,18 +157,18 @@
 </template>
 
 <script>
-/* eslint-disable */
+import { mapState } from "vuex";
 import LocaleChanger from "@/components/LocaleChanger";
 export default {
   name: "AppTop",
-  props: ['leftMenuShow'],
-  components:{
+  props: ["leftMenuShow"],
+  components: {
     LocaleChanger
   },
   data() {
     return {
       headerScroll: true
-    }
+    };
   },
   methods: {
     toggleLeftMenu() {
@@ -189,196 +179,200 @@ export default {
       this.$store.dispatch("furniture/clearState", {});
     },
     toggleLang(e) {
-      if(
+      if (
         e.target &&
-        (
-          e.target.classList.contains("vs__selected-options") ||
+        (e.target.classList.contains("vs__selected-options") ||
           e.target.classList.contains("vs__dropdown-toggle") ||
           e.target.classList.contains("vs__actions") ||
           e.target.classList.contains("vs__selected") ||
           e.target.classList.contains("vs__open-indicator") ||
-          e.target.classList.value === ""
-        )
+          e.target.classList.value === "")
       ) {
-        this.headerScroll = false
+        this.headerScroll = false;
       } else {
-        this.headerScroll = true
+        this.headerScroll = true;
       }
     }
+  },
+  computed: {
+    ...mapState({
+      modules: state => state.user.modules
+    })
   }
-}
+};
 </script>
 
 <style scoped lang="scss">
-    $ffamily: 'Roboto', sans-serif;
-    .header{
-        max-width: 1920px;
-        margin: 0 auto;
+$ffamily: "Roboto", sans-serif;
+.header {
+  max-width: 1920px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  height: 45px;
+  &__logo {
+    width: 50px;
+    height: 45px;
+    margin-right: 11px;
+    background: url("../assets/logo.svg") 0 -3px no-repeat;
+    cursor: pointer;
+  }
+  &__menu {
+    flex: 1 1 auto;
+  }
+  &__options {
+  }
+}
+.header-menu {
+  ul {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    li {
+      a {
+        font-family: $ffamily;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 0;
+        line-height: 21px;
         display: flex;
-        justify-content: space-between;
+        min-width: 0;
+        width: 45px;
         height: 45px;
-        &__logo{
-            width: 50px;
-            height: 45px;
-            margin-right: 11px;
-            background: url("../assets/logo.svg")  0 -3px no-repeat;
-            cursor: pointer;
-        }
-        &__menu{
-            flex: 1 1 auto;
-        }
-        &__options{
-
-        }
-    }
-    .header-menu{
-        ul{
-            display: flex;
-            padding: 0;
-            margin: 0;
-            list-style: none;
-            li{
-                a{
-                    font-family: $ffamily;
-                    font-style: normal;
-                    font-weight: normal;
-                    font-size: 0;
-                    line-height: 21px;
-                    display: flex;
-                    min-width: 0;
-                    width: 45px;
-                    height: 45px;
-                    align-items: center;
-                    text-align: center;
-                    justify-content: center;
-                    -webkit-box-sizing: border-box;
-                    -moz-box-sizing: border-box;
-                    box-sizing: border-box;
-                    padding: 13px 7px;
-                    margin-right: 1px;
-                    text-decoration: none;
-                    color: transparent;
-                    background: #688E74;
-                    transition: all 0.3s;
-                    overflow: hidden;
-                    &:hover, &.active{
-                        background: #999;
-                        width: auto;
-                        min-width: 185px;
-                        font-size: 18px;
-                        color: #fff;
-                        .header-menu__icon{
-                            margin-right: 11px;
-                        }
-                    }
-                }
-            }
-        }
-        &__icon{
-            width: 22px;
-            height: 22px;
-            margin-right: 0;
-        }
-    }
-    .options{
-        display: flex;
-        &__btn{
-          -webkit-box-sizing: border-box;
-          -moz-box-sizing: border-box;
-          box-sizing: border-box;
-          background: #688E74;
-          font-family: 'Roboto', sans-serif;
-          font-style: normal;
-          font-weight: normal;
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        padding: 13px 7px;
+        margin-right: 1px;
+        text-decoration: none;
+        color: transparent;
+        background: #688e74;
+        transition: all 0.3s;
+        overflow: hidden;
+        &:hover,
+        &.active {
+          background: #999;
+          width: auto;
+          min-width: 185px;
           font-size: 18px;
-          line-height: 21px;
-          color: #D6E8CE;
-          display: flex;
-          align-items: center;
-          padding: 13px 13px 13px 30px;
-          cursor: pointer;
-          -webkit-transition: all 0.3s;
-          -moz-transition: all 0.3s;
-          -ms-transition: all 0.3s;
-          -o-transition: all 0.3s;
-          transition: all 0.3s;
-          text-decoration: none;
-          &:hover, &.active{
-            background: #999;
-            width: auto;
-            color: #fff;
-            .header-menu__icon{
-              margin-right: 11px;
-            }
+          color: #fff;
+          .header-menu__icon {
+            margin-right: 11px;
           }
         }
-        &__icon{
-            width: 20px;
-            height: 20px;
-            background: url("../assets/settings.svg") 0 0 no-repeat;
-            margin-right: 12px;
-        }
-        &__logout-icon{
-            width: 20px;
-            height: 22px;
-            background: url('../assets/logout.svg') 0 0 no-repeat;
-        }
-        &__logout{
-            width: 42px;
-            height: 45px;
-            background: #688E74;
-            margin-left: 1px;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            &:hover{
-                background: #999;
-            }
-        }
+      }
     }
-
-    @media screen and(max-width: 768px){
-        .header-menu {
-            ul {
-                display: flex;
-                padding: 0;
-                margin: 0;
-                list-style: none;
-
-                li {
-                    a {
-                        font-size: 0 !important;
-                        width: 45px !important;
-                        height: 45px !important;
-                        min-width: 0 !important;
-                    }
-                }
-            }
-            &__icon{
-                margin: 0 !important;
-            }
-        }
-        .header {
-          &.scrollable{
-            overflow: scroll;
-          }
-          &__logo {
-              flex: 1 0 auto;
-          }
-        }
+  }
+  &__icon {
+    width: 22px;
+    height: 22px;
+    margin-right: 0;
+  }
+}
+.options {
+  display: flex;
+  &__btn {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    background: #688e74;
+    font-family: "Roboto", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 21px;
+    color: #d6e8ce;
+    display: flex;
+    align-items: center;
+    padding: 13px 13px 13px 30px;
+    cursor: pointer;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+    text-decoration: none;
+    &:hover,
+    &.active {
+      background: #999;
+      width: auto;
+      color: #fff;
+      .header-menu__icon {
+        margin-right: 11px;
+      }
     }
-
-    @media screen and(max-width: 640px) {
-        .options{
-            &__btn{
-                font-size: 0;
-                padding: 13px;
-            }
-            &__icon{
-                margin: 0;
-            }
-        }
+  }
+  &__icon {
+    width: 20px;
+    height: 20px;
+    background: url("../assets/settings.svg") 0 0 no-repeat;
+    margin-right: 12px;
+  }
+  &__logout-icon {
+    width: 20px;
+    height: 22px;
+    background: url("../assets/logout.svg") 0 0 no-repeat;
+  }
+  &__logout {
+    width: 42px;
+    height: 45px;
+    background: #688e74;
+    margin-left: 1px;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    &:hover {
+      background: #999;
     }
+  }
+}
+
+@media screen and(max-width: 768px) {
+  .header-menu {
+    ul {
+      display: flex;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+
+      li {
+        a {
+          font-size: 0 !important;
+          width: 45px !important;
+          height: 45px !important;
+          min-width: 0 !important;
+        }
+      }
+    }
+    &__icon {
+      margin: 0 !important;
+    }
+  }
+  .header {
+    &.scrollable {
+      overflow: scroll;
+    }
+    &__logo {
+      flex: 1 0 auto;
+    }
+  }
+}
+
+@media screen and(max-width: 640px) {
+  .options {
+    &__btn {
+      font-size: 0;
+      padding: 13px;
+    }
+    &__icon {
+      margin: 0;
+    }
+  }
+}
 </style>
