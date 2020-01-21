@@ -8,8 +8,7 @@
 </template>
 
 <script>
-/* eslint-disable */
-export default{
+export default {
   name: "AppContainer",
   created() {
     this.$i18n.locale = this.$store.state.lang;
@@ -18,21 +17,23 @@ export default{
 </script>
 
 <style lang="scss">
-$ffamily: 'Roboto', sans-serif;
+$ffamily: "Roboto", sans-serif;
 @media screen and(min-width: 960px) {
-  html, body{
+  html,
+  body {
     height: 100%;
   }
 }
 
 @media screen and(max-width: 960px) {
-  html, body{
+  html,
+  body {
     height: 100%;
     min-height: 100%;
   }
 }
 
-body{
+body {
   margin: 0;
 }
 #app {
@@ -54,13 +55,17 @@ body{
     }
   }
 }
-.btn-custom{
+.btn-custom {
   color: #fff !important;
-  background: linear-gradient(98.69deg, #688E74 11.52%, #8AC29C 90.26%) !important;
+  background: linear-gradient(
+    98.69deg,
+    #688e74 11.52%,
+    #8ac29c 90.26%
+  ) !important;
   border-radius: 14px !important;
   -webkit-transition: 0.3s;
   transition: 0.3s;
-  &:hover{
+  &:hover {
     opacity: 0.8;
   }
 }
@@ -69,10 +74,10 @@ body{
   .date-picker-input {
     width: 140px;
     height: 24px;
-    background: #F5F5F6;
+    background: #f5f5f6;
     border: none;
     cursor: pointer;
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 14px;
@@ -84,12 +89,12 @@ body{
   }
 }
 .vc-container {
-  font-family: 'Roboto', sans-serif !important;
-  .vc-text-sm{
+  font-family: "Roboto", sans-serif !important;
+  .vc-text-sm {
     color: #333 !important;
   }
   .vc-bg-blue-600 {
-    background: #688E74 !important;
+    background: #688e74 !important;
   }
 }
 
@@ -107,11 +112,12 @@ body{
 .vux-uploader {
   flex: 1 1 auto;
 }
-.vux-uploader_input-box, .vux-uploader_input {
+.vux-uploader_input-box,
+.vux-uploader_input {
   cursor: pointer;
 }
 .nomenclature-select {
-  .vs__dropdown-toggle{
+  .vs__dropdown-toggle {
     border: none;
     border-bottom: 1px solid #000;
     -webkit-border-radius: 0;
@@ -124,8 +130,8 @@ body{
   input {
     padding-left: 0;
     padding-right: 0;
-    &::placeholder{
-      color: #C4C4C4;
+    &::placeholder {
+      color: #c4c4c4;
     }
   }
   .vs__selected {
@@ -152,8 +158,8 @@ input.nomenclature {
   padding-left: 0;
   padding-right: 0;
   font-family: $ffamily;
-  &::placeholder{
-    color: #C4C4C4;
+  &::placeholder {
+    color: #c4c4c4;
   }
   &.is-danger {
     border-bottom: 1px solid #f04124 !important;
@@ -167,9 +173,9 @@ input.nomenclature {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, .5);
+  background-color: rgba(0, 0, 0, 0.5);
   display: table;
-  transition: opacity .3s ease;
+  transition: opacity 0.3s ease;
   input {
     border: none;
     background: none;
@@ -197,7 +203,11 @@ input.nomenclature {
     border-radius: 1rem;
   }
   .modal-content {
-    background: linear-gradient(90deg, #E1E1E1 0%, rgba(236, 232, 232, 0) 20.31%);
+    background: linear-gradient(
+      90deg,
+      #e1e1e1 0%,
+      rgba(236, 232, 232, 0) 20.31%
+    );
     -webkit-border-radius: 1rem;
     -moz-border-radius: 1rem;
     border-radius: 1rem;

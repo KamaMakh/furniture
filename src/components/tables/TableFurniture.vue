@@ -383,15 +383,7 @@
                     <div class="row ml-0 mr-0 nomenclature-column">
                       <div class="body-left col col-lg-6 col-md-12">
                         <div class="form-group row">
-                          <div
-                            style="flex: 1 1 100%; padding-bottom: 5px"
-                            :class="{
-                              'is-danger':
-                                !nomenclature.id &&
-                                !files.length &&
-                                showFormErrors
-                            }"
-                          >
+                          <div style="flex: 1 1 100%; padding-bottom: 5px">
                             <CustomGallery
                               :nomenclature="nomenclature"
                               :images="nomenclature.photos"
@@ -459,11 +451,6 @@
                               id="nPrice"
                               step="1000"
                               class="form-control"
-                              :class="{
-                                'is-danger':
-                                  $v.nomenclature.price.$invalid &&
-                                  (nomenclature.price || showFormErrors)
-                              }"
                               :placeholder="$t('price')"
                               v-model="price"
                             />
@@ -492,14 +479,9 @@
                             <v-select
                               class="nomenclature-select w-100"
                               id="nRole"
-                              :class="{
-                                'is-danger':
-                                  $v.nomenclature.unit.$invalid &&
-                                  (nomenclature.unit || showFormErrors)
-                              }"
                               :placeholder="
                                 nomenclature.id
-                                  ? nomenclature.units.name
+                                  ? nomenclature.unit.name
                                   : $t('unit_sh')
                               "
                               :options="units"
@@ -518,11 +500,6 @@
                               id="nCount"
                               step="1"
                               class="form-control"
-                              :class="{
-                                'is-danger':
-                                  $v.nomenclature.count.$invalid &&
-                                  (nomenclature.count || showFormErrors)
-                              }"
                               :placeholder="$t('count')"
                               v-model="nomenclature.count"
                             />
@@ -537,11 +514,7 @@
                               }"
                               v-model="nomenclature.termString"
                               :input-props="{
-                                class: `form-control nomenclature ${
-                                  !nomenclature.termString && showFormErrors
-                                    ? 'is-danger'
-                                    : ''
-                                }`,
+                                class: `form-control nomenclature`,
                                 id: 'nTerm'
                               }"
                               :locale="lang"
@@ -575,11 +548,6 @@
                               id="nNds"
                               step="1"
                               class="form-control"
-                              :class="{
-                                'is-danger':
-                                  $v.nomenclature.nds.$invalid &&
-                                  (nomenclature.nds || showFormErrors)
-                              }"
                               :placeholder="$t('nds')"
                               v-model="nomenclature.nds"
                               @change="updatePrices"
@@ -759,12 +727,7 @@ export default {
   },
   validations: {
     nomenclature: {
-      name: { required },
-      unit: { required },
-      count: { required },
-      price: { required },
-      termString: { required },
-      nds: { required }
+      name: { required }
     }
   },
   methods: {
@@ -819,8 +782,7 @@ export default {
       if (
         this.$v.nomenclature.$pending ||
         this.$v.nomenclature.$error ||
-        this.$v.nomenclature.$invalid ||
-        (!this.files && !this.nomenclature.id)
+        this.$v.nomenclature.$invalid
       ) {
         Vue.notify({
           group: "warn",
@@ -842,9 +804,6 @@ export default {
       } else {
         formData.append("groupId", this.nomenclature.groupId);
         formData.append("unitId", this.nomenclature.unit.id);
-        // for( let i = 0; i < this.nomenclature.file.length; i++ ){
-        //   formData.append(`file`, this.nomenclature.file[i].blob);
-        // }
         for (let i = 0; i < this.files.length; i++) {
           formData.append(`file`, this.files[i]);
         }
@@ -939,21 +898,26 @@ export default {
       return [day, month, year].join(".");
     },
     showNomenclature(item) {
-      this.$store.dispatch("furniture/setUnits");
       this.showNomekModal = true;
       this.showFormErrors = false;
       this.files = [];
       this.nomenclature = {
         group: item,
         groupId: item.id,
-        nds: this.construction.nds,
+        nds: this.construction.nds || 0,
         price: 0,
         ndsValue: 0,
+        count: 0,
         priceWithoutNds: 0,
         ndsBool: false,
         termString: new Date(),
         photos: []
       };
+      this.$store.dispatch("furniture/setUnits").then(() => {
+        if (this.units[0]) {
+          this.nomenclature.unit = this.units[0];
+        }
+      });
       this.price = 0;
     },
     showEditNomenclature(item, event) {

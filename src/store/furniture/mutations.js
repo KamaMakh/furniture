@@ -1,4 +1,3 @@
-/* eslint-disable */
 function setFurniture(state, furniture) {
   if (!furniture) {
     furniture = {};
@@ -15,11 +14,11 @@ function setConstruction(state, construction) {
 }
 
 function addConstruction(state, construction) {
-  state.constructions.unshift(construction)
+  state.constructions.unshift(construction);
 }
 
 function setUnits(state, units) {
-  state.units = units
+  state.units = units;
 }
 
 function updateConstruction(state, construction) {
@@ -36,75 +35,116 @@ function addGroup(state, group) {
 
 function updateGroup(state, data) {
   let start = state.furniture.groups.indexOf(data.group),
-      children = state.furniture.groups.slice(start + 1, data.group.children + start + 1);
+    children = state.furniture.groups.slice(
+      start + 1,
+      data.group.children + start + 1
+    );
 
-  if(children.length) {
+  if (children.length) {
     children.forEach(item => {
       item["group"] = data.group;
-    })
+    });
   }
 
   state.furniture.groups.splice(start + 1, children.length, ...children);
 }
 
 function setNomenclatures(state, data) {
-  state.furniture.groups[state.furniture.groups.indexOf(data.group)]["children"] = data.response.length;
+  state.furniture.groups[state.furniture.groups.indexOf(data.group)][
+    "children"
+  ] = data.response.length;
   data.response.forEach((item, key) => {
     data.response[key]["group"] = data.group;
   });
-  state.furniture.groups.splice(state.furniture.groups.indexOf(data.group)+1, 0, ...data.response);
+  state.furniture.groups.splice(
+    state.furniture.groups.indexOf(data.group) + 1,
+    0,
+    ...data.response
+  );
 }
 
 function setNomenclature(state, data) {
-  state.furniture.groups[state.furniture.groups.indexOf(data.group)]["children"] += 1;
+  state.furniture.groups[state.furniture.groups.indexOf(data.group)][
+    "children"
+  ] += 1;
   data.response["group"] = data.group;
-  state.furniture.groups.splice(state.furniture.groups.indexOf(data.group)+1, 0, data.response);
+  state.furniture.groups.splice(
+    state.furniture.groups.indexOf(data.group) + 1,
+    0,
+    data.response
+  );
 }
 
 function deleteNomenclatures(state, data) {
   if (state.furniture.groups.indexOf(data.nomenclature) !== -1) {
-    state.furniture.groups.splice(state.furniture.groups.indexOf(data.nomenclature), 1);
-    if(
-        state.furniture.groups[state.furniture.groups.indexOf(data.nomenclature.group)] &&
-        state.furniture.groups[state.furniture.groups.indexOf(data.nomenclature.group)].hasOwnProperty("children")
-      ) {
-      state.furniture.groups[state.furniture.groups.indexOf(data.nomenclature.group)]["children"] -= 1;
+    state.furniture.groups.splice(
+      state.furniture.groups.indexOf(data.nomenclature),
+      1
+    );
+    if (
+      state.furniture.groups[
+        state.furniture.groups.indexOf(data.nomenclature.group)
+      ] &&
+      state.furniture.groups[
+        state.furniture.groups.indexOf(data.nomenclature.group)
+      ].hasOwnProperty("children")
+    ) {
+      state.furniture.groups[
+        state.furniture.groups.indexOf(data.nomenclature.group)
+      ]["children"] -= 1;
     }
   }
 }
 
 function hideNomenclatures(state, data) {
   if (state.furniture.groups.indexOf(data.group) !== -1) {
-    if(
+    if (
       state.furniture.groups[state.furniture.groups.indexOf(data.group)] &&
-      state.furniture.groups[state.furniture.groups.indexOf(data.group)].hasOwnProperty("children")
+      state.furniture.groups[
+        state.furniture.groups.indexOf(data.group)
+      ].hasOwnProperty("children")
     ) {
-      state.furniture.groups.splice(state.furniture.groups.indexOf(data.group)+1, data.group.children);
-      state.furniture.groups[state.furniture.groups.indexOf(data.group)]["children"] = 0;
+      state.furniture.groups.splice(
+        state.furniture.groups.indexOf(data.group) + 1,
+        data.group.children
+      );
+      state.furniture.groups[state.furniture.groups.indexOf(data.group)][
+        "children"
+      ] = 0;
     }
   }
 }
 
 function updateNomenclature(state, data) {
-  if(state.furniture.groups.indexOf(data.nomenclature) > -1) {
+  if (state.furniture.groups.indexOf(data.nomenclature) > -1) {
     data.response["group"] = data.nomenclature["group"];
-    state.furniture.groups[state.furniture.groups.indexOf(data.nomenclature)] = data.response;
+    state.furniture.groups[state.furniture.groups.indexOf(data.nomenclature)] =
+      data.response;
   }
 }
 
 function updateNomenclaturePhoto(state, data) {
-  if(state.furniture.groups.indexOf(data.nomenclature) > -1) {
-    state.furniture.groups[state.furniture.groups.indexOf(data.nomenclature)]["photos"] = data.response;
+  if (state.furniture.groups.indexOf(data.nomenclature) > -1) {
+    state.furniture.groups[state.furniture.groups.indexOf(data.nomenclature)][
+      "photos"
+    ] = data.response;
   } else {
     state.furniture.groups.forEach((item, key) => {
-      if(item["id"] === data.nomenclature.id && item["count"] === data.nomenclature.count) {
+      if (
+        item["id"] === data.nomenclature.id &&
+        item["count"] === data.nomenclature.count
+      ) {
         state.furniture.groups[key]["photos"] = data.response;
       }
-    })
+    });
   }
 }
 
-function clearState(state, data) {
+function ignore() {
+  return "ignored";
+}
+
+function clearState(state) {
   state.furniture = {};
   state.construction = {};
   state.constructions = [];
@@ -126,5 +166,6 @@ export {
   updateNomenclaturePhoto,
   updateNomenclature,
   clearState,
-  hideNomenclatures
+  hideNomenclatures,
+  ignore
 };
