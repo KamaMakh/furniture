@@ -204,7 +204,7 @@ export default {
   }
   img {
     max-width: 100%;
-    max-height: inherit;
+    max-height: 350px;
   }
 }
 </style>

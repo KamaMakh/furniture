@@ -41,46 +41,6 @@
         </li>
       </ul>
     </div>
-
-    <!--modals-->
-    <!--<b-form @submit="addConstruction" v-if="showAddModal">-->
-    <!--<b-form-group-->
-    <!--id="input-group-1"-->
-    <!--label="Email address:"-->
-    <!--label-for="input-1"-->
-    <!--description="We'll never share your email with anyone else."-->
-    <!--&gt;-->
-    <!--<b-form-input-->
-    <!--id="input-1"-->
-    <!--v-model="newConstruction.address"-->
-    <!--:placeholder="$t('address')"-->
-    <!--type="email"-->
-    <!--required-->
-    <!--&gt;</b-form-input>-->
-    <!--</b-form-group>-->
-
-    <!--<b-form-group id="input-group-2" label="Your Name:" label-for="input-2">-->
-    <!--<b-form-input-->
-    <!--id="input-2"-->
-    <!--v-model="newConstruction.name"-->
-    <!--:placeholder="$t('construct_name')"-->
-    <!--required-->
-    <!--&gt;</b-form-input>-->
-    <!--</b-form-group>-->
-
-    <!--<b-form-group id="input-group-2" label="Your Name:" label-for="input-2">-->
-    <!--<b-form-input-->
-    <!--id="input-2"-->
-    <!--v-model="newConstruction.nds"-->
-    <!--:placeholder="$t('nds')"-->
-    <!--required-->
-    <!--&gt;</b-form-input>-->
-    <!--</b-form-group>-->
-
-    <!--<button type="button" class="btn btn-secondary" @click="showAddModal = false">{{ $t("close") }}</button>-->
-    <!--<button type="button" class="btn btn-custom" @click="addConstruction">{{ $t("save") }}</button>-->
-    <!--</b-form>-->
-
     <transition name="fade-none">
       <div v-if="showAddModal">
         <div class="modal-mask">
@@ -222,8 +182,8 @@ export default {
       this.newConstruction = {};
     },
     chooseConstruction(item) {
-      this.$store.dispatch("furniture/getFurniture", {projectId: item.id})
-      this.$store.dispatch("furniture/setConstruction", item)
+      this.$store.dispatch("furniture/getFurniture", {projectId: item.id});
+      this.$store.dispatch("furniture/setConstruction", item);
     },
     editConstruction(item) {
       this.newConstruction = item;

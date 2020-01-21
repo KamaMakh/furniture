@@ -104,8 +104,8 @@
           :placeholder="$t('role')"
           :options="[
             $t('supervisor'),
-            $t('magazine'),
-            $t('client'),
+            // $t('magazine'),
+            // $t('client'),
             $t('architect')
           ]"
           v-model="form.role"
@@ -210,8 +210,8 @@ export default {
       showFormErrors: false,
       roles: [
         this.$i18n.messages[this.$store.state.lang]["supervisor"],
-        this.$i18n.messages[this.$store.state.lang]["magazine"],
-        this.$i18n.messages[this.$store.state.lang]["client"],
+        // this.$i18n.messages[this.$store.state.lang]["magazine"],
+        // this.$i18n.messages[this.$store.state.lang]["client"],
         this.$i18n.messages[this.$store.state.lang]["architect"]
       ],
       roles_value: ["SUPERVISOR", "MAGAZINE", "CLIENT", "ARCHITECT"],

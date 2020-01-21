@@ -132,7 +132,7 @@ function getFurniture({ commit }, data) {
       .catch(error => {
         if(error.response && error.response.status === 200) {
           commit("setFurniture", error.response.data);
-          // resolve();
+          resolve();
         } else {
           reject();
         }

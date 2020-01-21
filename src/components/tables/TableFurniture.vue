@@ -528,9 +528,7 @@
                             />
                           </div>
                           <div class="col col-lg-4 col-md-4 col-sm-12">
-                            <label class="title" for="nTerm">{{
-                              $t("term")
-                            }}</label>
+                            <label class="title">{{ $t("term") }}</label>
                             <!--<input type="text" id="nTerm" class="form-control" :class="{ 'is-danger': $v.nomenclature.term.$invalid && (nomenclature.term || showFormErrors)}" :placeholder="$t('term')" v-model="nomenclature.term">-->
                             <v-date-picker
                               :popover="{
@@ -715,12 +713,11 @@
 </template>
 
 <script>
-/*eslint-disable */
-import Vue from 'vue'
-import Uploader from "vux-uploader-component"
+import Vue from "vue";
+import Uploader from "vux-uploader-component";
 import { mapState } from "vuex";
 import VueMask from "v-mask";
-import Validations from 'vuelidate'
+import Validations from "vuelidate";
 import { required } from "vuelidate/lib/validators";
 import { serverUrl } from "@/store/urls";
 import VCalendar from "v-calendar";
@@ -735,8 +732,8 @@ export default {
     Uploader,
     CustomGallery
   },
-  data(){
-    return{
+  data() {
+    return {
       hideAllRows: false,
       showAddModal: false,
       showRemoveNomekModal: false,
@@ -758,55 +755,60 @@ export default {
       ndsColumns: true,
       currentSort: "",
       currentSortDir: "asc"
-    }
+    };
   },
   validations: {
     nomenclature: {
-      name: {required},
-      unit: {required},
-      count: {required},
-      price: {required},
-      termString: {required},
-      nds: {required},
+      name: { required },
+      unit: { required },
+      count: { required },
+      price: { required },
+      termString: { required },
+      nds: { required }
     }
   },
-  methods:{
-    toggleRows(item){
-        this.groups[item] = !this.groups[item];
+  methods: {
+    toggleRows(item) {
+      this.groups[item] = !this.groups[item];
     },
-    hideAll(){
-        this.hideAllRows = !this.hideAllRows;
+    hideAll() {
+      this.hideAllRows = !this.hideAllRows;
     },
     addGroup() {
-      if(this.group.id) {
+      if (this.group.id) {
         let formData = new FormData();
         formData.append("groupId", this.group.id);
         formData.append("name", this.group.name);
 
-        this.$store.dispatch("furniture/updateGroup", {data: formData, group: this.group})
-          .then(response => {
+        this.$store
+          .dispatch("furniture/updateGroup", {
+            data: formData,
+            group: this.group
+          })
+          .then(() => {
             this.showAddModal = false;
           })
           .catch(error => {
             this.$notify({
-              group: 'warn',
-              type: 'error',
+              group: "warn",
+              type: "error",
               title: this.$i18n.messages[this.$i18n.locale]["attention"],
               text: error
             });
           });
       } else {
-        this.$store.dispatch("furniture/addGroup", {
-          "furnitureId": this.furniture["id"],
-          "name": this.group.name
-        })
-          .then(response => {
+        this.$store
+          .dispatch("furniture/addGroup", {
+            furnitureId: this.furniture["id"],
+            name: this.group.name
+          })
+          .then(() => {
             this.showAddModal = false;
           })
           .catch(error => {
             this.$notify({
-              group: 'warn',
-              type: 'error',
+              group: "warn",
+              type: "error",
               title: this.$i18n.messages[this.$i18n.locale]["attention"],
               text: error
             });
@@ -814,12 +816,17 @@ export default {
       }
     },
     addNomenclature() {
-      if(this.$v.nomenclature.$pending || this.$v.nomenclature.$error || this.$v.nomenclature.$invalid || (!this.files && !this.nomenclature.id)){
+      if (
+        this.$v.nomenclature.$pending ||
+        this.$v.nomenclature.$error ||
+        this.$v.nomenclature.$invalid ||
+        (!this.files && !this.nomenclature.id)
+      ) {
         Vue.notify({
-          group: 'warn',
+          group: "warn",
           title: this.$i18n.messages[this.$i18n.locale]["attention"],
           text: this.$i18n.messages[this.$i18n.locale]["register_invalid"],
-          type: 'warn',
+          type: "warn",
           closeOnClick: true,
           duration: 4000
         });
@@ -829,74 +836,87 @@ export default {
 
       let formData = new FormData();
 
-      if(this.nomenclature.id) {
-        formData.append( "nomenclatureId", this.nomenclature.id );
-        formData.append( "unitId", this.nomenclature.units.id);
+      if (this.nomenclature.id) {
+        formData.append("nomenclatureId", this.nomenclature.id);
+        formData.append("unitId", this.nomenclature.units.id);
       } else {
-        formData.append( "groupId", this.nomenclature.groupId );
-        formData.append( "unitId", this.nomenclature.unit.id);
+        formData.append("groupId", this.nomenclature.groupId);
+        formData.append("unitId", this.nomenclature.unit.id);
         // for( let i = 0; i < this.nomenclature.file.length; i++ ){
         //   formData.append(`file`, this.nomenclature.file[i].blob);
         // }
-        for( let i = 0; i < this.files.length; i++ ){
+        for (let i = 0; i < this.files.length; i++) {
           formData.append(`file`, this.files[i]);
         }
       }
-      formData.append( "name", this.nomenclature.name );
-      formData.append( "count", this.nomenclature.count );
+      formData.append("name", this.nomenclature.name);
+      formData.append("count", this.nomenclature.count);
 
       let term = this.formatDate(this.nomenclature.termString);
-      formData.append( "term", term );
-      formData.append( "ndsBool", this.nomenclature.ndsBool );
+      formData.append("term", term);
+      formData.append("ndsBool", this.nomenclature.ndsBool);
 
-      if(this.nomenclature.ndsBool) {
-        formData.append( "price", this.nomenclature.price );
-        formData.append( "nds", this.nomenclature.nds );
-        formData.append( "ndsValue", this.nomenclature.ndsValue );
+      if (this.nomenclature.ndsBool) {
+        formData.append("price", this.nomenclature.price);
+        formData.append("nds", this.nomenclature.nds);
+        formData.append("ndsValue", this.nomenclature.ndsValue);
       } else {
-        formData.append( "price", "0" );
-        formData.append( "nds", "0" );
-        formData.append( "ndsValue", "0" );
+        formData.append("price", "0");
+        formData.append("nds", "0");
+        formData.append("ndsValue", "0");
       }
 
-      formData.append( "priceWithoutNds", this.nomenclature.priceWithoutNds );
+      formData.append("priceWithoutNds", this.nomenclature.priceWithoutNds);
 
-      if(this.nomenclature.link) {
-        formData.append( "link", this.nomenclature.link );
+      if (this.nomenclature.link) {
+        formData.append("link", this.nomenclature.link);
       }
-      if(this.nomenclature.magazine) {
-        formData.append( "magazine", this.nomenclature.magazine);
+      if (this.nomenclature.magazine) {
+        formData.append("magazine", this.nomenclature.magazine);
       }
 
-      if(this.nomenclature.id) {
-        this.$store.dispatch("furniture/updateNomenclature", {data: formData, group: this.nomenclature.group, nomenclature: this.nomenclature})
-          .then((response) => {
+      if (this.nomenclature.id) {
+        this.$store
+          .dispatch("furniture/updateNomenclature", {
+            data: formData,
+            group: this.nomenclature.group,
+            nomenclature: this.nomenclature
+          })
+          .then(() => {
             this.showNomekModal = false;
-            if(this.files.length) {
+            if (this.files.length) {
               this.addPhoto();
             }
           })
-          .catch((error) => {
+          .catch(error => {
             this.$notify({
-              group: 'warn',
-              type: 'error',
+              group: "warn",
+              type: "error",
               title: this.$i18n.messages[this.$i18n.locale]["attention"],
               text: error
             });
           });
       } else {
-        this.$store.dispatch("furniture/addNomenclature", {data: formData, group: this.nomenclature.group, onlyOne: this.enabledGroups[this.nomenclature.group.id]})
-          .then((response) => {
+        this.$store
+          .dispatch("furniture/addNomenclature", {
+            data: formData,
+            group: this.nomenclature.group,
+            onlyOne: this.enabledGroups[this.nomenclature.group.id]
+          })
+          .then(() => {
             this.showNomekModal = false;
-            if(!this.enabledGroups[this.nomenclature.group.id]) {
+            if (!this.enabledGroups[this.nomenclature.group.id]) {
               this.enabledGroups[this.nomenclature.group.id] = true;
-              this.$store.dispatch("furniture/setNomenclature", this.nomenclature.group)
+              this.$store.dispatch(
+                "furniture/setNomenclature",
+                this.nomenclature.group
+              );
             }
           })
-          .catch((error) => {
+          .catch(error => {
             this.$notify({
-              group: 'warn',
-              type: 'error',
+              group: "warn",
+              type: "error",
               title: this.$i18n.messages[this.$i18n.locale]["attention"],
               text: error
             });
@@ -905,20 +925,18 @@ export default {
     },
     showModal(group) {
       this.showAddModal = true;
-      this.group = group || {}
+      this.group = group || {};
     },
     formatDate(date) {
       let d = new Date(date),
-        month = '' + (d.getMonth() + 1),
-        day = '' + d.getDate(),
+        month = "" + (d.getMonth() + 1),
+        day = "" + d.getDate(),
         year = d.getFullYear();
 
-      if (month.length < 2)
-        month = '0' + month;
-      if (day.length < 2)
-        day = '0' + day;
+      if (month.length < 2) month = "0" + month;
+      if (day.length < 2) day = "0" + day;
 
-      return [day, month, year].join('.');
+      return [day, month, year].join(".");
     },
     showNomenclature(item) {
       this.$store.dispatch("furniture/setUnits");
@@ -939,10 +957,22 @@ export default {
       this.price = 0;
     },
     showEditNomenclature(item, event) {
-      let tagName = event.target.tagName,
+      let enableOpen = false;
+      if (event) {
+        let tagName = event.target.tagName,
           parentName = event.target.parentNode.tagName,
           classList = event.target.classList;
-      if(tagName === "TD" || tagName === "IMG" || classList.contains("icon") || classList.contains("ellipsis") || parentName === "TD") {
+        enableOpen =
+          tagName === "TD" ||
+          tagName === "IMG" ||
+          classList.contains("icon") ||
+          classList.contains("ellipsis") ||
+          parentName === "TD";
+      } else {
+        enableOpen = true;
+      }
+
+      if (enableOpen) {
         this.$store.dispatch("furniture/setUnits");
         this.showNomekModal = true;
 
@@ -954,13 +984,13 @@ export default {
         this.photos = [];
         this.files = [];
         this.price = item.price;
-        if(item.photos) {
+        if (item.photos) {
           item.photos.forEach(item => {
-            this.photos.push(this.serverUrl+item.pathUrl+"&type=1000px");
-          })
+            this.photos.push(this.serverUrl + item.pathUrl + "&type=1000px");
+          });
         }
-        if(!item.ndsBool) {
-          this. price = this.nomenclature.price = this.nomenclature.priceWithoutNds;
+        if (!item.ndsBool) {
+          this.price = this.nomenclature.price = this.nomenclature.priceWithoutNds;
         }
       }
     },
@@ -968,7 +998,7 @@ export default {
       if (newFile) {
         let reader = new FileReader();
         reader.onload = e => {
-          if(!this.nomenclature.id) {
+          if (!this.nomenclature.id) {
             this.nomenclature.photos = [];
           }
           this.nomenclature.photos.push({
@@ -985,14 +1015,15 @@ export default {
       this.nomenclature = item;
     },
     deleteNomenclature() {
-      this.$store.dispatch("furniture/deleteNomenclature", this.nomenclature)
+      this.$store
+        .dispatch("furniture/deleteNomenclature", this.nomenclature)
         .then(() => {
           this.showRemoveNomekModal = false;
         })
-        .catch((error) => {
+        .catch(error => {
           this.$notify({
-            group: 'warn',
-            type: 'error',
+            group: "warn",
+            type: "error",
             title: this.$i18n.messages[this.$i18n.locale]["attention"],
             text: error
           });
@@ -1003,14 +1034,18 @@ export default {
       this.showRemovePhotoModal = true;
     },
     deletePhoto() {
-      this.$store.dispatch("furniture/deleteNomenclaturePhoto", {photoId: this.image.id, nomenclature: this.nomenclature})
+      this.$store
+        .dispatch("furniture/deleteNomenclaturePhoto", {
+          photoId: this.image.id,
+          nomenclature: this.nomenclature
+        })
         .then(() => {
           this.showRemovePhotoModal = false;
         })
-        .catch((error) => {
+        .catch(error => {
           this.$notify({
-            group: 'warn',
-            type: 'error',
+            group: "warn",
+            type: "error",
             title: this.$i18n.messages[this.$i18n.locale]["attention"],
             text: error
           });
@@ -1018,46 +1053,60 @@ export default {
     },
     deleteNewPhoto(image) {
       this.files = [];
-      this.nomenclature.photos.splice(this.nomenclature.photos.indexOf(image), 1);
+      this.nomenclature.photos.splice(
+        this.nomenclature.photos.indexOf(image),
+        1
+      );
     },
     addPhoto() {
       let formData = new FormData();
-      formData.append( "nomenclatureId", this.nomenclature.id );
+      formData.append("nomenclatureId", this.nomenclature.id);
 
-      for( let i = 0; i < this.files.length; i++ ){
+      for (let i = 0; i < this.files.length; i++) {
         formData.append(`file`, this.files[i]);
       }
-      this.$store.dispatch("furniture/addNomenclaturePhoto", {data: formData, nomenclature: this.nomenclature})
+      this.$store
+        .dispatch("furniture/addNomenclaturePhoto", {
+          data: formData,
+          nomenclature: this.nomenclature
+        })
         .then(() => {
           this.showAddPhotoModal = false;
           this.nomenclature = {};
           this.files = [];
         })
-        .catch((error) => {
+        .catch(error => {
           this.$notify({
-            group: 'warn',
-            type: 'error',
+            group: "warn",
+            type: "error",
             title: this.$i18n.messages[this.$i18n.locale]["attention"],
             text: error
           });
         });
     },
     toggleGroupRows(group, event) {
-      if(event.target.tagName === "TD" || (event.target.tagName !== "svg" && event.target.tagName !== "path" && !event.target.classList.contains("icon"))) {
-        if(!this.enabledGroups[group.id]) {
+      if (
+        !event ||
+        event.target.tagName === "TD" ||
+        (event.target.tagName !== "svg" &&
+          event.target.tagName !== "path" &&
+          !event.target.classList.contains("icon"))
+      ) {
+        if (!this.enabledGroups[group.id]) {
           this.enabledGroups[group.id] = true;
-          this.$store.dispatch("furniture/setNomenclature", group)
+          this.$store
+            .dispatch("furniture/setNomenclature", group)
             .then(() => {
               //ignore
             })
             .catch(error => {
               this.$notify({
-                group: 'warn',
-                type: 'error',
+                group: "warn",
+                type: "error",
                 title: this.$i18n.messages[this.$i18n.locale]["attention"],
                 text: error
               });
-            })
+            });
         } else {
           this.$store.dispatch("furniture/hideNomenclatures", group);
           this.enabledGroups[group.id] = false;
@@ -1066,14 +1115,17 @@ export default {
     },
     updateConfirm(nomenclature) {
       this.updatingId = nomenclature.id;
-      this.$store.dispatch("furniture/statusConfirm", {furnitureNomenclatureId: nomenclature.id})
+      this.$store
+        .dispatch("furniture/statusConfirm", {
+          furnitureNomenclatureId: nomenclature.id
+        })
         .then(() => {
           this.updatingId = null;
         })
-        .catch((error) => {
+        .catch(error => {
           this.$notify({
-            group: 'warn',
-            type: 'error',
+            group: "warn",
+            type: "error",
             title: this.$i18n.messages[this.$i18n.locale]["attention"],
             text: error
           });
@@ -1081,16 +1133,20 @@ export default {
         });
     },
     updatePrices() {
-      if(this.nomenclature.price) {
-        if(this.nomenclature.ndsBool) {
-          if(!this.nomenclature.nds) {
+      if (this.nomenclature.price) {
+        if (this.nomenclature.ndsBool) {
+          if (!this.nomenclature.nds) {
             this.nomenclature.nds = this.construction.nds;
           }
-          if(this.nomenclature.nds < 0) {
+          if (this.nomenclature.nds < 0) {
             this.nomenclature.nds = 0;
           }
-          this.nomenclature["priceWithoutNds"] = (this.nomenclature.price / parseFloat('1.' + this.nomenclature.nds)).toFixed(2);
-          this.nomenclature["ndsValue"] = (this.nomenclature.price - this.nomenclature["priceWithoutNds"]).toFixed(2);
+          this.nomenclature["priceWithoutNds"] = (
+            this.nomenclature.price / parseFloat("1." + this.nomenclature.nds)
+          ).toFixed(2);
+          this.nomenclature["ndsValue"] = (
+            this.nomenclature.price - this.nomenclature["priceWithoutNds"]
+          ).toFixed(2);
         } else {
           this.nomenclature.nds = 0;
           this.nomenclature["ndsValue"] = 0;
@@ -1102,20 +1158,27 @@ export default {
       // console.log(this.ndsColumns);
     },
     sort(column, event) {
-      if(column.sortable && (event.target.tagName === "TD" || event.target.classList.contains("ellipsis"))) {
+      if (
+        column.sortable &&
+        (event.target.tagName === "TD" ||
+          event.target.classList.contains("ellipsis"))
+      ) {
         let groupKeys = [];
         this.rows.forEach((item, key) => {
-          if(item.children && item.children > 1) {
-            groupKeys.push({start: key, length: item.children})
+          if (item.children && item.children > 1) {
+            groupKeys.push({ start: key, length: item.children });
           }
         });
         groupKeys.forEach(item => {
-          let children = this.rows.slice(item.start + 1, item.length + item.start + 1);
+          let children = this.rows.slice(
+            item.start + 1,
+            item.length + item.start + 1
+          );
           children.sort((a, b) => {
-            if(this.currentSort === column.code) {
+            if (this.currentSort === column.code) {
               return 0;
             }
-            if(column.code === "term") {
+            if (column.code === "term") {
               let date1 = a[column.code].split(".");
               let date2 = b[column.code].split(".");
               date1 = date1[2] + "-" + date1[1] + "-" + date1[0];
@@ -1127,7 +1190,7 @@ export default {
               }
             }
           });
-          if(this.currentSort === column.code) {
+          if (this.currentSort === column.code) {
             children.reverse();
           }
           this.rows.splice(item.start + 1, children.length, ...children);
@@ -1144,12 +1207,13 @@ export default {
       rows: state => state.furniture.furniture.groups || [],
       furniture: state => state.furniture.furniture,
       construction: state => state.furniture.construction,
+      constructions: state => state.furniture.constructions,
       user: state => state.user.user,
       roles: state => state.user.roles,
       modules: state => state.user.modules,
       units(state) {
         let unitsList = [];
-        state.furniture.units.forEach((item, key, arr) => {
+        state.furniture.units.forEach(item => {
           unitsList.push({
             label: item.name,
             id: item.id
@@ -1159,35 +1223,119 @@ export default {
       },
       lang: state => state.lang,
       titles(state) {
-          if(this.ndsColumns) {
-            return [
-              {name: state.furniture.construction.name, sortable: true, code: "name"},
-              {name: this.$i18n.messages[state.lang]["count_sh"], sortable: true, code: "count"},
-              {name: this.$i18n.messages[state.lang]["unit_sh"], sortable: false, code: "units"},
-              {name: this.$i18n.messages[state.lang]["deadlines"], sortable: true, code: "term"},
-              {name: this.$i18n.messages[state.lang]["status"], sortable: false, code: "status"},
-              {name: this.$i18n.messages[state.lang]["vatRate"], sortable: true, code: "nds"},
-              {name: this.$i18n.messages[state.lang]["priceWithoutNds"], sortable: true, code: "priceWithoutNds"},
-              {name: this.$i18n.messages[state.lang]["price"], sortable: true, code: "price"},
-              {name: this.$i18n.messages[state.lang]["nds"], sortable: true, code: "ndsValue"},
-              {name: this.$i18n.messages[state.lang]["sum_price"], sortable: true, code: "totalPrice"},
-              {name: this.$i18n.messages[state.lang]["magazine"], sortable: true, code: "magazine"},
-              {name: this.$i18n.messages[state.lang]["link"], sortable: false, code: "link"}
-            ]
-          } else {
-            return [
-              {name: state.furniture.construction.name, sortable: true, code: "name"},
-              {name: this.$i18n.messages[state.lang]["count_sh"], sortable: true, code: "count"},
-              {name: this.$i18n.messages[state.lang]["unit_sh"], sortable: false, code: "units"},
-              {name: this.$i18n.messages[state.lang]["deadlines"], sortable: true, code: "term"},
-              {name: this.$i18n.messages[state.lang]["status"], sortable: false, code: "status"},
-              {name: this.$i18n.messages[state.lang]["priceWithoutNds"], sortable: true, code: "priceWithoutNds"},
-              {name: this.$i18n.messages[state.lang]["sum_price"], sortable: true, code: "totalPrice"},
-              {name: this.$i18n.messages[state.lang]["magazine"], sortable: true, code: "magazine"},
-              {name: this.$i18n.messages[state.lang]["link"], sortable: false, code: "link"}
-            ]
-          }
+        if (this.ndsColumns) {
+          return [
+            {
+              name: state.furniture.construction.name,
+              sortable: true,
+              code: "name"
+            },
+            {
+              name: this.$i18n.messages[state.lang]["count_sh"],
+              sortable: true,
+              code: "count"
+            },
+            {
+              name: this.$i18n.messages[state.lang]["unit_sh"],
+              sortable: false,
+              code: "units"
+            },
+            {
+              name: this.$i18n.messages[state.lang]["deadlines"],
+              sortable: true,
+              code: "term"
+            },
+            {
+              name: this.$i18n.messages[state.lang]["status"],
+              sortable: false,
+              code: "status"
+            },
+            {
+              name: this.$i18n.messages[state.lang]["vatRate"],
+              sortable: true,
+              code: "nds"
+            },
+            {
+              name: this.$i18n.messages[state.lang]["priceWithoutNds"],
+              sortable: true,
+              code: "priceWithoutNds"
+            },
+            {
+              name: this.$i18n.messages[state.lang]["price"],
+              sortable: true,
+              code: "price"
+            },
+            {
+              name: this.$i18n.messages[state.lang]["nds"],
+              sortable: true,
+              code: "ndsValue"
+            },
+            {
+              name: this.$i18n.messages[state.lang]["sum_price"],
+              sortable: true,
+              code: "totalPrice"
+            },
+            {
+              name: this.$i18n.messages[state.lang]["magazine"],
+              sortable: true,
+              code: "magazine"
+            },
+            {
+              name: this.$i18n.messages[state.lang]["link"],
+              sortable: false,
+              code: "link"
+            }
+          ];
+        } else {
+          return [
+            {
+              name: state.furniture.construction.name,
+              sortable: true,
+              code: "name"
+            },
+            {
+              name: this.$i18n.messages[state.lang]["count_sh"],
+              sortable: true,
+              code: "count"
+            },
+            {
+              name: this.$i18n.messages[state.lang]["unit_sh"],
+              sortable: false,
+              code: "units"
+            },
+            {
+              name: this.$i18n.messages[state.lang]["deadlines"],
+              sortable: true,
+              code: "term"
+            },
+            {
+              name: this.$i18n.messages[state.lang]["status"],
+              sortable: false,
+              code: "status"
+            },
+            {
+              name: this.$i18n.messages[state.lang]["priceWithoutNds"],
+              sortable: true,
+              code: "priceWithoutNds"
+            },
+            {
+              name: this.$i18n.messages[state.lang]["sum_price"],
+              sortable: true,
+              code: "totalPrice"
+            },
+            {
+              name: this.$i18n.messages[state.lang]["magazine"],
+              sortable: true,
+              code: "magazine"
+            },
+            {
+              name: this.$i18n.messages[state.lang]["link"],
+              sortable: false,
+              code: "link"
+            }
+          ];
         }
+      }
     })
   },
   watch: {
@@ -1201,55 +1349,56 @@ export default {
     }
   },
   mounted() {
-    if(this.modules.indexOf(this.$route.name) < 0) {
+    if (this.modules.indexOf(this.$route.name) < 0) {
       this.$router.push("/settings");
       return;
     }
   }
-}
+};
 </script>
 
 <style scoped lang="scss">
-$ffamily: 'Roboto', sans-serif;
-.hidden{
-    display: none;
+$ffamily: "Roboto", sans-serif;
+.hidden {
+  display: none;
 }
-.table{
+.table {
   font-family: $ffamily;
   border-collapse: collapse;
-  border: 1px solid #C4C4C4;
-  img{
+  border: 1px solid #c4c4c4;
+  img {
     max-width: 100%;
     max-height: 100%;
   }
-  tr{
-    border-top: 1px solid #DADADA;
+  tr {
+    border-top: 1px solid #dadada;
     background: #fff;
     font-family: $ffamily;
     color: #868686;
     font-size: 14px;
     transition: 0.3s;
-    &.odd{
-        background: #F5F5F6;
+    &.odd {
+      background: #f5f5f6;
     }
-    td:nth-child(1){
+    td:nth-child(1) {
       border: none;
       display: flex;
       align-items: center;
       font-weight: 500;
     }
-    &.parent{
-        border-top: 1px solid #C4C4C4;
+    &.parent {
+      border-top: 1px solid #c4c4c4;
     }
-    &:hover{
-        background: rgba(214, 232, 206, 0.69);
+    &:hover {
+      background: rgba(214, 232, 206, 0.69);
     }
     td:nth-child(2) {
-      border-left: 1px solid #DADADA;
+      border-left: 1px solid #dadada;
     }
   }
-  td,th{
-    border-right: 1px solid #DADADA;
+  td,
+  th {
+    border-right: 1px solid #dadada;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -1258,8 +1407,8 @@ $ffamily: 'Roboto', sans-serif;
     /*width: 100%;*/
     word-break: break-word;
   }
-  tbody{
-    tr{
+  tbody {
+    tr {
       td:last-child {
         font-weight: 500;
       }
@@ -1285,7 +1434,7 @@ $ffamily: 'Roboto', sans-serif;
       width: 100%;
     }
   }
-  .icon{
+  .icon {
     margin-right: 14px;
     width: 30px;
     height: 26px;
@@ -1293,13 +1442,17 @@ $ffamily: 'Roboto', sans-serif;
     align-items: center;
     justify-content: center;
   }
-  .no-img{
-    background: #C4C4C4;
+  .no-img {
+    background: #c4c4c4;
   }
-  .setting-icon{
-    display: flex; align-items: center; justify-content: center; margin-left: 13px; cursor: pointer;
-    &:hover{
-      path{
+  .setting-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 13px;
+    cursor: pointer;
+    &:hover {
+      path {
         fill: #999;
       }
     }
@@ -1312,7 +1465,11 @@ $ffamily: 'Roboto', sans-serif;
     border-radius: 18px;
   }
   .btn-custom {
-    background: linear-gradient(98.69deg, #688E74 11.52%, #8AC29C 90.26%) !important;
+    background: linear-gradient(
+      98.69deg,
+      #688e74 11.52%,
+      #8ac29c 90.26%
+    ) !important;
     border-radius: 14px;
     transition: 0.3s;
     &:hover {
@@ -1322,21 +1479,25 @@ $ffamily: 'Roboto', sans-serif;
   .btn-close {
     border-radius: 14px;
   }
-  .modal-body{
+  .modal-body {
     padding: 0;
   }
-  .body-left{
+  .body-left {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     padding: 1rem;
   }
-  .body-right{
+  .body-right {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     padding: 1rem;
-    background: linear-gradient(90deg, #E1E1E1 0%, rgba(236, 232, 232, 0) 20.31%);
+    background: linear-gradient(
+      90deg,
+      #e1e1e1 0%,
+      rgba(236, 232, 232, 0) 20.31%
+    );
   }
   input {
     border: none;
@@ -1346,8 +1507,8 @@ $ffamily: 'Roboto', sans-serif;
     padding-left: 0;
     padding-right: 0;
     font-family: $ffamily;
-    &::placeholder{
-      color: #C4C4C4;
+    &::placeholder {
+      color: #c4c4c4;
     }
   }
 }
@@ -1367,7 +1528,7 @@ $ffamily: 'Roboto', sans-serif;
     max-width: 850px;
   }
 }
-@media all and(max-width: 960px){
+@media all and(max-width: 960px) {
   .modal-mask {
     align-items: flex-start;
   }
@@ -1415,7 +1576,7 @@ $ffamily: 'Roboto', sans-serif;
   border: 1px solid #ebebeb;
 }
 
-label.title{
+label.title {
   display: block;
   text-align: left;
   color: #000;
@@ -1428,7 +1589,7 @@ label.title{
 }
 
 .custom-control-input:checked ~ .custom-control-label::before {
-  background: #688E74;
-  border-color: #688E74;
+  background: #688e74;
+  border-color: #688e74;
 }
 </style>
