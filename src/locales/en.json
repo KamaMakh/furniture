@@ -70,5 +70,7 @@
   "add_group": "Add group",
   "sign_in": "Sign in",
   "sign_up": "Sign up",
-  "currency": "Currency"
+  "currency": "Currency",
+  "subscribe_info": "You have exceeded the limit. Go to the subscription purchase page.",
+  "subscriptions": "Subscriptions"
 }

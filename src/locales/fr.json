@@ -69,5 +69,7 @@
   "add_group": "Ajouter un groupe",
   "sign_in": "Se connecter",
   "sign_up": "S'inscrire",
-  "currency": "Devise"
+  "currency": "Devise",
+  "subscribe_info": "Vous avez dépassé la limite. Accédez à la page d'achat d'abonnement.",
+  "subscriptions": "Subscriptions"
 }

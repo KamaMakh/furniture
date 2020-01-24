@@ -22,8 +22,12 @@ function addConstruction({ commit }, data) {
       .post(createConstructUrl, data)
       .then(response => {
         if (response.status === 200) {
-          commit("addConstruction", response.data);
-          resolve();
+          if (response.data.subscribeError) {
+            reject({ subscribeError: true });
+          } else {
+            commit("addConstruction", response.data);
+            resolve();
+          }
         } else {
           reject(response.data.message);
         }

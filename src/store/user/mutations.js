@@ -28,21 +28,11 @@ function setRoles(state, data) {
 }
 
 function setEnableModules(state) {
-  if(state.roles[0] === "ROLE_ARCHITECT") {
-    state.modules = [
-      "Furniture",
-      "Documents"
-    ];
-  } else if(state.roles[0] === "ROLE_CLIENT") {
+  if(state.roles[0] === "ROLE_CLIENT") {
     state.modules = [
       "Furniture"
     ];
-  } else if(state.roles[0] === "ROLE_MAGAZINE") {
-    state.modules = [
-      "Projects",
-      "Users"
-    ];
-  } else if(state.roles[0] === "ROLE_SUPERVISOR") {
+  } else if(state.roles[0] === "ROLE_SUPERVISOR" || state.roles[0] === "ROLE_ARCHITECT" || state.roles[0] === "ROLE_MAGAZINE") {
     state.modules = [
       "Furniture",
       "Documents",
