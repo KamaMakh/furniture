@@ -12,7 +12,8 @@ import {
   deleteNomenclatureUrl,
   updateNomenclatureUrl,
   deletePhotoUrl,
-  addPhotoUrl
+  addPhotoUrl,
+  updateConstructUrl
 } from "@/store/urls";
 
 function addConstruction({ commit }, data) {
@@ -43,9 +44,25 @@ function setConstruction({ commit }, data) {
 }
 
 function updateConstruction({ commit }, data) {
-  return new Promise(resolve => {
-    commit("updateConstruction", data);
-    resolve();
+  return new Promise((resolve, reject) => {
+    api
+      .post(updateConstructUrl, data)
+      .then(response => {
+        if (response.status === 200) {
+          commit("updateConstruction", response.data);
+          resolve();
+        } else {
+          reject(response.data.message);
+        }
+      })
+      .catch(error => {
+        if (error.response && error.response.status === 200) {
+          commit("updateConstruction", error.response.data);
+          resolve(error);
+        } else {
+          reject(error.response.data.message);
+        }
+      });
   });
 }
 

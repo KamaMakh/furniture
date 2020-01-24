@@ -166,7 +166,12 @@ export default {
             });
           });
       } else {
-        this.$store.dispatch("furniture/updateConstruction", this.newConstruction)
+        let formData = new FormData();
+        formData.append("projectId", this.newConstruction.id);
+        formData.append("name", this.newConstruction.name);
+        formData.append("address", this.newConstruction.address);
+        formData.append("nds", this.newConstruction.nds);
+        this.$store.dispatch("furniture/updateConstruction", formData)
           .then(() => {
             this.showAddModal = false;
           })

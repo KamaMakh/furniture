@@ -3,6 +3,7 @@ const loginUrl = `${serverUrl}/api/auth/login`;
 const registerUrl = `${serverUrl}/api/auth/reg`;
 const furnitureConstructsUrl = `${serverUrl}/api/furniture/project/get/all`;
 const createConstructUrl = `${serverUrl}/api/project/create`;
+const updateConstructUrl = `${serverUrl}/api/project/update`;
 const createFurnitureGroup = `${serverUrl}/api/furniture/group/create`;
 const updateFurnitureGroup = `${serverUrl}/api/furniture/group/update`;
 const getFurniture = `${serverUrl}/api/furniture/get`;
@@ -23,6 +24,7 @@ export {
   registerUrl,
   furnitureConstructsUrl,
   createConstructUrl,
+  updateConstructUrl,
   createFurnitureGroup,
   updateFurnitureGroup,
   getFurniture,
