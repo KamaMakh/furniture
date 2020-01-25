@@ -1,5 +1,12 @@
 <template>
   <div class="sidebar">
+    <div class="sidebar__user-info">
+      <div class="logo"></div>
+      <div class="role">{{ $t("cabinet") }} {{ role }}</div>
+      <div class="name">
+        {{ user.fio }}
+      </div>
+    </div>
     <div
       class="sidebar__btn"
       @click="
@@ -153,9 +160,16 @@ export default {
     };
   },
   computed: {
-    ...mapState("furniture", ["constructions"]),
-    ...mapState("furniture", ["construction"]),
-    ...mapState("user", ["user"])
+    ...mapState({
+      construction: state => state.furniture.construction,
+      constructions: state => state.furniture.constructions,
+      user: state => state.user.user,
+      role: state => {
+        if (state.user.roles[0]) {
+          return state.user.roles[0].split("_")[1];
+        }
+      }
+    })
   },
   methods: {
     addConstruction() {
@@ -226,6 +240,38 @@ $ffamily: "Roboto", sans-serif;
 .sidebar {
   height: 100%;
   position: relative;
+  &__user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-bottom: 28px;
+    .logo {
+      width: 75px;
+      height: 75px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #c4c4c4;
+      margin-bottom: 19px;
+      img {
+        max-width: 100%;
+      }
+    }
+    .role {
+      font-weight: bold;
+      font-size: 18px;
+      line-height: 21px;
+      text-align: right;
+      color: #868686;
+      margin-bottom: 10px;
+    }
+    .name {
+      font-size: 18px;
+      line-height: 21px;
+      text-align: right;
+      color: #868686;
+    }
+  }
   &__btn {
     font-family: $ffamily;
     font-style: normal;

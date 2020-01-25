@@ -245,10 +245,14 @@
             width="6%"
             @click="showEditNomenclature(item, $event)"
           >
-            {{ item.magazine }}
+            <span class="ellipsis">
+              {{ item.magazine }}
+            </span>
           </td>
           <td v-if="item.price !== undefined" width="20%">
-            <a :href="item.link" target="_blank">{{ item.link }}</a>
+            <span class="ellipsis" style="max-width: 120px;">
+              <a :href="item.link" target="_blank">{{ item.link }}</a>
+            </span>
           </td>
         </tr>
       </tbody>
@@ -1377,6 +1381,7 @@ $ffamily: "Roboto", sans-serif;
         font-weight: 500;
       }
       td span.ellipsis {
+        display: block;
         max-width: 85px;
         white-space: nowrap;
         overflow: hidden;
