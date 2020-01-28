@@ -147,7 +147,7 @@ function getFurniture({ commit }, data) {
     api
       .get(furnitureUrl, { params: data })
       .then(response => {
-        if (response.status === 200) {
+          if (response.status === 200) {
           commit("setFurniture", response.data);
           resolve();
         } else {

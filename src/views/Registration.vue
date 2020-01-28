@@ -208,12 +208,12 @@ export default {
   data() {
     return {
       showFormErrors: false,
-      roles: [
-        this.$i18n.messages[this.$store.state.lang]["supervisor"],
-        // this.$i18n.messages[this.$store.state.lang]["magazine"],
-        // this.$i18n.messages[this.$store.state.lang]["client"],
-        this.$i18n.messages[this.$store.state.lang]["architect"]
-      ],
+      // roles: [
+      //   this.$i18n.messages[this.$store.state.lang]["supervisor"],
+      //   // this.$i18n.messages[this.$store.state.lang]["magazine"],
+      //   // this.$i18n.messages[this.$store.state.lang]["client"],
+      //   this.$i18n.messages[this.$store.state.lang]["architect"]
+      // ],
       roles_value: ["SUPERVISOR", "MAGAZINE", "CLIENT", "ARCHITECT"],
       showModal: false,
       form: {},
@@ -254,7 +254,15 @@ export default {
         return array;
       },
       lang: state => state.lang
-    })
+    }),
+    roles() {
+      return [
+        this.$i18n.messages[this.$store.state.lang]["supervisor"],
+        this.$i18n.messages[this.$store.state.lang]["magazine"],
+        this.$i18n.messages[this.$store.state.lang]["client"],
+        this.$i18n.messages[this.$store.state.lang]["architect"]
+      ];
+    }
   },
   methods: {
     register(e) {
