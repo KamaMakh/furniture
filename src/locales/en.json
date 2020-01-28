@@ -73,5 +73,13 @@
   "currency": "Currency",
   "subscribe_info": "You have exceeded the limit. Go to the subscription purchase page.",
   "subscriptions": "Subscriptions",
-  "cabinet": "Cabinet"
+  "cabinet": "Cabinet",
+  "forgotPassword": "Forgot password?",
+  "restorePassword": "Restore password",
+  "enterCode": "Enter code",
+  "newPassword": "New password",
+  "saveNewPassword": "Save new password",
+  "back": "Back",
+  "getCodeMessage": "A code has been sent to your email",
+  "sendCode": "Submit Code"
 }

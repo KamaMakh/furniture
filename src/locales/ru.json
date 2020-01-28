@@ -73,5 +73,13 @@
   "currency": "Валюта",
   "subscribe_info": "Вы превысили лимит. Перейдите на страницу покупки подписок.",
   "subscriptions": "Подписки",
-  "cabinet": "Кабинет"
+  "cabinet": "Кабинет",
+  "forgotPassword": "Забыли пароль?",
+  "restorePassword": "Восстановить пароль",
+  "enterCode": "Введите код",
+  "newPassword": "Новый пароль",
+  "saveNewPassword": "Сохранить новый пароль",
+  "back": "Назад",
+  "getCodeMessage": "На вашу электронную почту отправлен код",
+  "sendCode": "Отправить код"
 }

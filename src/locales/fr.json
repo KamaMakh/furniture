@@ -72,5 +72,13 @@
   "currency": "Devise",
   "subscribe_info": "Vous avez dépassé la limite. Accédez à la page d'achat d'abonnement.",
   "subscriptions": "Subscriptions",
-  "cabinet": "Armoire"
+  "cabinet": "Armoire",
+  "forgotPassword": "Mot de passe oublié?",
+  "restorePassword": "Restaurer le mot de passe",
+  "enterCode": "Entrez le code",
+  "newPassword": "Nouveau mot de passe",
+  "saveNewPassword": "Enregistrer le nouveau mot de passe",
+  "back": "Retour",
+  "getCodeMessage": "Un code a été envoyé à votre email",
+  "sendCode": "Soumettre le code"
 }

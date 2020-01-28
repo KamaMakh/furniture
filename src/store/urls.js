@@ -17,6 +17,9 @@ const statusConfirmUrl = `${serverUrl}/api/furniture/nomenclature/status/confirm
 const deletePhotoUrl = `${serverUrl}/api/furniture/nomenclature/photo/delete`;
 const addPhotoUrl = `${serverUrl}/api/furniture/nomenclature/photo/add`;
 const getCurrenciesUrl = `${serverUrl}/api/directory/currency/get`;
+const getCodeUrl = `${serverUrl}/api/auth/resetpswd/getcode`;
+const sendCodeUrl = `${serverUrl}/api/auth/resetpswd/sendcode`;
+const sendNewPasswordUrl = `${serverUrl}/api/auth/resetpswd/newpswd`;
 
 export {
   serverUrl,
@@ -37,5 +40,8 @@ export {
   updateNomenclatureUrl,
   deletePhotoUrl,
   addPhotoUrl,
-  getCurrenciesUrl
+  getCurrenciesUrl,
+  getCodeUrl,
+  sendCodeUrl,
+  sendNewPasswordUrl
 };

@@ -1,6 +1,6 @@
 /* eslint-disable */
 import api from "@/shared/api";
-import { registerUrl, loginUrl, getMe, getCurrenciesUrl } from "@/store/urls";
+import { registerUrl, loginUrl, getMe, getCurrenciesUrl, getCodeUrl, sendCodeUrl, sendNewPasswordUrl } from "@/store/urls";
 import onError from "@/store/onError";
 import Vue from "vue";
 import router from "@/router";
@@ -49,11 +49,76 @@ function login({ commit }, data) {
         } else {
           reject();
         }
-        // commit("setUser", response.data.data);
-
-        // resolve();
       })
       .catch(error => onError(error, reject));
+  });
+}
+
+function getCode({ commit }, data) {
+  return new Promise((resolve, reject) => {
+    api.post(getCodeUrl, data)
+      .then((response) => {
+        if (response.data.error) {
+          Vue.notify({
+            group: 'warn',
+            type: 'error',
+            text: response.data.error
+          });
+        } else if (response.data.status === "OK") {
+          resolve();
+        } else {
+          reject(error.response);
+        }
+      })
+      .catch(error => {
+        reject(error.response)
+      });
+  });
+}
+
+function sendCode({ commit }, data) {
+  return new Promise((resolve, reject) => {
+    api.post(sendCodeUrl, data)
+      .then((response) => {
+        if (response.data.error) {
+          Vue.notify({
+            group: 'warn',
+            type: 'error',
+            text: response.data.error
+          });
+        } else if (response.data.status === "OK") {
+          resolve();
+        } else {
+          reject(error.response);
+        }
+      })
+      .catch(error => {
+        reject(error.response)
+      });
+  });
+}
+
+function sendNewPassword({ commit }, data) {
+  return new Promise((resolve, reject) => {
+    api.post(sendNewPasswordUrl, data)
+      .then((response) => {
+        if (response.data.error) {
+          Vue.notify({
+            group: 'warn',
+            type: 'error',
+            text: response.data.error
+          });
+        } else if (response.data.accessToken) {
+          let token = response.data.accessToken
+          VueCookies.set("token",token,"40D");
+          resolve();
+        } else {
+          reject(error.response);
+        }
+      })
+      .catch(error => {
+        reject(error.response)
+      });
   });
 }
 
@@ -107,5 +172,8 @@ export {
   register,
   login,
   logout,
-  setCurrencies
+  setCurrencies,
+  getCode,
+  sendCode,
+  sendNewPassword
 }
