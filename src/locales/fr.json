@@ -80,5 +80,7 @@
   "saveNewPassword": "Enregistrer le nouveau mot de passe",
   "back": "Retour",
   "getCodeMessage": "Un code a été envoyé à votre email",
-  "sendCode": "Soumettre le code"
+  "sendCode": "Soumettre le code",
+  "annual": "Annuel",
+  "monthly": "Mensuel"
 }

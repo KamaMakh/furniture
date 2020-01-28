@@ -81,5 +81,7 @@
   "saveNewPassword": "Save new password",
   "back": "Back",
   "getCodeMessage": "A code has been sent to your email",
-  "sendCode": "Submit Code"
+  "sendCode": "Submit Code",
+  "annual": "Annual",
+  "monthly": "Monthly"
 }
