@@ -129,29 +129,27 @@
         </div>
       </div>
     </transition>
-    <b-modal v-model="showSubscribeModal" hide-footer>
-      {{ $t("subscribe_info") }}
-      <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-secondary"
-          style="border-radius: 14px"
-          @click="showSubscribeModal = false"
-        >
-          {{ $t("close") }}
-        </button>
-        <button type="button" class="btn btn-custom">
-          {{ $t("subscriptions") }}
-        </button>
-      </div>
+    <b-modal
+      v-model="showSubscribeModal"
+      size="lg"
+      dialog-class="subscribe-modal"
+      body-class="subscribe-modal"
+      hide-footer
+      hide-header
+    >
+      <BuySubscribe @hideModal="hideSubscribeModal" />
     </b-modal>
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
+import BuySubscribe from "@/components/BuySubscribe";
 export default {
   name: "FurnitureNav",
+  components: {
+    BuySubscribe
+  },
   data() {
     return {
       showAddModal: false,
@@ -172,6 +170,9 @@ export default {
     })
   },
   methods: {
+    hideSubscribeModal() {
+      this.showSubscribeModal = false;
+    },
     addConstruction() {
       if (!this.newConstruction.name || !this.newConstruction.nds) {
         this.$notify({
@@ -340,5 +341,8 @@ $ffamily: "Roboto", sans-serif;
 }
 .vue-notification-group {
   z-index: 9999 !important;
+}
+.subscribe-modal {
+  max-width: none;
 }
 </style>

@@ -13,7 +13,9 @@ import {
   updateNomenclatureUrl,
   deletePhotoUrl,
   addPhotoUrl,
-  updateConstructUrl
+  updateConstructUrl,
+  getSubscribesListUrl,
+  createOrderUrl
 } from "@/store/urls";
 
 function addConstruction({ commit }, data) {
@@ -370,6 +372,56 @@ function addNomenclaturePhoto({ commit }, data) {
   });
 }
 
+function getSubscribesList({ commit }) {
+  return new Promise((resolve, reject) => {
+    api
+      .get(getSubscribesListUrl)
+      .then(response => {
+        if (response.status === 200) {
+          commit("setSubscribes", response.data);
+          resolve(response);
+        } else {
+          reject(response.data.message);
+        }
+      })
+      .catch(error => {
+        if (error.response && error.response.status === 200) {
+          commit("setSubscribes", error.response.data);
+          resolve();
+        } else {
+          reject();
+        }
+      });
+  });
+}
+
+function createOrder({ commit }, data) {
+  commit("ignore");
+  return new Promise((resolve, reject) => {
+    api
+      .post(createOrderUrl, data)
+      .then(response => {
+        if (response.status === 200) {
+          /* eslint-disable */
+          console.log(11);
+          resolve(response.data);
+        } else {
+          console.log(22);
+          reject(response.data);
+        }
+      })
+      .catch(error => {
+        if (error.response && error.response.status === 200) {
+          console.log(33);
+          resolve(error.response);
+        } else {
+          console.log(44);
+          reject(error.response);
+        }
+      });
+  });
+}
+
 function clearState({ commit }, data) {
   commit("clearState", data);
 }
@@ -391,5 +443,7 @@ export {
   deleteNomenclaturePhoto,
   addNomenclaturePhoto,
   clearState,
-  hideNomenclatures
+  hideNomenclatures,
+  getSubscribesList,
+  createOrder
 };

@@ -20,6 +20,8 @@ const getCurrenciesUrl = `${serverUrl}/api/directory/currency/get`;
 const getCodeUrl = `${serverUrl}/api/auth/resetpswd/getcode`;
 const sendCodeUrl = `${serverUrl}/api/auth/resetpswd/sendcode`;
 const sendNewPasswordUrl = `${serverUrl}/api/auth/resetpswd/newpswd`;
+const getSubscribesListUrl = `${serverUrl}/api/payment/price/get`;
+const createOrderUrl = `${serverUrl}/api/payment/tinkoff/order/create`;
 
 export {
   serverUrl,
@@ -43,5 +45,7 @@ export {
   getCurrenciesUrl,
   getCodeUrl,
   sendCodeUrl,
-  sendNewPasswordUrl
+  sendNewPasswordUrl,
+  getSubscribesListUrl,
+  createOrderUrl
 };

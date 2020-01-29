@@ -82,5 +82,7 @@
   "getCodeMessage": "Un code a été envoyé à votre email",
   "sendCode": "Soumettre le code",
   "annual": "Annuel",
-  "monthly": "Mensuel"
+  "monthly": "Mensuel",
+  "subscription": "Abonnement",
+  "pay": "Payer"
 }

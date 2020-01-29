@@ -140,6 +140,10 @@ function updateNomenclaturePhoto(state, data) {
   }
 }
 
+function setSubscribes(state, data) {
+  state.subscribes = data;
+}
+
 function ignore() {
   return "ignored";
 }
@@ -167,5 +171,6 @@ export {
   updateNomenclature,
   clearState,
   hideNomenclatures,
-  ignore
+  ignore,
+  setSubscribes
 };

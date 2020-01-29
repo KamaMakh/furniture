@@ -1,0 +1,754 @@
+<template>
+  <div class="buy-subscribe">
+    <div v-if="step === 1" class="buy-subscribe__inner step-1">
+      <div class="step-1__title">
+        Подписка
+      </div>
+      <div
+        v-for="(subscribe, key) in subscribes"
+        :key="key"
+        class="step-1__list"
+      >
+        <div
+          v-if="subscribe.id !== 1"
+          class="step-1__list-item list-item"
+          @click="shooseSubscribe(subscribe, 'annual', subscribe.priceYear)"
+        >
+          <b-row>
+            <b-col cols="6" class="align-items-center">
+              <div class="list-item__title">
+                {{ $t("subscription") }} "{{ subscribe.name }}"
+              </div>
+              <div class="list-item__sub-title">
+                {{ $t("annual") }}
+              </div>
+            </b-col>
+            <b-col
+              cols="3"
+              class="d-flex justify-content-end align-items-center"
+            >
+              <div
+                class="list-item__radio"
+                :class="{
+                  active: subscribe.id === selectedSub.id && type === 'annual'
+                }"
+              ></div>
+            </b-col>
+            <b-col
+              cols="3"
+              class="d-flex justify-content-end align-items-center"
+            >
+              <div class="list-item__price">${{ subscribe.priceYear }}</div>
+            </b-col>
+          </b-row>
+        </div>
+        <div
+          v-if="subscribe.id !== 1"
+          class="step-1__list-item list-item"
+          @click="shooseSubscribe(subscribe, 'monthly', subscribe.priceMonth)"
+        >
+          <b-row>
+            <b-col cols="6" class="align-items-center">
+              <div class="list-item__title">
+                {{ $t("subscription") }} "{{ subscribe.name }}"
+              </div>
+              <div class="list-item__sub-title">
+                {{ $t("monthly") }}
+              </div>
+            </b-col>
+            <b-col
+              cols="3"
+              class="d-flex justify-content-end align-items-center"
+            >
+              <div
+                class="list-item__radio"
+                :class="{
+                  active: subscribe.id === selectedSub.id && type === 'monthly'
+                }"
+              ></div>
+            </b-col>
+            <b-col
+              cols="3"
+              class="d-flex justify-content-end align-items-center"
+            >
+              <div class="list-item__price">${{ subscribe.priceMonth }}</div>
+            </b-col>
+          </b-row>
+        </div>
+      </div>
+      <div class="step-1__list">
+        <div class="step-1__list-item list-item total">
+          <b-row>
+            <b-col cols="6" class="align-items-center">
+              <div class="list-item__title">
+                {{ $t("total") }}
+              </div>
+            </b-col>
+            <b-col
+              cols="6"
+              class="d-flex justify-content-end align-items-center"
+            >
+              <div class="total-price">${{ total }}</div>
+            </b-col>
+          </b-row>
+        </div>
+      </div>
+      <div class="step-1__btn" @click="chooseCard">
+        Оплатить
+      </div>
+    </div>
+    <div class="buy-subscribe__inner step-2" v-else-if="step === 2">
+      <b-row>
+        <b-col cols="12" md="6" class="step-2__info">
+          <div class="info-title">
+            Подписка
+          </div>
+          <b-row width="100%">
+            <b-col
+              cols="8"
+              class="align-items-start subscribe justify-content-end"
+            >
+              <div class="subscribe__title">
+                {{ selectedSub.name }}
+              </div>
+              <div class="subscribe__sub-title">
+                {{ $t(type) }}
+              </div>
+            </b-col>
+            <b-col
+              cols="4"
+              class="d-flex justify-content-end align-items-start"
+            >
+              <div class="subscribe__price">${{ total }}</div>
+            </b-col>
+          </b-row>
+          <b-row width="100%">
+            <b-col cols="6" class="align-items-center total">
+              <div class="total__title">
+                {{ $t("total") }}
+              </div>
+            </b-col>
+            <b-col
+              cols="6"
+              class="d-flex justify-content-end align-items-center"
+            >
+              <div class="total__price">${{ total }}</div>
+            </b-col>
+          </b-row>
+        </b-col>
+        <b-col cols="12" md="6" class="step-2__cards cards">
+          <div class="cards__close" @click="step = 1">
+            <svg
+              width="33"
+              height="33"
+              viewBox="0 0 33 33"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M-6.10352e-05 31.8198L31.8197 1.69125e-05L32.5269 0.707124L0.707046 32.5269L-6.10352e-05 31.8198Z"
+                fill="#E0E0E0"
+              />
+              <path
+                d="M0.707031 0L32.5268 31.8198L31.8197 32.5269L-7.55191e-05 0.707107L0.707031 0Z"
+                fill="#E0E0E0"
+              />
+            </svg>
+          </div>
+          <div class="cards__title">
+            Выберите метод отплаты
+          </div>
+          <div class="cards__list">
+            <div
+              v-for="(card, key) in cards"
+              :key="key"
+              class="cards__card"
+              @click="step = 3"
+            >
+              <span v-html="card.img"></span>
+            </div>
+          </div>
+        </b-col>
+      </b-row>
+    </div>
+    <div class="buy-subscribe__inner step-3" v-else-if="step === 3">
+      <b-row>
+        <b-col cols="12" md="4" class="step-3__info">
+          <div class="info-title">
+            Подписка
+          </div>
+          <b-row width="100%">
+            <b-col cols="6" class="align-items-center total">
+              <div class="total__title">
+                {{ $t("total") }}
+              </div>
+            </b-col>
+            <b-col
+              cols="6"
+              class="d-flex justify-content-end align-items-center"
+            >
+              <div class="total__price">${{ total }}</div>
+            </b-col>
+          </b-row>
+        </b-col>
+        <b-col cols="12" md="8" class="step-3__cards cards">
+          <div class="cards__close" @click="step = 2">
+            <svg
+              width="33"
+              height="33"
+              viewBox="0 0 33 33"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M-6.10352e-05 31.8198L31.8197 1.69125e-05L32.5269 0.707124L0.707046 32.5269L-6.10352e-05 31.8198Z"
+                fill="#E0E0E0"
+              />
+              <path
+                d="M0.707031 0L32.5268 31.8198L31.8197 32.5269L-7.55191e-05 0.707107L0.707031 0Z"
+                fill="#E0E0E0"
+              />
+            </svg>
+          </div>
+          <b-form onsubmit="pay(this); return false;" @submit="submitTinkoff">
+            <b-form-group
+              id="input-group-2"
+              :label="$t('name')"
+              label-for="input-2"
+              :class="{
+                'is-danger':
+                  $v.form.name.$invalid && (form.name || showFormErrors)
+              }"
+            >
+              <b-form-input
+                id="name"
+                v-model="form.name"
+                required
+                name="name"
+                :placeholder="$t('name')"
+              ></b-form-input>
+            </b-form-group>
+            <b-form-group
+              id="input-group-2"
+              :label="$t('email')"
+              label-for="input-2"
+              :class="{
+                'is-danger':
+                  $v.form.email.$invalid && (form.email || showFormErrors)
+              }"
+            >
+              <b-form-input
+                v-model="form.email"
+                type="email"
+                name="email"
+                required
+                :placeholder="$t('email')"
+              ></b-form-input>
+            </b-form-group>
+            <b-form-group
+              id="input-group-2"
+              :label="$t('phone')"
+              label-for="input-2"
+            >
+              <b-form-input
+                v-model="form.phone"
+                v-mask="'+7 (###) ###-##-##'"
+                required
+                name="phone"
+                :placeholder="$t('phone')"
+              ></b-form-input>
+
+              <input
+                class="tinkoffPayRow"
+                type="hidden"
+                name="terminalkey"
+                value="TinkoffBankTest"
+              />
+              <input
+                class="tinkoffPayRow"
+                type="hidden"
+                name="frame"
+                value="true"
+              />
+              <input
+                class="tinkoffPayRow"
+                type="hidden"
+                name="language"
+                value="ru"
+              />
+              <input
+                class="tinkoffPayRow"
+                type="hidden"
+                name="amount"
+                :value="form.amount"
+              />
+              <input
+                class="tinkoffPayRow"
+                type="hidden"
+                name="order"
+                :value="form.orderId"
+              />
+            </b-form-group>
+            <b-button type="submit" squared class="submit-btn">
+              {{ $t("pay") }}
+            </b-button>
+          </b-form>
+        </b-col>
+      </b-row>
+    </div>
+    <div class="buy-subscribe__inner step-4" v-else-if="step === 4">
+      <div class="step-4__title">Спасибо!</div>
+      <div class="step-4__sub-title">
+        Сейчас Вы будете перенаправлены на страницу банка.
+      </div>
+      <div class="step-4__btn" @click="$emit('hideModal')">Ok</div>
+    </div>
+  </div>
+</template>
+
+<script>
+import Vue from "vue";
+import { mapState } from "vuex";
+import Validations from "vuelidate";
+import { required, email } from "vuelidate/lib/validators";
+import VueMask from "v-mask";
+Vue.use(VueMask);
+Vue.use(Validations);
+export default {
+  name: "BuySubscribe",
+  data() {
+    return {
+      form: {},
+      step: 1,
+      total: 0,
+      type: null,
+      selectedSub: {},
+      showFormErrors: false,
+      cards: [
+        {
+          name: "Visa",
+          img:
+            '<svg width="202" height="66" viewBox="0 0 202 66" fill="none" xmlns="http://www.w3.org/2000/svg">\n' +
+            '<g clip-path="url(#clip0)">\n' +
+            '<path d="M87.5331 65.0478H71.1697L81.4045 1.15808H97.7671L87.5331 65.0478Z" fill="#00579F"/>\n' +
+            '<path d="M146.852 2.72004C143.624 1.42732 138.505 0 132.175 0C116.016 0 104.637 8.69943 104.567 21.137C104.433 30.3134 112.714 35.4102 118.908 38.4699C125.239 41.5965 127.391 43.6372 127.391 46.424C127.326 50.7042 122.275 52.6772 117.564 52.6772C111.031 52.6772 107.53 51.66 102.211 49.2787L100.056 48.2579L97.7662 62.5997C101.604 64.3649 108.675 65.9314 116.016 66C133.186 66 144.364 57.4352 144.496 44.181C144.561 36.908 140.188 31.3351 130.761 26.7812C125.037 23.8579 121.532 21.8868 121.532 18.8957C121.6 16.1766 124.497 13.3915 130.957 13.3915C136.277 13.2551 140.186 14.546 143.147 15.8378L144.627 16.5163L146.852 2.72004Z" fill="#00579F"/>\n' +
+            '<path d="M168.6 42.414C169.948 38.7436 175.133 24.5381 175.133 24.5381C175.065 24.6745 176.478 20.8 177.286 18.4214L178.43 23.9265C178.43 23.9265 181.529 39.2196 182.201 42.414C179.644 42.414 171.832 42.414 168.6 42.414ZM188.799 1.15808H176.142C172.239 1.15808 169.273 2.31258 167.589 6.45904L143.283 65.0469H160.453C160.453 65.0469 163.28 57.1614 163.887 55.4631C165.771 55.4631 182.473 55.4631 184.897 55.4631C185.366 57.7062 186.849 65.0469 186.849 65.0469H202L188.799 1.15808Z" fill="#00579F"/>\n' +
+            '<path d="M57.5024 1.15808L41.4772 44.7248L39.7261 35.8889C36.7633 25.6935 27.4716 14.6164 17.1025 9.10862L31.781 64.9801H49.0849L74.8053 1.15808H57.5024Z" fill="#00579F"/>\n' +
+            '<path d="M26.5965 1.15808H0.269337L0 2.44899C20.5368 7.75085 34.1379 20.5308 39.726 35.8916L34.0028 6.5286C33.0606 2.44809 30.165 1.29268 26.5965 1.15808Z" fill="#FAA61A"/>\n' +
+            "</g>\n" +
+            "<defs>\n" +
+            '<clipPath id="clip0">\n' +
+            '<rect width="202" height="66" fill="white"/>\n' +
+            "</clipPath>\n" +
+            "</defs>\n" +
+            "</svg>\n"
+        },
+        {
+          name: "MasterCard",
+          img:
+            '<svg width="305" height="126" viewBox="0 0 305 126" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">\n' +
+            '<rect width="305" height="126" fill="url(#pattern0)"/>\n' +
+            "<defs>\n" +
+            '<pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">\n' +
+            '<use xlink:href="#image0" transform="translate(-0.00204918) scale(0.00286885 0.00694444)"/>\n' +
+            "</pattern>\n" +
+            '<image id="image0" width="350" height="144" xlink:href="data:image/png;base64,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"/>\n' +
+            "</defs>\n" +
+            "</svg>\n"
+        }
+      ]
+    };
+  },
+  validations: {
+    form: {
+      email: {
+        required,
+        email
+      },
+      name: {
+        required
+      },
+      phone: {
+        required
+      }
+    }
+  },
+  mounted() {
+    this.$store.dispatch("furniture/getSubscribesList");
+  },
+  computed: {
+    ...mapState({
+      user: state => state.user.user,
+      subscribes: state => state.furniture.subscribes
+    })
+  },
+  methods: {
+    shooseSubscribe(subscribe, type, price) {
+      this.type = type;
+      this.selectedSub = subscribe;
+      this.total = price;
+    },
+    chooseCard() {
+      if (this.selectedSub && this.type) {
+        this.getOrderInfo();
+        this.step = 2;
+      }
+    },
+    payTinkoff() {
+      /* eslint-disable */
+      if (
+        this.$v.form.$pending ||
+        this.$v.form.$error ||
+        this.$v.form.$invalid
+      ) {
+        Vue.notify({
+          group: "warn",
+          title: this.$i18n.messages[this.$i18n.locale]["attention"],
+          text: this.$i18n.messages[this.$i18n.locale]["register_invalid"],
+          type: "warn",
+          closeOnClick: true,
+          duration: 4000
+        });
+        this.showFormErrors = true;
+        return;
+      }
+    },
+    submitTinkoff(form) {
+      this.step = 4;
+      setTimeout(() => {
+        this.$emit("hideModal");
+      }, 1000)
+    },
+    getOrderInfo() {
+      let formData = new FormData(),
+        mounthCount = this.type === "annual" ? "12" : "1";
+      formData.append("subscriptionId", this.selectedSub.id);
+      formData.append("countMonth", mounthCount);
+      this.$store
+        .dispatch("furniture/createOrder", formData)
+        .then((response) => {
+          if(response.hasOwnProperty("currentPrice") && response.hasOwnProperty("orderId")) {
+            this.form["amount"] = response.currentPrice * 62;
+            this.form["orderId"] = response.orderId;
+          }
+        })
+        .catch((e) => {
+          console.error(e);
+          this.$notify({
+            group: "warn",
+            type: "error",
+            title: this.$i18n.messages[this.$i18n.locale]["attention"],
+            text: this.$i18n.messages[this.$i18n.locale]["register_error"]
+          });
+        });
+    }
+  }
+};
+</script>
+
+<style scoped lang="scss">
+@import url("https://fonts.googleapis.com/css?family=Raleway:400,600,700&display=swap");
+.tinkoffPayRow{display:block;margin:1%;width:160px;}
+.buy-subscribe {
+  font-family: "Raleway", sans-serif !important;
+  .step-1 {
+    padding: 48px;
+    display: flex;
+    flex-direction: column;
+    &__title {
+      font-size: 40px;
+      font-weight: bold;
+      color: #4F4F4F;
+      text-align: center;
+      margin-bottom: 35px;
+    }
+    &__list {
+      .list-item {
+        cursor: pointer;
+        align-items: center;
+        padding-bottom: 23px;
+        border-bottom: 1px solid #E0E0E0;
+        margin-bottom: 32px;
+        &__title {
+          font-size: 24px;
+          font-weight: 600;
+          color: #4F4F4F;
+        }
+        &__sub-title {
+          font-weight: 500;
+          color: #828282;
+          font-size: 18px;
+        }
+        &__radio {
+          width: 30px;
+          height: 30px;
+          background: url("../assets/radio-bg.png") 0 0 no-repeat;
+          -webkit-background-size: contain;
+          background-size: contain;
+          &.active {
+            background: url("../assets/radio-bg-active.png") 0 0 no-repeat;
+          }
+        }
+        &__price {
+          font-size: 24px;
+          font-weight: 600;
+          color: #4F4F4F;
+        }
+        &.total {
+          .total-price {
+            font-size: 24px;
+            color: #4F4F4F;
+            font-weight: 800;
+            text-align: right;
+          }
+        }
+      }
+    }
+    &__btn {
+      margin-top: 32px;
+      background: #364B3C;
+      box-sizing: border-box;
+      font-weight: 600;
+      font-size: 24px;
+      line-height: 28px;
+      font-feature-settings: "pnum" on, "lnum" on;
+      color: #FFFFFF;
+      padding: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+  }
+  .step-2 {
+    &__info {
+      background: #fff;
+      padding: 50px 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      margin: 0;
+      .info-title {
+        font-size: 40px;
+        color: #4F4F4F;
+        opacity: 0.6;
+        font-weight: bold;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      .subscribe {
+        width: 100%;
+        margin-bottom: 30px;
+        &__title {
+          font-size: 24px;
+          font-weight: 600;
+          color: #4F4F4F;
+        }
+        &__sub-title {
+          font-size: 18px;
+          font-weight: 500;
+          color: #828282;
+        }
+        &__price {
+          font-size: 24px;
+          font-weight: 600;
+          color: #959595;
+        }
+      }
+      .total {
+        &__title {
+          font-size: 24px;
+          font-weight: bold;
+          color: #4F4F4F;
+          opacity: 0.6;
+        }
+        &__price {
+          font-size: 24px;
+          font-weight: bold;
+          color: #4F4F4F;
+          opacity: 0.6;
+        }
+      }
+    }
+    .cards {
+      background: #364B3C;
+      padding: 32px 35px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      &__title {
+        font-size: 40px;
+        font-weight: bold;
+        color: #F2F2F2;
+        text-align: center;
+        margin-bottom: 17px;
+      }
+      &__list {
+        display: flex;
+        flex-flow: wrap column;
+      }
+      &__card {
+        width: 305px;
+        height: 175px;
+        box-shadow: 0px 0px 18px rgba(255, 255, 255, 0.25);
+        border-radius: 16px;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        &:first-child {
+          margin-bottom: 30px;
+        }
+      }
+      &__close {
+        cursor: pointer;
+        position: absolute;
+        width: 33px;
+        height: 33px;
+        top: 58px;
+        left: 32px;
+      }
+    }
+    .row {
+      width: 100%;
+      margin: 0;
+    }
+  }
+  .step-3 {
+    &__info {
+      background: #fff;
+      padding: 50px 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      margin: 0;
+      .info-title {
+        font-size: 24px;
+        color: #4F4F4F;
+        opacity: 0.6;
+        font-weight: bold;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      .subscribe {
+        width: 100%;
+        margin-bottom: 30px;
+      }
+      .total {
+        &__title {
+          font-size: 24px;
+          font-weight: bold;
+          color: #4F4F4F;
+          opacity: 0.6;
+        }
+        &__price {
+          font-size: 24px;
+          font-weight: bold;
+          color: #4F4F4F;
+          opacity: 0.6;
+        }
+      }
+    }
+    .cards {
+      background: #688E74;
+      box-shadow: 0px 0px 18px rgba(255, 255, 255, 0.25);
+      padding: 32px 35px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      form {
+        width: 315px;
+        max-width: 100%;
+        margin: 0 auto;
+        .form-group {
+          input {
+            font-size: 24px;
+            color: #E0E0E0;
+            background: none;
+            border: none;
+            border-bottom: 1px solid #E0E0E0;
+            border-radius: 0;
+            padding: 0 0 10px 0;
+            outline: none;
+            &:focus {
+              outline: none;
+              -webkit-box-shadow: none;
+              -moz-box-shadow: none;
+              box-shadow: none;
+            }
+            &::placeholder {
+              color: #E0E0E0;
+            }
+          }
+        }
+        .submit-btn {
+          background: rgba(255, 255, 255, 0.2);
+          font-size: 24px;
+          font-weight: 600;
+          color: #fff;
+          border: none;
+          display: block;
+          width: 100%;
+          margin-top: 70px;
+          padding: 18px 10px;
+          &:hover {
+            background: #fff;
+            color: #364B3C;
+          }
+        }
+      }
+      &__close {
+        cursor: pointer;
+        position: absolute;
+        width: 33px;
+        height: 33px;
+        top: 58px;
+        left: 32px;
+      }
+    }
+    .row {
+      width: 100%;
+      margin: 0;
+    }
+  }
+  .step-4 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: #688E74;
+    box-shadow: 0px 0px 18px rgba(255, 255, 255, 0.25);
+    padding: 15px;
+    &__title {
+      font-size: 42px;
+      font-weight: 600;
+      color: #fff;
+    }
+    &__sub-title {
+      font-weight: 600;
+      font-size: 16px;
+      color: #fff;
+    }
+    &__btn {
+      cursor: pointer;
+      margin-top: 39px;
+      width: 273px;
+      height: 72px;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: 600;
+      color: #364B3C;
+    }
+  }
+}
+</style>

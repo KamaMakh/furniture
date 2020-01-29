@@ -2,5 +2,6 @@ export default {
   furniture: {},
   construction: {},
   constructions: [],
-  units: []
+  units: [],
+  subscribes: []
 };

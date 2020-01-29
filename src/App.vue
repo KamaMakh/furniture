@@ -17,6 +17,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import "assets/styles.css";
 $ffamily: "Roboto", sans-serif;
 @media screen and(min-width: 960px) {
   html,
