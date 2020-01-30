@@ -485,11 +485,11 @@
                               id="nRole"
                               :placeholder="
                                 nomenclature.id
-                                  ? nomenclature.unit.name
+                                  ? nomenclature.units.name
                                   : $t('unit_sh')
                               "
                               :options="units"
-                              v-model="nomenclature.unit"
+                              v-model="nomenclature.units"
                             >
                             </v-select>
                           </div>
@@ -948,7 +948,7 @@ export default {
         term = term[2] + "." + term[1] + "." + term[0];
         item.termString = new Date(term);
         this.nomenclature = item;
-        this.nomenclature.unit = item.units.name;
+        this.nomenclature.units["label"] = item.units.name;
         this.photos = [];
         this.files = [];
         this.price = item.price;
@@ -1184,6 +1184,7 @@ export default {
         state.furniture.units.forEach(item => {
           unitsList.push({
             label: item.name,
+            name: item.name,
             id: item.id
           });
         });
