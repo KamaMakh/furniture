@@ -21,8 +21,7 @@ export default new Vuex.Store({
   state: {
     lang:
       VueCookies.get("lang") ||
-      navigator.language ||
-      navigator.userLanguage ||
+      navigator.language.split("-")[0] ||
       "en"
   },
   getters: {
