@@ -262,7 +262,7 @@
                 class="tinkoffPayRow"
                 type="hidden"
                 name="terminalkey"
-                value="TinkoffBankTest"
+                value="1576306066627DEMO"
               />
               <input
                 class="tinkoffPayRow"
@@ -274,7 +274,7 @@
                 class="tinkoffPayRow"
                 type="hidden"
                 name="language"
-                value="ru"
+                :value="lang"
               />
               <input
                 class="tinkoffPayRow"
@@ -328,7 +328,7 @@ export default {
         {
           name: "Visa",
           img:
-            '<svg width="202" height="66" viewBox="0 0 202 66" fill="none" xmlns="http://www.w3.org/2000/svg">\n' +
+            '<svg style="max-width: 100%;" width="202" height="66" viewBox="0 0 202 66" fill="none" xmlns="http://www.w3.org/2000/svg">\n' +
             '<g clip-path="url(#clip0)">\n' +
             '<path d="M87.5331 65.0478H71.1697L81.4045 1.15808H97.7671L87.5331 65.0478Z" fill="#00579F"/>\n' +
             '<path d="M146.852 2.72004C143.624 1.42732 138.505 0 132.175 0C116.016 0 104.637 8.69943 104.567 21.137C104.433 30.3134 112.714 35.4102 118.908 38.4699C125.239 41.5965 127.391 43.6372 127.391 46.424C127.326 50.7042 122.275 52.6772 117.564 52.6772C111.031 52.6772 107.53 51.66 102.211 49.2787L100.056 48.2579L97.7662 62.5997C101.604 64.3649 108.675 65.9314 116.016 66C133.186 66 144.364 57.4352 144.496 44.181C144.561 36.908 140.188 31.3351 130.761 26.7812C125.037 23.8579 121.532 21.8868 121.532 18.8957C121.6 16.1766 124.497 13.3915 130.957 13.3915C136.277 13.2551 140.186 14.546 143.147 15.8378L144.627 16.5163L146.852 2.72004Z" fill="#00579F"/>\n' +
@@ -346,7 +346,7 @@ export default {
         {
           name: "MasterCard",
           img:
-            '<svg width="305" height="126" viewBox="0 0 305 126" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">\n' +
+            '<svg style="max-width: 100%;" width="305" height="126" viewBox="0 0 305 126" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">\n' +
             '<rect width="305" height="126" fill="url(#pattern0)"/>\n' +
             "<defs>\n" +
             '<pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">\n' +
@@ -379,7 +379,8 @@ export default {
   computed: {
     ...mapState({
       user: state => state.user.user,
-      subscribes: state => state.furniture.subscribes
+      subscribes: state => state.furniture.subscribes,
+      lang: state => state.lang
     })
   },
   methods: {
@@ -473,11 +474,17 @@ export default {
           font-size: 24px;
           font-weight: 600;
           color: #4F4F4F;
+          @media all and(max-width: 480px) {
+            font-size: 16px;
+          }
         }
         &__sub-title {
           font-weight: 500;
           color: #828282;
           font-size: 18px;
+          @media all and(max-width: 480px) {
+            font-size: 13px;
+          }
         }
         &__radio {
           width: 30px;
@@ -487,12 +494,21 @@ export default {
           background-size: contain;
           &.active {
             background: url("../assets/radio-bg-active.png") 0 0 no-repeat;
+            -webkit-background-size: contain;
+            background-size: contain;
+          }
+          @media all and(max-width: 480px) {
+            width: 20px;
+            height: 20px;
           }
         }
         &__price {
           font-size: 24px;
           font-weight: 600;
           color: #4F4F4F;
+          @media all and(max-width: 480px) {
+            font-size: 18px;
+          }
         }
         &.total {
           .total-price {
@@ -545,16 +561,25 @@ export default {
           font-size: 24px;
           font-weight: 600;
           color: #4F4F4F;
+          @media all and(max-width: 480px) {
+            font-size: 18px;
+          }
         }
         &__sub-title {
           font-size: 18px;
           font-weight: 500;
           color: #828282;
+          @media all and(max-width: 480px) {
+            font-size: 14px;
+          }
         }
         &__price {
           font-size: 24px;
           font-weight: 600;
           color: #959595;
+          @media all and(max-width: 480px) {
+            font-size: 18px;
+          }
         }
       }
       .total {
@@ -563,12 +588,18 @@ export default {
           font-weight: bold;
           color: #4F4F4F;
           opacity: 0.6;
+          @media all and(max-width: 480px) {
+            font-size: 18px;
+          }
         }
         &__price {
           font-size: 24px;
           font-weight: bold;
           color: #4F4F4F;
           opacity: 0.6;
+          @media all and(max-width: 480px) {
+            font-size: 18px;
+          }
         }
       }
     }
@@ -579,12 +610,18 @@ export default {
       flex-direction: column;
       align-items: center;
       position: relative;
+      @media all and(max-width: 480px) {
+        padding: 15px;
+      }
       &__title {
         font-size: 40px;
         font-weight: bold;
         color: #F2F2F2;
         text-align: center;
         margin-bottom: 17px;
+        @media all and(max-width: 480px) {
+          font-size: 30px;
+        }
       }
       &__list {
         display: flex;
@@ -600,6 +637,17 @@ export default {
         align-items: center;
         justify-content: center;
         cursor: pointer;
+        @media all and(max-width: 480px) {
+          width: 210px;
+          height: 120px;
+        }
+        span {
+          display: block;
+          max-width: 100%;
+        }
+        svg {
+          max-width: 100%;
+        }
         &:first-child {
           margin-bottom: 30px;
         }
@@ -611,6 +659,11 @@ export default {
         height: 33px;
         top: 58px;
         left: 32px;
+        @media all and(max-width: 480px) {
+          width: 25px;
+          height: 25px;
+          left: 5px;
+        }
       }
     }
     .row {
@@ -711,6 +764,13 @@ export default {
         height: 33px;
         top: 58px;
         left: 32px;
+        @media all and(max-width: 480px) {
+          width: 25px;
+          height: 25px;
+          left: auto;
+          top: 5px;
+          right: 10px;
+        }
       }
     }
     .row {
