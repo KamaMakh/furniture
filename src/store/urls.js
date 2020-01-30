@@ -1,4 +1,7 @@
-const serverUrl = "//stroy-assist-backend.ru:8443";
+const serverUrl =
+  process.env.NODE_ENV === "development"
+    ? '"//stroy-assist-backend.ru:8443"'
+    : "//151.248.122.207:8080/ ";
 const loginUrl = `${serverUrl}/api/auth/login`;
 const registerUrl = `${serverUrl}/api/auth/reg`;
 const furnitureConstructsUrl = `${serverUrl}/api/furniture/project/get/all`;
