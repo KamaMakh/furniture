@@ -19,10 +19,7 @@ export default new Vuex.Store({
     furniture
   },
   state: {
-    lang:
-      VueCookies.get("lang") ||
-      navigator.language.split("-")[0] ||
-      "en"
+    lang: VueCookies.get("lang") || navigator.language.split("-")[0] || "en"
   },
   getters: {
     loggedIn(state) {

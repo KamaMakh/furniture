@@ -403,23 +403,23 @@ function createOrder({ commit }, data) {
       .then(response => {
         if (response.status === 200) {
           /* eslint-disable */
-          console.log(11);
           resolve(response.data);
         } else {
-          console.log(22);
           reject(response.data);
         }
       })
       .catch(error => {
         if (error.response && error.response.status === 200) {
-          console.log(33);
           resolve(error.response);
         } else {
-          console.log(44);
           reject(error.response);
         }
       });
   });
+}
+
+function editEnabledGroups({ commit }, data) {
+  commit("editEnabledGroups", data);
 }
 
 function clearState({ commit }, data) {
@@ -445,5 +445,6 @@ export {
   clearState,
   hideNomenclatures,
   getSubscribesList,
-  createOrder
+  createOrder,
+  editEnabledGroups
 };

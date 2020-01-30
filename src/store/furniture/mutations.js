@@ -140,6 +140,14 @@ function updateNomenclaturePhoto(state, data) {
   }
 }
 
+function editEnabledGroups(state, data) {
+  if (data.id !== null) {
+    state.enabledGroups[data.id] = data.value;
+  } else {
+    state.enabledGroups = [];
+  }
+}
+
 function setSubscribes(state, data) {
   state.subscribes = data;
 }
@@ -172,5 +180,6 @@ export {
   clearState,
   hideNomenclatures,
   ignore,
-  setSubscribes
+  setSubscribes,
+  editEnabledGroups
 };

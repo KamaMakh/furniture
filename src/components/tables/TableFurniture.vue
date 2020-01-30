@@ -715,7 +715,7 @@ export default {
       group: {},
       nomenclature: {},
       showFormErrors: false,
-      enabledGroups: [],
+      // enabledGroups: [],
       serverUrl: serverUrl,
       tdWidths: [18, 6, 6, 10, 6, 6, 6, 6, 6, 6, 6, 20],
       updatingId: null,
@@ -869,7 +869,11 @@ export default {
           .then(() => {
             this.showNomekModal = false;
             if (!this.enabledGroups[this.nomenclature.group.id]) {
-              this.enabledGroups[this.nomenclature.group.id] = true;
+              // this.enabledGroups[this.nomenclature.group.id] = true;
+              this.$store.dispatch("furniture/editEnabledGroups", {
+                id: this.nomenclature.group.id,
+                value: true
+              });
               this.$store.dispatch(
                 "furniture/setNomenclature",
                 this.nomenclature.group
@@ -1061,7 +1065,11 @@ export default {
           !event.target.classList.contains("icon"))
       ) {
         if (!this.enabledGroups[group.id]) {
-          this.enabledGroups[group.id] = true;
+          // this.enabledGroups[group.id] = true;
+          this.$store.dispatch("furniture/editEnabledGroups", {
+            id: group.id,
+            value: true
+          });
           this.$store
             .dispatch("furniture/setNomenclature", group)
             .then(() => {
@@ -1077,7 +1085,11 @@ export default {
             });
         } else {
           this.$store.dispatch("furniture/hideNomenclatures", group);
-          this.enabledGroups[group.id] = false;
+          // this.enabledGroups[group.id] = false;
+          this.$store.dispatch("furniture/editEnabledGroups", {
+            id: group.id,
+            value: false
+          });
         }
       }
     },
@@ -1179,6 +1191,7 @@ export default {
       user: state => state.user.user,
       roles: state => state.user.roles,
       modules: state => state.user.modules,
+      enabledGroups: state => state.furniture.enabledGroups,
       units(state) {
         let unitsList = [];
         state.furniture.units.forEach(item => {
@@ -1310,7 +1323,11 @@ export default {
   watch: {
     furniture() {
       this.currentSort = "";
-      this.enabledGroups = [];
+      // this.enabledGroups = [];
+      this.$store.dispatch("furniture/editEnabledGroups", {
+        id: null,
+        value: []
+      });
     },
     price(val) {
       this.nomenclature.price = val;

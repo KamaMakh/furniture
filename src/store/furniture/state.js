@@ -3,5 +3,6 @@ export default {
   construction: {},
   constructions: [],
   units: [],
-  subscribes: []
+  subscribes: [],
+  enabledGroups: []
 };
