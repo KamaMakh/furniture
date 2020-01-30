@@ -84,5 +84,7 @@
   "annual": "Annuel",
   "monthly": "Mensuel",
   "subscription": "Abonnement",
-  "pay": "Payer"
+  "pay": "Payer",
+  "remove_const_text": "Fermer le chantier?",
+  "cancel": "Annuler"
 }

@@ -85,5 +85,7 @@
   "annual": "Annual",
   "monthly": "Monthly",
   "subscription": "Subscription",
-  "pay": "Pay"
+  "pay": "Pay",
+  "remove_const_text": "Close the construction?",
+  "cancel": "Cancel"
 }

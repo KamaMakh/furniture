@@ -55,8 +55,13 @@ function updateConstruction({ commit }, data) {
       .post(updateConstructUrl, data)
       .then(response => {
         if (response.status === 200) {
-          commit("updateConstruction", response.data);
-          resolve();
+          if (data.get("active") !== null) {
+            commit("closeConstruction", response.data);
+            resolve();
+          } else {
+            commit("updateConstruction", response.data);
+            resolve();
+          }
         } else {
           reject(response.data.message);
         }

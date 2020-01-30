@@ -17,6 +17,17 @@ function addConstruction(state, construction) {
   state.constructions.unshift(construction);
 }
 
+function closeConstruction(state, construction) {
+  state.constructions.forEach((item, key) => {
+    if (item.id === construction.id) {
+      state.constructions.splice(key, 1);
+      if (state.construction.id === construction.id) {
+        state.construction = {};
+      }
+    }
+  });
+}
+
 function setUnits(state, units) {
   state.units = units;
 }
@@ -181,5 +192,6 @@ export {
   hideNomenclatures,
   ignore,
   setSubscribes,
-  editEnabledGroups
+  editEnabledGroups,
+  closeConstruction
 };
