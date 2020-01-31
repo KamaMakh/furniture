@@ -1,5 +1,5 @@
 <template>
-  <form @submit="register">
+  <form @submit.prevent="register">
     <div class="register">
       <div class="register__item">
         <input
@@ -153,8 +153,16 @@
         </label>
       </div>
       <div class="register__button">
-        <button class="btn" type="button" @click="register">
+        <button
+          v-if="!loading"
+          class="btn"
+          type="button"
+          @click.prevent="register"
+        >
           {{ $t("registration") }}
+        </button>
+        <button v-else class="btn" type="button">
+          <b-spinner small></b-spinner>
         </button>
       </div>
     </div>
@@ -217,7 +225,8 @@ export default {
       roles_value: ["SUPERVISOR", "MAGAZINE", "CLIENT", "ARCHITECT"],
       showModal: false,
       form: {},
-      policy: false
+      policy: false,
+      loading: false
     };
   },
   validations: {
@@ -265,8 +274,7 @@ export default {
     }
   },
   methods: {
-    register(e) {
-      e.preventDefault();
+    register() {
       let role, currency;
       if (this.form.role) {
         role = this.roles_value[this.roles.indexOf(this.form.role)];
@@ -294,7 +302,7 @@ export default {
         this.showFormErrors = true;
         return;
       }
-
+      this.loading = true;
       this.$store
         .dispatch("user/register", {
           fio: this.form.name,
@@ -315,6 +323,9 @@ export default {
             title: this.$i18n.messages[this.$i18n.locale]["attention"],
             text: this.$i18n.messages[this.$i18n.locale]["register_error"]
           });
+        })
+        .finally(() => {
+          this.loading = false;
         });
     }
   },

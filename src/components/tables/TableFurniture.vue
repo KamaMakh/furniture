@@ -273,13 +273,16 @@
                         type="text"
                         id="input-name"
                         class="form-control"
-                        v-model="group.name"
                         :placeholder="$t('construct_name')"
+                        :class="{
+                          'is-danger': !group.name && showFormErrors
+                        }"
+                        v-model="group.name"
                       />
                     </div>
                   </form>
                 </div>
-                <div class="modal-footer">
+                <div v-if="!loading" class="modal-footer">
                   <button
                     type="button"
                     class="btn btn-secondary"
@@ -293,6 +296,11 @@
                     @click="addGroup"
                   >
                     {{ $t("save") }}
+                  </button>
+                </div>
+                <div v-else class="modal-footer">
+                  <button type="button" class="btn btn-custom">
+                    <b-spinner small></b-spinner>
                   </button>
                 </div>
               </div>
@@ -313,7 +321,7 @@
                     {{ $t("delete") }} "{{ nomenclature.name }}"?
                   </div>
                 </div>
-                <div class="modal-footer">
+                <div v-if="!loading" class="modal-footer">
                   <button
                     type="button"
                     class="btn btn-secondary"
@@ -327,6 +335,11 @@
                     @click="deleteNomenclature"
                   >
                     {{ $t("delete") }}
+                  </button>
+                </div>
+                <div v-else class="modal-footer">
+                  <button type="button" class="btn btn-custom">
+                    <b-spinner small></b-spinner>
                   </button>
                 </div>
               </div>
@@ -618,7 +631,10 @@
                             </p-check>
                           </label>
                         </div>
-                        <div class="form-group row justify-content-end pr-3">
+                        <div
+                          v-if="!loading"
+                          class="form-group row justify-content-end pr-3"
+                        >
                           <button
                             type="button"
                             class="btn btn-secondary btn-close mr-2"
@@ -636,6 +652,14 @@
                             @click="addNomenclature"
                           >
                             {{ $t("save") }}
+                          </button>
+                        </div>
+                        <div
+                          v-else
+                          class="form-group row justify-content-end pr-3"
+                        >
+                          <button type="button" class="btn btn-custom">
+                            <b-spinner small></b-spinner>
                           </button>
                         </div>
                       </div>
@@ -659,7 +683,7 @@
                     {{ $t("delete") }} "{{ image.id }}"?
                   </div>
                 </div>
-                <div class="modal-footer">
+                <div v-if="!loading" class="modal-footer">
                   <button
                     type="button"
                     class="btn btn-secondary"
@@ -673,6 +697,11 @@
                     @click="deletePhoto"
                   >
                     {{ $t("delete") }}
+                  </button>
+                </div>
+                <div v-else class="modal-footer">
+                  <button type="button" class="btn btn-custom">
+                    <b-spinner small></b-spinner>
                   </button>
                 </div>
               </div>
@@ -715,7 +744,6 @@ export default {
       group: {},
       nomenclature: {},
       showFormErrors: false,
-      // enabledGroups: [],
       serverUrl: serverUrl,
       tdWidths: [18, 6, 6, 10, 6, 6, 6, 6, 6, 6, 6, 20],
       updatingId: null,
@@ -726,7 +754,8 @@ export default {
       files: [],
       ndsColumns: true,
       currentSort: "",
-      currentSortDir: "asc"
+      currentSortDir: "asc",
+      loading: false
     };
   },
   validations: {
@@ -742,6 +771,22 @@ export default {
       this.hideAllRows = !this.hideAllRows;
     },
     addGroup() {
+      /*eslint-disable*/
+      if (
+        !this.group.name
+      ) {
+        Vue.notify({
+          group: "warn",
+          title: this.$i18n.messages[this.$i18n.locale]["attention"],
+          text: this.$i18n.messages[this.$i18n.locale]["register_invalid"],
+          type: "warn",
+          closeOnClick: true,
+          duration: 4000
+        });
+        this.showFormErrors = true;
+        return;
+      }
+      this.loading = true;
       if (this.group.id) {
         let formData = new FormData();
         formData.append("groupId", this.group.id);
@@ -762,6 +807,9 @@ export default {
               title: this.$i18n.messages[this.$i18n.locale]["attention"],
               text: error
             });
+          })
+          .finally(() => {
+            this.loading = false;
           });
       } else {
         this.$store
@@ -779,6 +827,9 @@ export default {
               title: this.$i18n.messages[this.$i18n.locale]["attention"],
               text: error
             });
+          })
+          .finally(() => {
+            this.loading = false;
           });
       }
     },
@@ -799,7 +850,7 @@ export default {
         this.showFormErrors = true;
         return;
       }
-
+      this.loading = true;
       let formData = new FormData();
 
       if (this.nomenclature.id) {
@@ -858,6 +909,9 @@ export default {
               title: this.$i18n.messages[this.$i18n.locale]["attention"],
               text: error
             });
+          })
+          .finally(() => {
+            this.loading = false;
           });
       } else {
         this.$store
@@ -887,6 +941,9 @@ export default {
               title: this.$i18n.messages[this.$i18n.locale]["attention"],
               text: error
             });
+          })
+          .finally(() => {
+            this.loading = false;
           });
       }
     },
@@ -987,6 +1044,7 @@ export default {
       this.nomenclature = item;
     },
     deleteNomenclature() {
+      this.loading = true;
       this.$store
         .dispatch("furniture/deleteNomenclature", this.nomenclature)
         .then(() => {
@@ -999,6 +1057,9 @@ export default {
             title: this.$i18n.messages[this.$i18n.locale]["attention"],
             text: error
           });
+        })
+        .finally(() => {
+          this.loading = false;
         });
     },
     deletePhotoModal(image) {
@@ -1006,6 +1067,7 @@ export default {
       this.showRemovePhotoModal = true;
     },
     deletePhoto() {
+      this.loading = true;
       this.$store
         .dispatch("furniture/deleteNomenclaturePhoto", {
           photoId: this.image.id,
@@ -1021,6 +1083,9 @@ export default {
             title: this.$i18n.messages[this.$i18n.locale]["attention"],
             text: error
           });
+        })
+        .finally(() => {
+          this.loading = false;
         });
     },
     deleteNewPhoto(image) {

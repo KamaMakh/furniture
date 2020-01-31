@@ -1,5 +1,5 @@
 <template>
-  <form v-if="!restore" @submit="login">
+  <form v-if="!restore" @submit.prevent="login">
     <div class="login">
       <div
         class="login__item"
@@ -34,8 +34,16 @@
         />
       </div>
       <div class="login__button">
-        <button class="btn" type="button" @click="login">
+        <button
+          v-if="!loading"
+          class="btn"
+          type="button"
+          @click.prevent="login"
+        >
           {{ $t("login") }}
+        </button>
+        <button v-else class="btn">
+          <b-spinner small></b-spinner>
         </button>
       </div>
     </div>
@@ -65,8 +73,16 @@
           </div>
         </div>
         <div class="login__button">
-          <button class="btn" type="button" @click="sendEmail">
+          <button
+            v-if="!loading"
+            class="btn"
+            type="button"
+            @click.prevent="sendEmail"
+          >
             {{ $t("restorePassword") }}
+          </button>
+          <button v-else class="btn" type="button">
+            <b-spinner small></b-spinner>
           </button>
         </div>
         <div class="login__back" @click="restore = false">
@@ -89,8 +105,16 @@
           />
         </div>
         <div class="login__button">
-          <button class="btn" type="button" @click="sendCode">
+          <button
+            v-if="!loading"
+            class="btn"
+            type="button"
+            @click.prevent="sendCode"
+          >
             {{ $t("sendCode") }}
+          </button>
+          <button v-else class="btn" type="button">
+            <b-spinner small></b-spinner>
           </button>
         </div>
         <div class="login__back" @click="restoreStep = 1">
@@ -154,8 +178,16 @@
           </div>
         </div>
         <div class="login__button">
-          <button class="btn" type="button" @click="sendNewPassword">
+          <button
+            v-if="!loading"
+            class="btn"
+            type="button"
+            @click.prevent="sendNewPassword"
+          >
             {{ $t("restorePassword") }}
+          </button>
+          <button v-else class="btn" type="button">
+            <b-spinner small></b-spinner>
           </button>
         </div>
         <div class="login__back" @click="restoreStep = 1">
@@ -190,7 +222,8 @@ export default {
       restoreCPassword: null,
       showFormErrors: false,
       restore: false,
-      restoreStep: 1
+      restoreStep: 1,
+      loading: false
     }
   },
   validations: {
@@ -235,7 +268,7 @@ export default {
         this.showFormErrors = true;
         return;
       }
-
+      this.loading = true;
       this.$store.dispatch('user/login', {
         email: this.form.email,
         password: this.form.password.toLowerCase(),
@@ -250,6 +283,9 @@ export default {
             title: this.$i18n.messages[this.$i18n.locale]["attention"],
             text: this.$i18n.messages[this.$i18n.locale]["login_invalid"]
           });
+        })
+        .finally(() => {
+          this.loading = false;
         });
     },
     sendEmail() {
@@ -265,7 +301,7 @@ export default {
         this.showFormErrors = true;
         return;
       }
-
+      this.loading = true;
       let formData = new FormData();
       formData.append("mail", this.restoreEmail);
 
@@ -286,6 +322,9 @@ export default {
             title: this.$i18n.messages[this.$i18n.locale]["attention"],
             text: error
           });
+        })
+        .finally(() => {
+          this.loading = false;
         });
     },
     sendCode() {
@@ -301,7 +340,7 @@ export default {
         this.showFormErrors = true;
         return;
       }
-
+      this.loading = true;
       let formData = new FormData();
       formData.append("mail", this.restoreEmail);
       formData.append("codeMail", this.restoreCode);
@@ -317,6 +356,9 @@ export default {
             title: this.$i18n.messages[this.$i18n.locale]["attention"],
             text: error
           });
+        })
+        .finally(() => {
+          this.loading = false;
         });
     },
     sendNewPassword() {
@@ -332,7 +374,7 @@ export default {
         this.showFormErrors = true;
         return;
       }
-
+      this.loading = true;
       let formData = new FormData();
       formData.append("mail", this.restoreEmail);
       formData.append("codeMail", this.restoreCode);
@@ -349,6 +391,9 @@ export default {
             title: this.$i18n.messages[this.$i18n.locale]["attention"],
             text: error
           });
+        })
+        .finally(() => {
+          this.loading = false;
         });
     }
   }

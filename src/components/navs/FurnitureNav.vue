@@ -134,7 +134,7 @@
                     <!--</div>-->
                   </form>
                 </div>
-                <div class="modal-footer">
+                <div v-if="!loading" class="modal-footer">
                   <button
                     type="button"
                     class="btn btn-secondary"
@@ -149,6 +149,11 @@
                     @click="addConstruction"
                   >
                     {{ $t("save") }}
+                  </button>
+                </div>
+                <div v-else class="modal-footer">
+                  <button type="button" class="btn btn-custom">
+                    <b-spinner small></b-spinner>
                   </button>
                 </div>
               </div>
@@ -173,7 +178,7 @@
       hide-footer
       :title="$t('remove_const_text')"
     >
-      <div class="modal-footer">
+      <div v-if="!loading" class="modal-footer">
         <button
           type="button"
           class="btn btn-secondary"
@@ -188,6 +193,11 @@
           @click="removeConstruction"
         >
           {{ $t("close") }}
+        </button>
+      </div>
+      <div v-else class="modal-footer">
+        <button class="btn btn-custom">
+          <b-spinner small></b-spinner>
         </button>
       </div>
     </b-modal>
@@ -207,7 +217,8 @@ export default {
       showAddModal: false,
       showSubscribeModal: false,
       removeModal: false,
-      newConstruction: {}
+      newConstruction: {},
+      loading: false
     };
   },
   computed: {
@@ -236,6 +247,7 @@ export default {
         });
         return;
       }
+      this.loading = true;
       if (this.newConstruction.id === undefined) {
         this.$store
           .dispatch("furniture/addConstruction", this.newConstruction)
@@ -254,6 +266,9 @@ export default {
                 text: error
               });
             }
+          })
+          .finally(() => {
+            this.loading = false;
           });
       } else {
         let formData = new FormData();
@@ -273,6 +288,9 @@ export default {
               title: this.$i18n.messages[this.$i18n.locale]["attention"],
               text: error
             });
+          })
+          .finally(() => {
+            this.loading = false;
           });
       }
       this.newConstruction = {};
@@ -290,6 +308,7 @@ export default {
       this.removeModal = true;
     },
     removeConstruction() {
+      this.loading = true;
       let formData = new FormData();
       formData.append("projectId", this.newConstruction.id);
       formData.append("active", false);
@@ -305,6 +324,9 @@ export default {
             title: this.$i18n.messages[this.$i18n.locale]["attention"],
             text: error
           });
+        })
+        .finally(() => {
+          this.loading = false;
         });
       this.newConstruction = {};
     }
