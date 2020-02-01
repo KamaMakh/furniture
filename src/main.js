@@ -18,7 +18,13 @@ import PerfectScrollbar from "vue2-perfect-scrollbar";
 import "vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css";
 import "viewerjs/dist/viewer.css";
 import Viewer from "v-viewer";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
+library.add(faPlus);
+
+Vue.component("fa-icon", FontAwesomeIcon);
 Vue.use(Viewer);
 Vue.use(PerfectScrollbar);
 

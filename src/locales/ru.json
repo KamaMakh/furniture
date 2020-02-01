@@ -87,5 +87,7 @@
   "subscription": "Подписка",
   "pay": "Оплатить",
   "remove_const_text": "Закрыть стройку?",
-  "cancel": "Отмена"
+  "cancel": "Отмена",
+  "add_avatar": "Добавить аватар",
+  "upd_avatar": "Обновить аватар"
 }

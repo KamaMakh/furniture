@@ -1,7 +1,18 @@
 <template>
   <div class="sidebar">
     <div class="sidebar__user-info">
-      <div class="logo"></div>
+      <div v-if="user.avatar" style="background: none" class="logo">
+        <img :src="serverUrl + user.avatar.pathUrl">
+      </div>
+      <div v-else class="logo"></div>
+      <div v-if="!user.avatar" class="edit-avatar" @click="showAvatarModal = true">
+        <fa-icon icon="plus" />
+        {{ $t("add_avatar") }}
+      </div>
+      <div v-else class="edit-avatar" @click="showAvatarModal = true">
+        <fa-icon icon="plus" />
+        {{ $t("upd_avatar") }}
+      </div>
       <div class="role">{{ $t("cabinet") }} {{ role }}</div>
       <div class="name">
         {{ user.fio }}
@@ -201,12 +212,57 @@
         </button>
       </div>
     </b-modal>
+    <b-modal
+      v-model="showAvatarModal"
+      hide-footer
+      :title="$t('add_image')"
+    >
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="form-group row">
+            <b-form-file
+              v-model="files"
+              :state="Boolean(files)"
+              :placeholder="$t('add_image')"
+              drop-placeholder="Drop file here..."
+              accept="image/jpeg, image/png, image/gif"
+            ></b-form-file>
+          </div>
+        </div>
+        <div v-if="!loading" class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            @click="showAvatarModal = false"
+          >
+            {{ $t("close") }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-custom"
+            @click="addAvatar"
+            :disabled="typeof files == 'Array'"
+          >
+            {{ $t("save") }}
+          </button>
+        </div>
+        <div v-else class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-custom"
+          >
+            <b-spinner small></b-spinner>
+          </button>
+        </div>
+      </div>
+    </b-modal>
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
 import BuySubscribe from "@/components/BuySubscribe";
+import { serverUrl } from "@/store/urls";
 export default {
   name: "FurnitureNav",
   components: {
@@ -216,9 +272,12 @@ export default {
     return {
       showAddModal: false,
       showSubscribeModal: false,
+      showAvatarModal: false,
       removeModal: false,
       newConstruction: {},
-      loading: false
+      loading: false,
+      files: [],
+      serverUrl: serverUrl
     };
   },
   computed: {
@@ -329,6 +388,28 @@ export default {
           this.loading = false;
         });
       this.newConstruction = {};
+    },
+    addAvatar() {
+      this.loading = true;
+      let formData = new FormData();
+      formData.append(`file`, this.files);
+      this.$store
+        .dispatch("user/uploadAvatar", formData)
+        .then(() => {
+          this.showAvatarModal = false;
+          this.files = [];
+        })
+        .catch(error => {
+          this.$notify({
+            group: "warn",
+            type: "error",
+            title: this.$i18n.messages[this.$i18n.locale]["attention"],
+            text: error
+          });
+        })
+        .finally(() => {
+          this.loading = false;
+        });
     }
   }
 };
@@ -351,10 +432,13 @@ $ffamily: "Roboto", sans-serif;
       align-items: center;
       justify-content: center;
       background: #c4c4c4;
-      margin-bottom: 19px;
+      margin-bottom: 5px;
       img {
         max-width: 100%;
       }
+    }
+    .edit-avatar {
+      cursor: pointer;
     }
     .role {
       font-weight: bold;
@@ -362,6 +446,7 @@ $ffamily: "Roboto", sans-serif;
       line-height: 21px;
       text-align: right;
       color: #868686;
+      margin-top: 19px;
       margin-bottom: 10px;
     }
     .name {
@@ -458,5 +543,15 @@ $ffamily: "Roboto", sans-serif;
 }
 .subscribe-modal {
   max-width: none;
+}
+.modal-body {
+  padding: 0 19px;
+}
+.modal-footer {
+  padding: 0;
+  border: 0;
+}
+.modal-content {
+  border: none;
 }
 </style>

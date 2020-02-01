@@ -25,6 +25,7 @@ const sendCodeUrl = `${serverUrl}/api/auth/resetpswd/sendcode`;
 const sendNewPasswordUrl = `${serverUrl}/api/auth/resetpswd/newpswd`;
 const getSubscribesListUrl = `${serverUrl}/api/payment/price/get`;
 const createOrderUrl = `${serverUrl}/api/payment/tinkoff/order/create`;
+const uploadAvatarUrl = `${serverUrl}/api/user/profile/avatar/update`;
 
 export {
   serverUrl,
@@ -50,5 +51,6 @@ export {
   sendCodeUrl,
   sendNewPasswordUrl,
   getSubscribesListUrl,
-  createOrderUrl
+  createOrderUrl,
+  uploadAvatarUrl
 };

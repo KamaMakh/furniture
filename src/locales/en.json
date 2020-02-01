@@ -87,5 +87,7 @@
   "subscription": "Subscription",
   "pay": "Pay",
   "remove_const_text": "Close the construction?",
-  "cancel": "Cancel"
+  "cancel": "Cancel",
+  "add_avatar": "Add avatar",
+  "upd_avatar": "Update avatar"
 }

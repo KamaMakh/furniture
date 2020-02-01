@@ -27,6 +27,10 @@ function setRoles(state, data) {
   state.roles = data
 }
 
+function setAvatar(state, data) {
+  state.avatar = data.pathUrl;
+}
+
 function setEnableModules(state) {
   if(state.roles[0] === "ROLE_CLIENT") {
     state.modules = [
@@ -50,5 +54,6 @@ export {
   setUsers,
   setRoles,
   setCurrencies,
-  setEnableModules
+  setEnableModules,
+  setAvatar
 };

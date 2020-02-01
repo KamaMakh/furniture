@@ -1,6 +1,15 @@
 /* eslint-disable */
 import api from "@/shared/api";
-import { registerUrl, loginUrl, getMe, getCurrenciesUrl, getCodeUrl, sendCodeUrl, sendNewPasswordUrl } from "@/store/urls";
+import {
+  registerUrl,
+  loginUrl,
+  getMe,
+  getCurrenciesUrl,
+  getCodeUrl,
+  sendCodeUrl,
+  sendNewPasswordUrl,
+  uploadAvatarUrl
+} from "@/store/urls";
 import onError from "@/store/onError";
 import Vue from "vue";
 import router from "@/router";
@@ -168,6 +177,24 @@ function setCurrencies({ commit }, data) {
   });
 }
 
+function uploadAvatar({ commit }, data) {
+  return new Promise((resolve, reject) => {
+    api
+      .post(uploadAvatarUrl, data)
+      .then(response => {
+        if (response.status === 200) {
+          commit("setAvatar", response.data);
+          resolve(response.data);
+        } else {
+          reject(response.data);
+        }
+      })
+      .catch(error => {
+        reject(error.response);
+      });
+  });
+}
+
 export {
   register,
   login,
@@ -175,5 +202,6 @@ export {
   setCurrencies,
   getCode,
   sendCode,
-  sendNewPassword
+  sendNewPassword,
+  uploadAvatar
 }
