@@ -88,5 +88,6 @@
   "remove_const_text": "Fermer le chantier?",
   "cancel": "Annuler",
   "add_avatar": "Ajouter un avatar",
-  "upd_avatar": "Mettre à jour l'avatar"
+  "upd_avatar": "Mettre à jour l'avatar",
+  "choose_payment": "Choisissez un mode de paiement"
 }

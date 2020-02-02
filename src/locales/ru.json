@@ -89,5 +89,6 @@
   "remove_const_text": "Закрыть стройку?",
   "cancel": "Отмена",
   "add_avatar": "Добавить аватар",
-  "upd_avatar": "Обновить аватар"
+  "upd_avatar": "Обновить аватар",
+  "choose_payment": "Выберите метод оплаты"
 }

@@ -1,109 +1,112 @@
 <template>
   <div class="buy-subscribe">
-    <div v-if="step === 1" class="buy-subscribe__inner step-1">
-      <div class="step-1__title">
-        Подписка
-      </div>
-      <div
-        v-for="(subscribe, key) in subscribes"
-        :key="key"
-        class="step-1__list"
-      >
-        <div
-          v-if="subscribe.id !== 1"
-          class="step-1__list-item list-item"
-          @click="shooseSubscribe(subscribe, 'annual', subscribe.priceYear)"
-        >
-          <b-row>
-            <b-col cols="6" class="align-items-center">
-              <div class="list-item__title">
-                {{ $t("subscription") }} "{{ subscribe.name }}"
-              </div>
-              <div class="list-item__sub-title">
-                {{ $t("annual") }}
-              </div>
-            </b-col>
-            <b-col
-              cols="3"
-              class="d-flex justify-content-end align-items-center"
-            >
-              <div
-                class="list-item__radio"
-                :class="{
-                  active: subscribe.id === selectedSub.id && type === 'annual'
-                }"
-              ></div>
-            </b-col>
-            <b-col
-              cols="3"
-              class="d-flex justify-content-end align-items-center"
-            >
-              <div class="list-item__price">${{ subscribe.priceYear }}</div>
-            </b-col>
-          </b-row>
+    <div
+      class="buy-subscribe__inner step-1"
+      :class="{
+        'step-2': step === 2,
+        'step-3': step === 3,
+        'step-4': step === 4
+      }"
+    >
+      <div class="buy-subscribe-left">
+        <div class="step-1__title">
+          Подписка
         </div>
         <div
-          v-if="subscribe.id !== 1"
-          class="step-1__list-item list-item"
-          @click="shooseSubscribe(subscribe, 'monthly', subscribe.priceMonth)"
+          v-for="(subscribe, key) in subscribes"
+          :key="key"
+          class="step-1__list"
         >
-          <b-row>
-            <b-col cols="6" class="align-items-center">
-              <div class="list-item__title">
-                {{ $t("subscription") }} "{{ subscribe.name }}"
-              </div>
-              <div class="list-item__sub-title">
-                {{ $t("monthly") }}
-              </div>
-            </b-col>
-            <b-col
-              cols="3"
-              class="d-flex justify-content-end align-items-center"
-            >
-              <div
-                class="list-item__radio"
-                :class="{
-                  active: subscribe.id === selectedSub.id && type === 'monthly'
-                }"
-              ></div>
-            </b-col>
-            <b-col
-              cols="3"
-              class="d-flex justify-content-end align-items-center"
-            >
-              <div class="list-item__price">${{ subscribe.priceMonth }}</div>
-            </b-col>
-          </b-row>
-        </div>
-      </div>
-      <div class="step-1__list">
-        <div class="step-1__list-item list-item total">
-          <b-row>
-            <b-col cols="6" class="align-items-center">
-              <div class="list-item__title">
-                {{ $t("total") }}
-              </div>
-            </b-col>
-            <b-col
-              cols="6"
-              class="d-flex justify-content-end align-items-center"
-            >
-              <div class="total-price">${{ total }}</div>
-            </b-col>
-          </b-row>
-        </div>
-      </div>
-      <div class="step-1__btn" @click="chooseCard">
-        Оплатить
-      </div>
-    </div>
-    <div class="buy-subscribe__inner step-2" v-else-if="step === 2">
-      <b-row>
-        <b-col cols="12" md="6" class="step-2__info">
-          <div class="info-title">
-            Подписка
+          <div
+            v-if="subscribe.id !== 1 && subscribe.id !== 3"
+            class="step-1__list-item list-item"
+            @click="shooseSubscribe(subscribe, 'annual', subscribe.priceYear)"
+          >
+            <b-row>
+              <b-col cols="6" class="align-items-center">
+                <div class="list-item__title">
+                  {{ $t("subscription") }} "{{ subscribe.name }}"
+                </div>
+                <div class="list-item__sub-title">
+                  {{ $t("annual") }}
+                </div>
+              </b-col>
+              <b-col
+                cols="3"
+                class="d-flex justify-content-end align-items-center"
+              >
+                <div
+                  class="list-item__radio"
+                  :class="{
+                    active: subscribe.id === selectedSub.id && type === 'annual'
+                  }"
+                ></div>
+              </b-col>
+              <b-col
+                cols="3"
+                class="d-flex justify-content-end align-items-center"
+              >
+                <div class="list-item__price">${{ subscribe.priceYear }}</div>
+              </b-col>
+            </b-row>
           </div>
-          <b-row width="100%">
+          <div
+            v-if="subscribe.id !== 1 && subscribe.id !== 3"
+            class="step-1__list-item list-item"
+            @click="shooseSubscribe(subscribe, 'monthly', subscribe.priceMonth)"
+          >
+            <b-row>
+              <b-col cols="6" class="align-items-center">
+                <div class="list-item__title">
+                  {{ $t("subscription") }} "{{ subscribe.name }}"
+                </div>
+                <div class="list-item__sub-title">
+                  {{ $t("monthly") }}
+                </div>
+              </b-col>
+              <b-col
+                cols="3"
+                class="d-flex justify-content-end align-items-center"
+              >
+                <div
+                  class="list-item__radio"
+                  :class="{
+                    active:
+                      subscribe.id === selectedSub.id && type === 'monthly'
+                  }"
+                ></div>
+              </b-col>
+              <b-col
+                cols="3"
+                class="d-flex justify-content-end align-items-center"
+              >
+                <div class="list-item__price">${{ subscribe.priceMonth }}</div>
+              </b-col>
+            </b-row>
+          </div>
+        </div>
+        <div class="step-1__list">
+          <div class="step-1__list-item list-item total">
+            <b-row>
+              <b-col cols="6" class="align-items-center">
+                <div class="list-item__title">
+                  {{ $t("total") }}
+                </div>
+              </b-col>
+              <b-col
+                cols="6"
+                class="d-flex justify-content-end align-items-center"
+              >
+                <div class="total-price">${{ total }}</div>
+              </b-col>
+            </b-row>
+          </div>
+        </div>
+        <div class="step-2__info info">
+          <div class="info-title" :class="{ shown: cardsAnimate }">
+            {{ $t("subscription") }}
+          </div>
+          <b-row class="price-block" :class="{ shown: cardsAnimate }">
             <b-col
               cols="8"
               class="align-items-start subscribe justify-content-end"
@@ -122,6 +125,24 @@
               <div class="subscribe__price">${{ total }}</div>
             </b-col>
           </b-row>
+          <b-row class="price-block" :class="{ shown: cardsAnimate }">
+            <b-col cols="6" class="align-items-center total">
+              <div class="total__title">
+                {{ $t("total") }}
+              </div>
+            </b-col>
+            <b-col
+              cols="6"
+              class="d-flex justify-content-end align-items-center"
+            >
+              <div class="total__price">${{ total }}</div>
+            </b-col>
+          </b-row>
+        </div>
+        <b-col cols="12" md="4" class="step-3__info">
+          <div class="info-title" :class="{ shown: cardsAnimate }">
+            {{ $t("subscription") }}
+          </div>
           <b-row width="100%">
             <b-col cols="6" class="align-items-center total">
               <div class="total__title">
@@ -136,8 +157,17 @@
             </b-col>
           </b-row>
         </b-col>
-        <b-col cols="12" md="6" class="step-2__cards cards">
-          <div class="cards__close" @click="step = 1">
+      </div>
+      <div class="buy-subscribe-right" :class="{ 'pos-rel': subsRightAnimate }">
+        <div class="step-1__btn" @click="chooseCard">
+          Оплатить
+        </div>
+        <b-col cols="12" md="12" class="step-2__cards cards">
+          <div
+            class="cards__close close"
+            :class="{ shown: cardsAnimate }"
+            @click="step = 1"
+          >
             <svg
               width="33"
               height="33"
@@ -155,10 +185,10 @@
               />
             </svg>
           </div>
-          <div class="cards__title">
-            Выберите метод отплаты
+          <div class="cards__title" :class="{ shown: cardsAnimate }">
+            {{ $t("choose_payment") }}
           </div>
-          <div class="cards__list">
+          <div class="cards__list" :class="{ shown: cardsAnimate }">
             <div
               v-for="(card, key) in cards"
               :key="key"
@@ -168,28 +198,6 @@
               <span v-html="card.img"></span>
             </div>
           </div>
-        </b-col>
-      </b-row>
-    </div>
-    <div class="buy-subscribe__inner step-3" v-else-if="step === 3">
-      <b-row>
-        <b-col cols="12" md="4" class="step-3__info">
-          <div class="info-title">
-            Подписка
-          </div>
-          <b-row width="100%">
-            <b-col cols="6" class="align-items-center total">
-              <div class="total__title">
-                {{ $t("total") }}
-              </div>
-            </b-col>
-            <b-col
-              cols="6"
-              class="d-flex justify-content-end align-items-center"
-            >
-              <div class="total__price">${{ total }}</div>
-            </b-col>
-          </b-row>
         </b-col>
         <b-col cols="12" md="8" class="step-3__cards cards">
           <div class="cards__close" @click="step = 2">
@@ -210,7 +218,10 @@
               />
             </svg>
           </div>
-          <b-form onsubmit="pay(this); return false;" @submit="submitTinkoff">
+          <b-form
+            onsubmit="pay(this);   return false;"
+            @submit.prevent="submitTinkoff"
+          >
             <b-form-group
               id="input-group-2"
               :label="$t('name')"
@@ -294,14 +305,20 @@
             </b-button>
           </b-form>
         </b-col>
-      </b-row>
-    </div>
-    <div class="buy-subscribe__inner step-4" v-else-if="step === 4">
-      <div class="step-4__title">Спасибо!</div>
-      <div class="step-4__sub-title">
-        Сейчас Вы будете перенаправлены на страницу банка.
+        <div class="step-4__title" :class="{ shown: step4Animate }">
+          Спасибо!
+        </div>
+        <div class="step-4__sub-title" :class="{ shown: step4Animate }">
+          Сейчас Вы будете перенаправлены на страницу банка.
+        </div>
+        <div
+          class="step-4__btn"
+          :class="{ shown: step4Animate }"
+          @click="$emit('hideModal')"
+        >
+          Ok
+        </div>
       </div>
-      <div class="step-4__btn" @click="$emit('hideModal')">Ok</div>
     </div>
   </div>
 </template>
@@ -356,7 +373,10 @@ export default {
             "</defs>\n" +
             "</svg>\n"
         }
-      ]
+      ],
+      cardsAnimate: false,
+      subsRightAnimate: false,
+      step4Animate: false
     };
   },
   validations: {
@@ -395,30 +415,11 @@ export default {
         this.step = 2;
       }
     },
-    payTinkoff() {
-      /* eslint-disable */
-      if (
-        this.$v.form.$pending ||
-        this.$v.form.$error ||
-        this.$v.form.$invalid
-      ) {
-        Vue.notify({
-          group: "warn",
-          title: this.$i18n.messages[this.$i18n.locale]["attention"],
-          text: this.$i18n.messages[this.$i18n.locale]["register_invalid"],
-          type: "warn",
-          closeOnClick: true,
-          duration: 4000
-        });
-        this.showFormErrors = true;
-        return;
-      }
-    },
-    submitTinkoff(form) {
+    submitTinkoff() {
       this.step = 4;
       setTimeout(() => {
         this.$emit("hideModal");
-      }, 1000)
+      }, 2000);
     },
     getOrderInfo() {
       let formData = new FormData(),
@@ -427,14 +428,16 @@ export default {
       formData.append("countMonth", mounthCount);
       this.$store
         .dispatch("furniture/createOrder", formData)
-        .then((response) => {
-          if(response.hasOwnProperty("currentPrice") && response.hasOwnProperty("orderId")) {
+        .then(response => {
+          if (
+            response.hasOwnProperty("currentPrice") &&
+            response.hasOwnProperty("orderId")
+          ) {
             this.form["amount"] = response.currentPrice * 62;
             this.form["orderId"] = response.orderId;
           }
         })
-        .catch((e) => {
-          console.error(e);
+        .catch(() => {
           this.$notify({
             group: "warn",
             type: "error",
@@ -443,52 +446,333 @@ export default {
           });
         });
     }
+  },
+  watch: {
+    step(value) {
+      if (value === 2) {
+        setTimeout(() => {
+          this.subsRightAnimate = true;
+        }, 300);
+        setTimeout(() => {
+          this.cardsAnimate = true;
+        }, 500);
+        setTimeout(() => {
+          this.step4Animate = false;
+        }, 500);
+      } else if (value === 3) {
+        setTimeout(() => {
+          this.subsRightAnimate = true;
+        }, 300);
+        setTimeout(() => {
+          this.cardsAnimate = false;
+        }, 500);
+        setTimeout(() => {
+          this.step4Animate = false;
+        }, 500);
+      } else if (value === 4) {
+        setTimeout(() => {
+          this.step4Animate = true;
+        }, 500);
+      } else {
+        setTimeout(() => {
+          this.cardsAnimate = false;
+        }, 500);
+        setTimeout(() => {
+          this.subsRightAnimate = false;
+        }, 300);
+      }
+    }
   }
 };
 </script>
 
 <style scoped lang="scss">
 @import url("https://fonts.googleapis.com/css?family=Raleway:400,600,700&display=swap");
-.tinkoffPayRow{display:block;margin:1%;width:160px;}
+.tinkoffPayRow {
+  display: block;
+  margin: 1%;
+  width: 160px;
+}
 .buy-subscribe {
   font-family: "Raleway", sans-serif !important;
+  * {
+    transition: all 0.5s !important;
+  }
+  &__inner {
+  }
   .step-1 {
-    padding: 48px;
+    padding: 0;
     display: flex;
     flex-direction: column;
+    max-width: 100%;
+    height: 380px;
+    width: 498px;
+    overflow: hidden;
+    @media all and(max-width: 480px) {
+      height: 290px;
+    }
+    .close,
+    .step-2__cards,
+    .step-3__cards.cards,
+    .info,
+    .step-3__info {
+      display: none;
+      opacity: 0;
+      position: absolute;
+    }
+    .step-4__title,
+    .step-4__sub-title,
+    .step-4__btn {
+      position: absolute;
+      top: -100%;
+      opacity: 0;
+      z-index: -1;
+    }
+    .cards__list {
+      position: absolute;
+      opacity: 0;
+      left: -100%;
+    }
+    .cards__title,
+    .info-title {
+      position: absolute;
+      opacity: 0 !important;
+      right: -50px;
+    }
+    .price-block {
+      position: absolute;
+      left: -100%;
+      opacity: 0;
+    }
+    .cards__close {
+      display: none;
+    }
+    .buy-subscribe-left {
+      padding: 15px 15px 0 15px;
+    }
+    .buy-subscribe-right {
+      margin: 21px auto 15px auto;
+      background: rgba(#364b3c, 1);
+      height: 36px;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      transition-timing-function: ease;
+      align-self: flex-end;
+      width: 100%;
+      max-width: 90%;
+      min-width: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: width 0.5s, height 0.8s !important;
+      position: initial;
+      left: auto;
+      top: auto;
+      bottom: 0;
+      right: 0;
+      &.pos-rel {
+        position: relative !important;
+      }
+    }
+    &.step-2 {
+      flex-direction: row;
+      .step-1__title,
+      .step-1__list,
+      .step-1__btn {
+        display: none;
+      }
+      .cards__close {
+        display: block;
+      }
+      .info {
+        display: flex;
+      }
+      .buy-subscribe-left,
+      .buy-subscribe-right {
+        width: 50%;
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        flex-grow: 0;
+      }
+      .buy-subscribe-right {
+        background: rgba(#364b3c, 1);
+        position: absolute;
+        bottom: 0;
+      }
+      .close,
+      .step-2__cards,
+      .info {
+        /*display: none;*/
+        opacity: 1;
+        position: relative;
+        left: 0;
+      }
+      .close {
+        position: absolute;
+      }
+      .step-2__cards {
+        position: relative;
+      }
+    }
+    &.step-3 {
+      flex-direction: row;
+      .step-1__title,
+      .step-1__list,
+      .step-1__btn {
+        display: none;
+      }
+      .step-2__cards {
+        display: none;
+        opacity: 0;
+        position: absolute;
+      }
+      .buy-subscribe-left {
+        padding: 0;
+        margin: 0;
+        max-width: none;
+        width: 30%;
+        @media all and(max-width: 480px) {
+          width: 40%;
+        }
+      }
+      .buy-subscribe-right {
+        background: #688e74;
+        box-shadow: 0 0 18px rgba(255, 255, 255, 0.25);
+        bottom: 0;
+        width: 70%;
+        margin: 0;
+        height: 100%;
+        flex-grow: 0;
+        padding: 32px 35px;
+        max-width: none;
+        @media all and(max-width: 480px) {
+          padding: 15px 0;
+          width: 60%;
+        }
+      }
+      .info-title {
+        position: relative;
+        opacity: 0.6 !important;
+        right: 0;
+      }
+      .buy-subscribe .step-2__info .price-block {
+        position: absolute;
+        right: -100%;
+        opacity: 0;
+      }
+      .step-3__cards,
+      .step-3__info {
+        display: flex;
+        opacity: 1;
+        position: relative;
+        left: 0;
+      }
+      .step-3__cards {
+        position: relative;
+        max-width: none;
+      }
+      .step-3__info {
+        width: 100%;
+        max-width: none;
+        height: 100%;
+        justify-content: space-between;
+        padding-bottom: 60px;
+        @media all and(max-width: 480px) {
+          padding-bottom: 0;
+        }
+      }
+    }
+    &.step-4 {
+      padding: 0;
+      .step-1__title,
+      .step-1__list,
+      .step-1__btn {
+        display: none;
+      }
+      .step-2__cards,
+      .step-3__cards {
+        display: none;
+        opacity: 0;
+        position: absolute;
+      }
+      .buy-subscribe-left {
+        display: none;
+      }
+      .buy-subscribe-right {
+        display: flex;
+        flex-direction: column;
+        background: #688e74;
+        box-shadow: 0 0 18px rgba(255, 255, 255, 0.25);
+        bottom: 0;
+        width: 100%;
+        margin: 0;
+        height: 100%;
+        flex-grow: 1;
+        padding: 32px 35px;
+        max-width: none;
+        @media all and(max-width: 480px) {
+          padding: 15px;
+          width: 60%;
+        }
+      }
+      .step-4__title,
+      .step-4__sub-title,
+      .step-4__btn {
+        /*opacity: 1;*/
+        /*position: relative;*/
+        /*display: flex;*/
+        &.shown {
+          position: relative !important;
+          top: 0 !important;
+          opacity: 1 !important;
+          z-index: 1 !important;
+        }
+      }
+    }
     &__title {
-      font-size: 40px;
+      font-size: 22px;
       font-weight: bold;
-      color: #4F4F4F;
+      color: #4f4f4f;
       text-align: center;
-      margin-bottom: 35px;
+      margin-bottom: 24px;
+      @media all and(max-width: 480px) {
+        margin-bottom: 10px;
+        font-size: 16px;
+      }
     }
     &__list {
       .list-item {
         cursor: pointer;
         align-items: center;
-        padding-bottom: 23px;
-        border-bottom: 1px solid #E0E0E0;
-        margin-bottom: 32px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid #e0e0e0;
+        margin-bottom: 15px;
+        @media all and(max-width: 480px) {
+          margin-bottom: 0;
+          border: none;
+          padding-bottom: 10px;
+        }
         &__title {
-          font-size: 24px;
+          font-size: 16px;
           font-weight: 600;
-          color: #4F4F4F;
+          color: #4f4f4f;
           @media all and(max-width: 480px) {
-            font-size: 16px;
+            font-size: 13px;
           }
         }
         &__sub-title {
           font-weight: 500;
           color: #828282;
-          font-size: 18px;
+          font-size: 14px;
           @media all and(max-width: 480px) {
             font-size: 13px;
           }
         }
         &__radio {
-          width: 30px;
-          height: 30px;
+          width: 20px;
+          height: 20px;
           background: url("../assets/radio-bg.png") 0 0 no-repeat;
           -webkit-background-size: contain;
           background-size: contain;
@@ -498,22 +782,22 @@ export default {
             background-size: contain;
           }
           @media all and(max-width: 480px) {
-            width: 20px;
-            height: 20px;
+            width: 15px;
+            height: 15px;
           }
         }
         &__price {
-          font-size: 24px;
+          font-size: 16px;
           font-weight: 600;
-          color: #4F4F4F;
+          color: #4f4f4f;
           @media all and(max-width: 480px) {
-            font-size: 18px;
+            font-size: 14px;
           }
         }
         &.total {
           .total-price {
-            font-size: 24px;
-            color: #4F4F4F;
+            font-size: 16px;
+            color: #4f4f4f;
             font-weight: 800;
             text-align: right;
           }
@@ -521,115 +805,154 @@ export default {
       }
     }
     &__btn {
-      margin-top: 32px;
-      background: #364B3C;
+      /*margin-top: 21px;*/
+      background: #364b3c;
       box-sizing: border-box;
       font-weight: 600;
-      font-size: 24px;
-      line-height: 28px;
+      font-size: 16px;
+      line-height: 16px;
       font-feature-settings: "pnum" on, "lnum" on;
-      color: #FFFFFF;
-      padding: 22px;
+      color: #ffffff;
+      /*padding: 10px;*/
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
+      width: 100%;
+      height: 100%;
     }
   }
   .step-2 {
     &__info {
       background: #fff;
-      padding: 50px 15px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
       margin: 0;
+      padding: 20px 10px;
+      height: 100%;
       .info-title {
-        font-size: 40px;
-        color: #4F4F4F;
+        font-size: 22px;
+        color: #4f4f4f;
         opacity: 0.6;
         font-weight: bold;
         width: 100%;
         text-align: center;
-        margin-bottom: 30px;
+        margin-bottom: 20px;
+        &.shown {
+          opacity: 0.6 !important;
+          position: relative !important;
+          right: 0 !important;
+        }
+        @media all and(max-width: 480px) {
+          font-size: 16px;
+        }
+      }
+      .price-block {
+        padding-left: 30px;
+        width: 100%;
+        margin-bottom: -30px;
+        &.shown {
+          opacity: 1 !important;
+          position: relative !important;
+          left: 0 !important;
+        }
+        &:last-child {
+          padding-bottom: 30px;
+          margin-bottom: 0;
+        }
+        @media all and(max-width: 480px) {
+          padding-left: 0;
+        }
       }
       .subscribe {
         width: 100%;
-        margin-bottom: 30px;
+        margin-bottom: 20px;
         &__title {
-          font-size: 24px;
+          font-size: 16px;
           font-weight: 600;
-          color: #4F4F4F;
+          color: #4f4f4f;
           @media all and(max-width: 480px) {
-            font-size: 18px;
+            font-size: 13px;
           }
         }
         &__sub-title {
-          font-size: 18px;
+          font-size: 14px;
           font-weight: 500;
           color: #828282;
           @media all and(max-width: 480px) {
-            font-size: 14px;
+            font-size: 12px;
           }
         }
         &__price {
-          font-size: 24px;
+          font-size: 16px;
           font-weight: 600;
           color: #959595;
           @media all and(max-width: 480px) {
-            font-size: 18px;
+            font-size: 13px;
           }
         }
       }
       .total {
         &__title {
-          font-size: 24px;
+          font-size: 16px;
           font-weight: bold;
-          color: #4F4F4F;
+          color: #4f4f4f;
           opacity: 0.6;
           @media all and(max-width: 480px) {
-            font-size: 18px;
+            font-size: 13px;
           }
         }
         &__price {
-          font-size: 24px;
+          font-size: 16px;
           font-weight: bold;
-          color: #4F4F4F;
+          color: #4f4f4f;
           opacity: 0.6;
           @media all and(max-width: 480px) {
-            font-size: 18px;
+            font-size: 13px;
           }
         }
       }
     }
     .cards {
-      background: #364B3C;
-      padding: 32px 35px;
+      background: #364b3c;
+      padding: 20px 15px;
       display: flex;
       flex-direction: column;
       align-items: center;
       position: relative;
+      height: 100%;
       @media all and(max-width: 480px) {
-        padding: 15px;
+        padding: 10px;
       }
       &__title {
-        font-size: 40px;
+        font-size: 22px;
         font-weight: bold;
-        color: #F2F2F2;
+        color: #f2f2f2;
         text-align: center;
-        margin-bottom: 17px;
+        margin-bottom: 20px;
+        &.shown {
+          opacity: 1 !important;
+          position: relative !important;
+          right: 0 !important;
+        }
         @media all and(max-width: 480px) {
-          font-size: 30px;
+          font-size: 16px;
         }
       }
       &__list {
         display: flex;
         flex-flow: wrap column;
+        &.shown {
+          position: relative !important;
+          left: 0 !important;
+          opacity: 1 !important;
+        }
       }
       &__card {
-        width: 305px;
-        height: 175px;
+        width: 190px;
+        height: 110px;
         box-shadow: 0px 0px 18px rgba(255, 255, 255, 0.25);
         border-radius: 16px;
         background: #fff;
@@ -637,9 +960,10 @@ export default {
         align-items: center;
         justify-content: center;
         cursor: pointer;
+        padding: 10px;
         @media all and(max-width: 480px) {
-          width: 210px;
-          height: 120px;
+          width: 100px;
+          height: 70px;
         }
         span {
           display: block;
@@ -649,20 +973,26 @@ export default {
           max-width: 100%;
         }
         &:first-child {
-          margin-bottom: 30px;
+          margin-bottom: 15px;
         }
       }
       &__close {
         cursor: pointer;
         position: absolute;
-        width: 33px;
-        height: 33px;
-        top: 58px;
-        left: 32px;
+        width: 20px;
+        height: 20px;
+        top: 40px;
+        left: 9px !important;
+        z-index: 5 !important;
         @media all and(max-width: 480px) {
-          width: 25px;
-          height: 25px;
-          left: 5px;
+          width: 15px;
+          height: 15px;
+          top: 0;
+          left: 0;
+        }
+        svg {
+          max-width: 100%;
+          max-height: 100%;
         }
       }
     }
@@ -674,62 +1004,78 @@ export default {
   .step-3 {
     &__info {
       background: #fff;
-      padding: 50px 15px;
+      padding: 20px 10px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
       margin: 0;
       .info-title {
-        font-size: 24px;
-        color: #4F4F4F;
+        font-size: 16px;
+        color: #4f4f4f;
         opacity: 0.6;
         font-weight: bold;
         width: 100%;
         text-align: center;
         margin-bottom: 30px;
+        &.shown {
+          opacity: 0.6 !important;
+          position: relative !important;
+          right: 0 !important;
+        }
+      }
+      @media all and(max-width: 480px) {
+        font-size: 13px;
       }
       .subscribe {
         width: 100%;
-        margin-bottom: 30px;
+        margin-bottom: 15px;
       }
       .total {
         &__title {
-          font-size: 24px;
+          font-size: 16px;
           font-weight: bold;
-          color: #4F4F4F;
+          color: #4f4f4f;
           opacity: 0.6;
+          @media all and(max-width: 480px) {
+            font-size: 13px;
+          }
         }
         &__price {
-          font-size: 24px;
+          font-size: 16px;
           font-weight: bold;
-          color: #4F4F4F;
+          color: #4f4f4f;
           opacity: 0.6;
+          @media all and(max-width: 480px) {
+            font-size: 13px;
+          }
         }
       }
     }
     .cards {
-      background: #688E74;
-      box-shadow: 0px 0px 18px rgba(255, 255, 255, 0.25);
-      padding: 32px 35px;
       display: flex;
       flex-direction: column;
       align-items: center;
       position: relative;
+      width: 100%;
+      flex: 1;
       form {
-        width: 315px;
+        width: 100%;
         max-width: 100%;
         margin: 0 auto;
         .form-group {
           input {
-            font-size: 24px;
-            color: #E0E0E0;
+            font-size: 16px;
+            color: #e0e0e0;
             background: none;
             border: none;
-            border-bottom: 1px solid #E0E0E0;
+            border-bottom: 1px solid #e0e0e0;
             border-radius: 0;
             padding: 0 0 10px 0;
             outline: none;
+            @media all and(max-width: 480px) {
+              font-size: 13px;
+            }
             &:focus {
               outline: none;
               -webkit-box-shadow: none;
@@ -737,39 +1083,47 @@ export default {
               box-shadow: none;
             }
             &::placeholder {
-              color: #E0E0E0;
+              color: #e0e0e0;
             }
           }
         }
         .submit-btn {
           background: rgba(255, 255, 255, 0.2);
-          font-size: 24px;
+          font-size: 16px;
           font-weight: 600;
           color: #fff;
           border: none;
           display: block;
           width: 100%;
-          margin-top: 70px;
-          padding: 18px 10px;
+          margin-top: 40px;
+          padding: 12px 8px;
+          @media all and(max-width: 480px) {
+            font-size: 13px;
+          }
           &:hover {
             background: #fff;
-            color: #364B3C;
+            color: #364b3c;
           }
         }
       }
       &__close {
+        display: block;
         cursor: pointer;
         position: absolute;
-        width: 33px;
-        height: 33px;
-        top: 58px;
-        left: 32px;
+        width: 20px;
+        height: 20px;
+        top: 0;
+        left: -15px;
         @media all and(max-width: 480px) {
-          width: 25px;
-          height: 25px;
+          width: 15px;
+          height: 15px;
           left: auto;
           top: 5px;
           right: 10px;
+        }
+        svg {
+          max-width: 100%;
+          max-height: 100%;
         }
       }
     }
@@ -783,31 +1137,39 @@ export default {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    background: #688E74;
-    box-shadow: 0px 0px 18px rgba(255, 255, 255, 0.25);
+    box-shadow: 0 0 18px rgba(255, 255, 255, 0.25);
     padding: 15px;
     &__title {
-      font-size: 42px;
+      font-size: 30px;
       font-weight: 600;
       color: #fff;
+      @media all and(max-width: 480px) {
+        font-size: 20px;
+      }
     }
     &__sub-title {
-      font-weight: 600;
-      font-size: 16px;
+      font-size: 14px;
       color: #fff;
+      font-weight: normal;
+      @media all and(max-width: 480px) {
+        font-size: 12px;
+      }
     }
     &__btn {
       cursor: pointer;
-      margin-top: 39px;
-      width: 273px;
-      height: 72px;
+      margin-top: 25px;
+      width: 180px;
+      height: 50px;
       background: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 24px;
+      font-size: 16px;
       font-weight: 600;
-      color: #364B3C;
+      color: #364b3c;
+      @media all and(max-width: 480px) {
+        font-size: 14px;
+      }
     }
   }
 }

@@ -2,10 +2,14 @@
   <div class="sidebar">
     <div class="sidebar__user-info">
       <div v-if="user.avatar" style="background: none" class="logo">
-        <img :src="serverUrl + user.avatar.pathUrl">
+        <img :src="serverUrl + user.avatar.pathUrl" />
       </div>
       <div v-else class="logo"></div>
-      <div v-if="!user.avatar" class="edit-avatar" @click="showAvatarModal = true">
+      <div
+        v-if="!user.avatar"
+        class="edit-avatar"
+        @click="showAvatarModal = true"
+      >
         <fa-icon icon="plus" />
         {{ $t("add_avatar") }}
       </div>
@@ -212,11 +216,7 @@
         </button>
       </div>
     </b-modal>
-    <b-modal
-      v-model="showAvatarModal"
-      hide-footer
-      :title="$t('add_image')"
-    >
+    <b-modal v-model="showAvatarModal" hide-footer :title="$t('add_image')">
       <div class="modal-content">
         <div class="modal-body">
           <div class="form-group row">
@@ -247,10 +247,7 @@
           </button>
         </div>
         <div v-else class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-custom"
-          >
+          <button type="button" class="btn btn-custom">
             <b-spinner small></b-spinner>
           </button>
         </div>
@@ -435,6 +432,7 @@ $ffamily: "Roboto", sans-serif;
       margin-bottom: 5px;
       img {
         max-width: 100%;
+        max-height: 100%;
       }
     }
     .edit-avatar {
@@ -545,7 +543,7 @@ $ffamily: "Roboto", sans-serif;
   max-width: none;
 }
 .modal-body {
-  padding: 0 19px;
+  /*padding: 0 19px;*/
 }
 .modal-footer {
   padding: 0;

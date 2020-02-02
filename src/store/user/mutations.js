@@ -28,7 +28,7 @@ function setRoles(state, data) {
 }
 
 function setAvatar(state, data) {
-  state.avatar = data.pathUrl;
+  state.user.avatar = data;
 }
 
 function setEnableModules(state) {
