@@ -90,5 +90,7 @@
   "cancel": "Cancel",
   "add_avatar": "Add avatar",
   "upd_avatar": "Update avatar",
-  "choose_payment": "Choose your payment method"
+  "choose_payment": "Choose your payment method",
+  "thanks": "Thanks",
+  "redirect_bank": "Now you will be redirected to the bank page."
 }

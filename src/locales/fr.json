@@ -89,5 +89,7 @@
   "cancel": "Annuler",
   "add_avatar": "Ajouter un avatar",
   "upd_avatar": "Mettre à jour l'avatar",
-  "choose_payment": "Choisissez un mode de paiement"
+  "choose_payment": "Choisissez un mode de paiement",
+  "thanks": "Merci",
+  "redirect_bank": "Vous allez maintenant être redirigé vers la page de la banque."
 }

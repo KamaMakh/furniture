@@ -306,10 +306,10 @@
           </b-form>
         </b-col>
         <div class="step-4__title" :class="{ shown: step4Animate }">
-          Спасибо!
+          {{ $t("thanks") }}!
         </div>
         <div class="step-4__sub-title" :class="{ shown: step4Animate }">
-          Сейчас Вы будете перенаправлены на страницу банка.
+          {{ $t("redirect_bank") }}
         </div>
         <div
           class="step-4__btn"
