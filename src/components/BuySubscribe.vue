@@ -10,7 +10,7 @@
     >
       <div class="buy-subscribe-left">
         <div class="step-1__title">
-          Подписка
+          {{ $t("subscription") }}
         </div>
         <div
           v-for="(subscribe, key) in subscribes"
@@ -160,7 +160,7 @@
       </div>
       <div class="buy-subscribe-right" :class="{ 'pos-rel': subsRightAnimate }">
         <div class="step-1__btn" @click="chooseCard">
-          Оплатить
+          {{ $t("pay") }}
         </div>
         <b-col cols="12" md="12" class="step-2__cards cards">
           <div
@@ -746,7 +746,7 @@ export default {
       .list-item {
         cursor: pointer;
         align-items: center;
-        padding-bottom: 16px;
+        padding-bottom: 15px;
         border-bottom: 1px solid #e0e0e0;
         margin-bottom: 15px;
         @media all and(max-width: 480px) {
@@ -755,7 +755,7 @@ export default {
           padding-bottom: 10px;
         }
         &__title {
-          font-size: 16px;
+          font-size: 15px;
           font-weight: 600;
           color: #4f4f4f;
           @media all and(max-width: 480px) {
