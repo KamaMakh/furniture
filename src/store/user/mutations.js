@@ -1,6 +1,9 @@
 /*eslint-disable*/
 function setUser(state, user) {
   state.user = user;
+  if(user.avatar && user.avatar.pathUrl) {
+    state.avatarPath = user.avatar.pathUrl;
+  }
   if (user.userRoleList) {
     let rolesArray = [];
     user.userRoleList.forEach(item => {
@@ -28,7 +31,7 @@ function setRoles(state, data) {
 }
 
 function setAvatar(state, data) {
-  state.user.avatar = data;
+  state.avatarPath = data.pathUrl  + '&' + new Date().getTime();
 }
 
 function setEnableModules(state) {

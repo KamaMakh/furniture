@@ -1,12 +1,16 @@
 <template>
   <div class="sidebar">
     <div class="sidebar__user-info">
-      <div v-if="user.avatar" style="background: none" class="logo">
-        <img :src="serverUrl + user.avatar.pathUrl" />
+      <div
+        v-if="user.avatar || avatarPath"
+        style="background: none"
+        class="logo"
+      >
+        <img :src="serverUrl + avatarPath" />
       </div>
       <div v-else class="logo"></div>
       <div
-        v-if="!user.avatar"
+        v-if="!user.avatar && !avatarPath"
         class="edit-avatar"
         @click="showAvatarModal = true"
       >
@@ -282,6 +286,7 @@ export default {
       construction: state => state.furniture.construction,
       constructions: state => state.furniture.constructions,
       user: state => state.user.user,
+      avatarPath: state => state.user.avatarPath,
       role: state => {
         if (state.user.roles[0]) {
           return state.user.roles[0].split("_")[1];
