@@ -92,5 +92,44 @@
   "upd_avatar": "Update avatar",
   "choose_payment": "Choose your payment method",
   "thanks": "Thanks",
-  "redirect_bank": "Now you will be redirected to the bank page."
+  "redirect_bank": "Now you will be redirected to the bank page.",
+  "main": "Main",
+  "tariffs": "Tariffs",
+  "contacts": "Contacts",
+  "more_learn": "To learn more",
+  "try": "To try",
+  "lp": {
+    "first": {
+      "title": "Construction Manager",
+      "text": "Accounting for materials, tools and working time at a construction site"
+    },
+    "welcome": {
+      "title": "Only here and only now, listen!",
+      "text": "Here we will tell you how important it is to keep up to date and how lucky you are to have created such a good application"
+    },
+    "furniture": {
+      "text": "The accessories module allows you to create new names of goods and materials for your construction site. Coordinate them with all parts of the process.\n\nYou can invite architects, clients and other responsible persons to the construction site."
+    },
+    "counter": {
+      "companies": "Construction companies with us",
+      "projects": "Projects Underway at Stroy Assist",
+      "users": "Users of three countries trust us!"
+    },
+    "orders": {
+      "title": "Orders and warehouse",
+      "text": "The “Orders and Warehouse” module allows responsible employees to order construction materials directly from the mobile application.\n\n3 finger clicks and materials are already ordered!\n\nThe courier from the store or your employee can carry out the delivery of the ordered materials, and the manager can track these movements."
+    },
+    "documents": {
+      "title": "Documents",
+      "text": "All documents, estimates, checks and plans are always at hand using the “Documents” module.\n\nYou can always save the document you need and share it with a client, architect or construction company."
+    },
+    "download": {
+      "text": "Download our mobile application, it is more convenient to administer projects with it."
+    },
+    "tariffs": {
+      "title": "Choose your tariff plan",
+      "monthly": "Monthly",
+      "loan": "Annual"
+    }
+  }
 }

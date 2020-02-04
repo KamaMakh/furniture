@@ -37,6 +37,9 @@ $hb: "h-b", serif;
     display: flex;
     justify-content: space-between;
     margin-bottom: 162px;
+    @media all and(max-width: 840px) {
+      margin-bottom: 62px;
+    }
     &__flag {
       width: 40px;
       height: 26px;
@@ -90,8 +93,19 @@ $hb: "h-b", serif;
           width: auto;
         }
       }
+      @media all and(max-width: 1024px) {
+        margin-left: auto;
+        display: flex;
+        justify-content: flex-end;
+        .btn-group {
+          min-width: 0;
+        }
+      }
     }
     &__menu {
+      @media all and(max-width: 1024px) {
+        display: none;
+      }
       .nav {
         .nav-item{
           padding: 0.5rem 45px;
@@ -159,6 +173,19 @@ $hb: "h-b", serif;
                 }
               }
             }
+            @media all and(max-width: 1149px) {
+              &.first {
+                .nav-link {
+                  color: inherit;
+                  &:before {
+                    background: #192057;
+                  }
+                }
+              }
+            }
+          }
+          @media all and(max-width: 1149px) {
+            padding: 0.5rem 38px;
           }
         }
       }
@@ -168,6 +195,22 @@ $hb: "h-b", serif;
     width: 50%;
     text-align: left;
     margin-bottom: 361px;
+    @media all and(max-width: 1149px) {
+      margin-bottom: 170px;
+      padding-left: 100px;
+    }
+    @media all and(max-width: 1024px) {
+      padding-left: 0;
+    }
+    @media all and(max-width: 768px) {
+      width: 80%;
+    }
+    @media all and(max-width: 480px) {
+      margin-bottom: 100px;
+    }
+    @media all and(max-width: 400px) {
+      width: 100%;
+    }
     &__title {
       font-size: 107px;
       line-height: 98%;
@@ -175,12 +218,33 @@ $hb: "h-b", serif;
       font-family: "h-b", serif;
       text-align: left;
       margin-bottom: 83px;
+      @media all and(max-width: 1149px) {
+        font-size: 78px;
+        margin-bottom: 10px;
+      }
+      @media all and(max-width: 840px) {
+        font-size: 60px;
+      }
+      @media all and(max-width: 768px) {
+        font-size: 40px;
+      }
+      @media all and(max-width: 480px) {
+        font-size: 35px;
+      }
     }
     &__text {
       font-size: 22px;
       color: #302F4D;
       margin-bottom: 59px;
       letter-spacing: -0.03em;
+      @media all and(max-width: 1149px) {
+        margin-bottom: 30px;
+        font-size: 18px;
+      }
+      @media all and(max-width: 768px) {
+        font-size: 15px;
+        width: 70%;
+      }
     }
   }
   .welcome {
@@ -189,18 +253,37 @@ $hb: "h-b", serif;
     position: relative;
     display: flex;
     flex-direction: column;
+    @media all and(max-width: 1149px) {
+      margin-bottom: 170px;
+    }
+    @media all and(max-width: 768px) {
+      max-width: 70%;
+    }
+    @media all and(max-width: 640px) {
+      max-width: 80%;
+      margin-bottom: 120px;
+    }
+    @media all and(max-width: 480px) {
+      margin-bottom: 70px;
+    }
     &__title {
       font-size: 33px;
       text-align: center;
       letter-spacing: -0.03em;
       color: #383660;
       font-family: $hs;
+      @media all and(max-width: 400px) {
+        font-size: 30px;
+      }
     }
     &__text {
       font-size: 18px;
       color: #383660;
       text-align: center;
       margin-top: 31px;
+      @media all and(max-width: 400px) {
+        font-size: 16px;
+      }
     }
     .plane-container {
       position: absolute;
@@ -210,6 +293,10 @@ $hb: "h-b", serif;
       height: 166px;
       right: -216px;
       top: 36px;
+      @media all and(max-width: 840px) {
+        left: -216px;
+        right: 0;
+      }
       svg {
         max-width: 100%;
         max-height: 100%;
@@ -223,17 +310,40 @@ $hb: "h-b", serif;
     margin-left: auto;
     margin-bottom: 563px;
     text-align: left;
+    @media all and(max-width: 1149px) {
+      max-width: 50%;
+      margin-bottom: 200px;
+    }
+    @media all and(max-width: 768px) {
+      max-width: 80%;
+      margin-bottom: 250px;
+    }
+    @media all and(max-width: 480px) {
+      max-width: none;
+      margin-bottom: 165px;
+    }
     &__title {
       font-size: 48px;
       color: #1F1C4B;
       font-family: $hb;
       margin-bottom: 40px;
+      @media all and(max-width: 640px) {
+        font-size: 35px;
+        margin-bottom: 20px;
+      }
     }
     &__text {
       font-size: 19px;
       color: #1F1C4B;
       margin-bottom: 57px;
       line-height: 23px;
+      @media all and(max-width: 1149px) {
+        margin-bottom: 40px;
+      }
+      @media all and(max-width: 640px) {
+        font-size: 18px;
+        margin-bottom: 30px;
+      }
     }
   }
   .counter-block {
@@ -243,21 +353,61 @@ $hb: "h-b", serif;
     justify-content: space-between;
     padding: 74px 34px;
     align-items: center;
+    @media all and(max-width: 1149px) {
+      padding: 50px 22px;
+    }
+    @media all and(max-width: 840px) {
+      padding: 40px 15px;
+    }
+    @media all and(max-width: 640px) {
+      &.desc {
+        display: none;
+      }
+    }
+    @media all and(min-width: 641px) {
+      &.mobile {
+        display: none;
+      }
+    }
     &__item {
       display: flex;
       flex-direction: column;
       align-items: center;
       width: 30%;
+      @media all and(max-width: 1149px) {
+        width: 30%;
+      }
+      @media all and(max-width: 640px) {
+        width: 320px;
+        margin: 0 auto;
+        max-width: 100%;
+      }
     }
     &__title {
       font-size: 48px;
       color: #fff;
       margin-bottom: 30px;
       font-family: $hs;
+      @media all and(max-width: 1149px) {
+        font-size: 35px;
+        margin-bottom: 18px;
+      }
+      @media all and(max-width: 840px) {
+        font-size: 30px;
+      }
     }
     &__text {
       font-size: 30px;
       color: #fff;
+      @media all and(max-width: 1149px) {
+        font-size: 25px;
+      }
+      @media all and(max-width: 840px) {
+        font-size: 20px;
+      }
+      @media all and(max-width: 640px) {
+        font-size: 18px;
+      }
     }
   }
   .orders {
@@ -268,16 +418,43 @@ $hb: "h-b", serif;
     margin-right: auto;
     margin-bottom: 510px;
     text-align: left;
+    @media all and(max-width: 1149px) {
+      margin-top: 170px;
+      margin-bottom: 250px;
+    }
+    @media all and(max-width: 840px) {
+      margin-top: 120px;
+    }
+    @media all and(max-width: 768px) {
+      max-width: 80%;
+    }
+    @media all and(max-width: 480px) {
+      margin-top: 70px;
+      margin-bottom: 160px;
+      max-width: none;
+    }
     &__title {
       font-size: 48px;
       color: #1F1C4B;
       margin-bottom: 40px;
+      font-family: $hb;
+      @media all and(max-width: 1149px) {
+        font-size: 40px;
+        margin-bottom: 25px;
+      }
+      @media all and(max-width: 640px) {
+        font-size: 35px;
+      }
     }
     &__text {
       font-size: 19px;
       color: #1F1C4B;
       margin-bottom: 58px;
       line-height: 23px;
+      @media all and(max-width: 1149px) {
+        font-size: 18px;
+        margin-bottom: 40px;
+      }
     }
   }
   .documents {
@@ -287,17 +464,36 @@ $hb: "h-b", serif;
     margin-left: auto;
     margin-bottom: 512px;
     text-align: left;
+    @media all and(max-width: 1149px) {
+      margin-bottom: 270px;
+    }
+    @media all and(max-width: 768px) {
+      max-width: 80%;
+      margin-bottom: 350px;
+    }
+    @media all and(max-width: 480px) {
+      max-width: none;
+      margin-bottom: 200px;
+    }
     &__title {
       font-size: 48px;
       color: #1F1C4B;
       font-family: $hb;
       margin-bottom: 40px;
+      @media all and(max-width: 1149px) {
+        font-size: 40px;
+        margin-bottom: 30px;
+      }
     }
     &__text {
       font-size: 20px;
       color: #1F1C4B;
       margin-bottom: 57px;
       line-height: 24px;
+      @media all and(max-width: 1149px) {
+        font-size: 18px;
+        margin-bottom: 40px;
+      }
     }
   }
   .download {
@@ -310,16 +506,42 @@ $hb: "h-b", serif;
     -webkit-background-size: contain;
     background-size: contain;
     margin-bottom: 155px;
+    @media all and(max-width: 840px) {
+      background: none;
+      padding: 40px;
+      border-radius: 40px;
+    }
+    @media all and(max-width: 768px) {
+      padding: 20px;
+      border-radius: 20px;
+      margin-bottom: 70px;
+    }
+    @media all and(max-width: 480px) {
+      padding: 10px;
+      border-radius: 10px;
+    }
     &__text {
       font-size: 30px;
       color: #1F1C4B;
       margin-bottom: 42px;
       max-width: 60%;
       line-height: 37px;
+      @media all and(max-width: 840px) {
+        max-width: none;
+        text-align: center;
+      }
+      @media all and(max-width: 768px) {
+        font-size: 25px;
+        margin-bottom: 20px;
+      }
+      @media all and(max-width: 400px) {
+        font-size: 20px;
+      }
     }
     &__btn {
-      width: 176px;
-      height: 57px;
+      width: 150px;
+      height: 50px;
+      margin: 0 auto;
       background: url("../google-play.png") 0 0 no-repeat;
       -webkit-background-size: contain;
       background-size: contain;
@@ -331,6 +553,9 @@ $hb: "h-b", serif;
     display: flex;
     flex-direction: column;
     margin-bottom: 175px;
+    @media all and(max-width: 480px) {
+      margin-bottom: 50px;
+    }
     &__title {
       font-size: 36px;
       color: #1F1C4B;
@@ -338,6 +563,22 @@ $hb: "h-b", serif;
       padding-bottom: 12px;
       position: relative;
       margin-bottom: 148px;
+      @media all and(max-width: 1149px) {
+        margin-bottom: 80px;
+      }
+      @media all and(max-width: 840px) {
+        margin-bottom: 50px;
+      }
+      @media all and(max-width: 768px) {
+        font-size: 30px;
+      }
+      @media all and(max-width: 480px) {
+        font-size: 28px;
+        margin-bottom: 30px;
+      }
+      @media all and(max-width: 400px) {
+        font-size: 22px;
+      }
       &:before {
         content: "";
         display: block;
@@ -353,6 +594,16 @@ $hb: "h-b", serif;
     &__list {
       display: flex;
       justify-content: space-around;
+      @media all and(max-width: 640px) {
+        &.desc {
+          display: none;
+        }
+      }
+      @media all and(min-width: 641px) {
+        &.mobile {
+          display: none;
+        }
+      }
       .tariff {
         display: flex;
         flex-direction: column;
@@ -363,6 +614,14 @@ $hb: "h-b", serif;
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
         box-sizing: border-box;
+        @media all and(max-width: 840px) {
+          padding: 30px 15px;
+          width: 300px;
+        }
+        @media all and(max-width: 640px) {
+          max-width: 100%;
+          margin: 0 auto;
+        }
         &__info {
           display: flex;
           align-items: center;
@@ -393,10 +652,13 @@ $hb: "h-b", serif;
       color: #201D4C;
       font-size: 20px;
       margin-bottom: 28px;
+      @media all and(max-width: 840px) {
+        font-size: 18px;
+      }
       span {
         display: block;
-        margin-bottom: 26px;
-        line-height: 24px;
+        margin-bottom: 22px;
+        line-height: 22px;
       }
     }
     &__btn {
@@ -443,6 +705,45 @@ $hb: "h-b", serif;
           padding: 0.5rem 19px;
         }
       }
+      @media all and(max-width: 768px) {
+        display: none;
+      }
     }
+  }
+  .bm-burger-button {
+    display: none;
+    position: fixed;
+    .bm-burger-bars {
+      background: #192057;
+    }
+    @media all and(max-width: 1024px) {
+      display: block;
+    }
+  }
+  .bm-menu {
+    background: #192057;
+    .nav {
+      display: flex;
+      flex-direction: column;
+      .nav-item {
+        .nav-link {
+          font-size: 18px;
+          color: #fff;
+          font-family: $hs;
+          padding: 0.5rem 19px;
+          text-align: left;
+        }
+      }
+    }
+  }
+  .VueCarousel-dot {
+    padding: 0 !important;
+    margin: 5px !important;
+  }
+  .VueCarousel-dot--active {
+    background: #FE5D19 !important;
+  }
+  .VueCarousel-slide {
+    max-width: 100%;
   }
 }

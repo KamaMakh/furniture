@@ -22,7 +22,7 @@ export default {
   },
   data() {
     return {
-      langs: ["en", "fr", "ru"],
+      langs: ["en", "fr", "ru", "de"],
       currLang: this.$cookies.get("lang") || navigator.language || navigator.userLanguage || "en"
     }
   },

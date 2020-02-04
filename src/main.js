@@ -21,6 +21,7 @@ import Viewer from "v-viewer";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import VueWindowSize from "vue-window-size";
 const VueScrollTo = require("vue-scrollto");
 
 library.add(faPlus);
@@ -30,12 +31,15 @@ Vue.use(Viewer);
 Vue.use(PerfectScrollbar);
 
 Vue.component("v-select", vSelect);
+Vue.use(VueWindowSize, {
+  delay: 300
+});
 Vue.use(Meta);
 Vue.use(Notifications);
 Vue.use(VueCookies);
 Vue.use(BootstrapVue);
 Vue.use(VueScrollTo, {
-  duration: 800
+  duration: 1000
 });
 
 Vue.config.productionTip = false;

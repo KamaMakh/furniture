@@ -1,5 +1,23 @@
 <template>
   <div class="index-component">
+    <sl>
+      <b-nav>
+        <b-nav-item v-scroll-to="'#main'">{{ $t("main") }}</b-nav-item>
+        <b-nav-item v-scroll-to="'#furniture'">{{
+          $t("furniture")
+        }}</b-nav-item>
+        <b-nav-item v-scroll-to="'#orders'">{{ $t("warehouse") }}</b-nav-item>
+        <b-nav-item v-scroll-to="'#documents'" class="white first">{{
+          $t("documents")
+        }}</b-nav-item>
+        <b-nav-item v-scroll-to="'#tariffs'" class="white second">{{
+          $t("tariffs")
+        }}</b-nav-item>
+        <b-nav-item v-scroll-to="'#contacts'" class="white third">{{
+          $t("contacts")
+        }}</b-nav-item>
+      </b-nav>
+    </sl>
     <section id="1">
       <div class="index-component__nav-bar nav-bar">
         <div class="nav-bar__lang">
@@ -31,18 +49,22 @@
         </div>
         <div class="nav-bar__menu">
           <b-nav>
-            <b-nav-item v-scroll-to="'#main'">Главная</b-nav-item>
-            <b-nav-item v-scroll-to="'#furniture'">Фурнитура</b-nav-item>
-            <b-nav-item v-scroll-to="'#orders'">Склад</b-nav-item>
-            <b-nav-item v-scroll-to="'#documents'" class="white first"
-              >Документы</b-nav-item
-            >
-            <b-nav-item v-scroll-to="'#tariffs'" class="white second"
-              >Тарифы</b-nav-item
-            >
-            <b-nav-item v-scroll-to="'#contacts'" class="white third"
-              >Контакты</b-nav-item
-            >
+            <b-nav-item v-scroll-to="'#main'">{{ $t("main") }}</b-nav-item>
+            <b-nav-item v-scroll-to="'#furniture'">{{
+              $t("furniture")
+            }}</b-nav-item>
+            <b-nav-item v-scroll-to="'#orders'">{{
+              $t("warehouse")
+            }}</b-nav-item>
+            <b-nav-item v-scroll-to="'#documents'" class="white first">{{
+              $t("documents")
+            }}</b-nav-item>
+            <b-nav-item v-scroll-to="'#tariffs'" class="white second">{{
+              $t("tariffs")
+            }}</b-nav-item>
+            <b-nav-item v-scroll-to="'#contacts'" class="white third">{{
+              $t("contacts")
+            }}</b-nav-item>
           </b-nav>
         </div>
       </div>
@@ -50,23 +72,21 @@
     <section id="main">
       <div class="first-block">
         <div class="first-block__title">
-          Главный по стройке
+          {{ $t("lp.first.title") }}
         </div>
         <div class="first-block__text">
-          Учёт материалов, инструментов и рабочего времени на строительном
-          объекте
+          {{ $t("lp.first.text") }}
         </div>
-        <my-button text="Узнать больше" />
+        <my-button :text="$t('more_learn')" />
       </div>
     </section>
     <section id="welcome">
       <div class="welcome">
         <div class="welcome__title">
-          Только здесь и только сейчас, внимайте!
+          {{ $t("lp.welcome.title") }}
         </div>
         <div class="welcome__text">
-          Здесь мы расскажем, как важно идти в ногу со временем и как же вам
-          повезло, что мы создали такое хорошее приложение
+          {{ $t("lp.welcome.text") }}
         </div>
         <div class="plane-container">
           <svg
@@ -137,33 +157,28 @@
     <section id="furniture">
       <div class="furniture">
         <div class="furniture__title">
-          Фурнитура
+          {{ $t("furniture") }}
         </div>
         <div class="furniture__text">
-          Модуль фурнитура позволяет создавать новые наименования товаров и
-          материалов для вашей стройки. Согласовывать их со всеми участнками
-          процесса.
-          <br /><br />
-          Вы можете пригласить к стройке архитекторов, клиентов и других
-          ответственных лиц.
+          {{ $t("lp.furniture.text") }}
         </div>
-        <my-button text="Попробовать" />
+        <my-button :text="$t('try')" />
       </div>
     </section>
     <section id="counter" class="counter">
-      <div class="counter-block">
+      <div class="counter-block desc">
         <div class="counter-block__item">
           <div class="counter-block__title">
             {{ counters.companies }}
           </div>
           <div class="counter-block__text">
-            Строительных компаний с нами
+            {{ $t("lp.counter.companies") }}
           </div>
         </div>
         <div class="counter-block__item">
           <div class="counter-block__title">{{ counters.projects }} +</div>
           <div class="counter-block__text">
-            Проектов ведется в Stroy Assist
+            {{ $t("lp.counter.projects") }}
           </div>
         </div>
         <div class="counter-block__item">
@@ -171,47 +186,75 @@
             {{ counters.users }}
           </div>
           <div class="counter-block__text">
-            Пользователи трех стран доверяют нам!
+            {{ $t("lp.counter.users") }}
           </div>
         </div>
       </div>
+      <carousel
+        :perPageCustom="[
+          [320, 1],
+          [480, 1],
+          [768, 1],
+          [960, 2]
+        ]"
+        class="counter-block mobile"
+      >
+        <slide>
+          <div class="counter-block__item">
+            <div class="counter-block__title">
+              {{ counters.companies }}
+            </div>
+            <div class="counter-block__text">
+              {{ $t("lp.counter.companies") }}
+            </div>
+          </div>
+        </slide>
+        <slide>
+          <div class="counter-block__item">
+            <div class="counter-block__title">{{ counters.projects }} +</div>
+            <div class="counter-block__text">
+              {{ $t("lp.counter.projects") }}
+            </div>
+          </div>
+        </slide>
+        <slide>
+          <div class="counter-block__item">
+            <div class="counter-block__title">
+              {{ counters.users }}
+            </div>
+            <div class="counter-block__text">
+              {{ $t("lp.counter.users") }}
+            </div>
+          </div>
+        </slide>
+      </carousel>
     </section>
     <section id="orders">
       <div class="orders">
         <div class="orders__title">
-          Заказы и склад
+          {{ $t("lp.orders.title") }}
         </div>
         <div class="orders__text">
-          Модуль “Заказы и Склад” позволяет ответственным сотрудникам
-          осуществлять заказ материалов на стройку непосредвенно из мобильного
-          приложения.
-          <br /><br />
-          3 нажатия пальцем и материалы уже заказаны!<br /><br />
-          Курьер из магазина или Ваш сотрудник может осуществлять достаку
-          заказанных матриалов, а руководитель отслеживать эти двиджения.
+          {{ $t("lp.orders.text") }}
         </div>
-        <my-button text="Зарегистрироваться" />
+        <my-button :text="$t('sign_up')" />
       </div>
     </section>
     <section id="documents">
       <div class="documents">
         <div class="documents__title">
-          Документы
+          {{ $t("lp.documents.title") }}
         </div>
         <div class="documents__text">
-          Все документы, сметы, чеки и планы всегда под рукой с помощью модуля
-          “Документы”. <br /><br />
-          Вы всегда сможете сохранить нужный Вам документ и поделится им с
-          клиентом, архитектором или стройфирмой.
+          {{ $t("lp.documents.text") }}
         </div>
-        <my-button text="Узнать больше" />
+        <my-button :text="$t('more_learn')" />
       </div>
     </section>
     <section id="8">
       <div class="download">
         <div class="download__text">
-          Скачайте наше мобильное приложение, с ним удобнее администратовать
-          проекты.
+          {{ $t("lp.download.text") }}
         </div>
         <div class="download__btn"></div>
       </div>
@@ -219,9 +262,9 @@
     <section id="tariffs">
       <div class="tariff-plan">
         <div class="tariff-plan__title">
-          Выберите свой тарифный план
+          {{ $t("lp.tariffs.title") }}
         </div>
-        <div class="tariff-plan__list">
+        <div class="tariff-plan__list desc">
           <div class="tariff">
             <div class="tariff__info">
               <div class="tariff__pic">
@@ -354,7 +397,7 @@
               </div>
               <div class="tariff__name-wr">
                 <div class="tariff__name">
-                  Ежемесячный
+                  {{ $t("lp.tariffs.monthly") }}
                 </div>
                 <div class="tariff__price">
                   3 990 ₽
@@ -369,10 +412,9 @@
               <span>Купите Ежемесячный тариф</span>
             </div>
             <div class="tariff-plan__btn">
-              Купить
+              {{ $t("buy") }}
             </div>
           </div>
-
           <div class="tariff">
             <div class="tariff__info">
               <div class="tariff__pic">
@@ -446,7 +488,7 @@
               </div>
               <div class="tariff__name-wr">
                 <div class="tariff__name">
-                  Годовой
+                  {{ $t("lp.tariffs.loan") }}
                 </div>
                 <div class="tariff__price">
                   28 690 ₽
@@ -461,10 +503,265 @@
               <span>5 причин купить Годовой тариф</span>
             </div>
             <div class="tariff-plan__btn">
-              Купить
+              {{ $t("buy") }}
             </div>
           </div>
         </div>
+        <carousel
+          :perPageCustom="[
+            [320, 1],
+            [480, 1],
+            [768, 1],
+            [960, 2]
+          ]"
+          class="tariff-plan__list mobile"
+        >
+          <slide>
+            <div class="tariff">
+              <div class="tariff__info">
+                <div class="tariff__pic">
+                  <svg
+                    width="80"
+                    height="71"
+                    viewBox="0 0 80 71"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M41.6706 15.2832H32.2673C20.6839 15.2832 11.2937 24.6734 11.2937 36.2568V45.6601C11.2937 57.2435 20.6839 66.6337 32.2673 66.6337H41.6706C53.254 66.6337 62.6442 57.2435 62.6442 45.6601V36.2568C62.6442 24.6734 53.254 15.2832 41.6706 15.2832Z"
+                      fill="#444FD9"
+                    />
+                    <path
+                      d="M21.8626 35.4999C21.6507 34.5005 21.4896 33.4854 21.3824 32.461C21.2745 31.434 21.22 30.4083 21.22 29.3901C21.22 21.2745 24.5097 13.9264 29.8277 8.60836C35.1463 3.29036 42.4945 0 50.61 0C58.7256 0 66.0737 3.29036 71.3917 8.60836C76.7097 13.9264 80.0001 21.2745 80.0001 29.3901C80.0001 35.9444 77.8282 42.1045 74.0808 47.0776C71.1986 50.9028 67.3816 54.027 62.9044 56.0866C61.6222 56.6766 60.2849 57.1794 58.9005 57.5857C58.8416 57.6033 59.745 56.2847 59.745 56.2847C60.7676 55.9424 61.7608 55.5443 62.7207 55.0941C66.9515 53.1123 70.5578 50.121 73.2946 46.4839C76.9147 41.6794 79.0132 35.7263 79.0132 29.3901C79.0132 21.5472 75.8332 14.4461 70.6939 9.30618C65.5546 4.16624 58.4528 0.986858 50.61 0.986858C42.7672 0.986858 35.6661 4.16624 30.5262 9.30618C25.3862 14.4461 22.2068 21.5472 22.2068 29.3901C22.2068 30.3913 22.2582 31.3832 22.3611 32.3607C22.4639 33.3412 22.6194 34.3218 22.8269 35.2955L21.8626 35.4999Z"
+                      fill="#FF9F24"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M27.2596 27.7461L22.0325 35.0065L16.8154 27.7461H27.2596Z"
+                      fill="#FE5D19"
+                      stroke="#FE5D19"
+                      stroke-width="0.986858"
+                      stroke-miterlimit="22.9256"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M13.5759 40.6094H25.5875"
+                      stroke="white"
+                      stroke-width="0.986858"
+                      stroke-miterlimit="22.9256"
+                      stroke-linecap="round"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M39.5131 45.1055H11.2942V45.6591C11.2942 57.1954 20.732 66.6333 32.2677 66.6333H38.1042C38.9895 65.4144 39.5131 63.9172 39.5131 62.304V45.1055Z"
+                      fill="#FF9F24"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M25.5273 49.2812H22.8389C22.378 49.2812 22.0012 49.6581 22.0012 50.1189V52.329C22.0012 52.7898 22.378 53.1672 22.8389 53.1672H25.5273C25.9882 53.1672 26.3656 52.7898 26.3656 52.329V50.1189C26.3656 49.6581 25.9882 49.2812 25.5273 49.2812Z"
+                      fill="#444FD9"
+                      stroke="#444FD9"
+                      stroke-width="0.789361"
+                      stroke-miterlimit="22.9256"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M33.5173 49.2744H30.8295C30.368 49.2744 29.9912 49.6519 29.9912 50.1127V52.3221C29.9912 52.7836 30.368 53.161 30.8295 53.161H33.5173C33.9788 53.161 34.3556 52.7836 34.3556 52.3221V50.1127C34.3556 49.6519 33.9788 49.2744 33.5173 49.2744Z"
+                      fill="#444FD9"
+                      stroke="#444FD9"
+                      stroke-width="0.789361"
+                      stroke-miterlimit="22.9256"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M33.4729 59.4795H30.785C30.3236 59.4795 29.9468 59.8563 29.9468 60.3178V62.5272C29.9468 62.988 30.3236 63.3655 30.785 63.3655H33.4729C33.9337 63.3655 34.3111 62.988 34.3111 62.5272V60.3178C34.3111 59.8563 33.9337 59.4795 33.4729 59.4795Z"
+                      fill="#444FD9"
+                      stroke="#444FD9"
+                      stroke-width="0.789361"
+                      stroke-miterlimit="22.9256"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M17.519 59.4609H14.8306C14.3697 59.4609 13.9929 59.8384 13.9929 60.2992V62.5087C13.9929 62.9701 14.3697 63.3476 14.8306 63.3476H17.519C17.9798 63.3476 18.3567 62.9701 18.3567 62.5087V60.2992C18.3567 59.8384 17.9798 59.4609 17.519 59.4609Z"
+                      fill="#FF9F24"
+                      stroke="#FF9F24"
+                      stroke-width="0.789361"
+                      stroke-miterlimit="22.9256"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M25.6057 59.5254H22.9179C22.4564 59.5254 22.0796 59.9022 22.0796 60.3637V62.5731C22.0796 63.0339 22.4564 63.4114 22.9179 63.4114H25.6057C26.0671 63.4114 26.444 63.0339 26.444 62.5731V60.3637C26.444 59.9022 26.0671 59.5254 25.6057 59.5254Z"
+                      fill="#444FD9"
+                      stroke="#444FD9"
+                      stroke-width="0.789361"
+                      stroke-miterlimit="22.9256"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M10.0183 59.4609H7.33045C6.869 59.4609 6.49219 59.8384 6.49219 60.2992V62.5087C6.49219 62.9701 6.869 63.3476 7.33045 63.3476H10.0183C10.4797 63.3476 10.8566 62.9701 10.8566 62.5087V60.2992C10.8566 59.8384 10.4797 59.4609 10.0183 59.4609Z"
+                      fill="#FF9F24"
+                      stroke="#FF9F24"
+                      stroke-width="0.789361"
+                      stroke-miterlimit="22.9256"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M10.0183 49.1973H7.33045C6.869 49.1973 6.49219 49.5741 6.49219 50.0349V52.245C6.49219 52.7058 6.869 53.0833 7.33045 53.0833H10.0183C10.4797 53.0833 10.8566 52.7058 10.8566 52.245V50.0349C10.8566 49.5741 10.4797 49.1973 10.0183 49.1973Z"
+                      fill="#FF9F24"
+                      stroke="#FF9F24"
+                      stroke-width="0.789361"
+                      stroke-miterlimit="22.9256"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M17.519 49.1973H14.8306C14.3697 49.1973 13.9929 49.5741 13.9929 50.0349V52.245C13.9929 52.7058 14.3697 53.0833 14.8306 53.0833H17.519C17.9798 53.0833 18.3567 52.7058 18.3567 52.245V50.0349C18.3567 49.5741 17.9798 49.1973 17.519 49.1973Z"
+                      fill="white"
+                      stroke="white"
+                      stroke-width="0.789361"
+                      stroke-miterlimit="22.9256"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M1 45.1069H39.5132H1ZM8.39642 35.4082H32.1161C36.1846 35.4082 39.5132 38.7368 39.5132 42.8046V62.3054C39.5132 66.3738 36.1846 69.7018 32.1161 69.7018H8.39642C4.32861 69.7018 1 66.3738 1 62.3054V42.8046C1 38.7368 4.32861 35.4082 8.39642 35.4082Z"
+                      stroke="#FF9F24"
+                      stroke-width="0.986858"
+                      stroke-miterlimit="22.9256"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M16.1741 59.0713L17.4863 59.0826C17.9804 59.0863 18.4995 59.3277 18.6908 59.9252C18.7578 60.134 18.7516 60.2807 18.7516 60.4814V61.5704V61.6663C18.7516 61.7184 16.1227 59.0713 16.1741 59.0713Z"
+                      fill="white"
+                    />
+                  </svg>
+                </div>
+                <div class="tariff__name-wr">
+                  <div class="tariff__name">
+                    {{ $t("lp.tariffs.monthly") }}
+                  </div>
+                  <div class="tariff__price">
+                    3 990 ₽
+                  </div>
+                </div>
+              </div>
+              <div class="tariff-plan__text">
+                <span>Купите Ежемесячный тариф</span>
+                <span>Купите Ежемесячный тариф</span>
+                <span>Купите Ежемесячный тариф</span>
+                <span>Купите Ежемесячный тариф</span>
+                <span>Купите Ежемесячный тариф</span>
+              </div>
+              <div class="tariff-plan__btn">
+                {{ $t("buy") }}
+              </div>
+            </div>
+          </slide>
+          <slide>
+            <div class="tariff">
+              <div class="tariff__info">
+                <div class="tariff__pic">
+                  <svg
+                    width="73"
+                    height="82"
+                    viewBox="0 0 73 82"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M45.5616 23.4492H36.1091C24.5029 23.4492 15.0943 32.8579 15.0943 44.4641V53.9165C15.0943 65.5227 24.5029 74.9314 36.1091 74.9314H45.5616C57.1678 74.9314 66.5764 65.5227 66.5764 53.9165V44.4641C66.5764 32.8579 57.1678 23.4492 45.5616 23.4492Z"
+                      fill="#FE5D19"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M35.6871 12.6465C48.621 12.6465 59.0862 23.1328 59.0862 36.0455C59.0862 48.9794 48.621 59.4446 35.6871 59.4446C22.7744 59.4446 12.2881 48.9794 12.2881 36.0455C12.2881 23.1328 22.7744 12.6465 35.6871 12.6465V12.6465Z"
+                      stroke="#FF9F24"
+                      stroke-width="0.991665"
+                      stroke-miterlimit="22.9256"
+                    />
+                    <path
+                      d="M51.1108 17.7318L59.867 10.959"
+                      stroke="#FF9F24"
+                      stroke-width="1.98333"
+                      stroke-miterlimit="22.9256"
+                      stroke-linecap="round"
+                    />
+                    <path
+                      d="M5.57855 52.8408L14.1026 46.2578"
+                      stroke="#FF9F24"
+                      stroke-width="1.98333"
+                      stroke-miterlimit="22.9256"
+                      stroke-linecap="round"
+                    />
+                    <path
+                      d="M34.5266 12.0771L34.0624 1"
+                      stroke="#FF9F24"
+                      stroke-width="1.98333"
+                      stroke-miterlimit="22.9256"
+                      stroke-linecap="round"
+                    />
+                    <path
+                      d="M12.0349 32.67L1 31.6572"
+                      stroke="#FF9F24"
+                      stroke-width="1.98333"
+                      stroke-miterlimit="22.9256"
+                      stroke-linecap="round"
+                    />
+                    <path
+                      d="M19.1874 18.7657L11.4229 10.8535"
+                      stroke="#FF9F24"
+                      stroke-width="1.98333"
+                      stroke-miterlimit="22.9256"
+                      stroke-linecap="round"
+                    />
+                    <path
+                      d="M51.1527 80.523C62.5492 80.523 71.7878 71.2844 71.7878 59.888C71.7878 48.4916 62.5492 39.2529 51.1527 39.2529C39.7563 39.2529 30.5177 48.4916 30.5177 59.888C30.5177 71.2844 39.7563 80.523 51.1527 80.523Z"
+                      stroke="#FF9F24"
+                      stroke-width="0.991665"
+                      stroke-miterlimit="22.9256"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M35.6868 59.4449C47.0382 59.4449 56.4907 51.3639 58.6428 40.6455C56.3219 39.7593 53.79 39.2529 51.1526 39.2529C40.0966 39.2529 31.0661 47.9669 30.5597 58.8752C32.2054 59.255 33.9145 59.4449 35.6868 59.4449Z"
+                      fill="#444FD9"
+                    />
+                  </svg>
+                </div>
+                <div class="tariff__name-wr">
+                  <div class="tariff__name">
+                    {{ $t("lp.tariffs.loan") }}
+                  </div>
+                  <div class="tariff__price">
+                    28 690 ₽
+                  </div>
+                </div>
+              </div>
+              <div class="tariff-plan__text">
+                <span>5 причин купить Годовой тариф</span>
+                <span>5 причин купить Годовой тариф</span>
+                <span>5 причин купить Годовой тариф</span>
+                <span>5 причин купить Годовой тариф</span>
+                <span>5 причин купить Годовой тариф</span>
+              </div>
+              <div class="tariff-plan__btn">
+                {{ $t("buy") }}
+              </div>
+            </div>
+          </slide>
+        </carousel>
       </div>
     </section>
     <section id="10">
@@ -473,18 +770,22 @@
         <div class="bot-menu__logo"></div>
         <div class="bot-menu__menu">
           <b-nav>
-            <b-nav-item v-scroll-to="'#main'">Главная</b-nav-item>
-            <b-nav-item v-scroll-to="'#furniture'">Фурнитура</b-nav-item>
-            <b-nav-item v-scroll-to="'#orders'">Склад</b-nav-item>
-            <b-nav-item v-scroll-to="'#documents'" class="white first"
-              >Документы</b-nav-item
-            >
-            <b-nav-item v-scroll-to="'#tariffs'" class="white second"
-              >Тарифы</b-nav-item
-            >
-            <b-nav-item v-scroll-to="'#contacts'" class="white third"
-              >Контакты</b-nav-item
-            >
+            <b-nav-item v-scroll-to="'#main'">{{ $t("main") }}</b-nav-item>
+            <b-nav-item v-scroll-to="'#furniture'">{{
+              $t("furniture")
+            }}</b-nav-item>
+            <b-nav-item v-scroll-to="'#orders'">{{
+              $t("warehouse")
+            }}</b-nav-item>
+            <b-nav-item v-scroll-to="'#documents'" class="white first">{{
+              $t("documents")
+            }}</b-nav-item>
+            <b-nav-item v-scroll-to="'#tariffs'" class="white second">{{
+              $t("tariffs")
+            }}</b-nav-item>
+            <b-nav-item v-scroll-to="'#contacts'" class="white third">{{
+              $t("contacts")
+            }}</b-nav-item>
           </b-nav>
         </div>
       </div>
@@ -493,13 +794,18 @@
 </template>
 
 <script>
+import Vue from "vue";
 import { mapState } from "vuex";
 import IndexComponentButton from "./components/IndexComponentButton";
 import "./assets/css/index.css";
+import { Slide as sl } from "vue-burger-menu";
+import VueCarousel from "vue-carousel";
+Vue.use(VueCarousel);
 export default {
   name: "IndexComponent",
   components: {
-    "my-button": IndexComponentButton
+    "my-button": IndexComponentButton,
+    sl
   },
   data() {
     return {
@@ -516,7 +822,12 @@ export default {
         projects: 0,
         users: 0,
         firstOpen: true
-      }
+      },
+      currLang:
+        this.$cookies.get("lang") ||
+        navigator.language ||
+        navigator.userLanguage ||
+        "en"
     };
   },
   computed: {
@@ -526,6 +837,7 @@ export default {
   },
   methods: {
     setLang(lang) {
+      this.currLang = lang;
       this.$store.commit("setLang", lang);
     },
     handleScroll() {
@@ -617,6 +929,14 @@ export default {
         this.animateValue(0, 3, 800, "users");
         this.counters.firstOpen = false;
       }
+    },
+    currLang(val) {
+      if(!val) {
+        val = "en";
+      }
+      this.$i18n.locale = val;
+      this.$cookies.set("lang", val);
+      this.$store.commit('setLang', val);
     }
   }
 };

@@ -91,5 +91,44 @@
   "upd_avatar": "Mettre à jour l'avatar",
   "choose_payment": "Choisissez un mode de paiement",
   "thanks": "Merci",
-  "redirect_bank": "Vous allez maintenant être redirigé vers la page de la banque."
+  "redirect_bank": "Vous allez maintenant être redirigé vers la page de la banque.",
+  "main": "Accueil",
+  "tariffs": "Tarifs",
+  "contacts": "Coordonnées",
+  "more_learn": "En savoir plus",
+  "try": "Pour essayer",
+  "lp": {
+    "first": {
+      "title": "Directeur de construction",
+      "text": "Comptabilisation des matériaux, des outils et du temps de travail sur un chantier de construction"
+    },
+    "welcome": {
+      "title": "Seulement ici et seulement maintenant, écoutez!",
+      "text": "Ici, nous vous dirons combien il est important de se tenir à jour et quelle chance vous avez d'avoir créé une si bonne application"
+    },
+    "furniture": {
+      "text": "Le module d'accessoires vous permet de créer de nouveaux noms de biens et matériaux pour votre chantier. Coordonnez-les avec toutes les parties du processus.\n\nVous pouvez inviter des architectes, des clients et d'autres personnes responsables sur le chantier."
+    },
+    "counter": {
+      "companies": "Entreprises de construction avec nous",
+      "projects": "Projets en cours chez Stroy Assist",
+      "users": "Les utilisateurs de trois pays nous font confiance!"
+    },
+    "orders": {
+      "title": "Commandes et entrepôt",
+      "text": "Le module «Commandes et entrepôt» permet aux employés responsables de commander des matériaux de construction directement depuis l'application mobile.\n\n3 clics de doigt et matériaux sont déjà commandés!\n\nLe coursier du magasin ou votre employé peut effectuer la livraison du matériel commandé et le responsable peut suivre ces mouvements."
+    },
+    "documents": {
+      "title": "Documents",
+      "text": "Tous les documents, devis, chèques et plans sont toujours à portée de main grâce au module «Documents».\n\nVous pouvez toujours enregistrer le document dont vous avez besoin et le partager avec un client, un architecte ou une entreprise de construction."
+    },
+    "download": {
+      "text": "Téléchargez notre application mobile, il est plus pratique d'administrer des projets avec elle."
+    },
+    "tariffs": {
+      "title": "Choisissez votre plan tarifaire",
+      "monthly": "Mensuel",
+      "loan": "Annuel"
+    }
+  }
 }

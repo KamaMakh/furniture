@@ -23,5 +23,58 @@ export default {
       no-repeat,
     url("../components/IndexComponent/assets/documents-bg.png") -59px 3908px no-repeat;
   padding: 46px 15px 0;
+  @media all and(max-width: 1149px) {
+    background: url("../components/IndexComponent/assets/bg-1.png") 106% top
+        no-repeat,
+      url("../components/IndexComponent/assets/furniture-bg.png") -56px 1100px no-repeat,
+      url("../components/IndexComponent/assets/orders-bg.png") 106% 2070px
+        no-repeat,
+      url("../components/IndexComponent/assets/documents-bg.png") -59px 2750px no-repeat;
+    -webkit-background-size: 50%;
+    background-size: 50%;
+  }
+  @media all and(max-width: 840px) {
+    background: url("../components/IndexComponent/assets/bg-1.png") 106% top
+        no-repeat,
+      url("../components/IndexComponent/assets/furniture-bg.png") -56px 1100px no-repeat,
+      url("../components/IndexComponent/assets/orders-bg.png") 106% 2000px
+        no-repeat,
+      url("../components/IndexComponent/assets/documents-bg.png") -59px 2620px no-repeat;
+    -webkit-background-size: 50%;
+    background-size: 50%;
+  }
+  @media all and(max-width: 640px) {
+    padding: 20px 15px 0;
+  }
+  @media all and(max-width: 480px) {
+    background: url("../components/IndexComponent/assets/bg-1.png") 106% top
+        no-repeat,
+      url("../components/IndexComponent/assets/furniture-bg.png") -56px 1000px no-repeat,
+      url("../components/IndexComponent/assets/orders-bg.png") 106% 1800px
+        no-repeat,
+      url("../components/IndexComponent/assets/documents-bg.png") -59px 2300px no-repeat;
+    -webkit-background-size: 50%;
+    background-size: 50%;
+  }
+  @media all and(max-width: 400px) {
+    background: url("../components/IndexComponent/assets/bg-1.png") 106% top
+        no-repeat,
+      url("../components/IndexComponent/assets/furniture-bg.png") -56px 1050px no-repeat,
+      url("../components/IndexComponent/assets/orders-bg.png") 106% 1900px
+        no-repeat,
+      url("../components/IndexComponent/assets/documents-bg.png") -59px 2400px no-repeat;
+    -webkit-background-size: 50%;
+    background-size: 50%;
+  }
+  @media all and(max-width: 380px) {
+    background: url("../components/IndexComponent/assets/bg-1.png") 106% top
+        no-repeat,
+      url("../components/IndexComponent/assets/furniture-bg.png") -56px 1000px no-repeat,
+      url("../components/IndexComponent/assets/orders-bg.png") 106% 1870px
+        no-repeat,
+      url("../components/IndexComponent/assets/documents-bg.png") -59px 2400px no-repeat;
+    -webkit-background-size: 50%;
+    background-size: 50%;
+  }
 }
 </style>

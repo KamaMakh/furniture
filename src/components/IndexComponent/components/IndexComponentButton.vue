@@ -1,5 +1,5 @@
 <template>
-  <div class="index-component-button">
+  <div @click="toRegistration" class="index-component-button">
     {{ text }}
   </div>
 </template>
@@ -7,7 +7,12 @@
 <script>
 export default {
   props: ["text"],
-  name: "IndexComponentButton"
+  name: "IndexComponentButton",
+  methods: {
+    toRegistration() {
+      this.$router.push({ name: "Registration" });
+    }
+  }
 };
 </script>
 
@@ -32,6 +37,13 @@ export default {
   font-family: "h-b", serif;
   &:hover {
     opacity: 0.8;
+  }
+  @media all and(max-width: 1149px) {
+    width: 200px;
+    height: 45px;
+  }
+  @media all and(max-width: 640px) {
+    font-size: 15px;
   }
 }
 </style>
