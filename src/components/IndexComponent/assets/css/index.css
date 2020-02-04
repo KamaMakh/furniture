@@ -599,14 +599,16 @@
         display: none; } }
   .index-component .bm-burger-button {
     display: none;
-    position: fixed; }
+    position: fixed;
+    z-index: 999; }
     .index-component .bm-burger-button .bm-burger-bars {
       background: #192057; }
     @media all and (max-width: 1024px) {
       .index-component .bm-burger-button {
         display: block; } }
   .index-component .bm-menu {
-    background: #192057; }
+    background: #192057;
+    z-index: 1000; }
     .index-component .bm-menu .nav {
       display: flex;
       flex-direction: column; }

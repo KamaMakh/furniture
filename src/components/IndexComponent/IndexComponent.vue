@@ -823,6 +823,20 @@ export default {
         users: 0,
         firstOpen: true
       },
+      opts: {
+        start: 0,
+        dir: "v",
+        duration: 100,
+        overflow: scroll,
+        beforeChange: (currentSlideEl, currenIndex, nextIndex) => {
+          this.$emit("on-scroll-block", {
+            el: currentSlideEl,
+            curr: currenIndex,
+            next: nextIndex
+          });
+        },
+        movingFlag: true
+      },
       currLang:
         this.$cookies.get("lang") ||
         navigator.language ||

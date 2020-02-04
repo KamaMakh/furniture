@@ -713,6 +713,7 @@ $hb: "h-b", serif;
   .bm-burger-button {
     display: none;
     position: fixed;
+    z-index: 999;
     .bm-burger-bars {
       background: #192057;
     }
@@ -722,6 +723,7 @@ $hb: "h-b", serif;
   }
   .bm-menu {
     background: #192057;
+    z-index: 1000;
     .nav {
       display: flex;
       flex-direction: column;
