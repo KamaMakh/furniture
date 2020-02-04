@@ -12,6 +12,11 @@ export default {
     })
   },
   mounted() {
+    // eslint-disable-next-line
+    ym(57324937, "hit", "#/planning", {
+      title: "Планинг",
+      referer: document.referrer
+    });
     if (this.modules.indexOf(this.$route.name) < 0) {
       this.$router.push("/settings");
       return;

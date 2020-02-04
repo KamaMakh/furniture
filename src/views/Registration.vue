@@ -335,6 +335,11 @@ export default {
     }
   },
   mounted() {
+    // eslint-disable-next-line
+    ym(57324937, "hit", "#/registration", {
+      title: "Регистрация",
+      referer: document.referrer
+    });
     this.$store.dispatch("user/setCurrencies");
   }
 };

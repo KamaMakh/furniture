@@ -396,6 +396,13 @@ export default {
           this.loading = false;
         });
     }
+  },
+  mounted() {
+    // eslint-disable-next-line
+    ym(57324937, "hit", "#/login", {
+      title: "Авторизация",
+      referer: document.referrer
+    });
   }
 };
 </script>
