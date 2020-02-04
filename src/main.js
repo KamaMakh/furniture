@@ -21,6 +21,7 @@ import Viewer from "v-viewer";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+const VueScrollTo = require("vue-scrollto");
 
 library.add(faPlus);
 
@@ -33,6 +34,9 @@ Vue.use(Meta);
 Vue.use(Notifications);
 Vue.use(VueCookies);
 Vue.use(BootstrapVue);
+Vue.use(VueScrollTo, {
+  duration: 800
+});
 
 Vue.config.productionTip = false;
 

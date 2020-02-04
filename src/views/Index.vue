@@ -16,14 +16,12 @@ export default {
 
 <style scoped lang="scss">
 .index {
-  background: url("../components/IndexComponent/assets/bg-1.png") top right
+  background: url("../components/IndexComponent/assets/bg-1.png") 106% top
       no-repeat,
-    url("../components/IndexComponent/assets/furniture-bg.png") 0 1560px
+    url("../components/IndexComponent/assets/furniture-bg.png") -56px 1479px no-repeat,
+    url("../components/IndexComponent/assets/orders-bg.png") 106% 2959px
       no-repeat,
-    url("../components/IndexComponent/assets/orders-bg.png") right 2955px
-      no-repeat,
-    url("../components/IndexComponent/assets/documents-bg.png") 0 3900px
-      no-repeat;
-  padding: 57px 15px;
+    url("../components/IndexComponent/assets/documents-bg.png") -59px 3908px no-repeat;
+  padding: 46px 15px 0;
 }
 </style>

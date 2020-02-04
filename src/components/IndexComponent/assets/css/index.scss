@@ -1,23 +1,42 @@
 @font-face {
   font-family: "h-r";
-  src: url("../fonts/helvetica/HelveticaRegular/HelveticaRegular.ttf");
+  src: url("../fonts/proxima/ProximaNova-Regular.ttf");
+}
+@font-face {
+  font-family: "h-s";
+  src: url("../fonts/proxima/ProximaNova-Semibold.ttf");
 }
 @font-face {
   font-family: "h-b";
-  src: url("../fonts/helvetica/HelveticaBold/HelveticaBold.ttf");
+  src: url("../fonts/proxima/ProximaNova-Bold.ttf");
 }
 
 $hr: "h-r", serif;
+$hs: "h-s", serif;
 $hb: "h-b", serif;
 
 .index-component {
-  max-width: 1240px;
-  margin: 0 auto;
   font-family: "h-r", serif;
+  section {
+    max-width: 1240px;
+    margin: 0 auto;
+    &:last-child {
+      max-width: none;
+      margin: 0 -15px;
+      background: #F5FAFF;
+      padding: 47px 15px;
+    }
+    &.counter {
+      max-width: none;
+      margin: 0 -15px;
+      padding: 0 15px;
+      background: #444FD9;
+    }
+  }
   .nav-bar {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 170px;
+    margin-bottom: 162px;
     &__flag {
       width: 40px;
       height: 26px;
@@ -29,6 +48,12 @@ $hb: "h-b", serif;
       &.de {
         background: url("../../assets/de-flag.jpg") 0 0 no-repeat;
       }
+      &.en {
+        background: url("../../assets/en-flag.jpg") 0 0 no-repeat;
+      }
+      &.fr {
+        background: url("../../assets/fr-flag.jpg") 0 0 no-repeat;
+      }
     }
     &__lang {
       .dropdown-toggle {
@@ -38,7 +63,7 @@ $hb: "h-b", serif;
         flex-grow: 0;
         padding: 0;
         margin: 0;
-        background: none;
+        background: none !important;
         -webkit-box-shadow: none;
         -moz-box-shadow: none;
         box-shadow: none;
@@ -59,6 +84,7 @@ $hb: "h-b", serif;
           display: flex;
           flex-direction: column;
           align-items: center;
+          outline: none;
         }
         li {
           width: auto;
@@ -68,13 +94,14 @@ $hb: "h-b", serif;
     &__menu {
       .nav {
         .nav-item{
-          padding: 0.5rem 3rem;
+          padding: 0.5rem 45px;
           .nav-link {
             color: #192057;
             font-size: 14px;
             padding: 6px 0;
             position: relative;
             transition: all 0.3s;
+            font-family: $hb;
             &:before {
               width: 24px;
               height: 1px;
@@ -102,6 +129,36 @@ $hb: "h-b", serif;
                 background: #fff;
               }
             }
+            @media all and(min-width: 1370px) {
+              &.first {
+                .nav-link {
+                  color: inherit;
+                  &:before {
+                    background: #192057;
+                  }
+                }
+              }
+            }
+            @media all and(min-width: 1665px) {
+              &.second {
+                .nav-link {
+                  color: inherit;
+                  &:before {
+                    background: #192057;
+                  }
+                }
+              }
+            }
+            @media all and(min-width: 1925px) {
+              &.third {
+                .nav-link {
+                  color: inherit;
+                  &:before {
+                    background: #192057;
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -110,23 +167,25 @@ $hb: "h-b", serif;
   .first-block {
     width: 50%;
     text-align: left;
-    margin-bottom: 320px;
+    margin-bottom: 361px;
     &__title {
       font-size: 107px;
+      line-height: 98%;
       color: #1F1C4B;
       font-family: "h-b", serif;
       text-align: left;
-      margin-bottom: 65px;
+      margin-bottom: 83px;
     }
     &__text {
       font-size: 22px;
       color: #302F4D;
-      margin-bottom: 70px;
+      margin-bottom: 59px;
+      letter-spacing: -0.03em;
     }
   }
   .welcome {
     max-width: 50%;
-    margin: 0 auto 285px;
+    margin: 0 auto 271px;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -135,32 +194,34 @@ $hb: "h-b", serif;
       text-align: center;
       letter-spacing: -0.03em;
       color: #383660;
+      font-family: $hs;
     }
     &__text {
       font-size: 18px;
       color: #383660;
       text-align: center;
-      margin-top: 10px;
+      margin-top: 31px;
     }
-    &:after {
+    .plane-container {
       position: absolute;
       content: "";
       display: block;
       width: 188px;
       height: 166px;
-      background: url("../plane.png") 0 0 no-repeat;
-      -webkit-background-size: contain;
-      background-size: contain;
-      right: -200px;
-      top: 20px;
+      right: -216px;
+      top: 36px;
+      svg {
+        max-width: 100%;
+        max-height: 100%;
+      }
     }
   }
   .furniture {
     display: flex;
     flex-direction: column;
-    max-width: 480px;
+    max-width: 505px;
     margin-left: auto;
-    margin-bottom: 540px;
+    margin-bottom: 563px;
     text-align: left;
     &__title {
       font-size: 48px;
@@ -171,16 +232,17 @@ $hb: "h-b", serif;
     &__text {
       font-size: 19px;
       color: #1F1C4B;
-      margin-bottom: 65px;
+      margin-bottom: 57px;
+      line-height: 23px;
     }
   }
   .counter-block {
+    max-width: 1420px;
+    margin: 0 auto;
     display: flex;
     justify-content: space-between;
+    padding: 74px 34px;
     align-items: center;
-    padding: 100px;
-    background: #444FD9;
-    margin-bottom: 270px;
     &__item {
       display: flex;
       flex-direction: column;
@@ -191,6 +253,7 @@ $hb: "h-b", serif;
       font-size: 48px;
       color: #fff;
       margin-bottom: 30px;
+      font-family: $hs;
     }
     &__text {
       font-size: 30px;
@@ -201,6 +264,7 @@ $hb: "h-b", serif;
     display: flex;
     flex-direction: column;
     max-width: 480px;
+    margin-top: 250px;
     margin-right: auto;
     margin-bottom: 510px;
     text-align: left;
@@ -212,15 +276,16 @@ $hb: "h-b", serif;
     &__text {
       font-size: 19px;
       color: #1F1C4B;
-      margin-bottom: 65px;
+      margin-bottom: 58px;
+      line-height: 23px;
     }
   }
   .documents {
     display: flex;
     flex-direction: column;
-    max-width: 480px;
+    max-width: 505px;
     margin-left: auto;
-    margin-bottom: 516px;
+    margin-bottom: 512px;
     text-align: left;
     &__title {
       font-size: 48px;
@@ -231,7 +296,8 @@ $hb: "h-b", serif;
     &__text {
       font-size: 20px;
       color: #1F1C4B;
-      margin-bottom: 65px;
+      margin-bottom: 57px;
+      line-height: 24px;
     }
   }
   .download {
@@ -243,11 +309,13 @@ $hb: "h-b", serif;
     background: url("../download-bg.jpg") calc(100% + 2px) 0 no-repeat;
     -webkit-background-size: contain;
     background-size: contain;
+    margin-bottom: 155px;
     &__text {
       font-size: 30px;
       color: #1F1C4B;
-      margin-bottom: 30px;
+      margin-bottom: 42px;
       max-width: 60%;
+      line-height: 37px;
     }
     &__btn {
       width: 176px;
@@ -256,6 +324,125 @@ $hb: "h-b", serif;
       -webkit-background-size: contain;
       background-size: contain;
       cursor: pointer;
+    }
+  }
+  .tariff-plan {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 175px;
+    &__title {
+      font-size: 36px;
+      color: #1F1C4B;
+      font-family: $hb;
+      padding-bottom: 12px;
+      position: relative;
+      margin-bottom: 148px;
+      &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: auto;
+        left: 0;
+        bottom: 0;
+        height: 3px;
+        width: 54px;
+        background: #1F1C4B;
+      }
+    }
+    &__list {
+      display: flex;
+      justify-content: space-around;
+      .tariff {
+        display: flex;
+        flex-direction: column;
+        background: #FFFFFF;
+        box-shadow: 0px 10px 20px #EEF1F4;
+        width: 414px;
+        padding: 55px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        &__info {
+          display: flex;
+          align-items: center;
+          margin-bottom: 47px;
+          min-height: 82px;
+        }
+        &__pic {
+          margin-right: 40px;
+        }
+        &__name-wr {
+          display: flex;
+          flex-direction: column;
+        }
+        &__name {
+          font-size: 20px;
+          color: #201D4C;
+          font-family: $hb;
+          margin-bottom: 5px;
+        }
+        &__price {
+          font-size: 23px;
+          color: #201D4C;
+          font-family: $hb;
+        }
+      }
+    }
+    &__text {
+      color: #201D4C;
+      font-size: 20px;
+      margin-bottom: 28px;
+      span {
+        display: block;
+        margin-bottom: 26px;
+        line-height: 24px;
+      }
+    }
+    &__btn {
+      font-size: 17px;
+      font-family: $hb;
+      color: #FE5D19;
+      border: 2px solid #FE5D19;
+      box-sizing: border-box;
+      border-radius: 45px;
+      width: 160px;
+      height: 55px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: 0.4s;
+      &:hover {
+        background: #FE5D19;
+        color: #fff;
+      }
+    }
+  }
+  .bot-menu {
+    max-width: 1240px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 37px 0 0 0;
+    border-top: 2px solid #E7EDF3;
+    &__logo {
+      width: 74px;
+      height: 48px;
+      -webkit-background-size: contain;
+      background-size: contain;
+      background: url("../bot-logo.png") 0 0 no-repeat;
+    }
+    &__menu {
+      .nav-item {
+        .nav-link {
+          font-size: 18px;
+          color: #192057;
+          font-family: $hs;
+          padding: 0.5rem 19px;
+        }
+      }
     }
   }
 }
