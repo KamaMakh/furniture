@@ -11,6 +11,7 @@ import Settings from "../views/Settings";
 import Documents from "../views/Documents";
 import Planning from "../views/Planning";
 import Users from "../views/Users";
+import Index from "../views/Index";
 
 Vue.use(VueRouter);
 
@@ -78,6 +79,11 @@ const routes = [
         component: Registration
       }
     ]
+  },
+  {
+    path: "/index",
+    name: "Index",
+    component: Index
   }
 ];
 

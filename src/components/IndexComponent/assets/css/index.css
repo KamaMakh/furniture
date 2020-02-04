@@ -1,0 +1,350 @@
+@font-face {
+  font-family: "h-r";
+  src: url("../fonts/proxima/ProximaNova-Regular.ttf"); }
+@font-face {
+  font-family: "h-s";
+  src: url("../fonts/proxima/ProximaNova-Semibold.ttf"); }
+@font-face {
+  font-family: "h-b";
+  src: url("../fonts/proxima/ProximaNova-Bold.ttf"); }
+.index-component {
+  font-family: "h-r", serif; }
+  .index-component section {
+    max-width: 1240px;
+    margin: 0 auto; }
+    .index-component section:last-child {
+      max-width: none;
+      margin: 0 -15px;
+      background: #F5FAFF;
+      padding: 47px 15px; }
+    .index-component section.counter {
+      max-width: none;
+      margin: 0 -15px;
+      padding: 0 15px;
+      background: #444FD9; }
+  .index-component .nav-bar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 162px; }
+    .index-component .nav-bar__flag {
+      width: 40px;
+      height: 26px;
+      -webkit-background-size: contain;
+      background-size: contain; }
+      .index-component .nav-bar__flag.ru {
+        background: url("../../assets/ru-flag.jpg") 0 0 no-repeat; }
+      .index-component .nav-bar__flag.de {
+        background: url("../../assets/de-flag.jpg") 0 0 no-repeat; }
+      .index-component .nav-bar__flag.en {
+        background: url("../../assets/en-flag.jpg") 0 0 no-repeat; }
+      .index-component .nav-bar__flag.fr {
+        background: url("../../assets/fr-flag.jpg") 0 0 no-repeat; }
+    .index-component .nav-bar__lang .dropdown-toggle {
+      width: 40px;
+      height: 26px;
+      min-width: 0;
+      flex-grow: 0;
+      padding: 0;
+      margin: 0;
+      background: none !important;
+      -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+      box-shadow: none;
+      border: none; }
+    .index-component .nav-bar__lang .dropdown-item {
+      padding: 0;
+      margin: 3px 0;
+      width: 40px;
+      height: 26px;
+      min-width: 0; }
+    .index-component .nav-bar__lang .dropdown-menu.show {
+      min-width: 0;
+      width: 44px;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      outline: none; }
+    .index-component .nav-bar__lang .dropdown-menu li {
+      width: auto; }
+    .index-component .nav-bar__menu .nav .nav-item {
+      padding: 0.5rem 45px; }
+      .index-component .nav-bar__menu .nav .nav-item .nav-link {
+        color: #192057;
+        font-size: 14px;
+        padding: 6px 0;
+        position: relative;
+        transition: all 0.3s;
+        font-family: "h-b", serif; }
+        .index-component .nav-bar__menu .nav .nav-item .nav-link:before {
+          width: 24px;
+          height: 1px;
+          background: #192057;
+          position: absolute;
+          content: "";
+          display: block;
+          top: auto;
+          bottom: -100%;
+          left: 0;
+          opacity: 0;
+          transition: 0.3s; }
+        .index-component .nav-bar__menu .nav .nav-item .nav-link.active:before, .index-component .nav-bar__menu .nav .nav-item .nav-link:hover:before {
+          opacity: 1;
+          bottom: 0; }
+      .index-component .nav-bar__menu .nav .nav-item.white .nav-link {
+        color: #fff; }
+        .index-component .nav-bar__menu .nav .nav-item.white .nav-link:before {
+          background: #fff; }
+      @media all and (min-width: 1370px) {
+        .index-component .nav-bar__menu .nav .nav-item.white.first .nav-link {
+          color: inherit; }
+          .index-component .nav-bar__menu .nav .nav-item.white.first .nav-link:before {
+            background: #192057; } }
+      @media all and (min-width: 1665px) {
+        .index-component .nav-bar__menu .nav .nav-item.white.second .nav-link {
+          color: inherit; }
+          .index-component .nav-bar__menu .nav .nav-item.white.second .nav-link:before {
+            background: #192057; } }
+      @media all and (min-width: 1925px) {
+        .index-component .nav-bar__menu .nav .nav-item.white.third .nav-link {
+          color: inherit; }
+          .index-component .nav-bar__menu .nav .nav-item.white.third .nav-link:before {
+            background: #192057; } }
+  .index-component .first-block {
+    width: 50%;
+    text-align: left;
+    margin-bottom: 361px; }
+    .index-component .first-block__title {
+      font-size: 107px;
+      line-height: 98%;
+      color: #1F1C4B;
+      font-family: "h-b", serif;
+      text-align: left;
+      margin-bottom: 83px; }
+    .index-component .first-block__text {
+      font-size: 22px;
+      color: #302F4D;
+      margin-bottom: 59px;
+      letter-spacing: -0.03em; }
+  .index-component .welcome {
+    max-width: 50%;
+    margin: 0 auto 271px;
+    position: relative;
+    display: flex;
+    flex-direction: column; }
+    .index-component .welcome__title {
+      font-size: 33px;
+      text-align: center;
+      letter-spacing: -0.03em;
+      color: #383660;
+      font-family: "h-s", serif; }
+    .index-component .welcome__text {
+      font-size: 18px;
+      color: #383660;
+      text-align: center;
+      margin-top: 31px; }
+    .index-component .welcome .plane-container {
+      position: absolute;
+      content: "";
+      display: block;
+      width: 188px;
+      height: 166px;
+      right: -216px;
+      top: 36px; }
+      .index-component .welcome .plane-container svg {
+        max-width: 100%;
+        max-height: 100%; }
+  .index-component .furniture {
+    display: flex;
+    flex-direction: column;
+    max-width: 505px;
+    margin-left: auto;
+    margin-bottom: 563px;
+    text-align: left; }
+    .index-component .furniture__title {
+      font-size: 48px;
+      color: #1F1C4B;
+      font-family: "h-b", serif;
+      margin-bottom: 40px; }
+    .index-component .furniture__text {
+      font-size: 19px;
+      color: #1F1C4B;
+      margin-bottom: 57px;
+      line-height: 23px; }
+  .index-component .counter-block {
+    max-width: 1420px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    padding: 74px 34px;
+    align-items: center; }
+    .index-component .counter-block__item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 30%; }
+    .index-component .counter-block__title {
+      font-size: 48px;
+      color: #fff;
+      margin-bottom: 30px;
+      font-family: "h-s", serif; }
+    .index-component .counter-block__text {
+      font-size: 30px;
+      color: #fff; }
+  .index-component .orders {
+    display: flex;
+    flex-direction: column;
+    max-width: 480px;
+    margin-top: 250px;
+    margin-right: auto;
+    margin-bottom: 510px;
+    text-align: left; }
+    .index-component .orders__title {
+      font-size: 48px;
+      color: #1F1C4B;
+      margin-bottom: 40px; }
+    .index-component .orders__text {
+      font-size: 19px;
+      color: #1F1C4B;
+      margin-bottom: 58px;
+      line-height: 23px; }
+  .index-component .documents {
+    display: flex;
+    flex-direction: column;
+    max-width: 505px;
+    margin-left: auto;
+    margin-bottom: 512px;
+    text-align: left; }
+    .index-component .documents__title {
+      font-size: 48px;
+      color: #1F1C4B;
+      font-family: "h-b", serif;
+      margin-bottom: 40px; }
+    .index-component .documents__text {
+      font-size: 20px;
+      color: #1F1C4B;
+      margin-bottom: 57px;
+      line-height: 24px; }
+  .index-component .download {
+    border: 1px solid #7C84E4;
+    box-sizing: border-box;
+    border-radius: 60px;
+    padding: 58px 70px;
+    text-align: left;
+    background: url("../download-bg.jpg") calc(100% + 2px) 0 no-repeat;
+    -webkit-background-size: contain;
+    background-size: contain;
+    margin-bottom: 155px; }
+    .index-component .download__text {
+      font-size: 30px;
+      color: #1F1C4B;
+      margin-bottom: 42px;
+      max-width: 60%;
+      line-height: 37px; }
+    .index-component .download__btn {
+      width: 176px;
+      height: 57px;
+      background: url("../google-play.png") 0 0 no-repeat;
+      -webkit-background-size: contain;
+      background-size: contain;
+      cursor: pointer; }
+  .index-component .tariff-plan {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 175px; }
+    .index-component .tariff-plan__title {
+      font-size: 36px;
+      color: #1F1C4B;
+      font-family: "h-b", serif;
+      padding-bottom: 12px;
+      position: relative;
+      margin-bottom: 148px; }
+      .index-component .tariff-plan__title:before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: auto;
+        left: 0;
+        bottom: 0;
+        height: 3px;
+        width: 54px;
+        background: #1F1C4B; }
+    .index-component .tariff-plan__list {
+      display: flex;
+      justify-content: space-around; }
+      .index-component .tariff-plan__list .tariff {
+        display: flex;
+        flex-direction: column;
+        background: #FFFFFF;
+        box-shadow: 0px 10px 20px #EEF1F4;
+        width: 414px;
+        padding: 55px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box; }
+        .index-component .tariff-plan__list .tariff__info {
+          display: flex;
+          align-items: center;
+          margin-bottom: 47px;
+          min-height: 82px; }
+        .index-component .tariff-plan__list .tariff__pic {
+          margin-right: 40px; }
+        .index-component .tariff-plan__list .tariff__name-wr {
+          display: flex;
+          flex-direction: column; }
+        .index-component .tariff-plan__list .tariff__name {
+          font-size: 20px;
+          color: #201D4C;
+          font-family: "h-b", serif;
+          margin-bottom: 5px; }
+        .index-component .tariff-plan__list .tariff__price {
+          font-size: 23px;
+          color: #201D4C;
+          font-family: "h-b", serif; }
+    .index-component .tariff-plan__text {
+      color: #201D4C;
+      font-size: 20px;
+      margin-bottom: 28px; }
+      .index-component .tariff-plan__text span {
+        display: block;
+        margin-bottom: 26px;
+        line-height: 24px; }
+    .index-component .tariff-plan__btn {
+      font-size: 17px;
+      font-family: "h-b", serif;
+      color: #FE5D19;
+      border: 2px solid #FE5D19;
+      box-sizing: border-box;
+      border-radius: 45px;
+      width: 160px;
+      height: 55px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: 0.4s; }
+      .index-component .tariff-plan__btn:hover {
+        background: #FE5D19;
+        color: #fff; }
+  .index-component .bot-menu {
+    max-width: 1240px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 37px 0 0 0;
+    border-top: 2px solid #E7EDF3; }
+    .index-component .bot-menu__logo {
+      width: 74px;
+      height: 48px;
+      -webkit-background-size: contain;
+      background-size: contain;
+      background: url("../bot-logo.png") 0 0 no-repeat; }
+    .index-component .bot-menu__menu .nav-item .nav-link {
+      font-size: 18px;
+      color: #192057;
+      font-family: "h-s", serif;
+      padding: 0.5rem 19px; }
+
+/*# sourceMappingURL=index.css.map */

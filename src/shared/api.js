@@ -1,7 +1,7 @@
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 let axios = require("axios");
 const https = require("https");
-/*eslint-disable*/
+
 import router from "./../router";
 import VueCookies from "vue-cookies";
 
@@ -14,26 +14,36 @@ let axiosInstance = axios.create({
     "Content-type": "application/json"
   },
 
-  transformRequest: [(data, headers) => {
-    headers["Accept-Language"] = VueCookies.get("lang") || "en";
-    if (VueCookies.get("token")) {
-      headers["Authorization"] = "Bearer " + VueCookies.get("token")
-    }
-    if (typeof data === "string") {
-      try {
-        data = JSON.parse(data);
-      } catch (e) { /* Ignore */ }
-    }
-    return data;
-  }, ...axios.defaults.transformRequest],
+  transformRequest: [
+    (data, headers) => {
+      headers["Accept-Language"] = VueCookies.get("lang") || "en";
+      if (VueCookies.get("token")) {
+        headers["Authorization"] = "Bearer " + VueCookies.get("token");
+      }
+      if (typeof data === "string") {
+        try {
+          data = JSON.parse(data);
+        } catch (e) {
+          /* Ignore */
+        }
+      }
+      return data;
+    },
+    ...axios.defaults.transformRequest
+  ],
   validateStatus: function(status) {
-    if (status === 401 && !document.location.pathname.includes("auth/")) {
+    if (
+      status === 401 &&
+      !document.location.pathname.includes("auth/") &&
+      !document.location.pathname.includes("index")
+    ) {
       VueCookies.remove("token");
       router.push("/auth");
-    } else if(
+    } else if (
       VueCookies.get("token") &&
-      ( document.location.pathname.includes("auth") ||
-      document.location.pathname.includes("register") )) {
+      (document.location.pathname.includes("auth") ||
+        document.location.pathname.includes("register"))
+    ) {
       router.push("/furniture");
     } else {
       return true;
