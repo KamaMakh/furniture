@@ -41,8 +41,8 @@ Vue.use(VueScrollTo, {
 Vue.config.productionTip = false;
 
 router.beforeEach(async function(to, from, next) {
-  if (["Registration", "Login"].indexOf(to.name) > -1) {
-    if (VueCookies.get("token")) {
+  if (["Registration", "Login", "Index"].indexOf(to.name) > -1) {
+    if (VueCookies.get("token") && to.name !== "Index") {
       router.push({ name: "Furniture" });
     } else {
       next();
