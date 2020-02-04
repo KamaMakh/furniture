@@ -9,6 +9,7 @@ module.exports = {
       enableInSFC: true
     }
   },
+  lintOnSave: true,
   devServer: {
     // port: 8080, // CHANGE YOUR PORT HERE!
     // https: false,
