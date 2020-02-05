@@ -253,7 +253,21 @@
     @media all and (max-width: 480px) {
       .index-component .furniture {
         max-width: none;
-        margin-bottom: 165px; } }
+        padding-bottom: 175px;
+        margin-bottom: 0;
+        position: relative; }
+        .index-component .furniture:after {
+          content: "";
+          display: block;
+          position: absolute;
+          width: 200px;
+          height: 170px;
+          top: auto;
+          left: -15px;
+          bottom: 0;
+          background: url("../furniture-bg.png") 0 0 no-repeat;
+          -webkit-background-size: contain;
+          background-size: contain; } }
     .index-component .furniture__title {
       font-size: 48px;
       color: #1F1C4B;
@@ -352,8 +366,23 @@
     @media all and (max-width: 480px) {
       .index-component .orders {
         margin-top: 70px;
-        margin-bottom: 160px;
-        max-width: none; } }
+        padding-bottom: 160px;
+        margin-bottom: 0;
+        max-width: none;
+        position: relative; }
+        .index-component .orders:after {
+          content: "";
+          display: block;
+          position: absolute;
+          width: 180px;
+          height: 150px;
+          top: auto;
+          left: auto;
+          right: -15px;
+          bottom: 10px;
+          background: url("../orders-bg.png") 0 0 no-repeat;
+          -webkit-background-size: contain;
+          background-size: contain; } }
     .index-component .orders__title {
       font-size: 48px;
       color: #1F1C4B;
@@ -392,7 +421,21 @@
     @media all and (max-width: 480px) {
       .index-component .documents {
         max-width: none;
-        margin-bottom: 200px; } }
+        margin-bottom: 0;
+        padding-bottom: 200px;
+        position: relative; }
+        .index-component .documents:after {
+          content: "";
+          display: block;
+          position: absolute;
+          width: 190px;
+          height: 160px;
+          top: auto;
+          left: -15px;
+          bottom: 20px;
+          background: url("../documents-bg.png") 0 0 no-repeat;
+          -webkit-background-size: contain;
+          background-size: contain; } }
     .index-component .documents__title {
       font-size: 48px;
       color: #1F1C4B;
