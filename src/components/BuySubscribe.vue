@@ -46,7 +46,9 @@
                 cols="3"
                 class="d-flex justify-content-end align-items-center"
               >
-                <div class="list-item__price">${{ subscribe.priceYear }}</div>
+                <div class="list-item__price">
+                  {{ user.currency.symbol }}{{ subscribe.priceYear }}
+                </div>
               </b-col>
             </b-row>
           </div>
@@ -80,7 +82,9 @@
                 cols="3"
                 class="d-flex justify-content-end align-items-center"
               >
-                <div class="list-item__price">${{ subscribe.priceMonth }}</div>
+                <div class="list-item__price">
+                  {{ user.currency.symbol }}{{ subscribe.priceMonth }}
+                </div>
               </b-col>
             </b-row>
           </div>
@@ -97,7 +101,9 @@
                 cols="6"
                 class="d-flex justify-content-end align-items-center"
               >
-                <div class="total-price">${{ total }}</div>
+                <div class="total-price">
+                  {{ user.currency.symbol }}{{ total }}
+                </div>
               </b-col>
             </b-row>
           </div>
@@ -122,7 +128,9 @@
               cols="4"
               class="d-flex justify-content-end align-items-start"
             >
-              <div class="subscribe__price">${{ total }}</div>
+              <div class="subscribe__price">
+                {{ user.currency.symbol }}{{ total }}
+              </div>
             </b-col>
           </b-row>
           <b-row class="price-block" :class="{ shown: cardsAnimate }">
@@ -135,7 +143,9 @@
               cols="6"
               class="d-flex justify-content-end align-items-center"
             >
-              <div class="total__price">${{ total }}</div>
+              <div class="total__price">
+                {{ user.currency.symbol }}{{ total }}
+              </div>
             </b-col>
           </b-row>
         </div>
@@ -153,7 +163,9 @@
               cols="6"
               class="d-flex justify-content-end align-items-center"
             >
-              <div class="total__price">${{ total }}</div>
+              <div class="total__price">
+                {{ user.currency.symbol }}{{ total }}
+              </div>
             </b-col>
           </b-row>
         </b-col>
@@ -193,7 +205,7 @@
               v-for="(card, key) in cards"
               :key="key"
               class="cards__card"
-              @click="step = 3"
+              @click="formPage"
             >
               <span v-html="card.img"></span>
             </div>
@@ -414,6 +426,11 @@ export default {
         this.getOrderInfo();
         this.step = 2;
       }
+    },
+    formPage() {
+      this.step = 3;
+      this.form["name"] = this.user.name;
+      this.form["email"] = this.user.email;
     },
     submitTinkoff() {
       this.step = 4;
@@ -850,7 +867,7 @@ export default {
         }
       }
       .price-block {
-        padding-left: 30px;
+        padding-left: 20px;
         width: 100%;
         margin-bottom: -30px;
         &.shown {
