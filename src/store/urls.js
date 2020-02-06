@@ -27,6 +27,7 @@ const getSubscribesListUrl = `${serverUrl}/api/payment/price/get`;
 const createOrderUrl = `${serverUrl}/api/payment/tinkoff/order/create`;
 const uploadAvatarUrl = `${serverUrl}/api/user/profile/avatar/update`;
 const inviteUserUrl = `${serverUrl}/api/furniture/project/invite`;
+const buyNomenclatureUrl = `${serverUrl}/api/furniture/nomenclature/status/buy`;
 
 export {
   serverUrl,
@@ -54,5 +55,6 @@ export {
   getSubscribesListUrl,
   createOrderUrl,
   uploadAvatarUrl,
-  inviteUserUrl
+  inviteUserUrl,
+  buyNomenclatureUrl
 };

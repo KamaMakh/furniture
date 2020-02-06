@@ -60,38 +60,11 @@
           >
             <span
               v-if="item.creatorId === user.id"
-              @click.stop="showRemoveModal(item)"
-              class="icon-delete"
-            >
-              <svg
-                version="1.1"
-                id="IconsRepoEditor"
-                xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-                x="0px"
-                y="0px"
-                viewBox="0 0 60.167 60.167"
-                style="enable-background:new 0 0 60.167 60.167;"
-                xml:space="preserve"
-                width="18px"
-                height="18px"
-                fill="#999"
-                stroke="#999"
-                stroke-width="2px"
-              >
-                <g id="IconsRepo_bgCarrier"></g>
-                <path
-                  d="M54.5,11.667H39.88V3.91c0-2.156-1.754-3.91-3.91-3.91H24.196c-2.156,0-3.91,1.754-3.91,3.91v7.756H5.667 c-0.552,0-1,0.448-1,1s0.448,1,1,1h2.042v40.5c0,3.309,2.691,6,6,6h32.75c3.309,0,6-2.691,6-6v-40.5H54.5c0.552,0,1-0.448,1-1 S55.052,11.667,54.5,11.667z M22.286,3.91c0-1.053,0.857-1.91,1.91-1.91H35.97c1.053,0,1.91,0.857,1.91,1.91v7.756H22.286V3.91z M50.458,54.167c0,2.206-1.794,4-4,4h-32.75c-2.206,0-4-1.794-4-4v-40.5h40.75V54.167z M38.255,46.153V22.847c0-0.552,0.448-1,1-1 s1,0.448,1,1v23.306c0,0.552-0.448,1-1,1S38.255,46.706,38.255,46.153z M29.083,46.153V22.847c0-0.552,0.448-1,1-1s1,0.448,1,1 v23.306c0,0.552-0.448,1-1,1S29.083,46.706,29.083,46.153z M19.911,46.153V22.847c0-0.552,0.448-1,1-1s1,0.448,1,1v23.306 c0,0.552-0.448,1-1,1S19.911,46.706,19.911,46.153z"
-                ></path>
-              </svg>
-            </span>
-            <span
-              v-if="item.creatorId === user.id"
               @click.stop="editConstruction(item)"
               class="icon"
             ></span>
-            {{ item.name }}</a
-          >
+            {{ item.name }}
+          </a>
         </li>
       </ul>
     </div>
@@ -103,7 +76,6 @@
               <div class="modal-content">
                 <div class="modal-body">
                   <form @submit="addConstruction">
-                    <!--<div class="form-group">-->
                     <b-form-group
                       id="input-group-1"
                       :label="$t('address')"
@@ -117,9 +89,6 @@
                         required
                       ></b-form-input>
                     </b-form-group>
-                    <!--<input type="text" class="form-control" v-model="newConstruction.address" :placeholder="$t('address')">-->
-                    <!--</div>-->
-                    <!--<div class="form-group">-->
                     <b-form-group
                       id="input-group-2"
                       :label="$t('construct_name')"
@@ -133,9 +102,6 @@
                         required
                       ></b-form-input>
                     </b-form-group>
-                    <!--<input type="text" class="form-control" v-model="newConstruction.name" :placeholder="$t('construct_name')">-->
-                    <!--</div>-->
-                    <!--<div class="form-group">-->
                     <b-form-group
                       id="input-group-3"
                       :label="$t('nds')"
@@ -149,8 +115,6 @@
                         required
                       ></b-form-input>
                     </b-form-group>
-                    <!--<input type="number" step="any" class="form-control" v-model="newConstruction.nds" :placeholder="$t('nds')">-->
-                    <!--</div>-->
                   </form>
                 </div>
                 <div v-if="!loading" class="modal-footer">
@@ -191,6 +155,288 @@
     >
       <BuySubscribe @hideModal="hideSubscribeModal" />
     </b-modal>
+    <b-modal
+      v-model="showEditModal"
+      dialog-class="subscribe-modal"
+      body-class="subscribe-modal"
+      hide-footer
+      hide-header
+      centered
+    >
+      <div class="edit-construction">
+        <div class="edit-construction__left">
+          <b-col cols="12" md="4" class="edit-construction__info">
+            <div class="info-title">
+              {{ newConstruction.name }}
+            </div>
+            <b-row width="100%">
+              <b-col cols="12" class="align-items-center">
+                <b-button
+                  class="edit-construction__remove"
+                  @click="showRemoveModal(newConstruction)"
+                >
+                  {{ $t("delete") }}
+                </b-button>
+              </b-col>
+            </b-row>
+          </b-col>
+        </div>
+        <div class="edit-construction__right">
+          <b-col cols="12" class="edit-construction__cards cards p-0">
+            <div
+              class="cards__close"
+              @click="
+                showEditModal = false;
+                invitedUser = {};
+              "
+            >
+              <svg
+                width="33"
+                height="33"
+                viewBox="0 0 33 33"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M-6.10352e-05 31.8198L31.8197 1.69125e-05L32.5269 0.707124L0.707046 32.5269L-6.10352e-05 31.8198Z"
+                  fill="#E0E0E0"
+                />
+                <path
+                  d="M0.707031 0L32.5268 31.8198L31.8197 32.5269L-7.55191e-05 0.707107L0.707031 0Z"
+                  fill="#E0E0E0"
+                />
+              </svg>
+            </div>
+            <b-form @submit.prevent="addConstruction">
+              <b-form-group
+                id="input-group-1"
+                :label="$t('address')"
+                label-for="input-1"
+              >
+                <b-form-input
+                  id="input-1"
+                  v-model="newConstruction.address"
+                  :placeholder="$t('address')"
+                  type="text"
+                  required
+                ></b-form-input>
+              </b-form-group>
+              <b-form-group
+                id="input-group-2"
+                :label="$t('construct_name')"
+                label-for="input-2"
+              >
+                <b-form-input
+                  id="input-2"
+                  v-model="newConstruction.name"
+                  :placeholder="$t('construct_name')"
+                  type="text"
+                  required
+                ></b-form-input>
+              </b-form-group>
+              <b-form-group
+                id="input-group-3"
+                :label="$t('nds')"
+                label-for="input-3"
+              >
+                <b-form-input
+                  id="input-3"
+                  v-model="newConstruction.nds"
+                  :placeholder="$t('nds')"
+                  type="number"
+                  required
+                ></b-form-input>
+              </b-form-group>
+
+              <b-row class="mb-2 align-items-end">
+                <b-col cols="8" class="p-0 mr-0 mb-0">
+                  <b-form-group
+                    id="input-group-4"
+                    class="m-0"
+                    :label="$t('inviteUser')"
+                    label-for="input-4"
+                  >
+                    <b-form-input
+                      id="input-4"
+                      :placeholder="$t('email')"
+                      value="invited@mail.ru"
+                      type="text"
+                      class="form-control m-0"
+                      disabled
+                    ></b-form-input>
+                  </b-form-group>
+                </b-col>
+                <b-col class="p-0 mt-2 mt-sm-0" cols="4">
+                  <b-button
+                    squared
+                    :disabled="true"
+                    class="submit-btn mt-0 invite-btn"
+                    style="pointer-events: none; background: none;"
+                  >
+                    {{ $t("invited") }}
+                  </b-button>
+                </b-col>
+              </b-row>
+
+              <b-row class="mb-2 align-items-end">
+                <b-col cols="8" class="p-0 mr-0 mb-0">
+                  <b-form-group
+                    id="input-group-4"
+                    class="m-0"
+                    :label="$t('inviteUser')"
+                    label-for="input-4"
+                  >
+                    <b-form-input
+                      id="input-4"
+                      :placeholder="$t('email')"
+                      value="invited@mail.ru"
+                      type="text"
+                      class="form-control m-0"
+                      disabled
+                    ></b-form-input>
+                  </b-form-group>
+                </b-col>
+                <b-col class="p-0 mt-2 mt-sm-0" cols="4">
+                  <b-button
+                    squared
+                    :disabled="true"
+                    class="submit-btn mt-0 invite-btn"
+                    style="pointer-events: none; background: none;"
+                  >
+                    {{ $t("attached") }}
+                  </b-button>
+                </b-col>
+              </b-row>
+
+              <b-row class="mb-2 align-items-end">
+                <b-col cols="8" class="p-0 mr-1 mb-0">
+                  <b-form-group
+                    id="input-group-4"
+                    class="m-0"
+                    :label="$t('inviteUser')"
+                    label-for="input-4"
+                  >
+                    <b-form-input
+                      id="input-4"
+                      v-model="invitedUser.email"
+                      :placeholder="$t('email')"
+                      type="text"
+                      class="form-control m-0"
+                    ></b-form-input>
+                  </b-form-group>
+                </b-col>
+                <b-col class="p-0">
+                  <b-button
+                    squared
+                    :disabled="!invitedUser.email"
+                    class="submit-btn mt-0 invite-btn"
+                    @click="showInviteModal = true"
+                  >
+                    {{ $t("invite") }}
+                  </b-button>
+                </b-col>
+              </b-row>
+
+              <b-button
+                v-if="!loading"
+                type="submit"
+                squared
+                class="submit-btn"
+              >
+                {{ $t("save") }}
+              </b-button>
+              <button v-else type="button" squared class="submit-btn">
+                <b-spinner small></b-spinner>
+              </button>
+            </b-form>
+          </b-col>
+        </div>
+      </div>
+    </b-modal>
+
+    <b-modal
+      v-model="showInviteModal"
+      hide-footer
+      :title="$t('inviteUser')"
+      modal-class="invite-modal"
+      centered
+    >
+      <b-form-group id="input-group-3" :label="$t('name')" label-for="input-3">
+        <b-form-input
+          id="input-3"
+          v-model="invitedUser.name"
+          :placeholder="$t('name')"
+          type="text"
+          required
+          class="form-control"
+          :class="{
+            'is-danger': !invitedUser.name && showFormErrors
+          }"
+        ></b-form-input>
+      </b-form-group>
+      <b-form-group
+        id="input-group-333"
+        :label="$t('email')"
+        label-for="input-333"
+      >
+        <b-form-input
+          id="input-333"
+          v-model="invitedUser.email"
+          :placeholder="$t('email')"
+          type="email"
+          required
+          :class="{
+            'is-danger':
+              ($v.invitedUser.email.$invalid && invitedUser.email) ||
+              (!invitedUser.email && showFormErrors)
+          }"
+        ></b-form-input>
+        <div
+          class="error"
+          v-if="!$v.invitedUser.email.email && invitedUser.email"
+        >
+          {{ $t("invalid_email") }}
+        </div>
+      </b-form-group>
+      <b-form-group
+        id="input-group-45"
+        :label="$t('role')"
+        label-for="input-45"
+      >
+        <v-select
+          id="input-45"
+          class="nomenclature-select w-100"
+          :placeholder="$t('role')"
+          :options="[
+            { label: $t('supervisor'), code: 1 },
+            { label: $t('magazine'), code: 2 },
+            { label: $t('client'), code: 3 },
+            { label: $t('architect'), code: 4 }
+          ]"
+          v-model="invitedUser.role"
+        >
+        </v-select>
+      </b-form-group>
+      <div v-if="!loading" class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          style="border-radius: 14px"
+          @click="showInviteModal = false"
+        >
+          {{ $t("close") }}
+        </button>
+        <button type="button" class="btn btn-custom" @click="inviteUser">
+          {{ $t("invite") }}
+        </button>
+      </div>
+      <div v-else class="modal-footer">
+        <button type="button" class="btn btn-custom">
+          <b-spinner small></b-spinner>
+        </button>
+      </div>
+    </b-modal>
+
     <b-modal
       v-model="removeModal"
       dialog-class="subscribe-modal"
@@ -268,9 +514,14 @@
 </template>
 
 <script>
+import Vue from "vue";
 import { mapState } from "vuex";
 import BuySubscribe from "@/components/BuySubscribe";
 import { serverUrl } from "@/store/urls";
+import Validations from "vuelidate";
+import { required, email } from "vuelidate/lib/validators";
+
+Vue.use(Validations);
 export default {
   name: "FurnitureNav",
   components: {
@@ -279,14 +530,29 @@ export default {
   data() {
     return {
       showAddModal: false,
+      showEditModal: false,
       showSubscribeModal: false,
       showAvatarModal: false,
+      showInviteModal: false,
       removeModal: false,
       newConstruction: {},
       loading: false,
       files: [],
-      serverUrl: serverUrl
+      serverUrl: serverUrl,
+      invitedUser: {},
+      showFormErrors: false
     };
+  },
+  validations: {
+    invitedUser: {
+      name: {
+        required
+      },
+      email: {
+        required,
+        email
+      }
+    }
   },
   computed: {
     ...mapState({
@@ -304,6 +570,50 @@ export default {
   methods: {
     hideSubscribeModal() {
       this.showSubscribeModal = false;
+    },
+    inviteUser() {
+      if (
+        !this.invitedUser.name ||
+        !this.invitedUser.email ||
+        this.$v.invitedUser.email.$invalid
+      ) {
+        this.$notify({
+          group: "warn",
+          title: this.$i18n.messages[this.$i18n.locale]["attention"],
+          text: this.$i18n.messages[this.$i18n.locale]["register_invalid"],
+          type: "warn",
+          closeOnClick: true,
+          duration: 4000
+        });
+        this.showFormErrors = true;
+        return;
+      }
+      this.loading = true;
+      let userData = {
+        name: this.invitedUser.name,
+        email: this.invitedUser.email,
+        projectId: this.newConstruction.id
+      };
+      if (this.invitedUser.role && this.invitedUser.role.code === 3) {
+        userData["role"] = "client";
+      }
+      this.$store
+        .dispatch("furniture/inviteUser", userData)
+        .then(() => {
+          this.showInviteModal = false;
+          this.invitedUser = {};
+        })
+        .catch(e => {
+          this.$notify({
+            group: "warn",
+            type: "error",
+            title: this.$i18n.messages[this.$i18n.locale]["attention"],
+            text: e.message ? e.message : ""
+          });
+        })
+        .finally(() => {
+          this.loading = false;
+        });
     },
     addConstruction() {
       if (!this.newConstruction.name || !this.newConstruction.nds) {
@@ -348,6 +658,7 @@ export default {
           .dispatch("furniture/updateConstruction", formData)
           .then(() => {
             this.showAddModal = false;
+            this.showEditModal = false;
           })
           .catch(error => {
             this.$notify({
@@ -369,7 +680,8 @@ export default {
     },
     editConstruction(item) {
       this.newConstruction = item;
-      this.showAddModal = true;
+      this.invitedUser = {};
+      this.showEditModal = true;
     },
     showRemoveModal(item) {
       this.newConstruction = item;
@@ -384,6 +696,7 @@ export default {
         .dispatch("furniture/updateConstruction", formData)
         .then(() => {
           this.removeModal = false;
+          this.showEditModal = false;
         })
         .catch(error => {
           this.$notify({
@@ -425,6 +738,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import url("https://fonts.googleapis.com/css?family=Raleway:400,600,700&display=swap");
 $ffamily: "Roboto", sans-serif;
 .sidebar {
   height: 100%;
@@ -546,6 +860,205 @@ $ffamily: "Roboto", sans-serif;
         }
       }
     }
+  }
+}
+.edit-construction {
+  font-family: "Raleway", sans-serif !important;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  max-width: 100%;
+  width: 510px;
+  overflow: hidden;
+  @media all and(max-width: 480px) {
+    flex-direction: column;
+  }
+  &__left {
+    padding: 0;
+    margin: 0;
+    max-width: none;
+    width: 35%;
+    @media all and(max-width: 480px) {
+      width: auto;
+    }
+  }
+  &__remove {
+    background: #688e74;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    border: none;
+    display: block;
+    width: 100%;
+    margin-top: 40px;
+    padding: 12px 8px;
+    border-radius: 0;
+    transition: 0.4s;
+    @media all and(max-width: 480px) {
+      font-size: 13px;
+    }
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+  &__right {
+    background: #688e74;
+    box-shadow: 0 0 18px rgba(255, 255, 255, 0.25);
+    bottom: 0;
+    width: 65%;
+    margin: 0;
+    height: 100%;
+    flex-grow: 0;
+    padding: 25px 15px;
+    max-width: none;
+    @media all and(max-width: 480px) {
+      padding: 15px;
+      width: auto;
+    }
+  }
+  &__info {
+    background: #fff;
+    padding: 20px 10px 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0;
+    .info-title {
+      font-size: 16px;
+      color: #4f4f4f;
+      opacity: 0.6;
+      font-weight: bold;
+      width: 100%;
+      text-align: center;
+      margin-bottom: 30px;
+      &.shown {
+        opacity: 0.6 !important;
+        position: relative !important;
+        right: 0 !important;
+      }
+    }
+    @media all and(max-width: 480px) {
+      font-size: 13px;
+    }
+    .subscribe {
+      width: 100%;
+      margin-bottom: 15px;
+    }
+    .total {
+      &__title {
+        font-size: 16px;
+        font-weight: bold;
+        color: #4f4f4f;
+        opacity: 0.6;
+        @media all and(max-width: 480px) {
+          font-size: 13px;
+        }
+      }
+      &__price {
+        font-size: 16px;
+        font-weight: bold;
+        color: #4f4f4f;
+        opacity: 0.6;
+        @media all and(max-width: 480px) {
+          font-size: 13px;
+        }
+      }
+    }
+    width: 100%;
+    max-width: none;
+    height: 100%;
+  }
+  .cards {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    flex: 1;
+    form {
+      width: 100%;
+      max-width: 100%;
+      margin: 0 auto;
+      .form-group {
+        input {
+          font-size: 14px;
+          color: #e0e0e0;
+          background: none;
+          border: none;
+          border-bottom: 1px solid #e0e0e0;
+          border-radius: 0;
+          padding: 0 0 1px 0;
+          outline: none;
+          height: 30px;
+          @media all and(max-width: 480px) {
+            font-size: 12px;
+          }
+          &:focus {
+            outline: none;
+            -webkit-box-shadow: none;
+            -moz-box-shadow: none;
+            box-shadow: none;
+          }
+          &::placeholder {
+            color: #e0e0e0;
+          }
+        }
+      }
+      .submit-btn {
+        background: rgba(255, 255, 255, 0.2);
+        font-size: 16px;
+        font-weight: 600;
+        color: #fff;
+        border: none;
+        display: block;
+        width: 100%;
+        margin-top: 40px;
+        padding: 12px 8px;
+        @media all and(max-width: 480px) {
+          font-size: 13px;
+        }
+        &:hover {
+          background: #fff;
+          color: #364b3c;
+        }
+      }
+    }
+    &__close {
+      display: block;
+      cursor: pointer;
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      top: -15px;
+      left: auto;
+      right: 0;
+      @media all and(max-width: 480px) {
+        width: 15px;
+        height: 15px;
+        left: auto;
+        right: 10px;
+      }
+      svg {
+        max-width: 100%;
+        max-height: 100%;
+      }
+    }
+  }
+  .row {
+    width: 100%;
+    margin: 0;
+  }
+  .invite-btn {
+    height: 44px;
+    max-width: 140px !important;
+    margin-left: auto;
+    padding: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px !important;
+    align-self: flex-end;
   }
 }
 .vue-notification-group {

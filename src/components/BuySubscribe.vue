@@ -515,8 +515,6 @@ export default {
   * {
     transition: all 0.5s !important;
   }
-  &__inner {
-  }
   .step-1 {
     padding: 0;
     display: flex;

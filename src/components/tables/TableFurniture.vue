@@ -54,13 +54,6 @@
             <span class="ellipsis">
               {{ item.name }}
             </span>
-            <span
-              v-if="key === 0"
-              class="setting-icon"
-              @click="showInviteModal = true"
-            >
-              <fa-icon icon="user-plus" />
-            </span>
           </td>
         </tr>
       </thead>
@@ -250,89 +243,6 @@
     </table>
 
     <!--modals-->
-    <b-modal
-      v-model="showInviteModal"
-      hide-footer
-      :title="$t('inviteUser')"
-      modal-class="invite-modal"
-      centered
-    >
-      <b-form-group id="input-group-3" :label="$t('name')" label-for="input-3">
-        <b-form-input
-          id="input-3"
-          v-model="invitedUser.name"
-          :placeholder="$t('name')"
-          type="text"
-          required
-          class="form-control"
-          :class="{
-            'is-danger': !invitedUser.name && showFormErrors
-          }"
-        ></b-form-input>
-      </b-form-group>
-      <b-form-group
-        id="input-group-333"
-        :label="$t('email')"
-        label-for="input-333"
-      >
-        <b-form-input
-          id="input-333"
-          v-model="invitedUser.email"
-          :placeholder="$t('email')"
-          type="email"
-          required
-          :class="{
-            'is-danger':
-              ($v.invitedUser.email.$invalid && invitedUser.email) ||
-              (!invitedUser.email && showFormErrors)
-          }"
-        ></b-form-input>
-        <div
-          class="error"
-          v-if="!$v.invitedUser.email.email && invitedUser.email"
-        >
-          {{ $t("invalid_email") }}
-        </div>
-      </b-form-group>
-      <b-form-group
-        id="input-group-45"
-        :label="$t('role')"
-        label-for="input-45"
-      >
-        <v-select
-          id="input-45"
-          class="nomenclature-select w-100"
-          :placeholder="$t('role')"
-          :options="[
-            { label: $t('supervisor'), code: 1 },
-            { label: $t('magazine'), code: 2 },
-            { label: $t('client'), code: 3 },
-            { label: $t('architect'), code: 4 }
-          ]"
-          v-model="invitedUser.role"
-        >
-        </v-select>
-      </b-form-group>
-      <div v-if="!loading" class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-secondary"
-          style="border-radius: 14px"
-          @click="showInviteModal = false"
-        >
-          {{ $t("close") }}
-        </button>
-        <button type="button" class="btn btn-custom" @click="inviteUser">
-          {{ $t("save") }}
-        </button>
-      </div>
-      <div v-else class="modal-footer">
-        <button type="button" class="btn btn-custom">
-          <b-spinner small></b-spinner>
-        </button>
-      </div>
-    </b-modal>
-
     <transition name="fade-none">
       <div v-if="showAddModal">
         <div class="modal-mask">
@@ -815,10 +725,8 @@ export default {
       showNomekModal: false,
       showRemovePhotoModal: false,
       showAddPhotoModal: false,
-      showInviteModal: false,
       group: {},
       nomenclature: {},
-      invitedUser: {},
       showFormErrors: false,
       serverUrl: serverUrl,
       tdWidths: [18, 6, 6, 10, 6, 6, 6, 6, 6, 6, 6, 20],
@@ -837,15 +745,6 @@ export default {
   validations: {
     nomenclature: {
       name: { required }
-    },
-    invitedUser: {
-      name: {
-        required
-      },
-      email: {
-        required,
-        email
-      }
     }
   },
   methods: {
@@ -854,49 +753,6 @@ export default {
     },
     hideAll() {
       this.hideAllRows = !this.hideAllRows;
-    },
-    inviteUser() {
-      if (
-        !this.invitedUser.name ||
-        !this.invitedUser.email ||
-        this.$v.invitedUser.email.$invalid
-      ) {
-        Vue.notify({
-          group: "warn",
-          title: this.$i18n.messages[this.$i18n.locale]["attention"],
-          text: this.$i18n.messages[this.$i18n.locale]["register_invalid"],
-          type: "warn",
-          closeOnClick: true,
-          duration: 4000
-        });
-        this.showFormErrors = true;
-        return;
-      }
-      this.loading = true;
-      let userData = {
-        name: this.invitedUser.name,
-        email: this.invitedUser.email,
-        projectId: this.construction.id
-      };
-      if (this.invitedUser.role && this.invitedUser.role.code === 3) {
-        userData["role"] = "client";
-      }
-      this.$store
-        .dispatch("furniture/inviteUser", userData)
-        .then(() => {
-          this.showInviteModal = false;
-        })
-        .catch(e => {
-          this.$notify({
-            group: "warn",
-            type: "error",
-            title: this.$i18n.messages[this.$i18n.locale]["attention"],
-            text: e.message ? e.message : ""
-          });
-        })
-        .finally(() => {
-          this.loading = false;
-        });
     },
     addGroup() {
       /*eslint-disable*/

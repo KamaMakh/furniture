@@ -164,7 +164,8 @@ input.nomenclature {
 .modal-dialog.subscribe-modal {
   border-radius: 16px;
   overflow: hidden;
-  background: none; }
+  background: none;
+  max-width: 510px; }
 
 .modal-body.subscribe-modal {
   max-width: none;
@@ -174,6 +175,12 @@ input.nomenclature {
 .buy-subscribe .step-3 .cards form label {
   font-size: 14px !important;
   font-weight: 600;
+  color: #E0E0E0;
+  margin: 0; }
+
+.edit-construction label {
+  font-size: 11px !important;
+  font-weight: normal;
   color: #E0E0E0;
   margin: 0; }
 

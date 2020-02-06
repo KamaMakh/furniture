@@ -213,6 +213,7 @@ input.nomenclature {
   border-radius: 16px;
   overflow: hidden;
   background: none;
+  max-width: 510px;
 }
 .modal-body.subscribe-modal {
   max-width: none;
@@ -232,6 +233,15 @@ input.nomenclature {
         }
       }
     }
+  }
+}
+
+.edit-construction {
+  label {
+    font-size: 11px !important;
+    font-weight: normal;
+    color: #E0E0E0;
+    margin: 0;
   }
 }
 
