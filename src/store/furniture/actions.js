@@ -15,7 +15,8 @@ import {
   addPhotoUrl,
   updateConstructUrl,
   getSubscribesListUrl,
-  createOrderUrl
+  createOrderUrl,
+  inviteUserUrl
 } from "@/store/urls";
 
 function addConstruction({ commit }, data) {
@@ -407,7 +408,32 @@ function createOrder({ commit }, data) {
       .post(createOrderUrl, data)
       .then(response => {
         if (response.status === 200) {
-          /* eslint-disable */
+          resolve(response.data);
+        } else {
+          reject(response.data);
+        }
+      })
+      .catch(error => {
+        if (error.response && error.response.status === 200) {
+          resolve(error.response);
+        } else {
+          reject(error.response);
+        }
+      });
+  });
+}
+
+function inviteUser({ commit }, data) {
+  commit("ignore");
+  return new Promise((resolve, reject) => {
+    api
+      .post(inviteUserUrl, data)
+      .then(response => {
+        if (
+          response.data.status &&
+          response.data.status === "OK" &&
+          response.status === 200
+        ) {
           resolve(response.data);
         } else {
           reject(response.data);
@@ -451,5 +477,6 @@ export {
   hideNomenclatures,
   getSubscribesList,
   createOrder,
-  editEnabledGroups
+  editEnabledGroups,
+  inviteUser
 };

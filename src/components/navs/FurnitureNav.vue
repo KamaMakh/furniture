@@ -187,6 +187,7 @@
       body-class="subscribe-modal"
       hide-footer
       hide-header
+      centered
     >
       <BuySubscribe @hideModal="hideSubscribeModal" />
     </b-modal>
@@ -196,6 +197,7 @@
       body-class="subscribe-modal"
       hide-footer
       :title="$t('remove_const_text')"
+      centered
     >
       <div v-if="!loading" class="modal-footer">
         <button
@@ -220,7 +222,12 @@
         </button>
       </div>
     </b-modal>
-    <b-modal v-model="showAvatarModal" hide-footer :title="$t('add_image')">
+    <b-modal
+      v-model="showAvatarModal"
+      hide-footer
+      :title="$t('add_image')"
+      centered
+    >
       <div class="modal-content">
         <div class="modal-body">
           <div class="form-group row">

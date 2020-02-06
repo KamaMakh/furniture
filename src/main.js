@@ -19,12 +19,13 @@ import "vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css";
 import "viewerjs/dist/viewer.css";
 import Viewer from "v-viewer";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import VueWindowSize from "vue-window-size";
 const VueScrollTo = require("vue-scrollto");
 
 library.add(faPlus);
+library.add(faUserPlus);
 
 Vue.component("fa-icon", FontAwesomeIcon);
 Vue.use(Viewer);

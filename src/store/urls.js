@@ -26,6 +26,7 @@ const sendNewPasswordUrl = `${serverUrl}/api/auth/resetpswd/newpswd`;
 const getSubscribesListUrl = `${serverUrl}/api/payment/price/get`;
 const createOrderUrl = `${serverUrl}/api/payment/tinkoff/order/create`;
 const uploadAvatarUrl = `${serverUrl}/api/user/profile/avatar/update`;
+const inviteUserUrl = `${serverUrl}/api/furniture/project/invite`;
 
 export {
   serverUrl,
@@ -52,5 +53,6 @@ export {
   sendNewPasswordUrl,
   getSubscribesListUrl,
   createOrderUrl,
-  uploadAvatarUrl
+  uploadAvatarUrl,
+  inviteUserUrl
 };
