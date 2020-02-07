@@ -1241,7 +1241,6 @@ export default {
         })
         .then(() => {
           this.updatingId = null;
-          this.loading = false;
         })
         .catch(error => {
           this.$notify({
@@ -1251,6 +1250,9 @@ export default {
             text: error
           });
           this.updatingId = null;
+        })
+        .finally(() => {
+          this.loading = false;
         });
     },
     updatePrices() {
