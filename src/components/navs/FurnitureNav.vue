@@ -167,10 +167,59 @@
         <div class="edit-construction__left">
           <b-col cols="12" md="4" class="edit-construction__info">
             <div class="info-title">
-              {{ newConstruction.name }}
+              <b-form-input
+                id="input-2"
+                v-model="newConstruction.name"
+                :placeholder="$t('construct_name')"
+                type="text"
+                required
+                class="construction-name"
+              ></b-form-input>
             </div>
             <b-row width="100%">
               <b-col cols="12" class="align-items-center">
+                <div class="form-wrap">
+                  <b-form @submit.prevent="addConstruction">
+                    <b-form-group
+                      id="input-group-1"
+                      :label="$t('address')"
+                      label-for="input-1"
+                    >
+                      <b-form-input
+                        id="input-1"
+                        v-model="newConstruction.address"
+                        :placeholder="$t('address')"
+                        type="text"
+                        required
+                      ></b-form-input>
+                    </b-form-group>
+                    <b-form-group
+                      id="input-group-2"
+                      :label="$t('street') + ' ' + $t('homeNumber')"
+                      label-for="input-2"
+                    >
+                      <b-form-input
+                        id="input-2"
+                        :placeholder="$t('street')"
+                        type="text"
+                        required
+                      ></b-form-input>
+                    </b-form-group>
+                    <b-form-group
+                      id="input-group-3"
+                      :label="$t('nds')"
+                      label-for="input-3"
+                    >
+                      <b-form-input
+                        id="input-3"
+                        v-model="newConstruction.nds"
+                        :placeholder="$t('nds')"
+                        type="number"
+                        required
+                      ></b-form-input>
+                    </b-form-group>
+                  </b-form>
+                </div>
                 <b-button
                   class="edit-construction__remove"
                   @click="showRemoveModal(newConstruction)"
@@ -208,46 +257,57 @@
               </svg>
             </div>
             <b-form @submit.prevent="addConstruction">
-              <b-form-group
-                id="input-group-1"
-                :label="$t('address')"
-                label-for="input-1"
-              >
-                <b-form-input
-                  id="input-1"
-                  v-model="newConstruction.address"
-                  :placeholder="$t('address')"
-                  type="text"
-                  required
-                ></b-form-input>
-              </b-form-group>
-              <b-form-group
-                id="input-group-2"
-                :label="$t('construct_name')"
-                label-for="input-2"
-              >
-                <b-form-input
-                  id="input-2"
-                  v-model="newConstruction.name"
-                  :placeholder="$t('construct_name')"
-                  type="text"
-                  required
-                ></b-form-input>
-              </b-form-group>
-              <b-form-group
-                id="input-group-3"
-                :label="$t('nds')"
-                label-for="input-3"
-              >
-                <b-form-input
-                  id="input-3"
-                  v-model="newConstruction.nds"
-                  :placeholder="$t('nds')"
-                  type="number"
-                  required
-                ></b-form-input>
-              </b-form-group>
-
+              <b-row class="mb-0 align-items-end">
+                <b-col cols="8" class="p-0 mr-1 mb-0">
+                  <b-form-group
+                    id="input-group-4"
+                    class="m-0"
+                    :label="$t('inviteUser')"
+                    label-for="input-4"
+                  >
+                    <b-form-input
+                      id="input-4"
+                      v-model="invitedUser.email"
+                      :placeholder="$t('email')"
+                      type="text"
+                      class="form-control m-0"
+                    ></b-form-input>
+                  </b-form-group>
+                </b-col>
+                <b-col class="p-0">
+                  <b-button
+                    v-if="!loading"
+                    squared
+                    :disabled="
+                      !invitedUser.email || $v.invitedUser.email.$invalid
+                    "
+                    class="submit-btn mt-0 invite-btn"
+                    @click="inviteUser"
+                  >
+                    {{ $t("invite") }}
+                  </b-button>
+                  <button
+                    v-else
+                    type="button"
+                    squared
+                    class="submit-btn mt-0 invite-btn"
+                  >
+                    <b-spinner small></b-spinner>
+                  </button>
+                </b-col>
+              </b-row>
+              <b-row class="mb-3 mt-2">
+                <b-form-checkbox
+                  id="client-checkbox"
+                  class="align-items-center d-flex client-checkbox"
+                  v-model="isClient"
+                  name="client"
+                  :value="true"
+                  :unchecked-value="false"
+                >
+                  {{ $t("isCustomer") }}
+                </b-form-checkbox>
+              </b-row>
               <b-row class="mb-2 align-items-end">
                 <b-col cols="8" class="p-0 mr-0 mb-0">
                   <b-form-group
@@ -277,7 +337,6 @@
                   </b-button>
                 </b-col>
               </b-row>
-
               <b-row class="mb-2 align-items-end">
                 <b-col cols="8" class="p-0 mr-0 mb-0">
                   <b-form-group
@@ -307,36 +366,6 @@
                   </b-button>
                 </b-col>
               </b-row>
-
-              <b-row class="mb-2 align-items-end">
-                <b-col cols="8" class="p-0 mr-1 mb-0">
-                  <b-form-group
-                    id="input-group-4"
-                    class="m-0"
-                    :label="$t('inviteUser')"
-                    label-for="input-4"
-                  >
-                    <b-form-input
-                      id="input-4"
-                      v-model="invitedUser.email"
-                      :placeholder="$t('email')"
-                      type="text"
-                      class="form-control m-0"
-                    ></b-form-input>
-                  </b-form-group>
-                </b-col>
-                <b-col class="p-0">
-                  <b-button
-                    squared
-                    :disabled="!invitedUser.email"
-                    class="submit-btn mt-0 invite-btn"
-                    @click="showInviteModal = true"
-                  >
-                    {{ $t("invite") }}
-                  </b-button>
-                </b-col>
-              </b-row>
-
               <b-button
                 v-if="!loading"
                 type="submit"
@@ -540,14 +569,12 @@ export default {
       files: [],
       serverUrl: serverUrl,
       invitedUser: {},
-      showFormErrors: false
+      showFormErrors: false,
+      isClient: false
     };
   },
   validations: {
     invitedUser: {
-      name: {
-        required
-      },
       email: {
         required,
         email
@@ -572,15 +599,11 @@ export default {
       this.showSubscribeModal = false;
     },
     inviteUser() {
-      if (
-        !this.invitedUser.name ||
-        !this.invitedUser.email ||
-        this.$v.invitedUser.email.$invalid
-      ) {
+      if (this.$v.invitedUser.email.$invalid) {
         this.$notify({
           group: "warn",
           title: this.$i18n.messages[this.$i18n.locale]["attention"],
-          text: this.$i18n.messages[this.$i18n.locale]["register_invalid"],
+          text: this.$i18n.messages[this.$i18n.locale]["invalid_email"],
           type: "warn",
           closeOnClick: true,
           duration: 4000
@@ -594,14 +617,14 @@ export default {
         email: this.invitedUser.email,
         projectId: this.newConstruction.id
       };
-      if (this.invitedUser.role && this.invitedUser.role.code === 3) {
+      if (this.isClient) {
         userData["role"] = "client";
       }
       this.$store
         .dispatch("furniture/inviteUser", userData)
         .then(() => {
-          this.showInviteModal = false;
           this.invitedUser = {};
+          this.isClient = false;
         })
         .catch(e => {
           this.$notify({
@@ -877,7 +900,7 @@ $ffamily: "Roboto", sans-serif;
     padding: 0;
     margin: 0;
     max-width: none;
-    width: 35%;
+    width: 40%;
     @media all and(max-width: 480px) {
       width: auto;
     }
@@ -905,14 +928,14 @@ $ffamily: "Roboto", sans-serif;
     background: #688e74;
     box-shadow: 0 0 18px rgba(255, 255, 255, 0.25);
     bottom: 0;
-    width: 65%;
+    width: 60%;
     margin: 0;
-    height: 100%;
+    min-height: 100%;
     flex-grow: 0;
     padding: 25px 15px;
     max-width: none;
     @media all and(max-width: 480px) {
-      padding: 15px;
+      padding: 30px 15px 15px;
       width: auto;
     }
   }
@@ -975,11 +998,17 @@ $ffamily: "Roboto", sans-serif;
     align-items: center;
     position: relative;
     width: 100%;
+    min-height: 100%;
+    justify-content: space-between;
     flex: 1;
     form {
       width: 100%;
       max-width: 100%;
       margin: 0 auto;
+      flex-grow: 1;
+      justify-content: flex-end;
+      display: flex;
+      flex-direction: column;
       .form-group {
         input {
           font-size: 14px;
@@ -1013,7 +1042,7 @@ $ffamily: "Roboto", sans-serif;
         border: none;
         display: block;
         width: 100%;
-        margin-top: 40px;
+        margin-top: 10px;
         padding: 12px 8px;
         @media all and(max-width: 480px) {
           font-size: 13px;
@@ -1038,6 +1067,7 @@ $ffamily: "Roboto", sans-serif;
         height: 15px;
         left: auto;
         right: 10px;
+        top: -27px;
       }
       svg {
         max-width: 100%;

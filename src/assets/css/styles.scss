@@ -243,6 +243,43 @@ input.nomenclature {
     color: #E0E0E0;
     margin: 0;
   }
+  .client-checkbox {
+    input {
+      height: 16px !important;
+    }
+  }
+  &__info {
+    label {
+      color: #E0E0E0;
+    }
+    input {
+      border: none;
+      background: none;
+      border-bottom: 1px solid #E0E0E0;
+      border-radius: 0;
+      padding: 4px 0;
+      height: 35px;
+      font-family: "Roboto", sans-serif;
+    }
+    input.construction-name {
+      color: #4F4F4F;
+      font-weight: bold;
+      border: none;
+      text-align: center;
+    }
+  }
+  .custom-control-label::before, .custom-control-label::after {
+    top: 0 !important;
+  }
+  .custom-control-input:checked ~ .custom-control-label::before {
+    background: #7ebf93;
+    border-color: #7ebf93;
+    box-shadow: 0 0 0 0.2rem rgba(#7ebf93, 0.25)
+  }
+  .custom-control-input:focus:not(:checked) ~ .custom-control-label::before {
+    border-color: transparent;
+    box-shadow: none;
+  }
 }
 
 .invite-modal {

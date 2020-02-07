@@ -102,6 +102,9 @@
   "invite": "Inviter",
   "invited": "Invité",
   "attached": "Affilié",
+  "isCustomer": "L'utilisateur est un client",
+  "street": "Rue",
+  "homeNumber": "Numéro de maison",
   "lp": {
     "first": {
       "title": "Directeur de construction",

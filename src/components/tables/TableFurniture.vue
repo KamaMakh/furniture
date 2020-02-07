@@ -703,7 +703,7 @@ import Uploader from "vux-uploader-component";
 import { mapState } from "vuex";
 import VueMask from "v-mask";
 import Validations from "vuelidate";
-import { required, email } from "vuelidate/lib/validators";
+import { required } from "vuelidate/lib/validators";
 import { serverUrl } from "@/store/urls";
 import VCalendar from "v-calendar";
 import CustomGallery from "@/components/CustomGallery";

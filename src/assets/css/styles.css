@@ -183,6 +183,32 @@ input.nomenclature {
   font-weight: normal;
   color: #E0E0E0;
   margin: 0; }
+.edit-construction .client-checkbox input {
+  height: 16px !important; }
+.edit-construction__info label {
+  color: #E0E0E0; }
+.edit-construction__info input {
+  border: none;
+  background: none;
+  border-bottom: 1px solid #E0E0E0;
+  border-radius: 0;
+  padding: 4px 0;
+  height: 35px;
+  font-family: "Roboto", sans-serif; }
+.edit-construction__info input.construction-name {
+  color: #4F4F4F;
+  font-weight: bold;
+  border: none;
+  text-align: center; }
+.edit-construction .custom-control-label::before, .edit-construction .custom-control-label::after {
+  top: 0 !important; }
+.edit-construction .custom-control-input:checked ~ .custom-control-label::before {
+  background: #7ebf93;
+  border-color: #7ebf93;
+  box-shadow: 0 0 0 0.2rem rgba(126, 191, 147, 0.25); }
+.edit-construction .custom-control-input:focus:not(:checked) ~ .custom-control-label::before {
+  border-color: transparent;
+  box-shadow: none; }
 
 .invite-modal input {
   border: none;

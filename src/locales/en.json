@@ -103,6 +103,9 @@
   "invite": "Invite",
   "invited": "Invited",
   "attached": "Attached",
+  "isCustomer": "User is a customer",
+  "street": "Street",
+  "homeNumber": "House number",
   "lp": {
     "first": {
       "title": "Construction Manager",

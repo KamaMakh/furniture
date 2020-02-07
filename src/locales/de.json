@@ -103,6 +103,9 @@
   "invite": "Einladen",
   "invited": "Eingeladen",
   "attached": "Verbunden",
+  "isCustomer": "Benutzer ist Kunde",
+  "street": "Straße",
+  "homeNumber": "Hausnummer",
   "lp": {
     "first": {
       "title": "Bauleiter",
