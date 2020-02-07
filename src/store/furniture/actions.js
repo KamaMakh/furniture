@@ -16,7 +16,8 @@ import {
   updateConstructUrl,
   getSubscribesListUrl,
   createOrderUrl,
-  inviteUserUrl
+  inviteUserUrl,
+  buyNomenclatureUrl
 } from "@/store/urls";
 
 function addConstruction({ commit }, data) {
@@ -278,6 +279,32 @@ function updateNomenclature({ commit }, data) {
   });
 }
 
+function buyNomenclature({ commit }, data) {
+  return new Promise((resolve, reject) => {
+    api
+      .post(buyNomenclatureUrl, data.data)
+      .then(response => {
+        if (response.status === 200) {
+          commit("updateNomenclature", {
+            response: response.data,
+            nomenclature: data.nomenclature
+          });
+          resolve(response.data);
+        } else {
+          reject(response);
+        }
+      })
+      .catch(error => {
+        if (error.response && error.response.status === 200) {
+          commit("updateNomenclature", { response: error.response.data });
+          resolve(error.response);
+        } else {
+          reject(error.response);
+        }
+      });
+  });
+}
+
 function deleteNomenclature({ commit }, data) {
   return new Promise((resolve, reject) => {
     api
@@ -471,6 +498,7 @@ export {
   updateGroup,
   deleteNomenclature,
   updateNomenclature,
+  buyNomenclature,
   deleteNomenclaturePhoto,
   addNomenclaturePhoto,
   clearState,

@@ -60,7 +60,6 @@
 </template>
 
 <script>
-/* eslint-disable */
 import { serverUrl } from "@/store/urls";
 export default {
   props: ["images", "isCreator", "files", "nomenclature"],
@@ -74,15 +73,17 @@ export default {
   },
   methods: {
     setMainPic(thumb) {
-      if(event.target.tagName === "IMG") {
+      if (event.target.tagName === "IMG") {
         this.mainPicSrc = {
-          src: thumb.isNew ? thumb.src : this.serverUrl+thumb.pathUrl+"&type=1000px",
+          src: thumb.isNew
+            ? thumb.src
+            : this.serverUrl + thumb.pathUrl + "&type=1000px",
           id: thumb.id
-        }
+        };
       }
     },
     deletePic(image) {
-      if(image.isNew) {
+      if (image.isNew) {
         this.$emit("on-delete-new", image);
       } else {
         this.$emit("on-delete", image);
@@ -91,18 +92,17 @@ export default {
   },
   watch: {
     newFile(value) {
-      if(value.size) {
+      if (value.size) {
         this.$emit("on-add-file", this.newFile);
       }
     },
     images(value) {
-      if(value && value[0]) {
+      if (value && value[0]) {
         this.mainPicSrc = {
           src: this.serverUrl + this.images[0].pathUrl + "&type=1000px",
-          id : this.images[0]["id"]
-        }
-      }
-      else{
+          id: this.images[0]["id"]
+        };
+      } else {
         this.mainPicSrc = {};
       }
     }
@@ -111,8 +111,8 @@ export default {
     if (this.images && this.images[0]) {
       this.mainPicSrc = {
         src: this.serverUrl + this.images[0].pathUrl + "&type=1000px",
-        id : this.images[0]["id"]
-      }
+        id: this.images[0]["id"]
+      };
     }
   }
 };
@@ -170,8 +170,8 @@ export default {
       position: absolute;
       top: 50%;
       left: 50%;
-      -webkit-transform: translate(-50%,-50%);
-      transform: translate(-50%,-50%);
+      -webkit-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
       background-color: #d9d9d9;
       width: 2px;
       height: 39.5px;
@@ -181,8 +181,8 @@ export default {
       position: absolute;
       top: 50%;
       left: 50%;
-      -webkit-transform: translate(-50%,-50%);
-      transform: translate(-50%,-50%);
+      -webkit-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
       background-color: #d9d9d9;
       width: 39.5px;
       height: 2px;
@@ -195,7 +195,7 @@ export default {
       width: 100%;
       height: 77px;
       opacity: 0;
-      -webkit-tap-highlight-color: rgba(0,0,0,0);
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
       cursor: pointer;
     }
     label {

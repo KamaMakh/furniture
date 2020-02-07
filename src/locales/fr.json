@@ -105,6 +105,7 @@
   "isCustomer": "L'utilisateur est un client",
   "street": "Rue",
   "homeNumber": "Numéro de maison",
+  "cancelPurchase": "Annuler l'achat",
   "lp": {
     "first": {
       "title": "Directeur de construction",

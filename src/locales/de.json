@@ -106,6 +106,7 @@
   "isCustomer": "Benutzer ist Kunde",
   "street": "Straße",
   "homeNumber": "Hausnummer",
+  "cancelPurchase": "Kauf abbrechen",
   "lp": {
     "first": {
       "title": "Bauleiter",

@@ -182,11 +182,14 @@
             style="word-break: initial"
             @click="showEditNomenclature(item, $event)"
           >
-            <span>{{ $t("confirmed_simple") }}:</span>
-            <span v-for="(user, key) in item.status" :key="key">
-              <span v-if="user.confirmed">
-                {{ getFirstLetter(user.userRole) }}
-              </span>
+            <span v-if="getStatus(item.status) === 'Confirmed'">
+              {{ $t("confirmed_simple") }}
+            </span>
+            <span v-else-if="item.buy">
+              Purchased
+            </span>
+            <span v-else>
+              Not confirmed
             </span>
           </td>
           <td
@@ -388,7 +391,10 @@
                             <CustomGallery
                               :nomenclature="nomenclature"
                               :images="nomenclature.photos"
-                              :isCreator="nomenclature.creatorId === user.id"
+                              :isCreator="
+                                nomenclature.creatorId === user.id &&
+                                  !absolutesDisabled
+                              "
                               :files="files"
                               @on-delete-new="deleteNewPhoto"
                               @on-delete="deletePhotoModal"
@@ -407,10 +413,12 @@
                               type="text"
                               id="nName"
                               class="form-control"
+                              :disabled="absolutesDisabled"
                               :class="{
                                 'is-danger':
                                   $v.nomenclature.name.$invalid &&
-                                  (nomenclature.name || showFormErrors)
+                                  (nomenclature.name || showFormErrors),
+                                disabled: absolutesDisabled
                               }"
                               v-model="nomenclature.name"
                               :placeholder="$t('construct_name')"
@@ -423,12 +431,14 @@
                                   !nomenclature.id
                               "
                               class="custom-control custom-switch"
+                              :class="{ disabled: absolutesDisabled }"
                             >
                               <input
                                 type="checkbox"
                                 class="custom-control-input"
                                 :checked="nomenclature.ndsBool"
                                 v-model="nomenclature.ndsBool"
+                                :disabled="absolutesDisabled"
                                 @change="updatePrices"
                                 id="customSwitch1"
                                 style="cursor: pointer"
@@ -448,6 +458,8 @@
                               $t("price")
                             }}</label>
                             <input
+                              :disabled="absolutesDisabled"
+                              :class="{ disabled: absolutesDisabled }"
                               type="number"
                               id="nPrice"
                               step="1000"
@@ -461,6 +473,8 @@
                               $t("magazine")
                             }}</label>
                             <input
+                              :disabled="absolutesDisabled"
+                              :class="{ disabled: absolutesDisabled }"
                               type="text"
                               id="nShop"
                               class="form-control"
@@ -478,6 +492,8 @@
                               >{{ $t("unit_sh") }}</label
                             >
                             <v-select
+                              :disabled="absolutesDisabled"
+                              :class="{ disabled: absolutesDisabled }"
                               class="nomenclature-select w-100"
                               id="nRole"
                               :placeholder="
@@ -497,6 +513,8 @@
                               $t("count")
                             }}</label>
                             <input
+                              :disabled="absolutesDisabled"
+                              :class="{ disabled: absolutesDisabled }"
                               type="number"
                               id="nCount"
                               step="1"
@@ -509,6 +527,7 @@
                             <label class="title">{{ $t("term") }}</label>
                             <!--<input type="text" id="nTerm" class="form-control" :class="{ 'is-danger': $v.nomenclature.term.$invalid && (nomenclature.term || showFormErrors)}" :placeholder="$t('term')" v-model="nomenclature.term">-->
                             <v-date-picker
+                              :class="{ disabled: absolutesDisabled }"
                               :popover="{
                                 placement: 'bottom',
                                 visibility: 'click'
@@ -527,6 +546,8 @@
                               $t("link")
                             }}</label>
                             <input
+                              :disabled="absolutesDisabled"
+                              :class="{ disabled: absolutesDisabled }"
                               type="text"
                               id="nLink"
                               class="form-control"
@@ -545,6 +566,8 @@
                               $t("nds")
                             }}</label>
                             <input
+                              :disabled="absolutesDisabled"
+                              :class="{ disabled: absolutesDisabled }"
                               type="number"
                               id="nNds"
                               step="1"
@@ -594,7 +617,9 @@
                             :class="{
                               disabled:
                                 roles.indexOf(item.userRole) < 0 ||
-                                nomenclature.id === updatingId
+                                nomenclature.id === updatingId ||
+                                nomenclature.buy ||
+                                absolutesDisabled
                             }"
                             @click="updateConfirm(nomenclature)"
                           >
@@ -628,14 +653,37 @@
                           </button>
                           <button
                             v-if="
-                              nomenclature.creatorId === user.id ||
-                                !nomenclature.id
+                              (nomenclature.creatorId === user.id ||
+                                !nomenclature.id) &&
+                                !nomenclature.buy
                             "
                             type="button"
                             class="btn btn-custom"
                             @click="addNomenclature"
                           >
                             {{ $t("save") }}
+                          </button>
+                          <button
+                            v-if="
+                              (nomenclature.creatorId === user.id ||
+                                !nomenclature.id) &&
+                                getStatus(nomenclature.status) ===
+                                  'Confirmed' &&
+                                !nomenclature.buy
+                            "
+                            type="button"
+                            class="btn btn-custom ml-2"
+                            @click="buyNomenclature(nomenclature)"
+                          >
+                            {{ $t("buy") }}
+                          </button>
+                          <button
+                            v-else-if="nomenclature.buy"
+                            type="button"
+                            class="btn btn-custom ml-2"
+                            @click="buyNomenclature(nomenclature)"
+                          >
+                            {{ $t("cancelPurchase") }}
                           </button>
                         </div>
                         <div
@@ -739,7 +787,8 @@ export default {
       ndsColumns: true,
       currentSort: "",
       currentSortDir: "asc",
-      loading: false
+      loading: false,
+      absolutesDisabled: false
     };
   },
   validations: {
@@ -748,6 +797,42 @@ export default {
     }
   },
   methods: {
+    buyNomenclature(nomenclature) {
+      this.loading = true;
+      this.$store
+        .dispatch("furniture/buyNomenclature", {
+          data: { furnitureNomenclatureId: nomenclature.id },
+          nomenclature: nomenclature
+        })
+        .then(response => {
+          if (response && response.buy) {
+            this.absolutesDisabled = response.buy;
+          }
+          this.showNomekModal = false;
+        })
+        .catch(error => {
+          this.$notify({
+            group: "warn",
+            type: "error",
+            title: this.$i18n.messages[this.$i18n.locale]["attention"],
+            text: error
+          });
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    },
+    getStatus(statuses) {
+      let confirmText = "Confirmed";
+      if (statuses.length) {
+        statuses.forEach(item => {
+          if (item.hasOwnProperty("confirmed") && !item.confirmed) {
+            confirmText = "not confirmed";
+          }
+        });
+        return confirmText;
+      }
+    },
     toggleRows(item) {
       this.groups[item] = !this.groups[item];
     },
@@ -971,6 +1056,11 @@ export default {
     },
     showEditNomenclature(item, event) {
       let enableOpen = false;
+      if(item.creatorId !== this.user.id || item.buy) {
+        this.absolutesDisabled = true;
+      } else {
+        this.absolutesDisabled = false;
+      }
       if (event) {
         let tagName = event.target.tagName,
           parentName = event.target.parentNode.tagName,
@@ -1144,12 +1234,14 @@ export default {
     },
     updateConfirm(nomenclature) {
       this.updatingId = nomenclature.id;
+      this.loading = true;
       this.$store
         .dispatch("furniture/statusConfirm", {
           furnitureNomenclatureId: nomenclature.id
         })
         .then(() => {
           this.updatingId = null;
+          this.loading = false;
         })
         .catch(error => {
           this.$notify({
@@ -1588,7 +1680,7 @@ $ffamily: "Roboto", sans-serif;
   -moz-user-select: none !important;
   -ms-user-select: none !important;
   user-select: none !important;
-  cursor: none !important;
+  cursor: not-allowed !important;
   opacity: 0.6 !important;
 }
 .images-list-wrap {
