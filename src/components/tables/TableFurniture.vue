@@ -824,7 +824,7 @@ export default {
     },
     getStatus(statuses) {
       let confirmText = "Confirmed";
-      if (statuses.length) {
+      if (statuses && statuses.length) {
         statuses.forEach(item => {
           if (item.hasOwnProperty("confirmed") && !item.confirmed) {
             confirmText = "not confirmed";
