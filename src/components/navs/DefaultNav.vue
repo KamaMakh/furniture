@@ -30,6 +30,11 @@
         <li>
           <a href=""><span class="icon"></span> Examples</a>
         </li>
+        <li>
+          <b-link :to="{ name: 'ConfirmText' }">
+            {{ $t("privacy") }}
+          </b-link>
+        </li>
       </ul>
     </div>
   </div>

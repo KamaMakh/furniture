@@ -12,6 +12,7 @@ import Documents from "../views/Documents";
 import Planning from "../views/Planning";
 import Users from "../views/Users";
 import Index from "../views/Index";
+import ConfirmText from "../views/ConfirmText";
 
 Vue.use(VueRouter);
 
@@ -59,6 +60,11 @@ const routes = [
         path: "/users",
         name: "Users",
         component: Users
+      },
+      {
+        path: "/privacy_policy",
+        name: "ConfirmText",
+        component: ConfirmText
       }
     ]
   },

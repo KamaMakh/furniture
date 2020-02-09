@@ -115,6 +115,7 @@ export default {
     flex-flow: wrap;
     align-content: center;
     justify-content: center;
+    display: block;
     &__body {
       padding: 20px 25px;
     }

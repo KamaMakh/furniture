@@ -146,7 +146,7 @@
             v-model="policy"
           >
             <img slot="extra" class="image" src="../assets/policycheck.svg" />
-            <span class="agree-text-wrap" @click="showModal = true">{{
+            <span class="agree-text-wrap" @click="downloadWithVueResource()">{{
               $t("agree_text")
             }}</span>
           </p-check>
@@ -226,7 +226,8 @@ export default {
       showModal: false,
       form: {},
       policy: false,
-      loading: false
+      loading: false,
+      url: "https://stroy-assist.ru/confirm.pdf"
     };
   },
   validations: {
@@ -274,6 +275,9 @@ export default {
     }
   },
   methods: {
+    downloadWithVueResource() {
+      window.open(this.url, "_blank");
+    },
     register() {
       let role, currency;
       if (this.form.role) {
