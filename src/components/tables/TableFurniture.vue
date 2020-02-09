@@ -1056,11 +1056,8 @@ export default {
     },
     showEditNomenclature(item, event) {
       let enableOpen = false;
-      if(item.creatorId !== this.user.id || item.buy) {
-        this.absolutesDisabled = true;
-      } else {
-        this.absolutesDisabled = false;
-      }
+      this.absolutesDisabled = item.buy;
+
       if (event) {
         let tagName = event.target.tagName,
           parentName = event.target.parentNode.tagName,
