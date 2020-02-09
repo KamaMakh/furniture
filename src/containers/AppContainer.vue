@@ -113,9 +113,8 @@ export default {
 @media screen and(max-width: 959px) {
   .content {
     flex-flow: wrap;
-    align-content: center;
+    align-content: flex-start;
     justify-content: center;
-    display: block;
     &__body {
       padding: 20px 25px;
     }
