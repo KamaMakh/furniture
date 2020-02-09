@@ -56,7 +56,7 @@
   "term": "Срок",
   "confirmed": "Подтверждено",
   "confirmed_simple": "Подтверждено",
-  "not_confirmed_simple": "Not confirmed",
+  "not_confirmed_simple": "Не подтверждено",
   "nds": "НДС",
   "ndsValue": "Выделенный НДС",
   "priceWithoutNds": "Цена без НДС",
@@ -107,6 +107,7 @@
   "street": "Улица",
   "homeNumber": "Номер дома",
   "cancelPurchase": "Отменить покупку",
+  "purchased": "Продано",
   "lp": {
     "first": {
       "title": "Главный по стройке",

@@ -107,6 +107,7 @@
   "street": "Street",
   "homeNumber": "House number",
   "cancelPurchase": "Cancel purchase",
+  "purchased": "Sales",
   "lp": {
     "first": {
       "title": "Construction Manager",

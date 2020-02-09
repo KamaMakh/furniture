@@ -106,6 +106,7 @@
   "street": "Rue",
   "homeNumber": "Numéro de maison",
   "cancelPurchase": "Annuler l'achat",
+  "purchased": "Épuisé",
   "lp": {
     "first": {
       "title": "Directeur de construction",

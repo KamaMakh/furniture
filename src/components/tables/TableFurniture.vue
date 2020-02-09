@@ -182,14 +182,14 @@
             style="word-break: initial"
             @click="showEditNomenclature(item, $event)"
           >
-            <span v-if="getStatus(item.status) === 'Confirmed'">
+            <span v-if="item.buy">
+              {{ $t("purchased") }}
+            </span>
+            <span v-else-if="getStatus(item.status) === 'Confirmed'">
               {{ $t("confirmed_simple") }}
             </span>
-            <span v-else-if="item.buy">
-              Purchased
-            </span>
             <span v-else>
-              Not confirmed
+              {{ $t("not_confirmed_simple") }}
             </span>
           </td>
           <td
@@ -665,10 +665,7 @@
                           </button>
                           <button
                             v-if="
-                              (nomenclature.creatorId === user.id ||
-                                !nomenclature.id) &&
-                                getStatus(nomenclature.status) ===
-                                  'Confirmed' &&
+                              getStatus(nomenclature.status) === 'Confirmed' &&
                                 !nomenclature.buy
                             "
                             type="button"
@@ -678,7 +675,10 @@
                             {{ $t("buy") }}
                           </button>
                           <button
-                            v-else-if="nomenclature.buy"
+                            v-else-if="
+                              nomenclature.buy &&
+                                nomenclature.buyerId === user.id
+                            "
                             type="button"
                             class="btn btn-custom ml-2"
                             @click="buyNomenclature(nomenclature)"
