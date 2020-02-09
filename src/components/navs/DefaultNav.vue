@@ -31,7 +31,7 @@
           <a href=""><span class="icon"></span> Examples</a>
         </li>
         <li>
-          <b-link :to="{ name: 'ConfirmText' }">
+          <b-link @click="downloadWithVueResource">
             {{ $t("privacy") }}
           </b-link>
         </li>
@@ -42,7 +42,17 @@
 
 <script>
 export default {
-  name: "DefaultNav"
+  name: "DefaultNav",
+  data() {
+    return {
+      url: "https://stroy-assist.ru/confirm.pdf"
+    };
+  },
+  methods: {
+    downloadWithVueResource() {
+      window.open(this.url, "_blank");
+    }
+  }
 };
 </script>
 
