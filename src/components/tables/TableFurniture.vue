@@ -619,7 +619,10 @@
                                 roles.indexOf(item.userRole) < 0 ||
                                 nomenclature.id === updatingId ||
                                 nomenclature.buy ||
-                                absolutesDisabled
+                                absolutesDisabled ||
+                                (nomenclature.status[key]['confirmed'] &&
+                                  nomenclature.status[key]['whoConfirmedId'] !==
+                                    user.id)
                             }"
                             @click="updateConfirm(nomenclature)"
                           >
