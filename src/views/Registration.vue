@@ -101,6 +101,7 @@
       >
         <v-select
           class="style-chooser"
+          :disabled="isClient"
           :placeholder="$t('role')"
           :options="[
             $t('supervisor'),
@@ -216,18 +217,16 @@ export default {
   data() {
     return {
       showFormErrors: false,
-      // roles: [
-      //   this.$i18n.messages[this.$store.state.lang]["supervisor"],
-      //   // this.$i18n.messages[this.$store.state.lang]["magazine"],
-      //   // this.$i18n.messages[this.$store.state.lang]["client"],
-      //   this.$i18n.messages[this.$store.state.lang]["architect"]
-      // ],
       roles_value: ["SUPERVISOR", "MAGAZINE", "CLIENT", "ARCHITECT"],
       showModal: false,
-      form: {},
+      form: {
+        email: "",
+        role: ""
+      },
       policy: false,
       loading: false,
-      url: "https://stroy-assist.ru/confirm.pdf"
+      url: "https://stroy-assist.ru/confirm.pdf",
+      isClient: false
     };
   },
   validations: {
@@ -331,6 +330,28 @@ export default {
         .finally(() => {
           this.loading = false;
         });
+    },
+    defaultData() {
+      /*eslint-disable*/
+      if (window.location.href.indexOf("?") > -1) {
+        let href = decodeURIComponent(window.location.href).split("?")[1].split("&"),
+          arr = [];
+        href.forEach(item => {
+          if (item.indexOf("=") > -1) {
+            let localItem = item.split("=");
+            arr[localItem[0]] = localItem[1];
+          }
+        });
+        if (arr["mail"] !== undefined) {
+          this.form.email = decodeURI(arr["mail"]);
+        }
+        if (arr["role"] !== undefined && arr["role"] === "client") {
+          this.isClient = true;
+          this.form.role = this.$i18n.messages[this.$store.state.lang][
+            "client"
+          ];
+        }
+      }
     }
   },
   watch: {
@@ -339,6 +360,7 @@ export default {
     }
   },
   mounted() {
+    this.defaultData();
     // eslint-disable-next-line
     ym(57324937, "hit", "#/registration", {
       title: "Регистрация",
@@ -501,6 +523,11 @@ $ffamily: "Roboto", sans-serif;
       }
     }
   }
+}
+
+.vs--disabled .vs__clear, .vs--disabled .vs__dropdown-toggle, .vs--disabled .vs__open-indicator, .vs--disabled .vs__search, .vs--disabled .vs__selected {
+  background: transparent;
+  opacity: 0.8;
 }
 
 .modal-mask {
