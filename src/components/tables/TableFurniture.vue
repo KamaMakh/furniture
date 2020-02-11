@@ -166,7 +166,7 @@
             width="6%"
             @click="showEditNomenclature(item, $event)"
           >
-            {{ item.units ? item.units.name : "" }}
+            {{ item.units ? item.units.abName : "" }}
           </td>
 
           <td
@@ -188,7 +188,7 @@
                 <span v-if="item.buy">
                   {{ $t("purchased") }}
                 </span>
-                <span v-else-if="getStatus(item.status) === 'Confirmed'">
+                <span v-else-if="getStatus(item.status) === 'confirmed_simple'">
                   {{ $t("confirmed_simple") }}
                 </span>
                 <span v-else>
@@ -805,20 +805,30 @@ export default {
     }
   },
   methods: {
-    /*eslint-disable*/
     statusesHtml(furniture) {
-      console.log(furniture);
       let items = "",
         whoBought = "";
-      if(furniture.status && furniture.status.length) {
+      if (furniture.status && furniture.status.length) {
         furniture.status.forEach(item => {
-          let confirmed = item.confirmed ? this.$i18n.messages[this.$i18n.locale]["confirmed_simple"] : this.$i18n.messages[this.$i18n.locale]["not_confirmed_simple"],
-            role = this.$i18n.messages[this.$i18n.locale][item.userRole.split("_")[1].toLowerCase()];
-          items += '<div class="status-item"><b>' + role + ':</b>' + " " + confirmed + '</div>';
-          if(furniture.buy && furniture.buyerId === item.whoConfirmedId) {
-            whoBought += `<div class="mt-2">${this.$i18n.messages[this.$i18n.locale]["purchased"]} ${role}</div>`;
+          let confirmed = item.confirmed
+              ? this.$i18n.messages[this.$i18n.locale]["confirmed_simple"]
+              : this.$i18n.messages[this.$i18n.locale]["not_confirmed_simple"],
+            role = this.$i18n.messages[this.$i18n.locale][
+              item.userRole.split("_")[1].toLowerCase()
+            ];
+          items +=
+            '<div class="status-item"><b>' +
+            role +
+            ":</b>" +
+            " " +
+            confirmed +
+            "</div>";
+          if (furniture.buy && furniture.buyerId === item.whoConfirmedId) {
+            whoBought += `<div class="mt-2">${
+              this.$i18n.messages[this.$i18n.locale]["purchased"]
+            } ${role}</div>`;
           }
-        })
+        });
       }
       return `<div class="statuses d-flex justify-content-center align-items-center flex-column">
           ${items} ${whoBought}
@@ -850,11 +860,11 @@ export default {
         });
     },
     getStatus(statuses) {
-      let confirmText = "Confirmed";
+      let confirmText = "confirmed_simple";
       if (statuses && statuses.length) {
         statuses.forEach(item => {
           if (item.hasOwnProperty("confirmed") && !item.confirmed) {
-            confirmText = "not confirmed";
+            confirmText = "not_confirmed_simple";
           }
         });
         return confirmText;
@@ -867,10 +877,7 @@ export default {
       this.hideAllRows = !this.hideAllRows;
     },
     addGroup() {
-      /*eslint-disable*/
-      if (
-        !this.group.name
-      ) {
+      if (!this.group.name) {
         Vue.notify({
           group: "warn",
           title: this.$i18n.messages[this.$i18n.locale]["attention"],
@@ -1107,7 +1114,7 @@ export default {
         term = term[2] + "." + term[1] + "." + term[0];
         item.termString = new Date(term);
         this.nomenclature = item;
-        this.nomenclature.units["label"] = item.units.name;
+        this.nomenclature.units["label"] = item.units.abName;
         this.photos = [];
         this.files = [];
         this.price = item.price;
@@ -1331,6 +1338,19 @@ export default {
               date1 = date1[2] + "-" + date1[1] + "-" + date1[0];
               date2 = date2[2] + "-" + date2[1] + "-" + date2[0];
               return new Date(date1) - new Date(date2);
+            } else if (column.code === "status") {
+              let intValsArr = {
+                  not_confirmed_simple: 1,
+                  confirmed_simple: 2,
+                  purchased: 3
+                },
+                columnA = a["buy"]
+                  ? 3
+                  : intValsArr[this.getStatus(a[column.code])],
+                columnB = b["buy"]
+                  ? 3
+                  : intValsArr[this.getStatus(b[column.code])];
+              return columnA - columnB;
             } else {
               if (a[column.code] >= b[column.code]) {
                 return -1;
@@ -1363,7 +1383,7 @@ export default {
         let unitsList = [];
         state.furniture.units.forEach(item => {
           unitsList.push({
-            label: item.name,
+            label: item.abName,
             name: item.name,
             id: item.id
           });
@@ -1396,7 +1416,7 @@ export default {
             },
             {
               name: this.$i18n.messages[state.lang]["status"],
-              sortable: false,
+              sortable: true,
               code: "status"
             },
             {
@@ -1576,6 +1596,9 @@ $ffamily: "Roboto", sans-serif;
     }
   }
   thead {
+    td {
+      text-align: left;
+    }
     td .ellipsis {
       max-width: 70px;
       white-space: nowrap;
