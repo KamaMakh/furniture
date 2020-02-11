@@ -301,3 +301,55 @@ input.nomenclature {
     font-size: 12px;
   }
 }
+
+$pink: #688e74;
+
+.tooltip-custom {
+  position: relative;
+  .tooltip-html {
+    position: absolute;
+    content: '';
+    opacity: 0;
+    transition: all 0.4s ease;
+    background: rgba($pink, 0.8);
+    width: 230px;
+    height: auto;
+    font-size: 13px;
+    font-weight: 300;
+    top: -150%;
+    left: auto;
+    right: -230px;
+    padding: 10px;
+    border-radius: 5px;
+    letter-spacing: 1px;
+    transform: translateY(-20px);
+    color: #fff;
+    z-index: 0;
+  }
+  &:hover {
+    .tooltip-html {
+      opacity: 1;
+      z-index: 15;
+      transform: translateX(-2px);
+    }
+  }
+}
+
+@keyframes shake {
+  0% {
+    transform: rotate(2deg);
+  }
+  50% {
+    transform: rotate(-3deg);
+  }
+  70% {
+    transform: rotate(3deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+#anim:hover {
+  animation: shake 500ms ease-in-out forwards;
+}

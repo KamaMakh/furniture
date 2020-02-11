@@ -18,7 +18,7 @@ $hb: "h-b", serif;
 .index-component {
   font-family: "h-r", serif;
   section {
-    max-width: 1240px;
+    max-width: 1140px;
     margin: 0 auto;
     &:last-child {
       max-width: none;
@@ -142,6 +142,9 @@ $hb: "h-b", serif;
               &:before {
                 background: #fff;
               }
+            }
+            @media all and(min-width: 1050px) {
+              padding: 0.5rem 37px;
             }
             @media all and(min-width: 1370px) {
               &.first {

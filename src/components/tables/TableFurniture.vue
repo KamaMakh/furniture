@@ -182,15 +182,20 @@
             style="word-break: initial"
             @click="showEditNomenclature(item, $event)"
           >
-            <span v-if="item.buy">
-              {{ $t("purchased") }}
-            </span>
-            <span v-else-if="getStatus(item.status) === 'Confirmed'">
-              {{ $t("confirmed_simple") }}
-            </span>
-            <span v-else>
-              {{ $t("not_confirmed_simple") }}
-            </span>
+            <div id="anim">
+              <span class="tooltip-custom">
+                <span class="tooltip-html" v-html="statusesHtml(item)"></span>
+                <span v-if="item.buy">
+                  {{ $t("purchased") }}
+                </span>
+                <span v-else-if="getStatus(item.status) === 'Confirmed'">
+                  {{ $t("confirmed_simple") }}
+                </span>
+                <span v-else>
+                  {{ $t("not_confirmed_simple") }}
+                </span>
+              </span>
+            </div>
           </td>
           <td
             v-if="item.price !== undefined && ndsColumns"
@@ -800,6 +805,25 @@ export default {
     }
   },
   methods: {
+    /*eslint-disable*/
+    statusesHtml(furniture) {
+      console.log(furniture);
+      let items = "",
+        whoBought = "";
+      if(furniture.status && furniture.status.length) {
+        furniture.status.forEach(item => {
+          let confirmed = item.confirmed ? this.$i18n.messages[this.$i18n.locale]["confirmed_simple"] : this.$i18n.messages[this.$i18n.locale]["not_confirmed_simple"],
+            role = this.$i18n.messages[this.$i18n.locale][item.userRole.split("_")[1].toLowerCase()];
+          items += '<div class="status-item"><b>' + role + ':</b>' + " " + confirmed + '</div>';
+          if(furniture.buy && furniture.buyerId === item.whoConfirmedId) {
+            whoBought += `<div class="mt-2">${this.$i18n.messages[this.$i18n.locale]["purchased"]} ${role}</div>`;
+          }
+        })
+      }
+      return `<div class="statuses d-flex justify-content-center align-items-center flex-column">
+          ${items} ${whoBought}
+        </div>`;
+    },
     buyNomenclature(nomenclature) {
       this.loading = true;
       this.$store
