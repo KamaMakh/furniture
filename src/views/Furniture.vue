@@ -117,5 +117,7 @@ export default {
 <style scoped lang="scss">
 .furniture {
   overflow-x: scroll;
+  max-width: 1140px;
+  margin: 0 auto;
 }
 </style>

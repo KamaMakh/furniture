@@ -99,7 +99,7 @@ export default {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     overflow: hidden;
-    background: url("../assets/authbg2.png") fixed no-repeat;
+    background: url("../assets/authbg2.png") repeat;
   }
 }
 

@@ -205,7 +205,7 @@ export default {
 <style scoped lang="scss">
 $ffamily: "Roboto", sans-serif;
 .header {
-  max-width: 1920px;
+  max-width: 1140px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
