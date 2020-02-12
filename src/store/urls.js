@@ -1,3 +1,5 @@
+import { userUrls } from "../store/user/urls";
+
 const serverUrl =
   process.env.NODE_ENV === "development"
     ? "//151.248.122.207:8080"
@@ -56,5 +58,6 @@ export {
   createOrderUrl,
   uploadAvatarUrl,
   inviteUserUrl,
-  buyNomenclatureUrl
+  buyNomenclatureUrl,
+  userUrls
 };

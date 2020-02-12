@@ -264,4 +264,15 @@ input.nomenclature {
 #anim:hover {
   animation: shake 500ms ease-in-out forwards; }
 
+.modal-content.verify-modal-content {
+  border-radius: 15px; }
+  .modal-content.verify-modal-content label {
+    width: 200px;
+    text-align: left;
+    margin: 0 auto;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 14px;
+    color: #E0E0E0; }
+
 /*# sourceMappingURL=styles.css.map */

@@ -23,6 +23,7 @@ import { faPlus, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import VueWindowSize from "vue-window-size";
 const VueScrollTo = require("vue-scrollto");
+import Validations from "vuelidate";
 
 library.add(faPlus);
 library.add(faUserPlus);
@@ -38,6 +39,7 @@ Vue.use(VueWindowSize, {
 Vue.use(Meta);
 Vue.use(Notifications);
 Vue.use(VueCookies);
+Vue.use(Validations);
 Vue.use(BootstrapVue);
 Vue.use(VueScrollTo, {
   duration: 1000

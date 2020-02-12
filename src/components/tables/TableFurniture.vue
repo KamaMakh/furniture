@@ -769,6 +769,7 @@ import { required } from "vuelidate/lib/validators";
 import { serverUrl } from "@/store/urls";
 import VCalendar from "v-calendar";
 import CustomGallery from "@/components/CustomGallery";
+import { userUrls } from "@/store/urls";
 
 Vue.use(VCalendar);
 Vue.use(VueMask);
@@ -781,6 +782,7 @@ export default {
   },
   data() {
     return {
+      userUrls: userUrls,
       hideAllRows: false,
       showAddModal: false,
       showRemoveNomekModal: false,

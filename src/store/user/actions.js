@@ -8,7 +8,8 @@ import {
   getCodeUrl,
   sendCodeUrl,
   sendNewPasswordUrl,
-  uploadAvatarUrl
+  uploadAvatarUrl,
+  userUrls
 } from "@/store/urls";
 import onError from "@/store/onError";
 import Vue from "vue";
@@ -66,6 +67,28 @@ function login({ commit }, data) {
 function getCode({ commit }, data) {
   return new Promise((resolve, reject) => {
     api.post(getCodeUrl, data)
+      .then((response) => {
+        if (response.data.error) {
+          Vue.notify({
+            group: 'warn',
+            type: 'error',
+            text: response.data.error
+          });
+        } else if (response.data.status === "OK") {
+          resolve();
+        } else {
+          reject(error.response);
+        }
+      })
+      .catch(error => {
+        reject(error.response)
+      });
+  });
+}
+
+function getVerifyCode({ commit }) {
+  return new Promise((resolve, reject) => {
+    api.post(userUrls.getVerifyCodeUrl)
       .then((response) => {
         if (response.data.error) {
           Vue.notify({
@@ -195,6 +218,28 @@ function uploadAvatar({ commit }, data) {
   });
 }
 
+function sendVerifyCode({ commit }, data) {
+  return new Promise((resolve, reject) => {
+    api.post(userUrls.sendVerifyCodeUrl, data)
+      .then((response) => {
+        if (response.data.error) {
+          Vue.notify({
+            group: 'warn',
+            type: 'error',
+            text: response.data.error
+          });
+        } else if (response.status === 200) {
+          resolve();
+        } else {
+          reject(error.response);
+        }
+      })
+      .catch(error => {
+        reject(error.response)
+      });
+  });
+}
+
 export {
   register,
   login,
@@ -203,5 +248,7 @@ export {
   getCode,
   sendCode,
   sendNewPassword,
-  uploadAvatar
+  uploadAvatar,
+  sendVerifyCode,
+  getVerifyCode
 }

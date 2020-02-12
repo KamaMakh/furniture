@@ -142,5 +142,12 @@
       "monthly": "Monthly",
       "loan": "Annual"
     }
+  },
+  "verify": {
+    "title1": "We are glad that you are with us!",
+    "title2": "Check if the mail is correct? If you made a mistake during registration, correct the mail below.",
+    "text1": "A verification code was sent to you by mail",
+    "text2": "Please copy the verification code and paste it into the field below.",
+    "noMessage": "The letter has not arrived"
   }
 }

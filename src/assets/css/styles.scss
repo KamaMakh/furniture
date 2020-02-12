@@ -353,3 +353,17 @@ $pink: #688e74;
 #anim:hover {
   animation: shake 500ms ease-in-out forwards;
 }
+
+
+.modal-content.verify-modal-content {
+  border-radius: 15px;
+  label {
+    width: 200px;
+    text-align: left;
+    margin: 0 auto;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 14px;
+    color: #E0E0E0;
+  }
+}

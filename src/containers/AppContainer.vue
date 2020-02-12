@@ -16,30 +16,52 @@
         </perfect-scrollbar>
       </div>
     </div>
+
+    <!--modals-->
+    <b-modal
+      v-model="showVerifyModal"
+      content-class="verify-modal-content"
+      hide-footer
+      hide-header
+      centered
+    >
+      <VerifyMail @hideModal="showVerifyModal = false" />
+    </b-modal>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapState } from "vuex";
 import AppTop from "@/components/AppTop";
 import AppLeft from "@/components/AppLeft";
+import VerifyMail from "@/components/VerifyMail";
 export default {
   name: "AppContainer",
   components: {
     AppTop,
-    AppLeft
+    AppLeft,
+    VerifyMail
   },
   beforeRouteEnter(to, from, next) {
-    next(vm => (vm.navsType = to.name));
+    next(vm => {
+      vm.navsType = to.name;
+      if (!vm.user.isEmailAccepted) {
+        vm.showVerifyModal = true;
+      }
+    });
   },
   beforeRouteUpdate(to, from, next) {
     this.navsType = to.name;
+    if (!this.user.isEmailAccepted) {
+      this.showVerifyModal = true;
+    }
     next();
   },
   data() {
     return {
       leftMenuShow: true,
-      navsType: null
+      navsType: null,
+      showVerifyModal: false
     };
   },
   methods: {
@@ -57,7 +79,9 @@ export default {
         this.$store.commit("setLang", lang);
       }
     },
-    ...mapGetters(["loggedIn"])
+    ...mapState({
+      user: state => state.user.user
+    })
   }
 };
 </script>
