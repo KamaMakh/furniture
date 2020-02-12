@@ -228,7 +228,7 @@ function sendVerifyCode({ commit }, data) {
             type: 'error',
             text: response.data.error
           });
-        } else if (response.status === 200) {
+        } else if (response.status === 200 && response.data.isEmailAccepted) {
           resolve();
         } else {
           reject(error.response);
