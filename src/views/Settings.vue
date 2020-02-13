@@ -1,16 +1,12 @@
 <template>
   <div class="settings">
-    <SettingsBlocks />
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import SettingsBlocks from "@/components/SettingsBlocks";
 export default {
   name: "Settings",
-  components: {
-    SettingsBlocks
-  },
   mounted() {
     // eslint-disable-next-line
     ym(57324937, "hit", "#/settings", {
@@ -23,7 +19,7 @@ export default {
 
 <style scoped lang="scss">
 .settings {
-  display: inline-block;
+  display: block;
   margin: 0 auto;
 }
 </style>

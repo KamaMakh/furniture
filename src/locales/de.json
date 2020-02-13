@@ -109,6 +109,12 @@
   "cancelPurchase": "Kauf abbrechen",
   "purchased": "Gekauft",
   "privacy": "Lizenzvereinbarung",
+  "personalCabinet": "Persönliches Büro",
+  "finances": "Finanzen",
+  "site": "Website",
+  "companyName": "Name der Organisation",
+  "country": "Land",
+  "locality": "Ortschaft",
   "lp": {
     "first": {
       "title": "Bauleiter",

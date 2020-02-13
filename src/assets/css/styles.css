@@ -275,4 +275,33 @@ input.nomenclature {
     line-height: 14px;
     color: #E0E0E0; }
 
+.personal-select .vs__search {
+  padding: 0;
+  margin: 0; }
+.personal-select .vs__search::placeholder {
+  color: #999 !important; }
+.personal-select .vs__dropdown-toggle {
+  border: none;
+  min-height: 38px;
+  padding-bottom: 0; }
+.personal-select .vs__selected {
+  color: #717171;
+  font-size: 19px;
+  font-family: "Roboto", sans-serif;
+  padding: 0;
+  margin: 0;
+  border: none; }
+.personal-select .vs__clear,
+.personal-select .vs__open-indicator {
+  fill: #717171 !important;
+  cursor: pointer; }
+.personal-select input {
+  width: 50% !important;
+  border: none !important; }
+.personal-select .vs__selected-options {
+  border-bottom: 2px solid #eef0f4;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0; }
+
 /*# sourceMappingURL=styles.css.map */

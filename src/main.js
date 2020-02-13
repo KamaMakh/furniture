@@ -24,6 +24,7 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import VueWindowSize from "vue-window-size";
 const VueScrollTo = require("vue-scrollto");
 import Validations from "vuelidate";
+import VueMask from "v-mask";
 
 library.add(faPlus);
 library.add(faUserPlus);
@@ -44,6 +45,7 @@ Vue.use(BootstrapVue);
 Vue.use(VueScrollTo, {
   duration: 1000
 });
+Vue.use(VueMask);
 
 Vue.config.productionTip = false;
 

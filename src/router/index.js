@@ -13,6 +13,8 @@ import Planning from "../views/Planning";
 import Users from "../views/Users";
 import Index from "../views/Index";
 import ConfirmText from "../views/ConfirmText";
+import Finances from "../views/Finances";
+import Personal from "../views/Personal";
 
 Vue.use(VueRouter);
 
@@ -44,7 +46,20 @@ const routes = [
       {
         path: "/settings",
         name: "Settings",
-        component: Settings
+        redirect: { name: "Personal" },
+        component: Settings,
+        children: [
+          {
+            path: "finances",
+            name: "Finances",
+            component: Finances
+          },
+          {
+            path: "personal",
+            name: "Personal",
+            component: Personal
+          }
+        ]
       },
       {
         path: "/documents",

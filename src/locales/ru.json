@@ -109,6 +109,12 @@
   "cancelPurchase": "Отменить покупку",
   "purchased": "Куплено",
   "privacy": "Лицензионное соглашение",
+  "personalCabinet": "Личный кабинет",
+  "finances": "Финансы",
+  "site": "Сайт",
+  "companyName": "Название организации",
+  "country": "Страна",
+  "locality": "Населенный пункт",
   "lp": {
     "first": {
       "title": "Главный по стройке",

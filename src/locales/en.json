@@ -109,6 +109,12 @@
   "cancelPurchase": "Cancel purchase",
   "privacy": "License agreement",
   "purchased": "Purchased",
+  "personalCabinet": "Personal Area",
+  "finances": "Finance",
+  "site": "Website",
+  "companyName": "Name of the organization",
+  "country": "The country",
+  "locality": "Locality",
   "lp": {
     "first": {
       "title": "Construction Manager",

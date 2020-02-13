@@ -108,6 +108,12 @@
   "cancelPurchase": "Annuler l'achat",
   "purchased": "Acheté",
   "privacy": "Accord de licence",
+  "personalCabinet": "Compte personnel",
+  "finances": "Finances",
+  "site": "Le site",
+  "companyName": "Nom de l'organisation",
+  "country": "Pays",
+  "locality": "Localité",
   "lp": {
     "first": {
       "title": "Directeur de construction",
