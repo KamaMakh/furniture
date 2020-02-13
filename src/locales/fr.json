@@ -147,6 +147,7 @@
     "title2": "Vérifiez si le courrier est correct? Si vous avez fait une erreur lors de l'inscription, corrigez le mail ci-dessous.",
     "text1": "Un code de vérification vous a été envoyé par mail",
     "text2": "Veuillez copier le code de vérification et le coller dans le champ ci-dessous.",
-    "noMessage": "La lettre n'est pas arrivée"
+    "noMessage": "Vous n'avez pas reçu de lettre? Renvoyez.",
+    "wrongCode": "Le code saisi est incorrect"
   }
 }

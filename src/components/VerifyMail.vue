@@ -25,38 +25,9 @@
             :placeholder="$t('enterCode')"
           ></b-form-input>
         </b-form-group>
-        <div class="verify-mail__resend" @click="step = 2">
+        <div class="verify-mail__resend" @click="sendEmail">
           {{ $t("verify.noMessage") }}
         </div>
-        <b-button type="submit" squared class="submit-btn">
-          ok
-        </b-button>
-      </b-form>
-    </div>
-    <div v-else class="verify-mail__inner">
-      <div class="verify-mail__title">
-        {{ $t("verify.title1") }}
-      </div>
-      <div class="verify-mail__text">
-        {{ $t("verify.title2") }}
-      </div>
-      <b-form @submit.prevent="sendEmail">
-        <b-form-group
-          id="input-group-2"
-          :label="$t('email')"
-          label-for="input-2"
-          :class="{
-            'is-danger': $v.email.$invalid && (email || showFormErrors)
-          }"
-        >
-          <b-form-input
-            id="name"
-            v-model="email"
-            required
-            name="name"
-            :placeholder="$t('email')"
-          ></b-form-input>
-        </b-form-group>
         <b-button type="submit" squared class="submit-btn">
           ok
         </b-button>
@@ -115,12 +86,12 @@ export default {
         .then(() => {
           this.$emit("hideModal");
         })
-        .catch(error => {
+        .catch(() => {
           this.$notify({
             group: "warn",
             type: "error",
             title: this.$i18n.messages[this.$i18n.locale]["attention"],
-            text: error
+            text: this.$i18n.messages[this.$i18n.locale]["verify"]["wrongCode"]
           });
         })
         .finally(() => {
@@ -128,22 +99,6 @@ export default {
         });
     },
     sendEmail() {
-      if (
-        this.$v.email.$pending ||
-        this.$v.email.$error ||
-        this.$v.email.$invalid
-      ) {
-        this.$notify({
-          group: "warn",
-          title: this.$i18n.messages[this.$i18n.locale]["attention"],
-          text: this.$i18n.messages[this.$i18n.locale]["register_invalid"],
-          type: "warn",
-          closeOnClick: true,
-          duration: 4000
-        });
-        this.showFormErrors = true;
-        return;
-      }
       this.loading = true;
       this.$store
         .dispatch("user/getVerifyCode")
@@ -154,7 +109,6 @@ export default {
             title: this.$i18n.messages[this.$i18n.locale]["attention"],
             text: this.$i18n.messages[this.$i18n.locale]["getCodeMessage"]
           });
-          this.step = 1;
         })
         .catch(error => {
           this.$notify({

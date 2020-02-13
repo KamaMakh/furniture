@@ -148,6 +148,7 @@
     "title2": "Überprüfen Sie, ob die Mail korrekt ist? Wenn Sie sich bei der Registrierung registriert haben\n         Fehler, korrigieren Sie die Mail unten.",
     "text1": "Ein Bestätigungscode wurde Ihnen per Post zugesandt",
     "text2": "Bitte kopieren Sie den Bestätigungscode und fügen Sie ihn in das Feld unten ein.",
-    "noMessage": "Der Brief kam nicht an"
+    "noMessage": "Sie haben keinen Brief erhalten? Erneut senden.",
+    "wrongCode": "Der eingegebene Code ist falsch"
   }
 }
