@@ -156,5 +156,42 @@
     "text2": "Bitte kopieren Sie den Bestätigungscode und fügen Sie ihn in das Feld unten ein.",
     "noMessage": "Sie haben keinen Brief erhalten? Erneut senden.",
     "wrongCode": "Der eingegebene Code ist falsch"
+  },
+  "tariffsPage": {
+    "free": {
+      "subTitle": "Freier Preis",
+      "ability1": "Die Fähigkeit, 1 Konstruktion zu erstellen und durchzuführen",
+      "ability2": "Die Möglichkeit, Benutzer auf die Baustelle einzuladen",
+      "ability3": "Statistik",
+      "ability4": "Die Möglichkeit, ein Lager zu erstellen",
+      "ability5": "Möglichkeit, mehr als eine Baustelle zu erstellen",
+      "ability6": "Möglichkeit, mehr als ein Lager zu erstellen",
+      "ability7": "Möglichkeit, mehr als zweihundert Lagerartikel auf Lager zu erstellen",
+      "ability8": "Möglichkeit, mehr als zweihundert Elemente zur Genehmigung zu erstellen",
+      "btnText": "Ihre Rate"
+    },
+    "optimal": {
+      "subTitle": "Optimale Rate",
+      "ability1": "Fähigkeit, 3 Bauprojekte gleichzeitig zu erstellen und durchzuführen",
+      "ability2": "Die Möglichkeit, Benutzer auf die Baustelle einzuladen",
+      "ability3": "Unbegrenzte Lagerartikel",
+      "ability4": "Statistik",
+      "ability5": "Möglichkeit, bis zu 3 Lagerhäuser zu erstellen",
+      "ability6": "Möglichkeit, bis zu 3 Lagerhäuser zu erstellen",
+      "ability7": "Möglichkeit, mehr als drei Lagerhäuser zu erstellen",
+      "btnText": "Zum Tarif gehen",
+      "flag": "Monatlich"
+    },
+    "premium": {
+      "subTitle": "Premium-Preis",
+      "ability1": "Fähigkeit, 10 Bauprojekte gleichzeitig zu erstellen und durchzuführen",
+      "ability2": "Die Möglichkeit, Benutzer auf die Baustelle einzuladen",
+      "ability3": "Unbegrenzte Lagerartikel",
+      "ability4": "Statistik",
+      "ability6": "Fähigkeit, mehr als zehn Gebäude zu erstellen",
+      "ability7": "Möglichkeit, mehr als zehn Lagerhäuser zu erstellen",
+      "btnText": "Gehen Sie zu Premium",
+      "flag": "Jährlich"
+    }
   }
 }

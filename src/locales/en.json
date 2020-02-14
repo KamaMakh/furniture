@@ -156,5 +156,42 @@
     "text2": "Please copy the verification code and paste it into the field below.",
     "noMessage": "Didn’t receive a letter? Resend.",
     "wrongCode": "The code entered is incorrect"
+  },
+  "tariffsPage": {
+    "free": {
+      "subTitle": "Free rate",
+      "ability1": "The ability to create and conduct 1 construction",
+      "ability2": "Возможность пригласить пользователей к стройке",
+      "ability3": "The ability to invite users to the construction site",
+      "ability4": "The ability to create a warehouse",
+      "ability5": "Ability to create more than one warehouse",
+      "ability6": "Ability to create more than one construction site",
+      "ability7": "Ability to create more than two hundred stock items in stock",
+      "ability8": "Ability to create more than two hundred items for approval",
+      "btnText": "Your tariff"
+    },
+    "optimal": {
+      "subTitle": "Optimal rate",
+      "ability1": "Ability to create and conduct 3 construction projects simultaneously",
+      "ability2": "The ability to invite users to the construction site",
+      "ability3": "Unlimited stock items",
+      "ability4": "Statistics",
+      "ability5": "Ability to create up to 3 warehouses",
+      "ability6": "Ability to create more than three buildings",
+      "ability7": "Ability to create more than three warehouses",
+      "btnText": "Go to tariff",
+      "flag": "Monthly"
+    },
+    "premium": {
+      "subTitle": "Premium rate",
+      "ability1": "Ability to create and conduct 10 construction projects simultaneously",
+      "ability2": "The ability to invite users to the construction site",
+      "ability3": "Unlimited stock items",
+      "ability4": "Statistics",
+      "ability6": "Ability to create more than ten buildings",
+      "ability7": "Ability to create more than ten warehouses",
+      "btnText": "Go to Premium",
+      "flag": "Annual"
+    }
   }
 }

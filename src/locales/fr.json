@@ -155,5 +155,42 @@
     "text2": "Veuillez copier le code de vérification et le coller dans le champ ci-dessous.",
     "noMessage": "Vous n'avez pas reçu de lettre? Renvoyez.",
     "wrongCode": "Le code saisi est incorrect"
+  },
+  "tariffsPage": {
+    "free": {
+      "subTitle": "Tarif gratuit",
+      "ability1": "La capacité de créer et de réaliser 1 construction",
+      "ability2": "La possibilité d'inviter des utilisateurs sur le chantier",
+      "ability3": "Statistiques",
+      "ability4": "La possibilité de créer un entrepôt",
+      "ability5": "Possibilité de créer plus d'un chantier de construction",
+      "ability6": "Possibilité de créer plus d'un entrepôt",
+      "ability7": "Possibilité de créer plus de deux cents articles en stock",
+      "ability8": "Possibilité de créer plus de deux cents éléments pour approbation",
+      "btnText": "Votre tarif"
+    },
+    "optimal": {
+      "subTitle": "Taux optimal",
+      "ability1": "Capacité à créer et réaliser 3 projets de construction simultanément",
+      "ability2": "La possibilité d'inviter des utilisateurs sur le chantier",
+      "ability3": "Articles en stock illimités",
+      "ability4": "Statistiques",
+      "ability5": "Possibilité de créer jusqu'à 3 entrepôts",
+      "ability6": "Possibilité de créer jusqu'à 3 entrepôts",
+      "ability7": "Possibilité de créer plus de trois entrepôts",
+      "btnText": "Aller au tarif",
+      "flag": "Mensuel"
+    },
+    "premium": {
+      "subTitle": "Taux de prime",
+      "ability1": "Possibilité de créer et de mener 10 projets de construction simultanément",
+      "ability2": "La possibilité d'inviter des utilisateurs sur le chantier",
+      "ability3": "Articles en stock illimités",
+      "ability4": "Statistiques",
+      "ability6": "Possibilité de créer plus de dix bâtiments",
+      "ability7": "Possibilité de créer plus de dix entrepôts",
+      "btnText": "Accéder à Premium",
+      "flag": "Annuel"
+    }
   }
 }

@@ -9,18 +9,6 @@
         <img :src="serverUrl + avatarPath" />
       </div>
       <div v-else class="logo"></div>
-      <div
-        v-if="!user.avatar && !avatarPath"
-        class="edit-avatar"
-        @click="showAvatarModal = true"
-      >
-        <fa-icon icon="plus" />
-        {{ $t("add_avatar") }}
-      </div>
-      <div v-else class="edit-avatar" @click="showAvatarModal = true">
-        <fa-icon icon="plus" />
-        {{ $t("upd_avatar") }}
-      </div>
       <div class="role">{{ $t("cabinet") }} {{ role }}</div>
       <div class="name">
         {{ user.fio }}

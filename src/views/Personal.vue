@@ -3,6 +3,18 @@
     <div class="personal__info-wrap">
       <div v-if="user.avatar || avatarPath" class="personal__logo">
         <img :src="serverUrl + avatarPath" />
+        <div
+          v-if="!user.avatar && !avatarPath"
+          class="edit-avatar"
+          @click="showAvatarModal = true"
+        >
+          <fa-icon icon="plus" />
+          {{ $t("add_avatar") }}
+        </div>
+        <div v-else class="edit-avatar" @click="showAvatarModal = true">
+          <fa-icon icon="plus" />
+          {{ $t("upd_avatar") }}
+        </div>
       </div>
       <div v-else class="personal__logo empty"></div>
       <div class="personal__name-wrap">
@@ -89,6 +101,48 @@
         </b-btn>
       </b-form>
     </div>
+
+    <!--modals-->
+    <b-modal
+      v-model="showAvatarModal"
+      hide-footer
+      :title="$t('add_image')"
+      centered
+    >
+      <div class="modal-body">
+        <div class="form-group row">
+          <b-form-file
+            v-model="files"
+            :state="Boolean(files)"
+            :placeholder="$t('add_image')"
+            drop-placeholder="Drop file here..."
+            accept="image/jpeg, image/png, image/gif"
+          ></b-form-file>
+        </div>
+      </div>
+      <div v-if="!loading" class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          @click="showAvatarModal = false"
+        >
+          {{ $t("close") }}
+        </button>
+        <button
+          type="button"
+          class="btn btn-custom"
+          @click="addAvatar"
+          :disabled="typeof files == 'Array'"
+        >
+          {{ $t("save") }}
+        </button>
+      </div>
+      <div v-else class="modal-footer">
+        <button type="button" class="btn btn-custom">
+          <b-spinner small></b-spinner>
+        </button>
+      </div>
+    </b-modal>
   </div>
 </template>
 
@@ -101,7 +155,10 @@ export default {
   data() {
     return {
       showFormErrors: false,
-      serverUrl: serverUrl
+      serverUrl: serverUrl,
+      showAvatarModal: false,
+      files: [],
+      loading: false
     };
   },
   computed: {
@@ -122,6 +179,28 @@ export default {
       return this.$i18n.messages[this.$i18n.locale][
         this.user.userRoleList[0].authorities.split("_")[1].toLowerCase()
       ];
+    },
+    addAvatar() {
+      this.loading = true;
+      let formData = new FormData();
+      formData.append(`file`, this.files);
+      this.$store
+        .dispatch("user/uploadAvatar", formData)
+        .then(() => {
+          this.showAvatarModal = false;
+          this.files = [];
+        })
+        .catch(error => {
+          this.$notify({
+            group: "warn",
+            type: "error",
+            title: this.$i18n.messages[this.$i18n.locale]["attention"],
+            text: error
+          });
+        })
+        .finally(() => {
+          this.loading = false;
+        });
     }
   }
 };
@@ -143,8 +222,6 @@ $ffamily: "Roboto", sans-serif;
     margin-bottom: 40px;
   }
   &__logo {
-    width: 81px;
-    height: 81px;
     border-radius: 50%;
     margin-right: 44px;
     &.empty {
@@ -152,6 +229,8 @@ $ffamily: "Roboto", sans-serif;
     }
     img {
       max-width: 100%;
+      width: auto;
+      height: 81px;
     }
   }
   &__name-wrap {
@@ -218,6 +297,10 @@ $ffamily: "Roboto", sans-serif;
     padding: 8px 15px;
     width: 300px;
     max-width: 100%;
+  }
+  .edit-avatar {
+    margin-top: 5px;
+    cursor: pointer;
   }
 }
 </style>
