@@ -174,8 +174,6 @@ export default {
   },
   methods: {
     getRole() {
-      /*eslint-disable*/
-      console.log(this.user.userRoleList[0].authorities.split("_")[1]);
       return this.$i18n.messages[this.$i18n.locale][
         this.user.userRoleList[0].authorities.split("_")[1].toLowerCase()
       ];
@@ -238,7 +236,7 @@ $ffamily: "Roboto", sans-serif;
     .name {
       font-size: 20px;
       line-height: 23px;
-      color: #080E31;
+      color: #080e31;
     }
     .role {
       margin-top: 5px;
@@ -250,7 +248,7 @@ $ffamily: "Roboto", sans-serif;
     font-size: 20px;
     line-height: 23px;
     letter-spacing: 0.01em;
-    color: #688E74;
+    color: #688e74;
     padding-bottom: 15px;
     position: relative;
     margin-bottom: 115px;
@@ -263,11 +261,12 @@ $ffamily: "Roboto", sans-serif;
       bottom: 0;
       width: 50px;
       height: 3px;
-      background: #364B3C;
+      background: #364b3c;
     }
   }
   &__form {
-    input, select {
+    input,
+    select {
       background: none;
       -webkit-box-shadow: none;
       -moz-box-shadow: none;
@@ -284,7 +283,7 @@ $ffamily: "Roboto", sans-serif;
   }
   &__btn {
     margin-top: 40px;
-    background: #688E74;
+    background: #688e74;
     border-radius: 30px;
     font-size: 20px;
     line-height: 23px;
@@ -293,7 +292,7 @@ $ffamily: "Roboto", sans-serif;
     justify-content: center;
     text-align: center;
     letter-spacing: 0.01em;
-    color: #FFFFFF;
+    color: #ffffff;
     padding: 8px 15px;
     width: 300px;
     max-width: 100%;

@@ -11,20 +11,19 @@
 </template>
 
 <script>
-/* eslint-disable */
-import dropdown from 'vue-dropdowns';
 import "vue-select/dist/vue-select.css";
 export default {
   name: "LocaleChanger",
   props: ["parentClass"],
-  components:{
-    "dropdown": dropdown
-  },
   data() {
     return {
       langs: ["en", "fr", "ru", "de"],
-      currLang: this.$cookies.get("lang") || navigator.language || navigator.userLanguage || "en"
-    }
+      currLang:
+        this.$cookies.get("lang") ||
+        navigator.language ||
+        navigator.userLanguage ||
+        "en"
+    };
   },
   methods: {
     setLang() {
@@ -33,15 +32,15 @@ export default {
   },
   watch: {
     currLang(val) {
-      if(!val) {
+      if (!val) {
         val = "en";
       }
       this.$i18n.locale = val;
       this.$cookies.set("lang", val);
-      this.$store.commit('setLang', val);
+      this.$store.commit("setLang", val);
     }
   }
-}
+};
 </script>
 
 <style lang="scss">
@@ -65,58 +64,63 @@ export default {
 }
 .auth-locale {
   cursor: pointer;
-  .vs__clear, .vs__search{
+  .vs__clear,
+  .vs__search {
     display: none !important;
   }
-  .vs__selected, .vs__actions, .vs__selected-options{
+  .vs__selected,
+  .vs__actions,
+  .vs__selected-options {
     cursor: pointer;
     user-select: none;
   }
-  .vs__selected{
+  .vs__selected {
     position: initial !important;
     opacity: 1 !important;
   }
-  .vs__dropdown-toggle{
+  .vs__dropdown-toggle {
     border: 1px solid #fff;
   }
-  .vs__selected{
+  .vs__selected {
     color: #fff;
   }
-  .vs__open-indicator{
+  .vs__open-indicator {
     fill: #fff;
   }
 }
-.app-top{
+.app-top {
   cursor: pointer;
   height: 45px;
-  background: #688E74;
+  background: #688e74;
   margin-left: 1px;
-  .vs__clear, .vs__search{
+  .vs__clear,
+  .vs__search {
     display: none !important;
   }
-  .vs__selected, .vs__actions, .vs__selected-options{
+  .vs__selected,
+  .vs__actions,
+  .vs__selected-options {
     cursor: pointer;
     user-select: none;
   }
-  .vs__selected{
+  .vs__selected {
     position: initial !important;
     opacity: 1 !important;
   }
-  .vs__dropdown-toggle{
+  .vs__dropdown-toggle {
     border: none;
     border-radius: 0;
     height: 100%;
   }
-  .vs__selected{
+  .vs__selected {
     color: #fff;
   }
-  .vs__open-indicator{
+  .vs__open-indicator {
     fill: #fff;
   }
-  .vs__dropdown-menu{
+  .vs__dropdown-menu {
     left: auto;
     right: 0;
   }
-
 }
 </style>

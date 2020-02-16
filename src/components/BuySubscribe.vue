@@ -46,9 +46,7 @@
                 cols="3"
                 class="d-flex justify-content-end align-items-center"
               >
-                <div class="list-item__price">
-                  ₽{{ subscribe.priceYear }}
-                </div>
+                <div class="list-item__price">₽{{ subscribe.priceYear }}</div>
               </b-col>
             </b-row>
           </div>
@@ -82,9 +80,7 @@
                 cols="3"
                 class="d-flex justify-content-end align-items-center"
               >
-                <div class="list-item__price">
-                  ₽{{ subscribe.priceMonth }}
-                </div>
+                <div class="list-item__price">₽{{ subscribe.priceMonth }}</div>
               </b-col>
             </b-row>
           </div>
@@ -101,9 +97,7 @@
                 cols="6"
                 class="d-flex justify-content-end align-items-center"
               >
-                <div class="total-price">
-                  ₽{{ total }}
-                </div>
+                <div class="total-price">₽{{ total }}</div>
               </b-col>
             </b-row>
           </div>
@@ -128,9 +122,7 @@
               cols="4"
               class="d-flex justify-content-end align-items-start"
             >
-              <div class="subscribe__price">
-                ₽{{ total }}
-              </div>
+              <div class="subscribe__price">₽{{ total }}</div>
             </b-col>
           </b-row>
           <b-row class="price-block" :class="{ shown: cardsAnimate }">
@@ -143,9 +135,7 @@
               cols="6"
               class="d-flex justify-content-end align-items-center"
             >
-              <div class="total__price">
-                ₽{{ total }}
-              </div>
+              <div class="total__price">₽{{ total }}</div>
             </b-col>
           </b-row>
         </div>
@@ -163,9 +153,7 @@
               cols="6"
               class="d-flex justify-content-end align-items-center"
             >
-              <div class="total__price">
-                ₽{{ total }}
-              </div>
+              <div class="total__price">₽{{ total }}</div>
             </b-col>
           </b-row>
         </b-col>
