@@ -168,7 +168,9 @@
       "ability6": "Möglichkeit, mehr als ein Lager zu erstellen",
       "ability7": "Möglichkeit, mehr als zweihundert Lagerartikel auf Lager zu erstellen",
       "ability8": "Möglichkeit, mehr als zweihundert Elemente zur Genehmigung zu erstellen",
-      "btnText": "Ihre Rate"
+      "btnText": "Ihre Rate",
+      "price": "Kostenlos",
+      "tariffName": "BASIC"
     },
     "optimal": {
       "subTitle": "Optimale Rate",
@@ -180,7 +182,9 @@
       "ability6": "Möglichkeit, bis zu 3 Lagerhäuser zu erstellen",
       "ability7": "Möglichkeit, mehr als drei Lagerhäuser zu erstellen",
       "btnText": "Zum Tarif gehen",
-      "flag": "Monatlich"
+      "flag": "Monatlich",
+      "price": "Ab 2333 \u20BD pro Monat",
+      "tariffName": "ERWEITERT"
     },
     "premium": {
       "subTitle": "Premium-Preis",
@@ -191,7 +195,9 @@
       "ability6": "Fähigkeit, mehr als zehn Gebäude zu erstellen",
       "ability7": "Möglichkeit, mehr als zehn Lagerhäuser zu erstellen",
       "btnText": "Gehen Sie zu Premium",
-      "flag": "Jährlich"
+      "flag": "Jährlich",
+      "price": "Ab 3750 \u20BD pro Monat",
+      "tariffName": "PREMIUM"
     }
   }
 }

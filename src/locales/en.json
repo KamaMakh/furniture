@@ -168,7 +168,9 @@
       "ability6": "Ability to create more than one construction site",
       "ability7": "Ability to create more than two hundred stock items in stock",
       "ability8": "Ability to create more than two hundred items for approval",
-      "btnText": "Your tariff"
+      "btnText": "Your tariff",
+      "price": "Free",
+      "tariffName": "BASIC"
     },
     "optimal": {
       "subTitle": "Optimal rate",
@@ -180,7 +182,9 @@
       "ability6": "Ability to create more than three buildings",
       "ability7": "Ability to create more than three warehouses",
       "btnText": "Go to tariff",
-      "flag": "Monthly"
+      "flag": "Monthly",
+      "price": "From 2333 \u20BD per month",
+      "tariffName": "EXTENDED"
     },
     "premium": {
       "subTitle": "Premium rate",
@@ -191,7 +195,9 @@
       "ability6": "Ability to create more than ten buildings",
       "ability7": "Ability to create more than ten warehouses",
       "btnText": "Go to Premium",
-      "flag": "Annual"
+      "flag": "Annual",
+      "price": "From 3750 \u20BD per month",
+      "tariffName": "PREMIUM"
     }
   }
 }

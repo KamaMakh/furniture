@@ -646,7 +646,8 @@ export default {
           .catch(error => {
             if (error.subscribeError) {
               this.showAddModal = false;
-              this.showSubscribeModal = true;
+              // this.showSubscribeModal = true;
+              this.$router.push({ name: "Finances" });
             } else {
               this.$notify({
                 group: "warn",

@@ -167,7 +167,9 @@
       "ability6": "Possibilité de créer plus d'un entrepôt",
       "ability7": "Possibilité de créer plus de deux cents articles en stock",
       "ability8": "Possibilité de créer plus de deux cents éléments pour approbation",
-      "btnText": "Votre tarif"
+      "btnText": "Votre tarif",
+      "price": "Gratuitement",
+      "tariffName": "BASIC"
     },
     "optimal": {
       "subTitle": "Taux optimal",
@@ -179,7 +181,9 @@
       "ability6": "Possibilité de créer jusqu'à 3 entrepôts",
       "ability7": "Possibilité de créer plus de trois entrepôts",
       "btnText": "Aller au tarif",
-      "flag": "Mensuel"
+      "flag": "Mensuel",
+      "price": "À partir de 2333 \u20BD par mois",
+      "tariffName": "EXTENDED"
     },
     "premium": {
       "subTitle": "Taux de prime",
@@ -190,7 +194,9 @@
       "ability6": "Possibilité de créer plus de dix bâtiments",
       "ability7": "Possibilité de créer plus de dix entrepôts",
       "btnText": "Accéder à Premium",
-      "flag": "Annuel"
+      "flag": "Annuel",
+      "price": "À partir de 3750 \u20BD par mois",
+      "tariffName": "PREMIUM"
     }
   }
 }

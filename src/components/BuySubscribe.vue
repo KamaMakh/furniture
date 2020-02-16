@@ -18,7 +18,7 @@
           class="step-1__list"
         >
           <div
-            v-if="subscribe.id !== 1 && subscribe.id !== 3"
+            v-if="subscribe.id === selectedSubscribeId"
             class="step-1__list-item list-item"
             @click="shooseSubscribe(subscribe, 'annual', subscribe.priceYear)"
           >
@@ -53,7 +53,7 @@
             </b-row>
           </div>
           <div
-            v-if="subscribe.id !== 1 && subscribe.id !== 3"
+            v-if="subscribe.id === selectedSubscribeId"
             class="step-1__list-item list-item"
             @click="shooseSubscribe(subscribe, 'monthly', subscribe.priceMonth)"
           >
@@ -345,6 +345,7 @@ Vue.use(VueMask);
 Vue.use(Validations);
 export default {
   name: "BuySubscribe",
+  props: ["selectedSubscribeId"],
   data() {
     return {
       form: {},
@@ -521,7 +522,7 @@ export default {
     flex-direction: column;
     max-width: 100%;
     height: 380px;
-    width: 498px;
+    width: 508px;
     overflow: hidden;
     @media all and(max-width: 480px) {
       height: 290px;
