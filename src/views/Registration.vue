@@ -317,6 +317,7 @@ export default {
           info: this.form.info
         })
         .then(() => {
+          this.$store.dispatch("user/getVerifyCode");
           this.$router.push({ name: "Furniture" });
         })
         .catch(() => {
