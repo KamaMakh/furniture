@@ -229,6 +229,7 @@ function sendVerifyCode({ commit }, data) {
             text: response.data.error
           });
         } else if (response.status === 200 && response.data.isEmailAccepted) {
+          commit("updateVerifyStatus");
           resolve();
         } else {
           reject(error.response);

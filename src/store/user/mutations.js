@@ -34,6 +34,10 @@ function setAvatar(state, data) {
   state.avatarPath = data.pathUrl  + '&' + new Date().getTime();
 }
 
+function updateVerifyStatus(state) {
+  state.user.isEmailAccepted = true;
+}
+
 function setEnableModules(state) {
   if(state.roles[0] === "ROLE_CLIENT") {
     state.modules = [
@@ -58,5 +62,6 @@ export {
   setRoles,
   setCurrencies,
   setEnableModules,
-  setAvatar
+  setAvatar,
+  updateVerifyStatus
 };
