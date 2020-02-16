@@ -47,7 +47,7 @@
                 class="d-flex justify-content-end align-items-center"
               >
                 <div class="list-item__price">
-                  {{ user.currency.symbol }}{{ subscribe.priceYear }}
+                  ₽{{ subscribe.priceYear }}
                 </div>
               </b-col>
             </b-row>
@@ -83,7 +83,7 @@
                 class="d-flex justify-content-end align-items-center"
               >
                 <div class="list-item__price">
-                  {{ user.currency.symbol }}{{ subscribe.priceMonth }}
+                  ₽{{ subscribe.priceMonth }}
                 </div>
               </b-col>
             </b-row>
@@ -102,7 +102,7 @@
                 class="d-flex justify-content-end align-items-center"
               >
                 <div class="total-price">
-                  {{ user.currency.symbol }}{{ total }}
+                  ₽{{ total }}
                 </div>
               </b-col>
             </b-row>
@@ -129,7 +129,7 @@
               class="d-flex justify-content-end align-items-start"
             >
               <div class="subscribe__price">
-                {{ user.currency.symbol }}{{ total }}
+                ₽{{ total }}
               </div>
             </b-col>
           </b-row>
@@ -144,7 +144,7 @@
               class="d-flex justify-content-end align-items-center"
             >
               <div class="total__price">
-                {{ user.currency.symbol }}{{ total }}
+                ₽{{ total }}
               </div>
             </b-col>
           </b-row>
@@ -164,7 +164,7 @@
               class="d-flex justify-content-end align-items-center"
             >
               <div class="total__price">
-                {{ user.currency.symbol }}{{ total }}
+                ₽{{ total }}
               </div>
             </b-col>
           </b-row>
