@@ -21,7 +21,7 @@ export default {
     url("../components/IndexComponent/assets/furniture-bg.png") -56px 1479px no-repeat,
     url("../components/IndexComponent/assets/orders-bg.png") 106% 2959px
       no-repeat,
-    url("../components/IndexComponent/assets/documents-bg.png") -59px 3908px no-repeat;
+    url("../components/IndexComponent/assets/documents-bg.png") -59px 4300px no-repeat;
   padding: 46px 15px 0;
   @media all and(max-width: 1149px) {
     background: url("../components/IndexComponent/assets/bg-1.png") 106% top
@@ -36,10 +36,10 @@ export default {
   @media all and(max-width: 840px) {
     background: url("../components/IndexComponent/assets/bg-1.png") 106% top
         no-repeat,
-      url("../components/IndexComponent/assets/furniture-bg.png") -56px 1100px no-repeat,
-      url("../components/IndexComponent/assets/orders-bg.png") 106% 2000px
+      url("../components/IndexComponent/assets/furniture-bg.png") -56px 990px no-repeat,
+      url("../components/IndexComponent/assets/orders-bg.png") 106% 1915px
         no-repeat,
-      url("../components/IndexComponent/assets/documents-bg.png") -59px 2620px no-repeat;
+      url("../components/IndexComponent/assets/documents-bg.png") -59px 2860px no-repeat;
     -webkit-background-size: 50%;
     background-size: 50%;
   }

@@ -26,7 +26,7 @@
   "attention": "Attention!",
   "orders": "Orders and warehouse",
   "statistics": "Statistics",
-  "furniture": "Furniture",
+  "furniture": "Matching",
   "planning": "Planning",
   "users": "Users",
   "acceptance": "Acceptance",
@@ -115,17 +115,22 @@
   "companyName": "Name of the organization",
   "country": "The country",
   "locality": "Locality",
+  "policyText": "Terms of Use and<br> Privacy Policy",
   "lp": {
     "first": {
-      "title": "Construction Manager",
+      "title": "Know exactly how much the construction will cost",
       "text": "Accounting for materials, tools and working time at a construction site"
     },
     "welcome": {
-      "title": "Only here and only now, listen!",
-      "text": "Here we will tell you how important it is to keep up to date and how lucky you are to have created such a good application"
+      "title": "Consistency and control",
+      "text": "At any time and in any place, monitor the process of construction or repair using a laptop or mobile phone"
+    },
+    "welcome2": {
+      "title": "Simple accounting system for construction and repair",
+      "text": "The Construction Assistant helps keep records in warehouses and at facilities. Veti statistics on construction sites, materials and work"
     },
     "furniture": {
-      "text": "The accessories module allows you to create new names of goods and materials for your construction site. Coordinate them with all parts of the process.\n\nYou can invite architects, clients and other responsible persons to the construction site."
+      "text": "The accessories module allows you to create new names of goods and materials for your construction site. Coordinate them with all parts of the process.<br>You can invite architects, clients and other responsible persons to the construction site."
     },
     "counter": {
       "companies": "Construction companies with us",
@@ -134,11 +139,11 @@
     },
     "orders": {
       "title": "Orders and warehouse",
-      "text": "The “Orders and Warehouse” module allows responsible employees to order construction materials directly from the mobile application.\n\n3 finger clicks and materials are already ordered!\n\nThe courier from the store or your employee can carry out the delivery of the ordered materials, and the manager can track these movements."
+      "text": "The “Orders and Warehouse” module allows responsible employees to order construction materials directly from the mobile application.<br>3 finger clicks and materials are already ordered!<br>The courier from the store or your employee can carry out the delivery of the ordered materials, and the manager can track these movements."
     },
     "documents": {
       "title": "Documents",
-      "text": "All documents, estimates, checks and plans are always at hand using the “Documents” module.\n\nYou can always save the document you need and share it with a client, architect or construction company."
+      "text": "All documents, estimates, checks and plans are always at hand using the “Documents” module.<br>You can always save the document you need and share it with a client, architect or construction company."
     },
     "download": {
       "text": "Download our mobile application, it is more convenient to administer projects with it."

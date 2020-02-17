@@ -159,8 +159,8 @@
         <div class="furniture__title">
           {{ $t("furniture") }}
         </div>
-        <div class="furniture__text">
-          {{ $t("lp.furniture.text") }}
+        <div class="furniture__text" v-html="$t('lp.furniture.text')">
+          <!--{{ $t("lp.furniture.text") }}-->
         </div>
         <my-button :text="$t('try')" />
       </div>
@@ -234,10 +234,84 @@
         <div class="orders__title">
           {{ $t("lp.orders.title") }}
         </div>
-        <div class="orders__text">
-          {{ $t("lp.orders.text") }}
+        <div class="orders__text" v-html="$t('lp.orders.text')">
+          <!--{{ $t("lp.orders.text") }}-->
         </div>
         <my-button :text="$t('sign_up')" />
+      </div>
+    </section>
+    <section id="welcome">
+      <div class="welcome">
+        <div class="welcome__title">
+          {{ $t("lp.welcome2.title") }}
+        </div>
+        <div class="welcome__text">
+          {{ $t("lp.welcome2.text") }}
+        </div>
+        <div class="plane-container">
+          <svg
+            width="188"
+            height="167"
+            viewBox="0 0 188 167"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M187.244 2.81799L187.013 2.9584C186.321 4.81389 184.475 7.55199 183.462 9.55792C174.335 27.5311 163.203 43.1071 154.096 62.0632L151.739 66.9978C160.625 44.3508 173.744 26.2172 184.225 4.59324C175.609 9.65821 168.147 14.0211 158.639 18.3439C140.606 26.5281 119.774 38.1725 102.062 45.3738C96.736 47.5402 98.09 45.9054 91.0893 42.385C88.1306 40.9106 67.8105 32.8067 69.0542 29.6172C69.6158 28.193 109.323 20.3498 114.328 19.2064C137.928 13.7704 160.354 7.53193 183.613 1.45395L185.729 0.200247C186.451 -0.210969 187.374 0.0297425 187.795 0.751878C188.216 1.47401 187.966 2.40677 187.244 2.81799ZM178.648 4.40267C142.923 14.4123 109.083 22.8773 72.6147 30.6102C77.7599 33.6492 93.5466 40.7301 98.9124 43.8293C100.016 43.5484 102.072 42.6056 102.914 42.2345C121.098 34.0905 139.192 24.131 157.536 15.686C165.339 12.0954 171.788 8.44462 178.648 4.40267Z"
+              fill="#FEA93D"
+            />
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M184.907 8.3343C164.446 26.3877 136.965 33.258 116.856 52.555L121.479 46.8682C135.42 33.0775 165.59 21.9245 182.781 6.18795C183.372 5.5962 184.325 5.5962 184.917 6.18795C185.509 6.7797 185.499 7.74255 184.907 8.3343Z"
+              fill="#FEA93D"
+            />
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M150.425 70.2674C137.316 66.416 124.709 63.1664 114.739 53.2471C112.142 57.1486 107.959 77.3283 104.088 67.429C101.29 60.2679 99.8152 52.6654 98.6016 45.103C99.3237 47.5703 103.977 64.1794 106.084 68.0108L109.183 61.6319C110.126 59.4856 112.382 48.4228 115.993 51.3716C128.901 61.9127 135.37 63.006 151.237 67.3588C152.05 67.5795 152.511 68.412 152.29 69.2143C152.07 70.0267 151.227 70.4981 150.425 70.2674Z"
+              fill="#FEA93D"
+            />
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M122.332 59.616C117.116 63.648 113.064 67.8404 107.729 71.8522C111.71 65.9147 115.552 61.6821 120.898 56.9481C121.63 56.557 122.552 56.8278 122.944 57.57C123.335 58.3021 123.064 59.2148 122.332 59.616Z"
+              fill="#FEA93D"
+            />
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M105.652 75.0816C105.141 83.2758 105.201 85.0812 101.229 92.4329C102.503 85.2417 102.834 82.3431 102.623 75.0816C102.623 74.2391 103.306 73.5671 104.138 73.5671C104.98 73.5671 105.652 74.2391 105.652 75.0816Z"
+              fill="#FEA93D"
+            />
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M95.9739 105.813C91.0192 116.544 94.0983 111.76 86.9672 120.315C91.5006 110.547 89.4546 115.642 93.0552 105.03C93.2658 104.218 94.0983 103.746 94.9007 103.957C95.7131 104.178 96.1845 105.01 95.9739 105.813Z"
+              fill="#FEA93D"
+            />
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M76.0749 131.248C67.5697 137.978 72.2134 135.039 62.0835 139.943C70.3279 132.883 66.4665 136.423 73.7079 129.372C74.2194 128.72 75.1722 128.61 75.8241 129.132C76.4861 129.643 76.5964 130.596 76.0749 131.248Z"
+              fill="#FEA93D"
+            />
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M44.2207 147.345C44.4815 150.916 32.7167 151.066 30.9214 151.207C35.6153 148.438 38.574 148.348 41.4425 146.774C41.6732 146.413 42.0443 146.152 42.5056 146.082C43.3281 145.951 44.1004 146.523 44.2207 147.345ZM41.6331 146.663L41.6832 146.643V146.633L41.6331 146.663Z"
+              fill="#FEA93D"
+            />
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M14.1719 160.263C5.08504 164.396 9.79897 162.34 0 166.422C8.53524 159.782 4.13222 162.771 13.1489 157.415C13.9412 157.134 14.8038 157.545 15.0846 158.328C15.3654 159.12 14.9542 159.983 14.1719 160.263Z"
+              fill="#FEA93D"
+            />
+          </svg>
+        </div>
       </div>
     </section>
     <section id="documents">
@@ -765,7 +839,34 @@
       </div>
     </section>
     <section id="10">
-      <div class="contacts" id="contacts"></div>
+      <div class="contacts" id="contacts">
+        <b-row>
+          <b-col cols="12" sm="6" md="4" class="contacts__copy">
+            © 2020 ООО «ЕРА»
+          </b-col>
+          <b-col cols="12" sm="6" md="4" class="contacts__info">
+            <div class="contacts__email">
+              <a href="mailto:eradevelopmentnsk@gmail.com" target="_blank"
+                >eradevelopmentnsk@gmail.com</a
+              >
+            </div>
+            <div class="contacts__phone">
+              <a href="tel:+7(383) 277 27 39">
+                +7(383) 277 27 39
+              </a>
+            </div>
+          </b-col>
+          <b-col
+            cols="12"
+            md="4"
+            class="contacts__policy"
+            v-html="$t('policyText')"
+            @click="downloadWithVueResource"
+          >
+            <!--{{ $t("policyText") }}-->
+          </b-col>
+        </b-row>
+      </div>
       <div class="bot-menu">
         <div class="bot-menu__logo"></div>
         <div class="bot-menu__menu">
@@ -817,6 +918,7 @@ export default {
       tariffs: null,
       contacts: null,
       counter: null,
+      url: "https://stroy-assist.ru/confirm.pdf",
       counters: {
         companies: 0,
         projects: 0,
@@ -850,6 +952,9 @@ export default {
     })
   },
   methods: {
+    downloadWithVueResource() {
+      window.open(this.url, "_blank");
+    },
     setLang(lang) {
       this.currLang = lang;
       this.$store.commit("setLang", lang);

@@ -135,9 +135,9 @@
         .index-component .nav-bar__menu .nav .nav-item {
           padding: 0.5rem 38px; } }
   .index-component .first-block {
-    width: 50%;
+    width: 60%;
     text-align: left;
-    margin-bottom: 361px; }
+    margin-bottom: 390px; }
     @media all and (max-width: 1149px) {
       .index-component .first-block {
         margin-bottom: 170px;
@@ -155,25 +155,25 @@
       .index-component .first-block {
         width: 100%; } }
     .index-component .first-block__title {
-      font-size: 107px;
+      font-size: 60px;
       line-height: 98%;
       color: #1F1C4B;
       font-family: "h-b", serif;
       text-align: left;
-      margin-bottom: 83px; }
+      margin-bottom: 40px; }
       @media all and (max-width: 1149px) {
         .index-component .first-block__title {
-          font-size: 78px;
+          font-size: 50px;
           margin-bottom: 10px; } }
       @media all and (max-width: 840px) {
         .index-component .first-block__title {
-          font-size: 60px; } }
+          font-size: 40px; } }
       @media all and (max-width: 768px) {
         .index-component .first-block__title {
-          font-size: 40px; } }
+          font-size: 30px; } }
       @media all and (max-width: 480px) {
         .index-component .first-block__title {
-          font-size: 35px; } }
+          font-size: 25px; } }
     .index-component .first-block__text {
       font-size: 22px;
       color: #302F4D;
@@ -621,6 +621,31 @@
       .index-component .tariff-plan__btn:hover {
         background: #FE5D19;
         color: #fff; }
+  .index-component .contacts {
+    padding: 0 15px 30px;
+    max-width: 1240px;
+    margin: 0 auto; }
+    .index-component .contacts__copy {
+      text-align: left;
+      font-size: 14px; }
+      @media all and (max-width: 576px) {
+        .index-component .contacts__copy {
+          text-align: center;
+          margin-bottom: 15px; } }
+    .index-component .contacts__info {
+      text-align: center; }
+      .index-component .contacts__info a {
+        color: #FE5D19; }
+    .index-component .contacts__policy {
+      text-align: right;
+      font-size: 14px;
+      cursor: pointer; }
+      @media all and (max-width: 767px) {
+        .index-component .contacts__policy {
+          text-align: center;
+          margin-top: 15px; }
+          .index-component .contacts__policy br {
+            display: none; } }
   .index-component .bot-menu {
     max-width: 1240px;
     margin: 0 auto;

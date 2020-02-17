@@ -26,7 +26,7 @@
   "attention": "Beachtung!",
   "orders": "Bestellungen und Lager",
   "statistics": "Statistiken",
-  "furniture": "Möbel",
+  "furniture": "Versöhnung",
   "planning": "Planung",
   "users": "Benutzer",
   "acceptance": "Annahme",
@@ -115,17 +115,22 @@
   "companyName": "Name der Organisation",
   "country": "Land",
   "locality": "Ortschaft",
+  "policyText": "Nutzungsbedingungen und<br> Datenschutzbestimmungen",
   "lp": {
     "first": {
-      "title": "Bauleiter",
+      "title": "Wissen Sie genau, wie viel der Bau kosten wird",
       "text": "Abrechnung von Materialien, Werkzeugen und Arbeitszeiten auf einer Baustelle"
     },
     "welcome": {
-      "title": "Nur hier und nur jetzt, hör zu!",
-      "text": "Hier erfahren Sie, wie wichtig es ist, auf dem Laufenden zu bleiben und wie glücklich Sie sind, eine so gute Anwendung erstellt zu haben"
+      "title": "Konsistenz und Kontrolle",
+      "text": "Überwachen Sie jederzeit und an jedem Ort den Bau- oder Reparaturprozess mit einem Laptop oder Mobiltelefon"
+    },
+    "welcome2": {
+      "title": "Einfaches Abrechnungssystem für Bau und Reparatur",
+      "text": "Der Bauassistent hilft bei der Führung von Aufzeichnungen in Lagern und Einrichtungen. Veti-Statistiken zu Baustellen, Materialien und Arbeiten"
     },
     "furniture": {
-      "text": "Mit dem Zubehörmodul können Sie neue Waren- und Materialnamen für Ihre Baustelle erstellen. Koordinieren Sie sie mit allen Teilen des Prozesses.\n\nSie können Architekten, Bauherren und andere Verantwortliche auf die Baustelle einladen."
+      "text": "Mit dem Zubehörmodul können Sie neue Waren- und Materialnamen für Ihre Baustelle erstellen. Koordinieren Sie sie mit allen Teilen des Prozesses.<br>Sie können Architekten, Bauherren und andere Verantwortliche auf die Baustelle einladen."
     },
     "counter": {
       "companies": "Baufirmen bei uns",
@@ -134,11 +139,11 @@
     },
     "orders": {
       "title": "Bestellungen und Lager",
-      "text": "Mit dem Modul „Bestellungen und Lager“ können verantwortliche Mitarbeiter Baumaterialien direkt aus der mobilen Anwendung bestellen.\n\n3 Fingerklicks und Materialien sind bereits bestellt!\n\nDer Kurier aus dem Geschäft oder Ihr Mitarbeiter kann die Lieferung der bestellten Materialien durchführen und der Manager kann diese Bewegungen verfolgen."
+      "text": "Mit dem Modul „Bestellungen und Lager“ können verantwortliche Mitarbeiter Baumaterialien direkt aus der mobilen Anwendung bestellen.<br>3 Fingerklicks und Materialien sind bereits bestellt!<br>Der Kurier aus dem Geschäft oder Ihr Mitarbeiter kann die Lieferung der bestellten Materialien durchführen und der Manager kann diese Bewegungen verfolgen."
     },
     "documents": {
       "title": "Docs",
-      "text": "Alle Dokumente, Kostenvoranschläge, Prüfungen und Pläne sind über das Modul „Dokumente“ immer zur Hand.\n\nSie können das benötigte Dokument jederzeit speichern und an einen Kunden, Architekten oder ein Bauunternehmen weitergeben."
+      "text": "Alle Dokumente, Kostenvoranschläge, Prüfungen und Pläne sind über das Modul „Dokumente“ immer zur Hand.<br>Sie können das benötigte Dokument jederzeit speichern und an einen Kunden, Architekten oder ein Bauunternehmen weitergeben."
     },
     "download": {
       "text": "Laden Sie unsere mobile Anwendung herunter. Es ist bequemer, Projekte damit zu verwalten."
