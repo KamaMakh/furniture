@@ -240,7 +240,7 @@
         <my-button :text="$t('sign_up')" />
       </div>
     </section>
-    <section id="welcome">
+    <section id="welcome2">
       <div class="welcome">
         <div class="welcome__title">
           {{ $t("lp.welcome2.title") }}
