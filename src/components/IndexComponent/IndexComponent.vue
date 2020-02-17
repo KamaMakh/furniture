@@ -319,8 +319,8 @@
         <div class="documents__title">
           {{ $t("lp.documents.title") }}
         </div>
-        <div class="documents__text">
-          {{ $t("lp.documents.text") }}
+        <div class="documents__text" v-html="$t('lp.documents.text')">
+          <!--{{ $t("lp.documents.text") }}-->
         </div>
         <my-button :text="$t('more_learn')" />
       </div>
