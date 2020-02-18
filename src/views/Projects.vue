@@ -1,25 +1,25 @@
 <template>
   <div class="flex-grow-1">
-    <div class="tables-wrap row">
-      <div class="tables-wrap__left col col-lg-6 col-md-12 col-sm-12">
-        <TableConstruction />
-      </div>
-      <div class="tables-wrap__right col col-lg-6 col-md-12 col-sm-12">
-        <TableWarehouse />
-      </div>
-    </div>
+    <!--<div class="tables-wrap row">-->
+    <!--<div class="tables-wrap__left col col-lg-6 col-md-12 col-sm-12">-->
+    <!--<TableConstruction />-->
+    <!--</div>-->
+    <!--<div class="tables-wrap__right col col-lg-6 col-md-12 col-sm-12">-->
+    <!--<TableWarehouse />-->
+    <!--</div>-->
+    <!--</div>-->
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
-import TableConstruction from "@/components/tables/TableConstruction";
-import TableWarehouse from "@/components/tables/TableWarehouse";
+// import TableConstruction from "@/components/tables/TableConstruction";
+// import TableWarehouse from "@/components/tables/TableWarehouse";
 export default {
   name: "Projects",
   components: {
-    TableConstruction,
-    TableWarehouse
+    // TableConstruction,
+    // TableWarehouse
   },
   data() {
     return {

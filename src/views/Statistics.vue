@@ -1,26 +1,26 @@
 <template>
   <div class="flex-grow-1 statistics">
-    <div class="tables-wrap row">
-      <div class="tables-wrap__left col col-lg-6 col-md-12 col-sm-12">
-        <TableOperations />
-      </div>
-      <div class="tables-wrap__right col col-lg-6 col-md-12 col-sm-12">
-        <TableAllOperations />
-      </div>
-    </div>
+    <!--<div class="tables-wrap row">-->
+    <!--<div class="tables-wrap__left col col-lg-6 col-md-12 col-sm-12">-->
+    <!--<TableOperations />-->
+    <!--</div>-->
+    <!--<div class="tables-wrap__right col col-lg-6 col-md-12 col-sm-12">-->
+    <!--<TableAllOperations />-->
+    <!--</div>-->
+    <!--</div>-->
   </div>
 </template>
 
 <script>
 /*eslint-disable*/
 import { mapState } from "vuex";
-import TableOperations from "@/components/tables/TableOperations";
-import TableAllOperations from "@/components/tables/TableAllOperations";
+// import TableOperations from "@/components/tables/TableOperations";
+// import TableAllOperations from "@/components/tables/TableAllOperations";
 export default {
   name: "Statistics",
   components: {
-    TableOperations,
-    TableAllOperations
+    // TableOperations,
+    // TableAllOperations
   },
   computed: {
     ...mapState({

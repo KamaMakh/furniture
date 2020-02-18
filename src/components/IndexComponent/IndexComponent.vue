@@ -471,19 +471,19 @@
               </div>
               <div class="tariff__name-wr">
                 <div class="tariff__name">
-                  {{ $t("lp.tariffs.monthly") }}
+                  {{ $t("tariffsPage.optimal.subTitle") }}
                 </div>
                 <div class="tariff__price">
-                  3 990 ₽
+                  {{ $t("tariffsPage.optimal.price") }}
                 </div>
               </div>
             </div>
             <div class="tariff-plan__text">
-              <span>Купите Ежемесячный тариф</span>
-              <span>Купите Ежемесячный тариф</span>
-              <span>Купите Ежемесячный тариф</span>
-              <span>Купите Ежемесячный тариф</span>
-              <span>Купите Ежемесячный тариф</span>
+              <span>{{ $t("tariffsPage.optimal.ability1") }}</span>
+              <span>{{ $t("tariffsPage.optimal.ability2") }}</span>
+              <span>{{ $t("tariffsPage.optimal.ability3") }}</span>
+              <span>{{ $t("tariffsPage.optimal.ability4") }}</span>
+              <span>{{ $t("tariffsPage.optimal.ability5") }}</span>
             </div>
             <div class="tariff-plan__btn">
               {{ $t("buy") }}
@@ -562,19 +562,19 @@
               </div>
               <div class="tariff__name-wr">
                 <div class="tariff__name">
-                  {{ $t("lp.tariffs.loan") }}
+                  {{ $t("tariffsPage.premium.subTitle") }}
                 </div>
                 <div class="tariff__price">
-                  28 690 ₽
+                  {{ $t("tariffsPage.premium.price") }}
                 </div>
               </div>
             </div>
             <div class="tariff-plan__text">
-              <span>5 причин купить Годовой тариф</span>
-              <span>5 причин купить Годовой тариф</span>
-              <span>5 причин купить Годовой тариф</span>
-              <span>5 причин купить Годовой тариф</span>
-              <span>5 причин купить Годовой тариф</span>
+              <span>{{ $t("tariffsPage.premium.ability1") }}</span>
+              <span>{{ $t("tariffsPage.premium.ability2") }}</span>
+              <span>{{ $t("tariffsPage.premium.ability3") }}</span>
+              <span>{{ $t("tariffsPage.premium.ability4") }}</span>
+              <span>{{ $t("tariffsPage.premium.ability5") }}</span>
             </div>
             <div class="tariff-plan__btn">
               {{ $t("buy") }}
@@ -723,19 +723,19 @@
                 </div>
                 <div class="tariff__name-wr">
                   <div class="tariff__name">
-                    {{ $t("lp.tariffs.monthly") }}
+                    {{ $t("tariffsPage.optimal.subTitle") }}
                   </div>
                   <div class="tariff__price">
-                    3 990 ₽
+                    {{ $t("tariffsPage.optimal.price") }}
                   </div>
                 </div>
               </div>
               <div class="tariff-plan__text">
-                <span>Купите Ежемесячный тариф</span>
-                <span>Купите Ежемесячный тариф</span>
-                <span>Купите Ежемесячный тариф</span>
-                <span>Купите Ежемесячный тариф</span>
-                <span>Купите Ежемесячный тариф</span>
+                <span>{{ $t("tariffsPage.optimal.ability1") }}</span>
+                <span>{{ $t("tariffsPage.optimal.ability2") }}</span>
+                <span>{{ $t("tariffsPage.optimal.ability3") }}</span>
+                <span>{{ $t("tariffsPage.optimal.ability4") }}</span>
+                <span>{{ $t("tariffsPage.optimal.ability5") }}</span>
               </div>
               <div class="tariff-plan__btn">
                 {{ $t("buy") }}
@@ -816,19 +816,19 @@
                 </div>
                 <div class="tariff__name-wr">
                   <div class="tariff__name">
-                    {{ $t("lp.tariffs.loan") }}
+                    {{ $t("tariffsPage.premium.subTitle") }}
                   </div>
                   <div class="tariff__price">
-                    28 690 ₽
+                    {{ $t("tariffsPage.premium.price") }}
                   </div>
                 </div>
               </div>
               <div class="tariff-plan__text">
-                <span>5 причин купить Годовой тариф</span>
-                <span>5 причин купить Годовой тариф</span>
-                <span>5 причин купить Годовой тариф</span>
-                <span>5 причин купить Годовой тариф</span>
-                <span>5 причин купить Годовой тариф</span>
+                <span>{{ $t("tariffsPage.premium.ability1") }}</span>
+                <span>{{ $t("tariffsPage.premium.ability2") }}</span>
+                <span>{{ $t("tariffsPage.premium.ability3") }}</span>
+                <span>{{ $t("tariffsPage.premium.ability4") }}</span>
+                <span>{{ $t("tariffsPage.premium.ability5") }}</span>
               </div>
               <div class="tariff-plan__btn">
                 {{ $t("buy") }}
@@ -970,7 +970,7 @@ export default {
         this.scrollPosition = "documents";
       } else if (scroll >= this.orders - 150) {
         this.scrollPosition = "orders";
-      } else if (scroll >= this.counter - 150) {
+      } else if (scroll >= this.counter - 300) {
         this.scrollPosition = "counter";
       } else if (scroll >= this.furniture - 150) {
         this.scrollPosition = "furniture";

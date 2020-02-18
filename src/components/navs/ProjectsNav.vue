@@ -6,62 +6,11 @@
           <a
             :class="{ active: construction.id === item.id }"
             @click="chooseConstruction(item)"
-            ><span @click="editConstruction(item)" class="icon"></span>
-            {{ item.name }}</a
+            >{{ item.name }}</a
           >
         </li>
       </ul>
     </div>
-
-    <!--modals-->
-    <transition name="fade">
-      <div v-if="showAddModal">
-        <div class="modal-mask">
-          <div class="modal-wrapper">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-body">
-                  <form @submit="addConstruction">
-                    <div class="form-group">
-                      <input
-                        type="text"
-                        class="form-control"
-                        v-model="newConstruction.address"
-                        :placeholder="$t('address')"
-                      />
-                    </div>
-                    <div class="form-group">
-                      <input
-                        type="text"
-                        class="form-control"
-                        v-model="newConstruction.name"
-                        :placeholder="$t('construct_name')"
-                      />
-                    </div>
-                  </form>
-                </div>
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    @click="showAddModal = false"
-                  >
-                    {{ $t("close") }}
-                  </button>
-                  <button
-                    type="button"
-                    class="btn btn-custom"
-                    @click="addConstruction"
-                  >
-                    {{ $t("save") }}
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </transition>
   </div>
 </template>
 
@@ -81,53 +30,8 @@ export default {
     ...mapState("furniture", ["construction"])
   },
   methods: {
-    addConstruction() {
-      if (!this.newConstruction.name) {
-        this.$notify({
-          group: "warn",
-          type: "error",
-          title: this.$i18n.messages[this.$i18n.locale]["attention"],
-          text: this.$i18n.messages[this.$i18n.locale]["login_invalid"]
-        });
-        return;
-      }
-      if(this.newConstruction.id === undefined) {
-        this.$store.dispatch("furniture/addConstruction", this.newConstruction)
-          .then(() => {
-            console.log("success");
-            this.showAddModal = false;
-          })
-          .catch((error) => {
-            this.$notify({
-              group: "warn",
-              type: "error",
-              title: this.$i18n.messages[this.$i18n.locale]["attention"],
-              text: error.text
-            });
-          });
-      } else {
-        this.$store.dispatch("furniture/updateConstruction", this.newConstruction)
-          .then(() => {
-            this.showAddModal = false;
-          })
-          .catch((error) => {
-            this.$notify({
-              group: "warn",
-              type: "error",
-              title: this.$i18n.messages[this.$i18n.locale]["attention"],
-              text: error
-            });
-          });
-      }
-      this.newConstruction = {};
-    },
     chooseConstruction(item) {
-      this.$store.dispatch("furniture/getFurniture", {projectId: item.id})
-      this.$store.dispatch("furniture/setConstruction", item)
-    },
-    editConstruction(item) {
-      this.newConstruction = item;
-      this.showAddModal = true;
+      //ignore
     }
   }
 }

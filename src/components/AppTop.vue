@@ -96,27 +96,27 @@
               {{ $t("documents") }}
             </router-link>
           </li>
-          <li v-if="modules.indexOf('Planning') > -1">
-            <router-link :to="{ name: 'Planning' }">
-              <span class="header-menu__icon">
-                <svg
-                  width="16"
-                  height="19"
-                  viewBox="0 0 16 19"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M13.3333 2.76155H14.2222C15.2 2.76155 16 3.57155 16 4.56155V17.1615C16 18.1515 15.2 18.9615 14.2222 18.9615H1.77778C0.8 18.9615 0 18.1515 0 17.1615V4.56155C0 3.57155 0.8 2.76155 1.77778 2.76155H2.66667V0.961548H4.44444V2.76155H11.5556V0.961548H13.3333V2.76155ZM1.77779 17.1616H14.2222V8.16162H1.77779V17.1616ZM1.77779 6.36152V4.56152H14.2222V6.36152H1.77779ZM11.9911 10.4385L6.72001 15.7755L3.90224 12.9225L4.84446 11.9685L6.72001 13.8675L11.0489 9.4845L11.9911 10.4385Z"
-                    fill="#D6E8CE"
-                  />
-                </svg>
-              </span>
-              {{ $t("planning") }}
-            </router-link>
-          </li>
+          <!--<li v-if="modules.indexOf('Planning') > -1">-->
+          <!--<router-link :to="{ name: 'Planning' }">-->
+          <!--<span class="header-menu__icon">-->
+          <!--<svg-->
+          <!--width="16"-->
+          <!--height="19"-->
+          <!--viewBox="0 0 16 19"-->
+          <!--fill="none"-->
+          <!--xmlns="http://www.w3.org/2000/svg"-->
+          <!--&gt;-->
+          <!--<path-->
+          <!--fill-rule="evenodd"-->
+          <!--clip-rule="evenodd"-->
+          <!--d="M13.3333 2.76155H14.2222C15.2 2.76155 16 3.57155 16 4.56155V17.1615C16 18.1515 15.2 18.9615 14.2222 18.9615H1.77778C0.8 18.9615 0 18.1515 0 17.1615V4.56155C0 3.57155 0.8 2.76155 1.77778 2.76155H2.66667V0.961548H4.44444V2.76155H11.5556V0.961548H13.3333V2.76155ZM1.77779 17.1616H14.2222V8.16162H1.77779V17.1616ZM1.77779 6.36152V4.56152H14.2222V6.36152H1.77779ZM11.9911 10.4385L6.72001 15.7755L3.90224 12.9225L4.84446 11.9685L6.72001 13.8675L11.0489 9.4845L11.9911 10.4385Z"-->
+          <!--fill="#D6E8CE"-->
+          <!--/>-->
+          <!--</svg>-->
+          <!--</span>-->
+          <!--{{ $t("planning") }}-->
+          <!--</router-link>-->
+          <!--</li>-->
           <li v-if="modules.indexOf('Users') > -1">
             <router-link :to="{ name: 'Users' }">
               <span class="header-menu__icon">

@@ -144,9 +144,6 @@
         <div class="option" :class="{ notAvailable: false }">
           {{ $t("tariffsPage.premium.ability6") }}
         </div>
-        <div class="option" :class="{ notAvailable: false }">
-          {{ $t("tariffsPage.premium.ability7") }}
-        </div>
       </div>
       <div class="btn">
         <b-button
