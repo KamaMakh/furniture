@@ -264,7 +264,6 @@
               <b-form-input
                 v-model="form.phone"
                 v-mask="'+7 (###) ###-##-##'"
-                required
                 name="phone"
                 :placeholder="$t('phone')"
               ></b-form-input>
@@ -388,9 +387,6 @@ export default {
       },
       name: {
         required
-      },
-      phone: {
-        required
       }
     }
   },
@@ -418,7 +414,7 @@ export default {
     },
     formPage() {
       this.step = 3;
-      this.form["name"] = this.user.name;
+      this.form["name"] = this.user.fio;
       this.form["email"] = this.user.email;
     },
     submitTinkoff() {

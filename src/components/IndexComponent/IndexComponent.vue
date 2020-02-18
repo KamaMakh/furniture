@@ -485,7 +485,10 @@
               <span>{{ $t("tariffsPage.optimal.ability4") }}</span>
               <span>{{ $t("tariffsPage.optimal.ability5") }}</span>
             </div>
-            <div class="tariff-plan__btn">
+            <div
+              class="tariff-plan__btn"
+              @click="$router.push({ name: 'Registration' })"
+            >
               {{ $t("buy") }}
             </div>
           </div>
@@ -576,7 +579,10 @@
               <span>{{ $t("tariffsPage.premium.ability4") }}</span>
               <span>{{ $t("tariffsPage.premium.ability5") }}</span>
             </div>
-            <div class="tariff-plan__btn">
+            <div
+              class="tariff-plan__btn"
+              @click="$router.push({ name: 'Registration' })"
+            >
               {{ $t("buy") }}
             </div>
           </div>
@@ -737,7 +743,10 @@
                 <span>{{ $t("tariffsPage.optimal.ability4") }}</span>
                 <span>{{ $t("tariffsPage.optimal.ability5") }}</span>
               </div>
-              <div class="tariff-plan__btn">
+              <div
+                class="tariff-plan__btn"
+                @click="$router.push({ name: 'Registration' })"
+              >
                 {{ $t("buy") }}
               </div>
             </div>
@@ -830,7 +839,10 @@
                 <span>{{ $t("tariffsPage.premium.ability4") }}</span>
                 <span>{{ $t("tariffsPage.premium.ability5") }}</span>
               </div>
-              <div class="tariff-plan__btn">
+              <div
+                class="tariff-plan__btn"
+                @click="$router.push({ name: 'Registration' })"
+              >
                 {{ $t("buy") }}
               </div>
             </div>

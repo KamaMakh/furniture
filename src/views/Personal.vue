@@ -112,7 +112,7 @@
           <b-col cols="12" sm="6" md="4" class="d-flex align-items-end">
             <b-form-group :label="$t('currency')">
               <b-form-input
-                v-model="user.currency.symbol"
+                v-model="user.currency.name"
                 disabled
               ></b-form-input>
             </b-form-group>
