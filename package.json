@@ -26,6 +26,7 @@
     "vue-burger-menu": "^2.0.3",
     "vue-carousel": "^0.18.0",
     "vue-cookies": "^1.5.13",
+    "vue-debounce": "^2.3.0",
     "vue-dropdowns": "^1.1.1",
     "vue-gallery": "^2.0.1",
     "vue-i18n": "^8.0.0",

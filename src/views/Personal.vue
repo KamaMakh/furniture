@@ -30,7 +30,7 @@
       Общая информация
     </div>
     <div class="personal__form">
-      <b-form>
+      <b-form @submit.prevent="updateProfile">
         <b-row class="mb-4">
           <b-col cols="12" sm="6" md="4">
             <b-form-group>
@@ -51,8 +51,9 @@
               <v-select
                 class="personal-select"
                 :placeholder="$t('country')"
-                :options="['Россия', 'Украина']"
-                v-model.trim="user.country"
+                :options="countries"
+                v-model.trim="country"
+                v-debounce:300ms="getCountries"
               >
               </v-select>
             </b-form-group>
@@ -62,8 +63,10 @@
               <v-select
                 class="personal-select"
                 :placeholder="$t('locality')"
-                :options="['Россия', 'Украина']"
-                v-model.trim="user.locality"
+                :options="cities"
+                :disabled="!country"
+                v-model.trim="city"
+                v-debounce:300ms="getCities"
               >
               </v-select>
             </b-form-group>
@@ -90,14 +93,17 @@
           <b-col cols="12" sm="6" md="4">
             <b-form-group>
               <b-form-input
-                v-model="user.company"
+                v-model="user.nameOrganization"
                 :placeholder="$t('companyName')"
               ></b-form-input>
             </b-form-group>
           </b-col>
         </b-row>
-        <b-btn class="personal__btn">
+        <b-btn v-if="!loading" class="personal__btn" type="submit">
           {{ $t("save") }}
+        </b-btn>
+        <b-btn v-else class="personal__btn">
+          <b-spinner small></b-spinner>
         </b-btn>
       </b-form>
     </div>
@@ -158,13 +164,40 @@ export default {
       serverUrl: serverUrl,
       showAvatarModal: false,
       files: [],
-      loading: false
+      loading: false,
+      country: "",
+      city: "",
+      site: ""
     };
   },
   computed: {
     ...mapState({
       user: state => state.user.user,
-      avatarPath: state => state.user.avatarPath
+      avatarPath: state => state.user.avatarPath,
+      countries(state) {
+        let countryList = [];
+        state.user.countries.forEach(item => {
+          countryList.push({
+            label: item.title,
+            name: item.title,
+            id: item.countryId
+          });
+        });
+        return countryList;
+      },
+      cities(state) {
+        let cityList = [];
+        state.user.cities.forEach(item => {
+          let region = item.region ? item.region : "";
+          cityList.push({
+            label: item.title + " " + region,
+            name: item.title,
+            id: item.cityId,
+            countryId: item.countryId
+          });
+        });
+        return cityList;
+      }
     })
   },
   validations: {
@@ -199,6 +232,77 @@ export default {
         .finally(() => {
           this.loading = false;
         });
+    },
+    getCountries(search) {
+      this.$store.dispatch("user/getCountries", {
+        title: search || "",
+        page: 0
+      });
+    },
+    getCities(city) {
+      if (this.country !== undefined) {
+        this.$store.dispatch("user/getCities", {
+          countryId: this.country.id || 0,
+          title: city || "",
+          page: 0
+        });
+      }
+    },
+    updateProfile() {
+      let formData = new FormData();
+      if (this.country && this.country.id) {
+        formData.append("countryId", this.country.id);
+        if (this.city && this.city.id) {
+          formData.append("cityId", this.city.id);
+        } else {
+          formData.append("cityId", -1);
+        }
+      } else {
+        formData.append("countryId", -1);
+      }
+      formData.append("fio", this.user.fio);
+      formData.append("phone", this.user.phone);
+      formData.append("site", this.user.site);
+      formData.append("nameOrganization", this.user.nameOrganization);
+      this.loading = true;
+      this.$store.dispatch("user/updateProfile", formData).finally(() => {
+        this.loading = false;
+      });
+    }
+  },
+  watch: {
+    country(country) {
+      if (country && country.id) {
+        this.city = undefined;
+        this.$store.dispatch("user/getCities", {
+          countryId: country.id,
+          title: this.city || "",
+          page: 0
+        });
+      } else {
+        this.$store.dispatch("user/getCities", {
+          countryId: 0,
+          title: "",
+          page: 0
+        });
+      }
+    }
+  },
+  mounted() {
+    if (this.user.country && this.user.country.countryId) {
+      this.getCountries(this.user.country.title);
+      this.country = {
+        label: this.user.country.title,
+        id: this.user.country.countryId
+      };
+      setTimeout(() => {
+        this.city = {
+          label: this.user.city.title,
+          name: this.user.city.title,
+          id: this.user.city.cityId,
+          countryId: this.user.city.countryId
+        };
+      }, 800);
     }
   }
 };

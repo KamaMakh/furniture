@@ -38,6 +38,14 @@ function updateVerifyStatus(state) {
   state.user.isEmailAccepted = true;
 }
 
+function setCountries(state, data) {
+  state.countries = data || [];
+}
+
+function setCities(state, data) {
+  state.cities = data || [];
+}
+
 function setEnableModules(state) {
   if(state.roles[0] === "ROLE_CLIENT") {
     state.modules = [
@@ -63,5 +71,7 @@ export {
   setCurrencies,
   setEnableModules,
   setAvatar,
-  updateVerifyStatus
+  updateVerifyStatus,
+  setCountries,
+  setCities
 };

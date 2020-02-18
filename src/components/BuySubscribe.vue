@@ -273,7 +273,7 @@
                 class="tinkoffPayRow"
                 type="hidden"
                 name="terminalkey"
-                value="1576306066627DEMO"
+                value="1576306066627"
               />
               <input
                 class="tinkoffPayRow"
@@ -439,7 +439,7 @@ export default {
             response.hasOwnProperty("currentPrice") &&
             response.hasOwnProperty("orderId")
           ) {
-            this.form["amount"] = response.currentPrice * 62;
+            this.form["amount"] = response.currentPrice;
             this.form["orderId"] = response.orderId;
           }
         })

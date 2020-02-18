@@ -25,6 +25,7 @@ import VueWindowSize from "vue-window-size";
 const VueScrollTo = require("vue-scrollto");
 import Validations from "vuelidate";
 import VueMask from "v-mask";
+import vueDebounce from "vue-debounce";
 
 library.add(faPlus);
 library.add(faUserPlus);
@@ -46,6 +47,7 @@ Vue.use(VueScrollTo, {
   duration: 1000
 });
 Vue.use(VueMask);
+Vue.use(vueDebounce);
 
 Vue.config.productionTip = false;
 

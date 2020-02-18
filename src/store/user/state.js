@@ -3,5 +3,7 @@ export default {
   roles: [],
   currencies: [],
   modules: [],
-  avatarPath: ""
+  avatarPath: "",
+  countries: [],
+  cities: []
 };

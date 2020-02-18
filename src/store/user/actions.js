@@ -241,6 +241,57 @@ function sendVerifyCode({ commit }, data) {
   });
 }
 
+function getCountries({ commit }, countryName) {
+  return new Promise((resolve, reject) => {
+    api.get(userUrls.getCountriesUrl, { params: countryName })
+      .then((response) => {
+        if (response.status === 200) {
+          commit("setCountries", response.data);
+          resolve(response);
+        } else {
+          reject(response);
+        }
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+}
+
+function getCities({ commit }, countryName) {
+  return new Promise((resolve, reject) => {
+    api.get(userUrls.getCitiesUrl, { params: countryName })
+      .then((response) => {
+        if (response.status === 200) {
+          commit("setCities", response.data);
+          resolve(response);
+        } else {
+          reject(response);
+        }
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+}
+
+function updateProfile({ commit }, data) {
+  return new Promise((resolve, reject) => {
+    api.post(userUrls.updateProfileUrl, data)
+      .then((response) => {
+        if (response.status === 200) {
+          commit("setUser", response.data);
+          resolve();
+        } else {
+          reject(error.response);
+        }
+      })
+      .catch(error => {
+        reject(error.response)
+      });
+  });
+}
+
 export {
   register,
   login,
@@ -251,5 +302,8 @@ export {
   sendNewPassword,
   uploadAvatar,
   sendVerifyCode,
-  getVerifyCode
+  getVerifyCode,
+  getCountries,
+  getCities,
+  updateProfile
 }
