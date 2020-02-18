@@ -368,6 +368,14 @@ $pink: #688e74;
   }
 }
 
+.personal {
+  &__form {
+    .col-form-label {
+      font-size: 12px;
+    }
+  }
+}
+
 .personal-select {
   .vs__search {
     padding: 0;
@@ -399,7 +407,7 @@ $pink: #688e74;
     border: none !important;
   }
   .vs__selected-options {
-    border-bottom: 2px solid #eef0f4;
+    border-bottom: 2px solid #999999;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     border-radius: 0;

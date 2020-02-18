@@ -33,7 +33,7 @@
       <b-form @submit.prevent="updateProfile">
         <b-row class="mb-4">
           <b-col cols="12" sm="6" md="4">
-            <b-form-group>
+            <b-form-group :label="$t('name')">
               <b-form-input
                 v-model="user.fio"
                 :placeholder="$t('name')"
@@ -47,7 +47,7 @@
             </b-form-group>
           </b-col>
           <b-col cols="12" sm="6" md="4">
-            <b-form-group>
+            <b-form-group :label="$t('country')">
               <v-select
                 class="personal-select"
                 :placeholder="$t('country')"
@@ -59,7 +59,7 @@
             </b-form-group>
           </b-col>
           <b-col cols="12" sm="6" md="4">
-            <b-form-group>
+            <b-form-group :label="$t('locality')">
               <v-select
                 class="personal-select"
                 :placeholder="$t('locality')"
@@ -72,9 +72,9 @@
             </b-form-group>
           </b-col>
         </b-row>
-        <b-row>
+        <b-row class="mb-4">
           <b-col cols="12" sm="6" md="4">
-            <b-form-group>
+            <b-form-group :label="$t('site')">
               <b-form-input
                 v-model="user.site"
                 :placeholder="$t('site')"
@@ -82,7 +82,7 @@
             </b-form-group>
           </b-col>
           <b-col cols="12" sm="6" md="4">
-            <b-form-group>
+            <b-form-group :label="$t('phone')">
               <b-form-input
                 v-model="user.phone"
                 :placeholder="$t('phone')"
@@ -91,10 +91,29 @@
             </b-form-group>
           </b-col>
           <b-col cols="12" sm="6" md="4">
-            <b-form-group>
+            <b-form-group :label="$t('companyName')">
               <b-form-input
                 v-model="user.nameOrganization"
                 :placeholder="$t('companyName')"
+              ></b-form-input>
+            </b-form-group>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col cols="12" sm="4">
+            <b-form-group :label="$t('info')">
+              <b-form-textarea
+                size="lg"
+                :placeholder="$t('info')"
+                v-model="user.info"
+              ></b-form-textarea>
+            </b-form-group>
+          </b-col>
+          <b-col cols="12" sm="6" md="4" class="d-flex align-items-end">
+            <b-form-group :label="$t('currency')">
+              <b-form-input
+                v-model="user.currency.symbol"
+                disabled
               ></b-form-input>
             </b-form-group>
           </b-col>
@@ -263,6 +282,7 @@ export default {
       formData.append("fio", this.user.fio);
       formData.append("phone", this.user.phone);
       formData.append("site", this.user.site);
+      formData.append("info", this.user.info);
       formData.append("nameOrganization", this.user.nameOrganization);
       this.loading = true;
       this.$store.dispatch("user/updateProfile", formData).finally(() => {
@@ -370,7 +390,8 @@ $ffamily: "Roboto", sans-serif;
   }
   &__form {
     input,
-    select {
+    select,
+    textarea {
       background: none;
       -webkit-box-shadow: none;
       -moz-box-shadow: none;
@@ -379,7 +400,7 @@ $ffamily: "Roboto", sans-serif;
       border-radius: 0;
       padding: 8px 0;
       color: #717171;
-      border-bottom: 2px solid #eef0f4;
+      border-bottom: 2px solid #999;
       &::placeholder {
         color: #999;
       }
