@@ -623,35 +623,35 @@
                         </div>
                         <div class="form-group">
                           <!--<label-->
-                            <!--v-for="(item, key) in nomenclature.status"-->
-                            <!--:key="key"-->
-                            <!--:class="{-->
-                              <!--disabled:-->
-                                <!--roles.indexOf(item.userRole) < 0 ||-->
-                                <!--nomenclature.id === updatingId ||-->
-                                <!--nomenclature.buy ||-->
-                                <!--absolutesDisabled ||-->
-                                <!--(nomenclature.status[key]['confirmed'] &&-->
-                                  <!--nomenclature.status[key]['whoConfirmedId'] !==-->
-                                    <!--user.id)-->
-                            <!--}"-->
-                            <!--@click="updateConfirm(nomenclature)"-->
+                          <!--v-for="(item, key) in nomenclature.status"-->
+                          <!--:key="key"-->
+                          <!--:class="{-->
+                          <!--disabled:-->
+                          <!--roles.indexOf(item.userRole) < 0 ||-->
+                          <!--nomenclature.id === updatingId ||-->
+                          <!--nomenclature.buy ||-->
+                          <!--absolutesDisabled ||-->
+                          <!--(nomenclature.status[key]['confirmed'] &&-->
+                          <!--nomenclature.status[key]['whoConfirmedId'] !==-->
+                          <!--user.id)-->
+                          <!--}"-->
+                          <!--@click="updateConfirm(nomenclature)"-->
                           <!--&gt;-->
-                            <!--<p-check-->
-                              <!--class="pretty p-image p-plain text-left"-->
-                              <!--name="test"-->
-                              <!--v-model="nomenclature.status[key]['confirmed']"-->
-                            <!--&gt;-->
-                              <!--<img-->
-                                <!--slot="extra"-->
-                                <!--class="image"-->
-                                <!--src="../../assets/policycheck.svg"-->
-                              <!--/>-->
-                              <!--{{ $t("confirmed") }}-->
-                              <!--&lt;!&ndash;{{&ndash;&gt;-->
-                                <!--&lt;!&ndash;$t(item.userRole.split("_")[1].toLowerCase())&ndash;&gt;-->
-                              <!--&lt;!&ndash;}}&ndash;&gt;-->
-                            <!--</p-check>-->
+                          <!--<p-check-->
+                          <!--class="pretty p-image p-plain text-left"-->
+                          <!--name="test"-->
+                          <!--v-model="nomenclature.status[key]['confirmed']"-->
+                          <!--&gt;-->
+                          <!--<img-->
+                          <!--slot="extra"-->
+                          <!--class="image"-->
+                          <!--src="../../assets/policycheck.svg"-->
+                          <!--/>-->
+                          <!--{{ $t("confirmed") }}-->
+                          <!--&lt;!&ndash;{{&ndash;&gt;-->
+                          <!--&lt;!&ndash;$t(item.userRole.split("_")[1].toLowerCase())&ndash;&gt;-->
+                          <!--&lt;!&ndash;}}&ndash;&gt;-->
+                          <!--</p-check>-->
                           <!--</label>-->
                         </div>
                         <div

@@ -93,26 +93,26 @@
           {{ $t("invalid_password_confirm") }}
         </div>
       </div>
-      <div
-        class="register__item"
-        :class="{
-          'is-danger': $v.form.role.$invalid && (form.role || showFormErrors)
-        }"
-      >
-        <v-select
-          class="style-chooser"
-          :disabled="isClient"
-          :placeholder="$t('role')"
-          :options="[
-            $t('supervisor'),
-            // $t('magazine'),
-            // $t('client'),
-            $t('architect')
-          ]"
-          v-model="form.role"
-        >
-        </v-select>
-      </div>
+      <!--<div-->
+      <!--class="register__item"-->
+      <!--:class="{-->
+      <!--'is-danger': $v.form.role.$invalid && (form.role || showFormErrors)-->
+      <!--}"-->
+      <!--&gt;-->
+      <!--<v-select-->
+      <!--class="style-chooser"-->
+      <!--:disabled="isClient"-->
+      <!--:placeholder="$t('role')"-->
+      <!--:options="[-->
+      <!--$t('supervisor'),-->
+      <!--// $t('magazine'),-->
+      <!--// $t('client'),-->
+      <!--$t('architect')-->
+      <!--]"-->
+      <!--v-model="form.role"-->
+      <!--&gt;-->
+      <!--</v-select>-->
+      <!--</div>-->
       <div
         class="register__item"
         :class="{
@@ -232,7 +232,6 @@ export default {
   validations: {
     form: {
       name: { required },
-      role: { required },
       currency: { required },
       email: {
         required,
@@ -278,10 +277,11 @@ export default {
       window.open(this.url, "_blank");
     },
     register() {
-      let role, currency;
-      if (this.form.role) {
-        role = this.roles_value[this.roles.indexOf(this.form.role)];
-      }
+      let role = "SUPERVISOR",
+        currency;
+      // if (this.form.role) {
+      //   role = this.roles_value[this.roles.indexOf(this.form.role)];
+      // }
       if (this.form.currency) {
         currency = this.form.currency.code;
       }

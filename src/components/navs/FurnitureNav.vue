@@ -247,41 +247,41 @@
             <b-form @submit.prevent="addConstruction">
               <b-row class="mb-0 align-items-end">
                 <!--<b-col cols="8" class="p-0 mr-1 mb-0">-->
-                  <!--<b-form-group-->
-                    <!--id="input-group-4"-->
-                    <!--class="m-0"-->
-                    <!--:label="$t('inviteUser')"-->
-                    <!--label-for="input-4"-->
-                  <!--&gt;-->
-                    <!--<b-form-input-->
-                      <!--id="input-4"-->
-                      <!--v-model="invitedUser.email"-->
-                      <!--:placeholder="$t('email')"-->
-                      <!--type="text"-->
-                      <!--class="form-control m-0"-->
-                    <!--&gt;</b-form-input>-->
-                  <!--</b-form-group>-->
+                <!--<b-form-group-->
+                <!--id="input-group-4"-->
+                <!--class="m-0"-->
+                <!--:label="$t('inviteUser')"-->
+                <!--label-for="input-4"-->
+                <!--&gt;-->
+                <!--<b-form-input-->
+                <!--id="input-4"-->
+                <!--v-model="invitedUser.email"-->
+                <!--:placeholder="$t('email')"-->
+                <!--type="text"-->
+                <!--class="form-control m-0"-->
+                <!--&gt;</b-form-input>-->
+                <!--</b-form-group>-->
                 <!--</b-col>-->
                 <!--<b-col class="p-0">-->
-                  <!--<b-button-->
-                    <!--v-if="!loading"-->
-                    <!--squared-->
-                    <!--:disabled="-->
-                      <!--!invitedUser.email || $v.invitedUser.email.$invalid-->
-                    <!--"-->
-                    <!--class="submit-btn mt-0 invite-btn"-->
-                    <!--@click="inviteUser"-->
-                  <!--&gt;-->
-                    <!--{{ $t("invite") }}-->
-                  <!--</b-button>-->
-                  <!--<button-->
-                    <!--v-else-->
-                    <!--type="button"-->
-                    <!--squared-->
-                    <!--class="submit-btn mt-0 invite-btn"-->
-                  <!--&gt;-->
-                    <!--<b-spinner small></b-spinner>-->
-                  <!--</button>-->
+                <!--<b-button-->
+                <!--v-if="!loading"-->
+                <!--squared-->
+                <!--:disabled="-->
+                <!--!invitedUser.email || $v.invitedUser.email.$invalid-->
+                <!--"-->
+                <!--class="submit-btn mt-0 invite-btn"-->
+                <!--@click="inviteUser"-->
+                <!--&gt;-->
+                <!--{{ $t("invite") }}-->
+                <!--</b-button>-->
+                <!--<button-->
+                <!--v-else-->
+                <!--type="button"-->
+                <!--squared-->
+                <!--class="submit-btn mt-0 invite-btn"-->
+                <!--&gt;-->
+                <!--<b-spinner small></b-spinner>-->
+                <!--</button>-->
                 <!--</b-col>-->
               </b-row>
               <b-row class="mb-3 mt-2">
