@@ -622,37 +622,37 @@
                           </div>
                         </div>
                         <div class="form-group">
-                          <label
-                            v-for="(item, key) in nomenclature.status"
-                            :key="key"
-                            :class="{
-                              disabled:
-                                roles.indexOf(item.userRole) < 0 ||
-                                nomenclature.id === updatingId ||
-                                nomenclature.buy ||
-                                absolutesDisabled ||
-                                (nomenclature.status[key]['confirmed'] &&
-                                  nomenclature.status[key]['whoConfirmedId'] !==
-                                    user.id)
-                            }"
-                            @click="updateConfirm(nomenclature)"
-                          >
-                            <p-check
-                              class="pretty p-image p-plain text-left"
-                              name="test"
-                              v-model="nomenclature.status[key]['confirmed']"
-                            >
-                              <img
-                                slot="extra"
-                                class="image"
-                                src="../../assets/policycheck.svg"
-                              />
-                              {{ $t("confirmed") }}
-                              {{
-                                $t(item.userRole.split("_")[1].toLowerCase())
-                              }}
-                            </p-check>
-                          </label>
+                          <!--<label-->
+                            <!--v-for="(item, key) in nomenclature.status"-->
+                            <!--:key="key"-->
+                            <!--:class="{-->
+                              <!--disabled:-->
+                                <!--roles.indexOf(item.userRole) < 0 ||-->
+                                <!--nomenclature.id === updatingId ||-->
+                                <!--nomenclature.buy ||-->
+                                <!--absolutesDisabled ||-->
+                                <!--(nomenclature.status[key]['confirmed'] &&-->
+                                  <!--nomenclature.status[key]['whoConfirmedId'] !==-->
+                                    <!--user.id)-->
+                            <!--}"-->
+                            <!--@click="updateConfirm(nomenclature)"-->
+                          <!--&gt;-->
+                            <!--<p-check-->
+                              <!--class="pretty p-image p-plain text-left"-->
+                              <!--name="test"-->
+                              <!--v-model="nomenclature.status[key]['confirmed']"-->
+                            <!--&gt;-->
+                              <!--<img-->
+                                <!--slot="extra"-->
+                                <!--class="image"-->
+                                <!--src="../../assets/policycheck.svg"-->
+                              <!--/>-->
+                              <!--{{ $t("confirmed") }}-->
+                              <!--&lt;!&ndash;{{&ndash;&gt;-->
+                                <!--&lt;!&ndash;$t(item.userRole.split("_")[1].toLowerCase())&ndash;&gt;-->
+                              <!--&lt;!&ndash;}}&ndash;&gt;-->
+                            <!--</p-check>-->
+                          <!--</label>-->
                         </div>
                         <div
                           v-if="!loading"
@@ -817,26 +817,26 @@ export default {
       let items = "",
         whoBought = "";
       if (furniture.status && furniture.status.length) {
-        furniture.status.forEach(item => {
-          let confirmed = item.confirmed
-              ? this.$i18n.messages[this.$i18n.locale]["confirmed_simple"]
-              : this.$i18n.messages[this.$i18n.locale]["not_confirmed_simple"],
-            role = this.$i18n.messages[this.$i18n.locale][
-              item.userRole.split("_")[1].toLowerCase()
-            ];
-          items +=
-            '<div class="status-item"><b>' +
-            role +
-            ":</b>" +
-            " " +
-            confirmed +
-            "</div>";
-          if (furniture.buy && furniture.buyerId === item.whoConfirmedId) {
-            whoBought += `<div class="mt-2">${
-              this.$i18n.messages[this.$i18n.locale]["purchased"]
-            } ${role}</div>`;
-          }
-        });
+        // furniture.status.forEach(item => {
+        //   let confirmed = item.confirmed
+        //       ? this.$i18n.messages[this.$i18n.locale]["confirmed_simple"]
+        //       : this.$i18n.messages[this.$i18n.locale]["not_confirmed_simple"],
+        //     role = this.$i18n.messages[this.$i18n.locale][
+        //       item.userRole.split("_")[1].toLowerCase()
+        //     ];
+        //   items +=
+        //     '<div class="status-item"><b>' +
+        //     role +
+        //     ":</b>" +
+        //     " " +
+        //     confirmed +
+        //     "</div>";
+        //   if (furniture.buy && furniture.buyerId === item.whoConfirmedId) {
+        //     whoBought += `<div class="mt-2">${
+        //       this.$i18n.messages[this.$i18n.locale]["purchased"]
+        //     } ${role}</div>`;
+        //   }
+        // });
       }
       return `<div class="statuses d-flex justify-content-center align-items-center flex-column">
           ${items} ${whoBought}
@@ -867,16 +867,17 @@ export default {
           this.loading = false;
         });
     },
-    getStatus(statuses) {
-      let confirmText = "confirmed_simple";
-      if (statuses && statuses.length) {
-        statuses.forEach(item => {
-          if (item.hasOwnProperty("confirmed") && !item.confirmed) {
-            confirmText = "not_confirmed_simple";
-          }
-        });
-        return confirmText;
-      }
+    getStatus() {
+      // let confirmText = "confirmed_simple";
+      // if (statuses && statuses.length) {
+      //   statuses.forEach(item => {
+      //     if (item.hasOwnProperty("confirmed") && !item.confirmed) {
+      //       confirmText = "not_confirmed_simple";
+      //     }
+      //   });
+      //   return confirmText;
+      // }
+      return false;
     },
     toggleRows(item) {
       this.groups[item] = !this.groups[item];
