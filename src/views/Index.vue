@@ -10,6 +10,13 @@ export default {
   name: "Index",
   components: {
     IndexComponent
+  },
+  mounted() {
+    // eslint-disable-next-line
+    ym(57324937, "hit", "#/index", {
+      title: "landing",
+      referer: document.referrer
+    });
   }
 };
 </script>
