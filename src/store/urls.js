@@ -2,8 +2,8 @@ import { userUrls } from "../store/user/urls";
 
 const serverUrl =
   process.env.NODE_ENV === "development"
-    ? "//151.248.122.207:8080"
-    : "//stroy-assist-backend.ru:8443";
+    ? "//151.248.122.207:8080/test "
+    : "//stroy-assist-backend.ru:8443/test";
 const loginUrl = `${serverUrl}/api/auth/login`;
 const registerUrl = `${serverUrl}/api/auth/reg`;
 const furnitureConstructsUrl = `${serverUrl}/api/furniture/project/get/all`;
