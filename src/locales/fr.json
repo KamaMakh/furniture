@@ -151,7 +151,9 @@
       "title": "Choisissez votre plan tarifaire",
       "monthly": "Mensuel",
       "loan": "Annuel"
-    }
+    },
+    "lastStep": "Un pas à gauche",
+    "getRegister": "Veuillez saisir votre e-mail et votre mot de passe et accéder gratuitement au programme!"
   },
   "verify": {
     "title1": "Nous sommes ravis que vous soyez avec nous!",

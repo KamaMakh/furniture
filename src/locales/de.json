@@ -152,7 +152,9 @@
       "title": "Wählen Sie Ihren Tarifplan",
       "monthly": "Monatlich",
       "loan": "Jährlich"
-    }
+    },
+    "lastStep": "Ein Schritt nach links",
+    "getRegister": "Bitte geben Sie Ihre E-Mail-Adresse und Ihr Passwort ein und Sie erhalten kostenlosen Zugang zum Programm!"
   },
   "verify": {
     "title1": "Wir freuen uns, dass Sie bei uns sind!",

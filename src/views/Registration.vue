@@ -1,16 +1,16 @@
 <template>
   <form @submit.prevent="register">
     <div class="register">
-      <div class="register__item">
-        <input
-          type="text"
-          name="fio"
-          autocomplete="username"
-          v-model="form.name"
-          :placeholder="$t('name')"
-          required
-        />
-      </div>
+      <!--<div class="register__item">-->
+        <!--<input-->
+          <!--type="text"-->
+          <!--name="fio"-->
+          <!--autocomplete="username"-->
+          <!--v-model="form.name"-->
+          <!--:placeholder="$t('name')"-->
+          <!--required-->
+        <!--/>-->
+      <!--</div>-->
       <div
         class="register__item"
         :class="{
@@ -29,17 +29,17 @@
           {{ $t("invalid_email") }}
         </div>
       </div>
-      <div class="register__item">
-        <input
-          type="text"
-          name="phone"
-          v-mask="'+7 (###) ###-##-##'"
-          autocomplete="phone"
-          v-model="form.phone"
-          :placeholder="$t('phone')"
-          required
-        />
-      </div>
+      <!--<div class="register__item">-->
+        <!--<input-->
+          <!--type="text"-->
+          <!--name="phone"-->
+          <!--v-mask="'+7 (###) ###-##-##'"-->
+          <!--autocomplete="phone"-->
+          <!--v-model="form.phone"-->
+          <!--:placeholder="$t('phone')"-->
+          <!--required-->
+        <!--/>-->
+      <!--</div>-->
       <div
         class="register__item"
         :class="{
@@ -113,31 +113,31 @@
       <!--&gt;-->
       <!--</v-select>-->
       <!--</div>-->
-      <div
-        class="register__item"
-        :class="{
-          'is-danger':
-            $v.form.currency.$invalid && (form.currency || showFormErrors)
-        }"
-      >
-        <v-select
-          class="style-chooser"
-          :placeholder="$t('currency')"
-          :options="currencies"
-          v-model="form.currency"
-        >
-        </v-select>
-      </div>
-      <div class="register__item">
-        <textarea
-          name="info"
-          cols="30"
-          rows="3"
-          :placeholder="$t('info')"
-          v-model="form.info"
-          required
-        ></textarea>
-      </div>
+      <!--<div-->
+        <!--class="register__item"-->
+        <!--:class="{-->
+          <!--'is-danger':-->
+            <!--$v.form.currency.$invalid && (form.currency || showFormErrors)-->
+        <!--}"-->
+      <!--&gt;-->
+        <!--<v-select-->
+          <!--class="style-chooser"-->
+          <!--:placeholder="$t('currency')"-->
+          <!--:options="currencies"-->
+          <!--v-model="form.currency"-->
+        <!--&gt;-->
+        <!--</v-select>-->
+      <!--</div>-->
+      <!--<div class="register__item">-->
+        <!--<textarea-->
+          <!--name="info"-->
+          <!--cols="30"-->
+          <!--rows="3"-->
+          <!--:placeholder="$t('info')"-->
+          <!--v-model="form.info"-->
+          <!--required-->
+        <!--&gt;</textarea>-->
+      <!--</div>-->
       <div class="register__item">
         <label>
           <p-check
@@ -231,8 +231,8 @@ export default {
   },
   validations: {
     form: {
-      name: { required },
-      currency: { required },
+      // name: { required },
+      // currency: { required },
       email: {
         required,
         email
@@ -278,13 +278,13 @@ export default {
     },
     register() {
       let role = "SUPERVISOR",
-        currency;
+        currency = 1;
       // if (this.form.role) {
       //   role = this.roles_value[this.roles.indexOf(this.form.role)];
       // }
-      if (this.form.currency) {
-        currency = this.form.currency.code;
-      }
+      // if (this.form.currency) {
+      //   currency = this.form.currency.code;
+      // }
 
       if (
         this.$v.form.$pending ||

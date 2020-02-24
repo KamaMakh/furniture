@@ -903,6 +903,97 @@
         </div>
       </div>
     </section>
+
+    <!--modals-->
+    <b-modal
+      v-model="showRegisterModal"
+      hide-footer
+      hide-header
+      :title="$t('registration')"
+      modal-class="register-modal"
+      centered
+    >
+      <div class="register-modal__title">
+        {{ $t("lp.lastStep") }}
+      </div>
+      <div class="register-modal__sub-title">
+        {{ $t("lp.getRegister") }}
+      </div>
+      <div class="register-modal__form">
+        <b-form>
+          <b-form-group id="input-group-1">
+            <b-form-input
+              v-model="form.email"
+              type="email"
+              :state="email_validation"
+              required
+              autocomplete="username"
+              :placeholder="$t('email')"
+              @blur="inputBlur"
+            ></b-form-input>
+            <b-form-invalid-feedback :state="email_validation">
+              {{ $t("invalid_email") }}
+            </b-form-invalid-feedback>
+          </b-form-group>
+          <b-form-group>
+            <div class="position-relative" style="outline: none">
+              <b-form-input
+                v-model="form.password"
+                :type="passType"
+                required
+                :placeholder="$t('password')"
+                autocomplete="new-password"
+                :state="password_validation"
+                @blur="inputBlur"
+              >
+              </b-form-input>
+              <div
+                class="show-password"
+                :class="{
+                  show: passType === 'text',
+                  hide: passType === 'password'
+                }"
+                @click="togglePass"
+              ></div>
+            </div>
+            <b-form-invalid-feedback :state="password_validation">
+              {{ $t("invalid_password_content") }}
+              {{
+                $t("invalid_password_length", {
+                  length: 8
+                })
+              }}
+            </b-form-invalid-feedback>
+          </b-form-group>
+          <b-form-group>
+            <div class="position-relative">
+              <b-form-input
+                v-model="form.c_password"
+                :type="c_passType"
+                required
+                autocomplete="new-password"
+                :placeholder="$t('c_password')"
+                :state="c_password_validation"
+                @blur="inputBlur"
+                @keyup="inputBlur"
+                @change="inputBlur"
+              ></b-form-input>
+              <div
+                class="show-password"
+                :class="{
+                  show: c_passType === 'text',
+                  hide: c_passType === 'password'
+                }"
+                @click="toggleCPass"
+              ></div>
+            </div>
+            <b-form-invalid-feedback :state="c_password_validation">
+              {{ $t("invalid_password_confirm") }}
+            </b-form-invalid-feedback>
+          </b-form-group>
+        </b-form>
+      </div>
+    </b-modal>
   </div>
 </template>
 
@@ -913,6 +1004,13 @@ import IndexComponentButton from "./components/IndexComponentButton";
 import "./assets/css/index.css";
 import { Slide as sl } from "vue-burger-menu";
 import VueCarousel from "vue-carousel";
+import {
+  isHasNumber,
+  isNotCyrillic,
+  isHasEnglishLetter,
+  isEmail,
+  sameAs
+} from "@/shared/validator";
 Vue.use(VueCarousel);
 export default {
   name: "IndexComponent",
@@ -922,6 +1020,11 @@ export default {
   },
   data() {
     return {
+      showRegisterModal: true,
+      form: {},
+      validated: false,
+      passType: "password",
+      c_passType: "password",
       scrollPosition: "",
       main: null,
       furniture: null,
@@ -961,9 +1064,60 @@ export default {
   computed: {
     ...mapState({
       lang: state => state.lang
-    })
+    }),
+    password_validation() {
+      if (this.form.password === undefined) {
+        return null;
+      }
+      return (
+        this.form.password !== "" &&
+        this.form.password.length > 8 &&
+        isHasNumber(this.form.password) &&
+        isHasEnglishLetter(this.form.password) &&
+        isNotCyrillic(this.form.password)
+      );
+    },
+    c_password_validation() {
+      if (this.form.c_password === undefined) {
+        return null;
+      }
+      return (
+        this.form.c_password !== "" &&
+        sameAs(this.form.c_password, this.form.password)
+      );
+    },
+    email_validation() {
+      if (this.form.email === undefined) {
+        return null;
+      }
+      return isEmail(this.form.email);
+    }
   },
   methods: {
+    inputBlur() {
+      /*eslint-disable*/
+      console.log(this.password_validation, this.c_password_validation, this.email_validation);
+      if(this.password_validation && this.c_password_validation && this.email_validation) {
+        this.validated = true;
+        if(!this.validated) {
+
+        }
+      }
+    },
+    togglePass() {
+      if (this.passType === "text") {
+        this.passType = "password";
+      } else {
+        this.passType = "text";
+      }
+    },
+    toggleCPass() {
+      if (this.c_passType === "text") {
+        this.c_passType = "password";
+      } else {
+        this.c_passType = "text";
+      }
+    },
     downloadWithVueResource() {
       window.open(this.url, "_blank");
     },

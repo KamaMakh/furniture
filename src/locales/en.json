@@ -152,7 +152,9 @@
       "title": "Choose your tariff plan",
       "monthly": "Monthly",
       "loan": "Annual"
-    }
+    },
+    "lastStep": "One step left",
+    "getRegister": "Please fill in your email and password and get access to the program for free!"
   },
   "verify": {
     "title1": "We are glad that you are with us!",
