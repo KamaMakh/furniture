@@ -17,6 +17,9 @@
     <div v-else class="fullHeight">
       <DefaultNav />
     </div>
+    <div v-if="['Settings', 'Finances', 'Personal'].indexOf(navsType) > -1" class="app-version mt-auto text-center p-2">
+      {{ version }}
+    </div>
   </perfect-scrollbar>
 </template>
 
@@ -40,10 +43,11 @@ export default {
   data() {
     return {
       // navsType: null
+      version: ""
     }
   },
-  methods: {
-
+  mounted() {
+    this.version = process.env.VUE_APP_VERSION;
   }
 }
 </script>
@@ -63,5 +67,8 @@ export default {
   padding-right: 20px;
   background: #DADADA;
   overflow-y: scroll;
+  .app-version {
+    color: #688e74;
+  }
 }
 </style>
