@@ -77,7 +77,10 @@
         <div class="first-block__text">
           {{ $t("lp.first.text") }}
         </div>
-        <my-button :text="$t('more_learn')" />
+        <my-button
+          @showRegister="showRegisterModal = true"
+          :text="$t('more_learn')"
+        />
       </div>
     </section>
     <section id="welcome">
@@ -162,7 +165,7 @@
         <div class="furniture__text" v-html="$t('lp.furniture.text')">
           <!--{{ $t("lp.furniture.text") }}-->
         </div>
-        <my-button :text="$t('try')" />
+        <my-button @showRegister="showRegisterModal = true" :text="$t('try')" />
       </div>
     </section>
     <section id="counter" class="counter">
@@ -237,7 +240,10 @@
         <div class="orders__text" v-html="$t('lp.orders.text')">
           <!--{{ $t("lp.orders.text") }}-->
         </div>
-        <my-button :text="$t('sign_up')" />
+        <my-button
+          @showRegister="showRegisterModal = true"
+          :text="$t('sign_up')"
+        />
       </div>
     </section>
     <section id="welcome2">
@@ -322,7 +328,10 @@
         <div class="documents__text" v-html="$t('lp.documents.text')">
           <!--{{ $t("lp.documents.text") }}-->
         </div>
-        <my-button :text="$t('more_learn')" />
+        <my-button
+          @showRegister="showRegisterModal = true"
+          :text="$t('more_learn')"
+        />
       </div>
     </section>
     <section id="8">
@@ -485,10 +494,7 @@
               <span>{{ $t("tariffsPage.optimal.ability4") }}</span>
               <span>{{ $t("tariffsPage.optimal.ability5") }}</span>
             </div>
-            <div
-              class="tariff-plan__btn"
-              @click="$router.push({ name: 'Registration' })"
-            >
+            <div class="tariff-plan__btn" @click="showRegisterModal = true">
               {{ $t("buy") }}
             </div>
           </div>
@@ -579,10 +585,7 @@
               <span>{{ $t("tariffsPage.premium.ability4") }}</span>
               <span>{{ $t("tariffsPage.premium.ability5") }}</span>
             </div>
-            <div
-              class="tariff-plan__btn"
-              @click="$router.push({ name: 'Registration' })"
-            >
+            <div class="tariff-plan__btn" @click="showRegisterModal = true">
               {{ $t("buy") }}
             </div>
           </div>
@@ -743,10 +746,7 @@
                 <span>{{ $t("tariffsPage.optimal.ability4") }}</span>
                 <span>{{ $t("tariffsPage.optimal.ability5") }}</span>
               </div>
-              <div
-                class="tariff-plan__btn"
-                @click="$router.push({ name: 'Registration' })"
-              >
+              <div class="tariff-plan__btn" @click="showRegisterModal = true">
                 {{ $t("buy") }}
               </div>
             </div>
@@ -839,10 +839,7 @@
                 <span>{{ $t("tariffsPage.premium.ability4") }}</span>
                 <span>{{ $t("tariffsPage.premium.ability5") }}</span>
               </div>
-              <div
-                class="tariff-plan__btn"
-                @click="$router.push({ name: 'Registration' })"
-              >
+              <div class="tariff-plan__btn" @click="showRegisterModal = true">
                 {{ $t("buy") }}
               </div>
             </div>
@@ -929,6 +926,7 @@
               required
               autocomplete="username"
               :placeholder="$t('email')"
+              :disabled="inputDisabled"
               @blur="inputBlur"
             ></b-form-input>
             <b-form-invalid-feedback :state="email_validation">
@@ -943,6 +941,7 @@
                 required
                 :placeholder="$t('password')"
                 autocomplete="new-password"
+                :disabled="inputDisabled"
                 :state="password_validation"
                 @blur="inputBlur"
               >
@@ -974,6 +973,7 @@
                 autocomplete="new-password"
                 :placeholder="$t('c_password')"
                 :state="c_password_validation"
+                :disabled="inputDisabled"
                 @blur="inputBlur"
                 @keyup="inputBlur"
                 @change="inputBlur"
@@ -993,6 +993,15 @@
           </b-form-group>
         </b-form>
       </div>
+    </b-modal>
+    <b-modal
+      v-model="showRedirectModal"
+      hide-footer
+      hide-header
+      centered
+      modal-class="register-redirect-modal"
+    >
+      {{ $t("lp.registerRedirect") }}
     </b-modal>
   </div>
 </template>
@@ -1020,9 +1029,11 @@ export default {
   },
   data() {
     return {
-      showRegisterModal: true,
+      showRegisterModal: false,
+      showRedirectModal: false,
       form: {},
       validated: false,
+      inputDisabled: false,
       passType: "password",
       c_passType: "password",
       scrollPosition: "",
@@ -1095,13 +1106,18 @@ export default {
   },
   methods: {
     inputBlur() {
-      /*eslint-disable*/
-      console.log(this.password_validation, this.c_password_validation, this.email_validation);
-      if(this.password_validation && this.c_password_validation && this.email_validation) {
+      if (
+        this.password_validation &&
+        this.c_password_validation &&
+        this.email_validation &&
+        !this.validated
+      ) {
         this.validated = true;
-        if(!this.validated) {
-
-        }
+        this.inputDisabled = true;
+        this.showRedirectModal = true;
+        setTimeout(() => {
+          this.register();
+        }, 1000);
       }
     },
     togglePass() {
@@ -1158,6 +1174,32 @@ export default {
           clearInterval(timer);
         }
       }, stepTime);
+    },
+    register() {
+      let role = "SUPERVISOR",
+        currency = 1;
+      this.$store
+        .dispatch("user/register", {
+          email: this.form.email,
+          password: this.form.password.toLowerCase(),
+          role: role,
+          currencyId: currency
+        })
+        .then(() => {
+          this.$store.dispatch("user/getVerifyCode");
+          this.$router.push({ name: "Personal" });
+        })
+        .catch(() => {
+          this.$notify({
+            group: "warn",
+            type: "error",
+            title: this.$i18n.messages[this.$i18n.locale]["attention"],
+            text: this.$i18n.messages[this.$i18n.locale]["register_error"]
+          });
+          this.inputDisabled = false;
+          this.validated = false;
+          this.showRedirectModal = false;
+        });
     }
   },
   mounted() {

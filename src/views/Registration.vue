@@ -2,14 +2,14 @@
   <form @submit.prevent="register">
     <div class="register">
       <!--<div class="register__item">-->
-        <!--<input-->
-          <!--type="text"-->
-          <!--name="fio"-->
-          <!--autocomplete="username"-->
-          <!--v-model="form.name"-->
-          <!--:placeholder="$t('name')"-->
-          <!--required-->
-        <!--/>-->
+      <!--<input-->
+      <!--type="text"-->
+      <!--name="fio"-->
+      <!--autocomplete="username"-->
+      <!--v-model="form.name"-->
+      <!--:placeholder="$t('name')"-->
+      <!--required-->
+      <!--/>-->
       <!--</div>-->
       <div
         class="register__item"
@@ -30,15 +30,15 @@
         </div>
       </div>
       <!--<div class="register__item">-->
-        <!--<input-->
-          <!--type="text"-->
-          <!--name="phone"-->
-          <!--v-mask="'+7 (###) ###-##-##'"-->
-          <!--autocomplete="phone"-->
-          <!--v-model="form.phone"-->
-          <!--:placeholder="$t('phone')"-->
-          <!--required-->
-        <!--/>-->
+      <!--<input-->
+      <!--type="text"-->
+      <!--name="phone"-->
+      <!--v-mask="'+7 (###) ###-##-##'"-->
+      <!--autocomplete="phone"-->
+      <!--v-model="form.phone"-->
+      <!--:placeholder="$t('phone')"-->
+      <!--required-->
+      <!--/>-->
       <!--</div>-->
       <div
         class="register__item"
@@ -114,29 +114,29 @@
       <!--</v-select>-->
       <!--</div>-->
       <!--<div-->
-        <!--class="register__item"-->
-        <!--:class="{-->
-          <!--'is-danger':-->
-            <!--$v.form.currency.$invalid && (form.currency || showFormErrors)-->
-        <!--}"-->
+      <!--class="register__item"-->
+      <!--:class="{-->
+      <!--'is-danger':-->
+      <!--$v.form.currency.$invalid && (form.currency || showFormErrors)-->
+      <!--}"-->
       <!--&gt;-->
-        <!--<v-select-->
-          <!--class="style-chooser"-->
-          <!--:placeholder="$t('currency')"-->
-          <!--:options="currencies"-->
-          <!--v-model="form.currency"-->
-        <!--&gt;-->
-        <!--</v-select>-->
+      <!--<v-select-->
+      <!--class="style-chooser"-->
+      <!--:placeholder="$t('currency')"-->
+      <!--:options="currencies"-->
+      <!--v-model="form.currency"-->
+      <!--&gt;-->
+      <!--</v-select>-->
       <!--</div>-->
       <!--<div class="register__item">-->
-        <!--<textarea-->
-          <!--name="info"-->
-          <!--cols="30"-->
-          <!--rows="3"-->
-          <!--:placeholder="$t('info')"-->
-          <!--v-model="form.info"-->
-          <!--required-->
-        <!--&gt;</textarea>-->
+      <!--<textarea-->
+      <!--name="info"-->
+      <!--cols="30"-->
+      <!--rows="3"-->
+      <!--:placeholder="$t('info')"-->
+      <!--v-model="form.info"-->
+      <!--required-->
+      <!--&gt;</textarea>-->
       <!--</div>-->
       <div class="register__item">
         <label>
@@ -318,7 +318,7 @@ export default {
         })
         .then(() => {
           this.$store.dispatch("user/getVerifyCode");
-          this.$router.push({ name: "Furniture" });
+          this.$router.push({ name: "Personal" });
         })
         .catch(() => {
           this.$notify({

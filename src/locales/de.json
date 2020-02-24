@@ -154,7 +154,8 @@
       "loan": "Jährlich"
     },
     "lastStep": "Ein Schritt nach links",
-    "getRegister": "Bitte geben Sie Ihre E-Mail-Adresse und Ihr Passwort ein und Sie erhalten kostenlosen Zugang zum Programm!"
+    "getRegister": "Bitte geben Sie Ihre E-Mail-Adresse und Ihr Passwort ein und Sie erhalten kostenlosen Zugang zum Programm!",
+    "registerRedirect": "Vielen Dank, Sie werden jetzt zur E-Mail-Bestätigungsseite weitergeleitet."
   },
   "verify": {
     "title1": "Wir freuen uns, dass Sie bei uns sind!",

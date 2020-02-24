@@ -10,7 +10,7 @@ export default {
   name: "IndexComponentButton",
   methods: {
     toRegistration() {
-      this.$router.push({ name: "Registration" });
+      this.$emit("showRegister");
     }
   }
 };

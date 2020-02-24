@@ -17,7 +17,10 @@
     <div v-else class="fullHeight">
       <DefaultNav />
     </div>
-    <div v-if="['Settings', 'Finances', 'Personal'].indexOf(navsType) > -1" class="app-version mt-auto text-center p-2">
+    <div
+      v-if="['Settings', 'Finances', 'Personal'].indexOf(navsType) > -1"
+      class="app-version mt-auto text-center p-2"
+    >
       {{ version }}
     </div>
   </perfect-scrollbar>

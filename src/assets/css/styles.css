@@ -363,4 +363,10 @@ input.nomenclature {
   .register-modal .show-password svg {
     max-width: 100%; }
 
+.register-redirect-modal {
+  color: #C4C4C4;
+  font-size: 13px;
+  text-align: center;
+  font-family: "Roboto", sans-serif; }
+
 /*# sourceMappingURL=styles.css.map */

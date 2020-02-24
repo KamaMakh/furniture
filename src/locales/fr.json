@@ -153,7 +153,8 @@
       "loan": "Annuel"
     },
     "lastStep": "Un pas à gauche",
-    "getRegister": "Veuillez saisir votre e-mail et votre mot de passe et accéder gratuitement au programme!"
+    "getRegister": "Veuillez saisir votre e-mail et votre mot de passe et accéder gratuitement au programme!",
+    "registerRedirect": "Merci, vous allez maintenant être redirigé vers la page de confirmation du courrier."
   },
   "verify": {
     "title1": "Nous sommes ravis que vous soyez avec nous!",

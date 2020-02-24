@@ -154,7 +154,8 @@
       "loan": "Annual"
     },
     "lastStep": "One step left",
-    "getRegister": "Please fill in your email and password and get access to the program for free!"
+    "getRegister": "Please fill in your email and password and get access to the program for free!",
+    "registerRedirect": "Thank you, you will now be redirected to the mail confirmation page."
   },
   "verify": {
     "title1": "We are glad that you are with us!",
