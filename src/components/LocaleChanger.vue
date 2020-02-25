@@ -20,8 +20,7 @@ export default {
       langs: ["en", "fr", "ru", "de"],
       currLang:
         this.$cookies.get("lang") ||
-        navigator.language ||
-        navigator.userLanguage ||
+        navigator.language.split("-")[0] ||
         "en"
     };
   },

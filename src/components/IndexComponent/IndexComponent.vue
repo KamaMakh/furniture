@@ -1067,8 +1067,7 @@ export default {
       },
       currLang:
         this.$cookies.get("lang") ||
-        navigator.language ||
-        navigator.userLanguage ||
+        navigator.language.split("-")[0] ||
         "en"
     };
   },
