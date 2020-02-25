@@ -16,7 +16,16 @@
           {{ $t("upd_avatar") }}
         </div>
       </div>
-      <div v-else class="personal__logo empty"></div>
+      <div v-else class="personal__logo">
+        <div
+          v-if="!user.avatar && !avatarPath"
+          class="edit-avatar"
+          @click="showAvatarModal = true"
+        >
+          <fa-icon icon="plus" />
+          {{ $t("add_avatar") }}
+        </div>
+      </div>
       <div class="personal__name-wrap">
         <div class="name">
           {{ user.fio }}
