@@ -630,9 +630,8 @@
                                 nomenclature.id === updatingId ||
                                 nomenclature.buy ||
                                 absolutesDisabled ||
-                                (nomenclature.status[key]['confirmed'] &&
-                                  nomenclature.status[key]['whoConfirmedId'] !==
-                                    user.id)
+                                nomenclature.status[key]['mustConfirmedId'] !==
+                                  user.id
                             }"
                             @click="updateConfirm(nomenclature)"
                           >
@@ -676,8 +675,8 @@
                           </button>
                           <button
                             v-if="
-                              getStatus(nomenclature.status) === 'confirmed_simple' &&
-                                !nomenclature.buy
+                              getStatus(nomenclature.status) ===
+                                'confirmed_simple' && !nomenclature.buy
                             "
                             type="button"
                             class="btn btn-custom ml-2"

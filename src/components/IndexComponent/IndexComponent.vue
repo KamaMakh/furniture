@@ -1066,9 +1066,7 @@ export default {
         movingFlag: true
       },
       currLang:
-        this.$cookies.get("lang") ||
-        navigator.language.split("-")[0] ||
-        "en"
+        this.$cookies.get("lang") || navigator.language.split("-")[0] || "en"
     };
   },
   computed: {

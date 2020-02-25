@@ -19,9 +19,7 @@ export default {
     return {
       langs: ["en", "fr", "ru", "de"],
       currLang:
-        this.$cookies.get("lang") ||
-        navigator.language.split("-")[0] ||
-        "en"
+        this.$cookies.get("lang") || navigator.language.split("-")[0] || "en"
     };
   },
   methods: {
