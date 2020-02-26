@@ -37,6 +37,7 @@ export default {
       this.$router.push("/settings");
       return;
     }
+    this.$store.dispatch("projects/requestModule", "Статистика");
     return new Promise((resolve, reject) => {
       this.$store.dispatch("furniture/getConstructions")
         .then((response) => {

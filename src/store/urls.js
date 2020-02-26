@@ -30,6 +30,7 @@ const createOrderUrl = `${serverUrl}/api/payment/tinkoff/order/create`;
 const uploadAvatarUrl = `${serverUrl}/api/user/profile/avatar/update`;
 const inviteUserUrl = `${serverUrl}/api/furniture/project/invite`;
 const buyNomenclatureUrl = `${serverUrl}/api/furniture/nomenclature/status/buy`;
+const requestModuleUrl = `${serverUrl}/api/order/module`;
 
 export {
   serverUrl,
@@ -59,5 +60,6 @@ export {
   uploadAvatarUrl,
   inviteUserUrl,
   buyNomenclatureUrl,
-  userUrls
+  userUrls,
+  requestModuleUrl
 };

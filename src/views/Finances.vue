@@ -15,6 +15,7 @@ export default {
       title: "Финансы",
       referer: document.referrer
     });
+    this.$store.dispatch("projects/requestModule", "Финансы");
   }
 };
 </script>

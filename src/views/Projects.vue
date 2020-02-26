@@ -240,6 +240,7 @@ export default {
       this.$router.push("/settings");
       return;
     }
+    this.$store.dispatch("projects/requestModule", "Проекты");
     return new Promise(() => {
       this.$store.dispatch("furniture/getConstructions").then(() => {
         if (

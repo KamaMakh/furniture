@@ -3,7 +3,7 @@ import Vue from "vue";
 import VueCookies from "vue-cookies";
 import api from "@/shared/api";
 import onError from "@/store/onError";
-import {furnitureConstructsUrl, createConstructUrl} from "@/store/urls"
+import {furnitureConstructsUrl, createConstructUrl, requestModuleUrl} from "@/store/urls"
 
 function addConstruction({ commit }, data) {
   return new Promise((resolve, reject) => {
@@ -63,11 +63,34 @@ function setWarehouse({ commit }, data) {
   commit("setWarehouse", data);
 }
 
+function requestModule({ commit }, module) {
+  return new Promise((resolve) => {
+    let formData = new FormData();
+    formData.append("name", module);
+    api.post(requestModuleUrl, formData)
+      .then((response) => {
+        console.log(response);
+        // commit("addConstruction", response.data);
+        resolve();
+      })
+      .catch(error => {
+        if(error.response && error.response.status === 200) {
+          // commit("addConstruction", error.response.data);
+          resolve();
+        }
+        if(error.response) {
+          console.log(error.response);
+        }
+      });
+  });
+}
+
 export {
   addConstruction,
   setConstruction,
   setConstructions,
   getConstructions,
   updateConstruction,
-  setWarehouse
+  setWarehouse,
+  requestModule
 }

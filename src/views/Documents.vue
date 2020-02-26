@@ -21,6 +21,7 @@ export default {
       this.$router.push("/settings");
       return;
     }
+    this.$store.dispatch("projects/requestModule", "Документы");
   }
 };
 </script>
