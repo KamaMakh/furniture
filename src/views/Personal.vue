@@ -167,6 +167,7 @@
           </v-card-title>
           <v-card-text>
             <v-file-input
+              v-model="files"
               :label="$t('add_image')"
               prepend-icon="mdi-camera"
               accept="image/jpeg, image/png, image/gif"
