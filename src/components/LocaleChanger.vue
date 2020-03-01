@@ -1,12 +1,16 @@
 <template>
   <div class="locale-changer">
     <v-select
-      :class="parentClass"
-      :placeholder="'en'"
-      :options="langs"
-      v-model.trim="currLang"
-    >
-    </v-select>
+      v-model="currLang"
+      :items="langs"
+      hide-details
+      single-line
+      dark
+      solo
+      :background-color="bgColor || 'transparent'"
+      flat
+      style="border-radius: 0;"
+    ></v-select>
   </div>
 </template>
 
@@ -14,7 +18,7 @@
 import "vue-select/dist/vue-select.css";
 export default {
   name: "LocaleChanger",
-  props: ["parentClass"],
+  props: ["parentClass", "bgColor"],
   data() {
     return {
       langs: ["en", "fr", "ru", "de"],
@@ -42,6 +46,8 @@ export default {
 
 <style lang="scss">
 .locale-changer {
+  width: 85px;
+  margin-left: 1px;
   select {
     border: none;
     font-family: "Roboto", sans-serif;

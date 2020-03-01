@@ -1,9 +1,9 @@
 <template>
-  <perfect-scrollbar class="flex-grow-1 furniture">
+  <div class="flex-grow-1 furniture">
     <div class="col col-12 p-0">
       <TableFurniture ref="table" />
     </div>
-  </perfect-scrollbar>
+  </div>
 </template>
 
 <script>
@@ -116,6 +116,6 @@ export default {
 
 <style scoped lang="scss">
 .furniture {
-  overflow-x: scroll;
+  /*overflow-x: scroll;*/
 }
 </style>

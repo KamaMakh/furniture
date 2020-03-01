@@ -13,11 +13,29 @@
         @click="setMainPic(item, $event)"
         :class="{ active: item.id === mainPicSrc.id }"
       >
-        <img
+        <!--<img-->
+        <!--:src="-->
+        <!--item.isNew ? item.src : serverUrl + item.pathUrl + '&type=200px'-->
+        <!--"-->
+        <!--/>-->
+        <v-img
           :src="
             item.isNew ? item.src : serverUrl + item.pathUrl + '&type=200px'
           "
-        />
+          contain
+          class="grey lighten-2"
+          max-width="95"
+          light
+        >
+          <template v-slot:placeholder>
+            <v-row class="fill-height ma-0" align="center" justify="center">
+              <v-progress-circular
+                indeterminate
+                color="grey lighten-5"
+              ></v-progress-circular>
+            </v-row>
+          </template>
+        </v-img>
         <span
           v-if="isCreator || !nomenclature.id"
           class="delete-icon"
@@ -51,9 +69,15 @@
           ((isCreator && images && images.length < 3) || !nomenclature.id) &&
             !files.length
         "
-        class="add-file"
+        class="add-file custom-file-input"
       >
-        <b-form-file v-model="newFile"></b-form-file>
+        <v-file-input
+          accept="image/jpeg, image/png, image/gif"
+          single-line
+          solo
+          hide-details
+          v-model="newFile"
+        ></v-file-input>
       </div>
     </div>
   </div>

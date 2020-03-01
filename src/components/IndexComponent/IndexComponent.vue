@@ -1,28 +1,48 @@
 <template>
   <div class="index-component">
     <sl>
-      <b-nav>
-        <b-nav-item v-scroll-to="'#main'">{{ $t("main") }}</b-nav-item>
-        <b-nav-item v-scroll-to="'#furniture'">{{
-          $t("furniture")
-        }}</b-nav-item>
-        <b-nav-item v-scroll-to="'#orders'">{{ $t("warehouse") }}</b-nav-item>
-        <b-nav-item v-scroll-to="'#documents'" class="white first">{{
-          $t("documents")
-        }}</b-nav-item>
-        <b-nav-item v-scroll-to="'#tariffs'" class="white second">{{
-          $t("tariffs")
-        }}</b-nav-item>
-        <b-nav-item v-scroll-to="'#contacts'" class="white third">{{
-          $t("contacts")
-        }}</b-nav-item>
-      </b-nav>
+      <ul class="nav">
+        <li class="nav-item" v-scroll-to="'#main'">
+          <a class="nav-link">{{ $t("main") }}</a>
+        </li>
+        <li class="nav-item" v-scroll-to="'#furniture'">
+          <a class="nav-link">{{ $t("furniture") }}</a>
+        </li>
+        <li class="nav-item" v-scroll-to="'#orders'">
+          <a class="nav-link">{{ $t("warehouse") }}</a>
+        </li>
+        <li class="nav-item" v-scroll-to="'#documents'">
+          <a class="nav-link">{{ $t("documents") }}</a>
+        </li>
+        <li class="nav-item" v-scroll-to="'#tariffs'">
+          <a class="nav-link">{{ $t("tariffs") }}</a>
+        </li>
+        <li class="nav-item" v-scroll-to="'#contacts'">
+          <a class="nav-link">{{ $t("contacts") }}</a>
+        </li>
+      </ul>
     </sl>
     <section id="1">
       <div class="index-component__nav-bar nav-bar">
         <div class="nav-bar__lang">
-          <b-dropdown>
-            <template v-slot:button-content>
+          <v-overflow-btn class="my-2" :items="['lang']" item-value="text">
+            <template v-slot:item>
+              <div class="d-flex flex-column">
+                <div @click="setLang('ru')">
+                  <div class="nav-bar__flag ru ma-1"></div>
+                </div>
+                <div @click="setLang('de')">
+                  <div class="nav-bar__flag de ma-1"></div>
+                </div>
+                <div @click="setLang('en')">
+                  <div class="nav-bar__flag en ma-1"></div>
+                </div>
+                <div @click="setLang('fr')">
+                  <div class="nav-bar__flag fr ma-1"></div>
+                </div>
+              </div>
+            </template>
+            <template v-slot:selection>
               <div
                 class="nav-bar__flag"
                 :class="{
@@ -33,39 +53,43 @@
                 }"
               ></div>
             </template>
-            <b-dropdown-item @click="setLang('ru')">
-              <div class="nav-bar__flag ru"></div>
-            </b-dropdown-item>
-            <b-dropdown-item @click="setLang('de')">
-              <div class="nav-bar__flag de"></div>
-            </b-dropdown-item>
-            <b-dropdown-item @click="setLang('en')">
-              <div class="nav-bar__flag en"></div>
-            </b-dropdown-item>
-            <b-dropdown-item @click="setLang('fr')">
-              <div class="nav-bar__flag fr"></div>
-            </b-dropdown-item>
-          </b-dropdown>
+            <template v-slot:prepend-inner>
+              <div
+                v-if="!langChanged"
+                class="nav-bar__flag"
+                :class="{
+                  ru: lang.indexOf('ru') > -1,
+                  de: lang.indexOf('de') > -1,
+                  en: lang.indexOf('en') > -1,
+                  fr: lang.indexOf('fr') > -1
+                }"
+              ></div>
+            </template>
+          </v-overflow-btn>
         </div>
         <div class="nav-bar__menu">
-          <b-nav>
-            <b-nav-item v-scroll-to="'#main'">{{ $t("main") }}</b-nav-item>
-            <b-nav-item v-scroll-to="'#furniture'">{{
-              $t("furniture")
-            }}</b-nav-item>
-            <b-nav-item v-scroll-to="'#orders'">{{
-              $t("warehouse")
-            }}</b-nav-item>
-            <b-nav-item v-scroll-to="'#documents'" class="white first">{{
-              $t("documents")
-            }}</b-nav-item>
-            <b-nav-item v-scroll-to="'#tariffs'" class="white second">{{
-              $t("tariffs")
-            }}</b-nav-item>
-            <b-nav-item v-scroll-to="'#contacts'" class="white third">{{
-              $t("contacts")
-            }}</b-nav-item>
-          </b-nav>
+          <ul class="nav">
+            <li v-scroll-to="'#main'" class="nav-item">
+              <a class="nav-link">{{ $t("main") }}</a>
+            </li>
+            <li v-scroll-to="'#furniture'" class="nav-item">
+              <a class="nav-link">{{ $t("furniture") }}</a>
+            </li>
+            <li v-scroll-to="'#orders'" class="nav-item">
+              <a class="nav-link"> {{ $t("warehouse") }}</a>
+            </li>
+            <li v-scroll-to="'#documents'" class="nav-item white first">
+              <a class="nav-link"> {{ $t("documents") }}</a>
+            </li>
+            <li v-scroll-to="'#tariffs'" class="nav-item white second">
+              <a class="nav-link">{{ $t("tariffs") }} </a>
+            </li>
+            <li v-scroll-to="'#contacts'" class="nav-item white third">
+              <a class="nav-link">
+                {{ $t("contacts") }}
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
     </section>
@@ -849,11 +873,11 @@
     </section>
     <section id="10">
       <div class="contacts" id="contacts">
-        <b-row>
-          <b-col cols="12" sm="6" md="4" class="contacts__copy">
+        <v-row>
+          <v-col cols="12" sm="6" md="4" class="contacts__copy">
             © 2020 ООО «ЕРА»
-          </b-col>
-          <b-col cols="12" sm="6" md="4" class="contacts__info">
+          </v-col>
+          <v-col cols="12" sm="6" md="4" class="contacts__info">
             <div class="contacts__email">
               <a href="mailto:eradevelopmentnsk@gmail.com" target="_blank"
                 >eradevelopmentnsk@gmail.com</a
@@ -864,8 +888,8 @@
                 +7(383) 277 27 39
               </a>
             </div>
-          </b-col>
-          <b-col
+          </v-col>
+          <v-col
             cols="12"
             md="4"
             class="contacts__policy"
@@ -873,136 +897,102 @@
             @click="downloadWithVueResource"
           >
             <!--{{ $t("policyText") }}-->
-          </b-col>
-        </b-row>
+          </v-col>
+        </v-row>
       </div>
       <div class="bot-menu">
         <div class="bot-menu__logo"></div>
         <div class="bot-menu__menu">
-          <b-nav>
-            <b-nav-item v-scroll-to="'#main'">{{ $t("main") }}</b-nav-item>
-            <b-nav-item v-scroll-to="'#furniture'">{{
-              $t("furniture")
-            }}</b-nav-item>
-            <b-nav-item v-scroll-to="'#orders'">{{
-              $t("warehouse")
-            }}</b-nav-item>
-            <b-nav-item v-scroll-to="'#documents'" class="white first">{{
-              $t("documents")
-            }}</b-nav-item>
-            <b-nav-item v-scroll-to="'#tariffs'" class="white second">{{
-              $t("tariffs")
-            }}</b-nav-item>
-            <b-nav-item v-scroll-to="'#contacts'" class="white third">{{
-              $t("contacts")
-            }}</b-nav-item>
-          </b-nav>
+          <ul class="nav">
+            <li v-scroll-to="'#main'" class="nav-item">
+              <a class="nav-link">
+                {{ $t("main") }}
+              </a>
+            </li>
+            <li v-scroll-to="'#furniture'" class="nav-item">
+              <a class="nav-link">
+                {{ $t("furniture") }}
+              </a>
+            </li>
+            <li v-scroll-to="'#orders'" class="nav-item">
+              <a class="nav-link">{{ $t("warehouse") }}</a>
+            </li>
+            <li v-scroll-to="'#documents'" class="nav-item">
+              <a class="nav-link">{{ $t("documents") }}</a>
+            </li>
+            <li v-scroll-to="'#tariffs'" class="nav-item">
+              <a class="nav-link">{{ $t("tariffs") }}</a>
+            </li>
+            <li v-scroll-to="'#contacts'" class="nav-item">
+              <a class="nav-link">{{ $t("contacts") }}</a>
+            </li>
+          </ul>
         </div>
       </div>
     </section>
 
     <!--modals-->
-    <b-modal
-      v-model="showRegisterModal"
-      hide-footer
-      hide-header
-      :title="$t('registration')"
-      modal-class="register-modal"
-      centered
-    >
-      <div class="register-modal__title">
-        {{ $t("lp.lastStep") }}
-      </div>
-      <div class="register-modal__sub-title">
-        {{ $t("lp.getRegister") }}
-      </div>
-      <div class="register-modal__form">
-        <b-form>
-          <b-form-group id="input-group-1">
-            <b-form-input
-              v-model="form.email"
-              type="email"
-              :state="email_validation"
-              required
-              autocomplete="username"
-              :placeholder="$t('email')"
-              :disabled="inputDisabled"
-              @blur="inputBlur"
-            ></b-form-input>
-            <b-form-invalid-feedback :state="email_validation">
-              {{ $t("invalid_email") }}
-            </b-form-invalid-feedback>
-          </b-form-group>
-          <b-form-group>
-            <div class="position-relative" style="outline: none">
-              <b-form-input
-                v-model="form.password"
-                :type="passType"
-                required
-                :placeholder="$t('password')"
-                autocomplete="new-password"
-                :disabled="inputDisabled"
-                :state="password_validation"
-                @blur="inputBlur"
-              >
-              </b-form-input>
-              <div
-                class="show-password"
-                :class="{
-                  show: passType === 'text',
-                  hide: passType === 'password'
-                }"
-                @click="togglePass"
-              ></div>
-            </div>
-            <b-form-invalid-feedback :state="password_validation">
-              {{ $t("invalid_password_content") }}
-              {{
-                $t("invalid_password_length", {
-                  length: 8
-                })
-              }}
-            </b-form-invalid-feedback>
-          </b-form-group>
-          <b-form-group>
-            <div class="position-relative">
-              <b-form-input
-                v-model="form.c_password"
-                :type="c_passType"
-                required
-                autocomplete="new-password"
-                :placeholder="$t('c_password')"
-                :state="c_password_validation"
-                :disabled="inputDisabled"
-                @blur="inputBlur"
-                @keyup="inputBlur"
-                @change="inputBlur"
-              ></b-form-input>
-              <div
-                class="show-password"
-                :class="{
-                  show: c_passType === 'text',
-                  hide: c_passType === 'password'
-                }"
-                @click="toggleCPass"
-              ></div>
-            </div>
-            <b-form-invalid-feedback :state="c_password_validation">
-              {{ $t("invalid_password_confirm") }}
-            </b-form-invalid-feedback>
-          </b-form-group>
-        </b-form>
-      </div>
-    </b-modal>
-    <b-modal
-      v-model="showRedirectModal"
-      hide-footer
-      hide-header
-      centered
-      modal-class="register-redirect-modal"
-    >
-      {{ $t("lp.registerRedirect") }}
-    </b-modal>
+    <v-dialog v-model="showRegisterModal" width="700">
+      <v-card>
+        <div class="register-modal__title">
+          {{ $t("lp.lastStep") }}
+        </div>
+        <div class="register-modal__sub-title">
+          {{ $t("lp.getRegister") }}
+        </div>
+        <div class="register-modal__form">
+          <v-form>
+            <v-card-text>
+              <v-col cols="12" md="6" lg="6" xl="6" class="ma-auto">
+                <v-text-field
+                  v-model="form.email"
+                  :label="$t('email')"
+                  :disabled="inputDisabled"
+                  :rules="[rules.required, rules.email]"
+                  type="email"
+                  light
+                  autocomplete="email"
+                  class="mb-2"
+                ></v-text-field>
+                <v-text-field
+                  v-model="form.password"
+                  :label="$t('password')"
+                  :disabled="inputDisabled"
+                  :rules="[rules.required, rules.min, rules.passwordRules]"
+                  light
+                  :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
+                  @click:append="showPass = !showPass"
+                  :type="showPass ? 'text' : 'password'"
+                  class="mb-2"
+                ></v-text-field>
+                <v-text-field
+                  v-model="form.c_password"
+                  :label="$t('c_password')"
+                  :disabled="inputDisabled"
+                  :rules="[rules.required, rules.sameAs]"
+                  light
+                  :append-icon="showPass2 ? 'mdi-eye' : 'mdi-eye-off'"
+                  @click:append="showPass2 = !showPass2"
+                  :type="showPass2 ? 'text' : 'password'"
+                  class="mb-2"
+                  @blur="inputBlur"
+                  @keyup="inputBlur"
+                  @change="inputBlur"
+                ></v-text-field>
+              </v-col>
+            </v-card-text>
+          </v-form>
+        </div>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="showRedirectModal" width="400">
+      <v-card>
+        <v-card-text class="pt-2">
+          {{ $t("lp.registerRedirect") }}
+        </v-card-text>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -1014,9 +1004,11 @@ import "./assets/css/index.css";
 import { Slide as sl } from "vue-burger-menu";
 import VueCarousel from "vue-carousel";
 import {
+  required,
   isHasNumber,
   isNotCyrillic,
   isHasEnglishLetter,
+  minLength,
   isEmail,
   sameAs
 } from "@/shared/validator";
@@ -1038,6 +1030,26 @@ export default {
       c_passType: "password",
       scrollPosition: "",
       main: null,
+      showPass: false,
+      showPass2: false,
+      rules: {
+        required: value => required(value) || this.$t("required"),
+        min: v =>
+          minLength(v, 8) ||
+          this.$t("invalid_password_length", {
+            length: 8
+          }),
+        emailMatch: () => "The email and password you entered don't match",
+        email: v => isEmail(v) || this.$t("invalid_email"),
+        sameAs: v =>
+          sameAs(v, this.form.password) || this.$t("invalid_password_confirm"),
+        passwordRules: v => {
+          return (
+            (isHasNumber(v) && isNotCyrillic(v) && isHasEnglishLetter(v)) ||
+            this.$t("invalid_password_content")
+          );
+        }
+      },
       furniture: null,
       orders: null,
       documents: null,
@@ -1066,7 +1078,8 @@ export default {
         movingFlag: true
       },
       currLang:
-        this.$cookies.get("lang") || navigator.language.split("-")[0] || "en"
+        this.$cookies.get("lang") || navigator.language.split("-")[0] || "en",
+      langChanged: false
     };
   },
   computed: {
@@ -1137,6 +1150,7 @@ export default {
     setLang(lang) {
       this.currLang = lang;
       this.$store.commit("setLang", lang);
+      this.langChanged = true;
     },
     handleScroll() {
       let scroll = window.scrollY;

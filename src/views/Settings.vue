@@ -21,5 +21,6 @@ export default {
 .settings {
   display: block;
   margin: 0 auto;
+  max-height: 100%;
 }
 </style>

@@ -8,9 +8,22 @@
         />
       </div>
       <div class="container-wrap__content content">
-        <div class="content__left-menu" :class="{ opened: leftMenuShow }">
+        <div
+          v-if="windowWidth > 960"
+          class="content__left-menu"
+          :class="{ opened: leftMenuShow }"
+        >
           <AppLeft :navsType="navsType" />
         </div>
+        <v-navigation-drawer
+          v-else
+          width="300"
+          v-model="leftMenuShow"
+          absolute
+          temporary
+        >
+          <AppLeft :navsType="navsType" />
+        </v-navigation-drawer>
         <perfect-scrollbar class="content__body">
           <router-view />
         </perfect-scrollbar>
@@ -18,15 +31,9 @@
     </div>
 
     <!--modals-->
-    <b-modal
-      v-model="showVerifyModal"
-      content-class="verify-modal-content"
-      hide-footer
-      hide-header
-      centered
-    >
+    <v-dialog v-model="showVerifyModal" width="500">
       <VerifyMail @hideModal="showVerifyModal = false" />
-    </b-modal>
+    </v-dialog>
   </div>
 </template>
 
@@ -96,7 +103,7 @@ export default {
     height: 45px;
   }
   &__content {
-    height: 100%;
+    min-height: 100%;
     max-width: 1920px;
     margin: 0 auto;
     display: flex;
@@ -107,7 +114,7 @@ export default {
 }
 .content {
   &__left-menu {
-    transition: 0.8s;
+    transition: 0.5s;
     margin-left: -100%;
     height: 100%;
     &.opened {

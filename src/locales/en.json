@@ -23,6 +23,7 @@
   "register_error": "An error occurred while registering.",
   "register_invalid": "Fill in all form fields",
   "login_invalid": "Incorrect login or password",
+  "required": "Required",
   "attention": "Attention!",
   "orders": "Orders and warehouse",
   "statistics": "Statistics",
@@ -116,6 +117,7 @@
   "country": "The country",
   "locality": "Locality",
   "policyText": "Terms of Use and<br> Privacy Policy",
+  "maxSize": "Image size should be less than {size} MB!",
   "lp": {
     "first": {
       "title": "Know exactly how much the construction will cost",

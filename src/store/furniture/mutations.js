@@ -125,12 +125,20 @@ function hideNomenclatures(state, data) {
     }
   }
 }
-
 function updateNomenclature(state, data) {
   if (state.furniture.groups.indexOf(data.nomenclature) > -1) {
     data.response["group"] = data.nomenclature["group"];
     state.furniture.groups[state.furniture.groups.indexOf(data.nomenclature)] =
       data.response;
+  } else {
+    state.furniture.groups.forEach((item, key) => {
+      if (
+        item["id"] === data.nomenclature.id &&
+        item["count"] === data.nomenclature.count
+      ) {
+        state.furniture.groups[key] = data.response;
+      }
+    });
   }
 }
 

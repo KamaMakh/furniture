@@ -2,7 +2,22 @@
   <div class="personal">
     <div class="personal__info-wrap">
       <div v-if="user.avatar || avatarPath" class="personal__logo">
-        <img :src="serverUrl + avatarPath" />
+        <v-img
+          :src="serverUrl + avatarPath"
+          contain
+          class="lighten-2"
+          max-height="140"
+          light
+        >
+          <template v-slot:placeholder>
+            <v-row class="ma-0" align="center" justify="center">
+              <v-progress-circular
+                indeterminate
+                color="grey lighten-5"
+              ></v-progress-circular>
+            </v-row>
+          </template>
+        </v-img>
         <div
           v-if="!user.avatar && !avatarPath"
           class="edit-avatar"
@@ -39,151 +54,150 @@
       Общая информация
     </div>
     <div class="personal__form">
-      <b-form @submit.prevent="updateProfile">
-        <b-row class="mb-4">
-          <b-col cols="12" sm="6" md="4">
-            <b-form-group :label="$t('name')">
-              <b-form-input
-                v-model="user.fio"
-                :placeholder="$t('name')"
-                required
-                :class="{
-                  'is-danger':
-                    ($v.user.fio.$invalid && user.fio) ||
-                    (!user.fio && showFormErrors)
-                }"
-              ></b-form-input>
-            </b-form-group>
-          </b-col>
-          <b-col cols="12" sm="6" md="4">
-            <b-form-group :label="$t('country')">
-              <v-select
-                class="personal-select"
-                :placeholder="$t('country')"
-                :options="countries"
-                v-model.trim="country"
-                v-debounce:300ms="getCountries"
-              >
-              </v-select>
-            </b-form-group>
-          </b-col>
-          <b-col cols="12" sm="6" md="4">
-            <b-form-group :label="$t('locality')">
-              <v-select
-                class="personal-select"
-                :placeholder="$t('locality')"
-                :options="cities"
-                :disabled="!country"
-                v-model.trim="city"
-                v-debounce:300ms="getCities"
-              >
-              </v-select>
-            </b-form-group>
-          </b-col>
-        </b-row>
-        <b-row class="mb-4">
-          <b-col cols="12" sm="6" md="4">
-            <b-form-group :label="$t('site')">
-              <b-form-input
-                v-model="user.site"
-                :placeholder="$t('site')"
-              ></b-form-input>
-            </b-form-group>
-          </b-col>
-          <b-col cols="12" sm="6" md="4">
-            <b-form-group :label="$t('phone')">
-              <b-form-input
-                v-model="user.phone"
-                :placeholder="$t('phone')"
-                v-mask="'+7 (###) ###-##-##'"
-              ></b-form-input>
-            </b-form-group>
-          </b-col>
-          <b-col cols="12" sm="6" md="4">
-            <b-form-group :label="$t('companyName')">
-              <b-form-input
-                v-model="user.nameOrganization"
-                :placeholder="$t('companyName')"
-              ></b-form-input>
-            </b-form-group>
-          </b-col>
-        </b-row>
-        <b-row>
-          <b-col cols="12" sm="4">
-            <b-form-group :label="$t('info')">
-              <b-form-textarea
-                size="lg"
-                :placeholder="$t('info')"
-                v-model="user.info"
-              ></b-form-textarea>
-            </b-form-group>
-          </b-col>
-          <b-col cols="12" sm="6" md="4" class="d-flex align-items-end">
-            <b-form-group :label="$t('currency')">
-              <b-form-input
-                v-model="user.currency.name"
-                disabled
-              ></b-form-input>
-            </b-form-group>
-          </b-col>
-        </b-row>
-        <b-btn v-if="!loading" class="personal__btn" type="submit">
+      <v-form
+        v-model="profileValid"
+        ref="profileForm"
+        @submit.prevent="updateProfile"
+      >
+        <v-row class="mb-4">
+          <v-col cols="12" sm="6" md="4">
+            <v-text-field
+              v-model="user.fio"
+              :label="$t('name')"
+              :rules="[rules.required]"
+              :color="color"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" sm="6" md="4">
+            <v-autocomplete
+              v-model="country"
+              :items="countries"
+              clearable
+              hide-details
+              item-text="title"
+              item-value="country_id"
+              :color="color"
+              :label="$t('country')"
+              v-debounce:300ms="getCountries"
+            >
+            </v-autocomplete>
+          </v-col>
+          <v-col cols="12" sm="6" md="4">
+            <v-autocomplete
+              :disabled="country === undefined || !country.length"
+              v-model="city"
+              :items="cities"
+              :search-input.sync="city"
+              clearable
+              hide-details
+              item-text="title"
+              item-value="city_id"
+              :label="$t('locality')"
+              v-debounce:300ms="getCities"
+              :color="color"
+            >
+            </v-autocomplete>
+          </v-col>
+        </v-row>
+        <v-row class="mb-4">
+          <v-col cols="12" sm="6" md="4">
+            <v-text-field
+              v-model="user.site"
+              :label="$t('site')"
+              :color="color"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" sm="6" md="4">
+            <v-text-field
+              v-model="user.phone"
+              :label="$t('phone')"
+              v-mask="'+7 (###) ###-##-##'"
+              :color="color"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" sm="6" md="4">
+            <v-text-field
+              v-model="user.nameOrganization"
+              :label="$t('companyName')"
+              :color="color"
+            ></v-text-field>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="12" sm="4">
+            <v-textarea
+              :label="$t('info')"
+              v-model="user.info"
+              :color="color"
+            ></v-textarea>
+          </v-col>
+          <v-col
+            cols="12"
+            sm="6"
+            md="4"
+            class="d-flex align-items-end align-self-end"
+          >
+            <v-text-field
+              v-model="user.currency.name"
+              :label="$t('currency')"
+              :color="color"
+              disabled
+            ></v-text-field>
+          </v-col>
+        </v-row>
+        <v-btn
+          :color="color"
+          dark
+          rounded
+          large
+          :loading="loading"
+          type="submit"
+        >
           {{ $t("save") }}
-        </b-btn>
-        <b-btn v-else class="personal__btn">
-          <b-spinner small></b-spinner>
-        </b-btn>
-      </b-form>
+        </v-btn>
+      </v-form>
     </div>
 
     <!--modals-->
-    <b-modal
-      v-model="showAvatarModal"
-      hide-footer
-      :title="$t('add_image')"
-      centered
-    >
-      <div class="modal-body">
-        <div class="form-group row">
-          <b-form-file
-            v-model="files"
-            :state="Boolean(files)"
-            :placeholder="$t('add_image')"
-            drop-placeholder="Drop file here..."
-            accept="image/jpeg, image/png, image/gif"
-          ></b-form-file>
-        </div>
-      </div>
-      <div v-if="!loading" class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-secondary"
-          @click="showAvatarModal = false"
-        >
-          {{ $t("close") }}
-        </button>
-        <button
-          type="button"
-          class="btn btn-custom"
-          @click="addAvatar"
-          :disabled="typeof files == 'Array'"
-        >
-          {{ $t("save") }}
-        </button>
-      </div>
-      <div v-else class="modal-footer">
-        <button type="button" class="btn btn-custom">
-          <b-spinner small></b-spinner>
-        </button>
-      </div>
-    </b-modal>
+    <v-dialog v-model="showAvatarModal" width="400">
+      <v-card>
+        <v-form ref="avatarForm" v-model="avatarValid">
+          <v-card-title>
+            {{ $t("add_image") }}
+          </v-card-title>
+          <v-card-text>
+            <v-file-input
+              :label="$t('add_image')"
+              prepend-icon="mdi-camera"
+              accept="image/jpeg, image/png, image/gif"
+              :rules="[rules.required, rules.max]"
+              show-size
+            ></v-file-input>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn color="grey" dark @click="showAvatarModal = false">
+              {{ $t("close") }}
+            </v-btn>
+            <v-btn
+              :color="color"
+              dark
+              :loading="loading"
+              @click="addAvatar"
+              :disabled="typeof files == 'Array'"
+            >
+              {{ $t("save") }}
+            </v-btn>
+          </v-card-actions>
+        </v-form>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
-import { required } from "vuelidate/lib/validators";
 import { serverUrl } from "@/store/urls";
+import { required, fileMaxSize } from "@/shared/validator";
 export default {
   name: "Personal",
   data() {
@@ -195,7 +209,15 @@ export default {
       loading: false,
       country: "",
       city: "",
-      site: ""
+      site: "",
+      rules: {
+        required: value => required(value) || this.$t("required"),
+        max: value =>
+          fileMaxSize(value, 2000000) || this.$t("maxSize", { size: 2 })
+      },
+      avatarValid: true,
+      profileValid: true,
+      color: "#688e74"
     };
   },
   computed: {
@@ -228,11 +250,6 @@ export default {
       }
     })
   },
-  validations: {
-    user: {
-      fio: { required }
-    }
-  },
   methods: {
     getRole() {
       return this.$i18n.messages[this.$i18n.locale][
@@ -240,6 +257,10 @@ export default {
       ];
     },
     addAvatar() {
+      if (!this.$refs.avatarForm.validate()) {
+        this.loading = false;
+        return;
+      }
       this.loading = true;
       let formData = new FormData();
       formData.append(`file`, this.files);
@@ -277,6 +298,10 @@ export default {
       }
     },
     updateProfile() {
+      if (!this.$refs.profileForm.validate()) {
+        this.loading = false;
+        return;
+      }
       let formData = new FormData();
       if (this.country && this.country.id) {
         formData.append("countryId", this.country.id);
@@ -289,10 +314,12 @@ export default {
         formData.append("countryId", -1);
       }
       formData.append("fio", this.user.fio);
-      formData.append("phone", this.user.phone);
-      formData.append("site", this.user.site);
-      formData.append("info", this.user.info);
-      formData.append("nameOrganization", this.user.nameOrganization);
+
+      if (this.user.phone) formData.append("phone", this.user.phone);
+      if (this.user.site) formData.append("site", this.user.site);
+      if (this.user.info) formData.append("info", this.user.info);
+      if (this.user.nameOrganization)
+        formData.append("nameOrganization", this.user.nameOrganization);
       this.loading = true;
       this.$store.dispatch("user/updateProfile", formData).finally(() => {
         this.loading = false;
@@ -384,7 +411,7 @@ $ffamily: "Roboto", sans-serif;
     color: #688e74;
     padding-bottom: 15px;
     position: relative;
-    margin-bottom: 115px;
+    margin-bottom: 50px;
     &:before {
       content: "";
       display: block;

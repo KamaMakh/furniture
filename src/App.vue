@@ -1,10 +1,8 @@
 <template>
-  <div id="app">
+  <v-app>
     <notifications group="warn" />
-    <transition name="fade">
-      <router-view />
-    </transition>
-  </div>
+    <router-view />
+  </v-app>
 </template>
 
 <script>

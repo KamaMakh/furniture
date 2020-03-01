@@ -1,216 +1,80 @@
 <template>
-  <form @submit.prevent="register">
+  <v-form v-model="registerValid" ref="registerForm" @submit.prevent="register">
     <div class="register">
-      <!--<div class="register__item">-->
-      <!--<input-->
-      <!--type="text"-->
-      <!--name="fio"-->
-      <!--autocomplete="username"-->
-      <!--v-model="form.name"-->
-      <!--:placeholder="$t('name')"-->
-      <!--required-->
-      <!--/>-->
-      <!--</div>-->
-      <div
-        class="register__item"
-        :class="{
-          'is-danger': $v.form.email.$invalid && (form.email || showFormErrors)
-        }"
-      >
-        <input
-          type="email"
-          name="email"
-          autocomplete="email"
-          v-model.trim="form.email"
-          :placeholder="$t('email')"
-          required
-        />
-        <div class="error" v-if="!$v.form.email.email && form.email">
-          {{ $t("invalid_email") }}
-        </div>
-      </div>
-      <!--<div class="register__item">-->
-      <!--<input-->
-      <!--type="text"-->
-      <!--name="phone"-->
-      <!--v-mask="'+7 (###) ###-##-##'"-->
-      <!--autocomplete="phone"-->
-      <!--v-model="form.phone"-->
-      <!--:placeholder="$t('phone')"-->
-      <!--required-->
-      <!--/>-->
-      <!--</div>-->
-      <div
-        class="register__item"
-        :class="{
-          'is-danger':
-            $v.form.password.$invalid && (form.password || showFormErrors)
-        }"
-      >
-        <input
-          type="password"
-          name="password"
-          autocomplete="current-password"
-          v-model="form.password"
-          :placeholder="$t('password')"
-          required
-        />
-        <div class="error" v-if="!$v.form.password.minLength">
-          {{
-            $t("invalid_password_length", {
-              length: $v.form.password.$params.minLength.min
-            })
-          }}
-        </div>
-        <div
-          class="error"
-          v-if="
-            (!$v.form.password.isHasNumber ||
-              !$v.form.password.isNotCyrillic ||
-              !$v.form.password.isHasEnglishLetter) &&
-              form.password
-          "
-        >
-          {{ $t("invalid_password_content") }}
-        </div>
-      </div>
-      <div
-        class="register__item"
-        :class="{ 'is-danger': $v.form.c_password.$invalid && form.c_password }"
-      >
-        <input
-          type="password"
-          name="c_password"
-          autocomplete="current-password"
-          v-model="form.c_password"
-          :placeholder="$t('c_password')"
-          required
-        />
-        <div
-          class="error"
-          v-if="!$v.form.c_password.sameAsPassword && form.c_password"
-        >
-          {{ $t("invalid_password_confirm") }}
-        </div>
-      </div>
-      <!--<div-->
-      <!--class="register__item"-->
-      <!--:class="{-->
-      <!--'is-danger': $v.form.role.$invalid && (form.role || showFormErrors)-->
-      <!--}"-->
-      <!--&gt;-->
-      <!--<v-select-->
-      <!--class="style-chooser"-->
-      <!--:disabled="isClient"-->
-      <!--:placeholder="$t('role')"-->
-      <!--:options="[-->
-      <!--$t('supervisor'),-->
-      <!--// $t('magazine'),-->
-      <!--// $t('client'),-->
-      <!--$t('architect')-->
-      <!--]"-->
-      <!--v-model="form.role"-->
-      <!--&gt;-->
-      <!--</v-select>-->
-      <!--</div>-->
-      <!--<div-->
-      <!--class="register__item"-->
-      <!--:class="{-->
-      <!--'is-danger':-->
-      <!--$v.form.currency.$invalid && (form.currency || showFormErrors)-->
-      <!--}"-->
-      <!--&gt;-->
-      <!--<v-select-->
-      <!--class="style-chooser"-->
-      <!--:placeholder="$t('currency')"-->
-      <!--:options="currencies"-->
-      <!--v-model="form.currency"-->
-      <!--&gt;-->
-      <!--</v-select>-->
-      <!--</div>-->
-      <!--<div class="register__item">-->
-      <!--<textarea-->
-      <!--name="info"-->
-      <!--cols="30"-->
-      <!--rows="3"-->
-      <!--:placeholder="$t('info')"-->
-      <!--v-model="form.info"-->
-      <!--required-->
-      <!--&gt;</textarea>-->
-      <!--</div>-->
+      <v-text-field
+        v-model="form.email"
+        :label="$t('email')"
+        :placeholder="$t('email')"
+        :rules="[rules.required, rules.email]"
+        type="email"
+        dark
+        autocomplete="email"
+        class="mb-2"
+      ></v-text-field>
+      <v-text-field
+        v-model="form.password"
+        :label="$t('password')"
+        :placeholder="$t('password')"
+        :rules="[rules.required, rules.min, rules.passwordRules]"
+        dark
+        :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
+        @click:append="showPass = !showPass"
+        :type="showPass ? 'text' : 'password'"
+        class="mb-2"
+      ></v-text-field>
+      <v-text-field
+        v-model="form.c_password"
+        :label="$t('c_password')"
+        :placeholder="$t('c_password')"
+        :rules="[rules.required, rules.sameAs]"
+        dark
+        :append-icon="showPass2 ? 'mdi-eye' : 'mdi-eye-off'"
+        @click:append="showPass2 = !showPass2"
+        :type="showPass2 ? 'text' : 'password'"
+        class="mb-2"
+      ></v-text-field>
       <div class="register__item">
-        <label>
-          <p-check
-            class="pretty p-image p-plain"
-            @click="policy"
-            name="test"
-            v-model="policy"
-          >
-            <img slot="extra" class="image" src="../assets/policycheck.svg" />
-            <span class="agree-text-wrap" @click="downloadWithVueResource()">{{
-              $t("agree_text")
-            }}</span>
-          </p-check>
-        </label>
+        <v-checkbox
+          v-model="policy"
+          color="green"
+          :rules="[rules.required]"
+          :label="$t('agree_text')"
+          dark
+          append-icon="mdi-download"
+          @click:append="downloadWithVueResource()"
+        ></v-checkbox>
       </div>
       <div class="register__button">
-        <button
-          v-if="!loading"
-          class="btn"
-          type="button"
+        <v-btn
+          color="green"
+          dark
+          rounded
+          large
+          :loading="loading"
           @click.prevent="register"
         >
           {{ $t("registration") }}
-        </button>
-        <button v-else class="btn" type="button">
-          <b-spinner small></b-spinner>
-        </button>
+        </v-btn>
       </div>
     </div>
-
-    <!--modals-->
-    <transition name="fade">
-      <div v-if="showModal">
-        <div class="modal-mask">
-          <div class="modal-wrapper">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-body">
-                  Тут будет текст...
-                </div>
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    @click="showModal = false"
-                  >
-                    {{ $t("close") }}
-                  </button>
-                  <!--<button type="button" class="btn btn-custom" @click="addConstruction">{{ $t("save") }}</button>-->
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </transition>
-  </form>
+  </v-form>
 </template>
 
 <script>
 import Vue from "vue";
-import Validations from "vuelidate";
-import { required, email, minLength, sameAs } from "vuelidate/lib/validators";
 import {
+  required,
   isHasNumber,
   isNotCyrillic,
-  isHasEnglishLetter
+  isHasEnglishLetter,
+  isEmail,
+  minLength,
+  sameAs
 } from "@/shared/validator";
 import "vue-select/dist/vue-select.css";
 import VueMask from "v-mask";
 import { mapState } from "vuex";
 Vue.use(VueMask);
-Vue.use(Validations);
 
 export default {
   name: "Registration",
@@ -226,28 +90,29 @@ export default {
       policy: false,
       loading: false,
       url: "https://stroy-assist.ru/confirm.pdf",
-      isClient: false
+      isClient: false,
+      rules: {
+        required: value => required(value) || this.$t("required"),
+        min: v =>
+          minLength(v, 8) ||
+          this.$t("invalid_password_length", {
+            length: 8
+          }),
+        emailMatch: () => "The email and password you entered don't match",
+        email: v => isEmail(v) || this.$t("invalid_email"),
+        sameAs: v =>
+          sameAs(v, this.form.password) || this.$t("invalid_password_confirm"),
+        passwordRules: v => {
+          return (
+            (isHasNumber(v) && isNotCyrillic(v) && isHasEnglishLetter(v)) ||
+            this.$t("invalid_password_content")
+          );
+        }
+      },
+      showPass: false,
+      showPass2: false,
+      registerValid: true
     };
-  },
-  validations: {
-    form: {
-      // name: { required },
-      // currency: { required },
-      email: {
-        required,
-        email
-      },
-      password: {
-        required,
-        minLength: minLength(8),
-        isHasNumber,
-        isNotCyrillic,
-        isHasEnglishLetter
-      },
-      c_password: {
-        sameAsPassword: sameAs("password")
-      }
-    }
   },
   computed: {
     ...mapState({
@@ -277,34 +142,13 @@ export default {
       window.open(this.url, "_blank");
     },
     register() {
-      let role = "SUPERVISOR",
-        currency = 1;
-      // if (this.form.role) {
-      //   role = this.roles_value[this.roles.indexOf(this.form.role)];
-      // }
-      // if (this.form.currency) {
-      //   currency = this.form.currency.code;
-      // }
-
-      if (
-        this.$v.form.$pending ||
-        this.$v.form.$error ||
-        this.$v.form.$invalid ||
-        !this.policy ||
-        !role ||
-        !currency
-      ) {
-        Vue.notify({
-          group: "warn",
-          title: this.$i18n.messages[this.$i18n.locale]["attention"],
-          text: this.$i18n.messages[this.$i18n.locale]["register_invalid"],
-          type: "warn",
-          closeOnClick: true,
-          duration: 4000
-        });
-        this.showFormErrors = true;
+      if (!this.$refs.registerForm.validate()) {
+        this.loading = false;
         return;
       }
+      let role = "SUPERVISOR",
+        currency = 1;
+
       this.loading = true;
       this.$store
         .dispatch("user/register", {

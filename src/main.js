@@ -4,16 +4,10 @@ import router from "./router";
 import store from "./store";
 import Meta from "vue-meta";
 import i18n from "./i18n";
-import vSelect from "vue-select";
 import Notifications from "vue-notification";
 import VueCookies from "vue-cookies";
-// import "bootstrap";
-// import "bootstrap/dist/css/bootstrap.min.css";
 import { getMe } from "@/store/urls";
 import api from "./shared/api";
-import BootstrapVue from "bootstrap-vue";
-import "bootstrap/dist/css/bootstrap.css";
-import "bootstrap-vue/dist/bootstrap-vue.css";
 import PerfectScrollbar from "vue2-perfect-scrollbar";
 import "vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css";
 import "viewerjs/dist/viewer.css";
@@ -26,23 +20,20 @@ const VueScrollTo = require("vue-scrollto");
 import Validations from "vuelidate";
 import VueMask from "v-mask";
 import vueDebounce from "vue-debounce";
+import vuetify from "./plugins/vuetify";
 
 library.add(faPlus);
 library.add(faUserPlus);
 
+Vue.use(VueWindowSize);
 Vue.component("fa-icon", FontAwesomeIcon);
 Vue.use(Viewer);
 Vue.use(PerfectScrollbar);
 
-Vue.component("v-select", vSelect);
-Vue.use(VueWindowSize, {
-  delay: 300
-});
 Vue.use(Meta);
 Vue.use(Notifications);
 Vue.use(VueCookies);
 Vue.use(Validations);
-Vue.use(BootstrapVue);
 Vue.use(VueScrollTo, {
   duration: 1000
 });
@@ -80,5 +71,6 @@ new Vue({
   router,
   store,
   i18n,
+  vuetify,
   render: h => h(App)
 }).$mount("#app");

@@ -23,20 +23,7 @@
     >
       {{ $t("add_constr") }}
       <span class="icon">
-        <svg
-          width="19"
-          height="19"
-          viewBox="0 0 19 19"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
-            d="M16.8889 0H2.11111C0.939444 0 0 0.95 0 2.11111V16.8889C0 18.05 0.939444 19 2.11111 19H16.8889C18.05 19 19 18.05 19 16.8889V2.11111C19 0.95 18.05 0 16.8889 0ZM16.8891 16.8889H2.11133V2.11111H16.8891V16.8889ZM10.5555 14.7778H8.44439V10.5556H4.22217V8.44444H8.44439V4.22222H10.5555V8.44444H14.7777V10.5556H10.5555V14.7778Z"
-            fill="#868686"
-          />
-        </svg>
+        <IconPlusSquared width="19" height="19" />
       </span>
     </div>
     <div class="sidebar_list menu-left">
@@ -56,493 +43,206 @@
         </li>
       </ul>
     </div>
-    <transition name="fade-none">
-      <div v-if="showAddModal">
-        <div class="modal-mask">
-          <div class="modal-wrapper">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-body">
-                  <form @submit="addConstruction">
-                    <b-form-group
-                      id="input-group-1"
-                      :label="$t('address')"
-                      label-for="input-1"
-                    >
-                      <b-form-input
-                        id="input-1"
-                        v-model="newConstruction.address"
-                        :placeholder="$t('address')"
-                        type="text"
-                        required
-                      ></b-form-input>
-                    </b-form-group>
-                    <b-form-group
-                      id="input-group-2"
-                      :label="$t('construct_name')"
-                      label-for="input-2"
-                    >
-                      <b-form-input
-                        id="input-2"
-                        v-model="newConstruction.name"
-                        :placeholder="$t('construct_name')"
-                        type="text"
-                        required
-                      ></b-form-input>
-                    </b-form-group>
-                    <b-form-group
-                      id="input-group-3"
-                      :label="$t('nds')"
-                      label-for="input-3"
-                    >
-                      <b-form-input
-                        id="input-3"
-                        v-model="newConstruction.nds"
-                        :placeholder="$t('nds')"
-                        type="number"
-                        required
-                      ></b-form-input>
-                    </b-form-group>
-                  </form>
-                </div>
-                <div v-if="!loading" class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    style="border-radius: 14px"
-                    @click="showAddModal = false"
-                  >
-                    {{ $t("close") }}
-                  </button>
-                  <button
-                    type="button"
-                    class="btn btn-custom"
-                    @click="addConstruction"
-                  >
-                    {{ $t("save") }}
-                  </button>
-                </div>
-                <div v-else class="modal-footer">
-                  <button type="button" class="btn btn-custom">
-                    <b-spinner small></b-spinner>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </transition>
-    <b-modal
-      v-model="showSubscribeModal"
-      dialog-class="subscribe-modal"
-      body-class="subscribe-modal"
-      hide-footer
-      hide-header
-      centered
-    >
-      <BuySubscribe @hideModal="hideSubscribeModal" />
-    </b-modal>
-    <b-modal
-      v-model="showEditModal"
-      dialog-class="subscribe-modal"
-      body-class="subscribe-modal"
-      hide-footer
-      hide-header
-      centered
-    >
-      <div class="edit-construction">
-        <div class="edit-construction__left">
-          <b-col cols="12" md="4" class="edit-construction__info">
-            <div class="info-title">
-              <b-form-input
-                id="input-2"
-                v-model="newConstruction.name"
-                :placeholder="$t('construct_name')"
-                type="text"
-                required
-                class="construction-name"
-              ></b-form-input>
-            </div>
-            <b-row width="100%">
-              <b-col cols="12" class="align-items-center">
-                <div class="form-wrap">
-                  <b-form @submit.prevent="addConstruction">
-                    <b-form-group
-                      id="input-group-1"
-                      :label="$t('address')"
-                      label-for="input-1"
-                    >
-                      <b-form-input
-                        id="input-1"
-                        v-model="newConstruction.address"
-                        :placeholder="$t('address')"
-                        type="text"
-                        required
-                      ></b-form-input>
-                    </b-form-group>
-                    <b-form-group
-                      id="input-group-2"
-                      :label="$t('street') + ' ' + $t('homeNumber')"
-                      label-for="input-2"
-                    >
-                      <b-form-input
-                        id="input-2"
-                        :placeholder="$t('street')"
-                        type="text"
-                        required
-                      ></b-form-input>
-                    </b-form-group>
-                    <b-form-group
-                      id="input-group-3"
-                      :label="$t('nds')"
-                      label-for="input-3"
-                    >
-                      <b-form-input
-                        id="input-3"
-                        v-model="newConstruction.nds"
-                        :placeholder="$t('nds')"
-                        type="number"
-                        required
-                      ></b-form-input>
-                    </b-form-group>
-                  </b-form>
-                </div>
-                <b-button
-                  class="edit-construction__remove"
-                  @click="showRemoveModal(newConstruction)"
-                >
-                  {{ $t("delete") }}
-                </b-button>
-              </b-col>
-            </b-row>
-          </b-col>
-        </div>
-        <div class="edit-construction__right">
-          <b-col cols="12" class="edit-construction__cards cards p-0">
-            <div
-              class="cards__close"
-              @click="
-                showEditModal = false;
-                invitedUser = {};
-              "
-            >
-              <svg
-                width="33"
-                height="33"
-                viewBox="0 0 33 33"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M-6.10352e-05 31.8198L31.8197 1.69125e-05L32.5269 0.707124L0.707046 32.5269L-6.10352e-05 31.8198Z"
-                  fill="#E0E0E0"
-                />
-                <path
-                  d="M0.707031 0L32.5268 31.8198L31.8197 32.5269L-7.55191e-05 0.707107L0.707031 0Z"
-                  fill="#E0E0E0"
-                />
-              </svg>
-            </div>
-            <b-form @submit.prevent="addConstruction">
-              <b-row class="mb-0 align-items-end">
-                <!--<b-col cols="8" class="p-0 mr-1 mb-0">-->
-                <!--<b-form-group-->
-                <!--id="input-group-4"-->
-                <!--class="m-0"-->
-                <!--:label="$t('inviteUser')"-->
-                <!--label-for="input-4"-->
-                <!--&gt;-->
-                <!--<b-form-input-->
-                <!--id="input-4"-->
-                <!--v-model="invitedUser.email"-->
-                <!--:placeholder="$t('email')"-->
-                <!--type="text"-->
-                <!--class="form-control m-0"-->
-                <!--&gt;</b-form-input>-->
-                <!--</b-form-group>-->
-                <!--</b-col>-->
-                <!--<b-col class="p-0">-->
-                <!--<b-button-->
-                <!--v-if="!loading"-->
-                <!--squared-->
-                <!--:disabled="-->
-                <!--!invitedUser.email || $v.invitedUser.email.$invalid-->
-                <!--"-->
-                <!--class="submit-btn mt-0 invite-btn"-->
-                <!--@click="inviteUser"-->
-                <!--&gt;-->
-                <!--{{ $t("invite") }}-->
-                <!--</b-button>-->
-                <!--<button-->
-                <!--v-else-->
-                <!--type="button"-->
-                <!--squared-->
-                <!--class="submit-btn mt-0 invite-btn"-->
-                <!--&gt;-->
-                <!--<b-spinner small></b-spinner>-->
-                <!--</button>-->
-                <!--</b-col>-->
-              </b-row>
-              <b-row class="mb-3 mt-2">
-                <b-form-checkbox
-                  id="client-checkbox"
-                  class="align-items-center d-flex client-checkbox"
-                  v-model="isClient"
-                  name="client"
-                  :value="true"
-                  :unchecked-value="false"
-                >
-                  {{ $t("isCustomer") }}
-                </b-form-checkbox>
-              </b-row>
-              <b-row class="mb-2 align-items-end">
-                <b-col cols="8" class="p-0 mr-0 mb-0">
-                  <b-form-group
-                    id="input-group-4"
-                    class="m-0"
-                    :label="$t('inviteUser')"
-                    label-for="input-4"
-                  >
-                    <b-form-input
-                      id="input-4"
-                      :placeholder="$t('email')"
-                      value="invited@mail.ru"
-                      type="text"
-                      class="form-control m-0"
-                      disabled
-                    ></b-form-input>
-                  </b-form-group>
-                </b-col>
-                <b-col class="p-0 mt-2 mt-sm-0" cols="4">
-                  <b-button
-                    squared
-                    :disabled="true"
-                    class="submit-btn mt-0 invite-btn"
-                    style="pointer-events: none; background: none;"
-                  >
-                    {{ $t("invited") }}
-                  </b-button>
-                </b-col>
-              </b-row>
-              <b-row class="mb-2 align-items-end">
-                <b-col cols="8" class="p-0 mr-0 mb-0">
-                  <b-form-group
-                    id="input-group-4"
-                    class="m-0"
-                    :label="$t('inviteUser')"
-                    label-for="input-4"
-                  >
-                    <b-form-input
-                      id="input-4"
-                      :placeholder="$t('email')"
-                      value="invited@mail.ru"
-                      type="text"
-                      class="form-control m-0"
-                      disabled
-                    ></b-form-input>
-                  </b-form-group>
-                </b-col>
-                <b-col class="p-0 mt-2 mt-sm-0" cols="4">
-                  <b-button
-                    squared
-                    :disabled="true"
-                    class="submit-btn mt-0 invite-btn"
-                    style="pointer-events: none; background: none;"
-                  >
-                    {{ $t("attached") }}
-                  </b-button>
-                </b-col>
-              </b-row>
-              <b-button
-                v-if="!loading"
-                type="submit"
-                squared
-                class="submit-btn"
-              >
-                {{ $t("save") }}
-              </b-button>
-              <button v-else type="button" squared class="submit-btn">
-                <b-spinner small></b-spinner>
-              </button>
-            </b-form>
-          </b-col>
-        </div>
-      </div>
-    </b-modal>
+    <!--dialogs-->
+    <v-dialog v-model="showAddModal" width="500">
+      <v-card>
+        <v-card-title class="headline">
+          {{ $t("add_constr") }}
+        </v-card-title>
+        <v-card-text>
+          <v-form ref="addForm" v-model="addValid" lazy-validation>
+            <v-row>
+              <v-col cols="12">
+                <v-text-field
+                  v-model="newConstruction.address"
+                  :label="$t('address')"
+                  :placeholder="$t('address')"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12">
+                <v-text-field
+                  v-model="newConstruction.name"
+                  :label="$t('construct_name')"
+                  :placeholder="$t('construct_name')"
+                  :rules="rules"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12">
+                <v-text-field
+                  v-model="newConstruction.nds"
+                  :label="$t('nds')"
+                  :placeholder="$t('nds')"
+                  :rules="rules"
+                  type="number"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+          </v-form>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
 
-    <b-modal
-      v-model="showInviteModal"
-      hide-footer
-      :title="$t('inviteUser')"
-      modal-class="invite-modal"
-      centered
-    >
-      <b-form-group id="input-group-3" :label="$t('name')" label-for="input-3">
-        <b-form-input
-          id="input-3"
-          v-model="invitedUser.name"
-          :placeholder="$t('name')"
-          type="text"
-          required
-          class="form-control"
-          :class="{
-            'is-danger': !invitedUser.name && showFormErrors
-          }"
-        ></b-form-input>
-      </b-form-group>
-      <b-form-group
-        id="input-group-333"
-        :label="$t('email')"
-        label-for="input-333"
-      >
-        <b-form-input
-          id="input-333"
-          v-model="invitedUser.email"
-          :placeholder="$t('email')"
-          type="email"
-          required
-          :class="{
-            'is-danger':
-              ($v.invitedUser.email.$invalid && invitedUser.email) ||
-              (!invitedUser.email && showFormErrors)
-          }"
-        ></b-form-input>
-        <div
-          class="error"
-          v-if="!$v.invitedUser.email.email && invitedUser.email"
-        >
-          {{ $t("invalid_email") }}
-        </div>
-      </b-form-group>
-      <b-form-group
-        id="input-group-45"
-        :label="$t('role')"
-        label-for="input-45"
-      >
-        <v-select
-          id="input-45"
-          class="nomenclature-select w-100"
-          :placeholder="$t('role')"
-          :options="[
-            { label: $t('supervisor'), code: 1 },
-            { label: $t('magazine'), code: 2 },
-            { label: $t('client'), code: 3 },
-            { label: $t('architect'), code: 4 }
-          ]"
-          v-model="invitedUser.role"
-        >
-        </v-select>
-      </b-form-group>
-      <div v-if="!loading" class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-secondary"
-          style="border-radius: 14px"
-          @click="showInviteModal = false"
-        >
-          {{ $t("close") }}
-        </button>
-        <button type="button" class="btn btn-custom" @click="inviteUser">
-          {{ $t("invite") }}
-        </button>
-      </div>
-      <div v-else class="modal-footer">
-        <button type="button" class="btn btn-custom">
-          <b-spinner small></b-spinner>
-        </button>
-      </div>
-    </b-modal>
-
-    <b-modal
-      v-model="removeModal"
-      dialog-class="subscribe-modal"
-      body-class="subscribe-modal"
-      hide-footer
-      :title="$t('remove_const_text')"
-      centered
-    >
-      <div v-if="!loading" class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-secondary"
-          style="border-radius: 14px"
-          @click="removeModal = false"
-        >
-          {{ $t("cancel") }}
-        </button>
-        <button
-          type="button"
-          class="btn btn-custom"
-          @click="removeConstruction"
-        >
-          {{ $t("close") }}
-        </button>
-      </div>
-      <div v-else class="modal-footer">
-        <button class="btn btn-custom">
-          <b-spinner small></b-spinner>
-        </button>
-      </div>
-    </b-modal>
-    <b-modal
-      v-model="showAvatarModal"
-      hide-footer
-      :title="$t('add_image')"
-      centered
-    >
-      <div class="modal-content">
-        <div class="modal-body">
-          <div class="form-group row">
-            <b-form-file
-              v-model="files"
-              :state="Boolean(files)"
-              :placeholder="$t('add_image')"
-              drop-placeholder="Drop file here..."
-              accept="image/jpeg, image/png, image/gif"
-            ></b-form-file>
-          </div>
-        </div>
-        <div v-if="!loading" class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            @click="showAvatarModal = false"
-          >
+          <v-btn color="red darken-1" text @click="showAddModal = false">
             {{ $t("close") }}
-          </button>
-          <button
-            type="button"
-            class="btn btn-custom"
-            @click="addAvatar"
-            :disabled="typeof files == 'Array'"
+          </v-btn>
+
+          <v-btn
+            color="green darken-1"
+            text
+            :disabled="!addValid"
+            :loading="loading"
+            @click="addConstruction"
           >
             {{ $t("save") }}
-          </button>
-        </div>
-        <div v-else class="modal-footer">
-          <button type="button" class="btn btn-custom">
-            <b-spinner small></b-spinner>
-          </button>
-        </div>
-      </div>
-    </b-modal>
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <v-dialog v-model="showEditModal" width="700">
+      <v-card>
+        <v-row class="ma-0">
+          <v-col cols="12" sm="4" md="4">
+            <v-card-text>
+              <v-form ref="addForm" v-model="addValid" lazy-validation>
+                <v-text-field
+                  v-model="newConstruction.name"
+                  :label="$t('construct_name')"
+                  :placeholder="$t('construct_name')"
+                  :rules="rules"
+                ></v-text-field>
+                <v-text-field
+                  v-model="newConstruction.address"
+                  :label="$t('address')"
+                  :placeholder="$t('address')"
+                ></v-text-field>
+                <v-text-field
+                  v-model="newConstruction.nds"
+                  :label="$t('nds')"
+                  :placeholder="$t('nds')"
+                  :rules="rules"
+                  type="number"
+                ></v-text-field>
+              </v-form>
+            </v-card-text>
+          </v-col>
+          <v-col cols="12" sm="8" md="8">
+            <!--<v-card-text>-->
+            <v-form v-model="inviteValid" @submit.prevent="inviteUser">
+              <v-row>
+                <v-col cols="8">
+                  <v-text-field
+                    v-model="invitedUser.email"
+                    :label="$t('inviteUser')"
+                    :placeholder="$t('inviteUser')"
+                    type="email"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="4">
+                  <v-btn
+                    small
+                    :disabled="isEmail(invitedUser.email)"
+                    :loading="loading"
+                    @click="inviteUser"
+                  >
+                    {{ $t("invite") }}
+                  </v-btn>
+                </v-col>
+              </v-row>
+            </v-form>
+            <v-row>
+              <v-col cols="8">
+                <v-text-field
+                  :label="$t('invited')"
+                  type="email"
+                  value="invited@mail.ru"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="4">
+                <v-btn small disabled>
+                  {{ $t("invited") }}
+                </v-btn>
+              </v-col>
+            </v-row>
+
+            <v-row>
+              <v-col cols="8">
+                <v-text-field
+                  :label="$t('attached')"
+                  type="email"
+                  value="invited@mail.ru"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="4">
+                <v-btn small disabled>
+                  {{ $t("attached") }}
+                </v-btn>
+              </v-col>
+            </v-row>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn
+                color="green"
+                @click="addConstruction"
+                :loading="loading"
+                dark
+              >
+                {{ $t("save") }}
+              </v-btn>
+              <v-btn
+                color="blue-grey"
+                dark
+                @click="showRemoveModal(newConstruction)"
+              >
+                {{ $t("delete") }}
+              </v-btn>
+            </v-card-actions>
+            <!--</v-card-text>-->
+          </v-col>
+        </v-row>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="removeModal" width="400">
+      <v-card>
+        <v-card-title class="headline">
+          {{ $t("remove_const_text") }}
+        </v-card-title>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue-grey" dark @click="removeModal = false">
+            {{ $t("cancel") }}
+          </v-btn>
+          <v-btn
+            color="green"
+            dark
+            :loading="loading"
+            @click="removeConstruction"
+          >
+            {{ $t("delete") }}
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
 <script>
 import Vue from "vue";
 import { mapState } from "vuex";
-import BuySubscribe from "@/components/BuySubscribe";
 import { serverUrl } from "@/store/urls";
 import Validations from "vuelidate";
 import { required, email } from "vuelidate/lib/validators";
+import IconPlusSquared from "@/components/common/icons/IconPlusSquared";
 
 Vue.use(Validations);
 export default {
   name: "FurnitureNav",
   components: {
-    BuySubscribe
+    IconPlusSquared
   },
   data() {
     return {
@@ -558,7 +258,14 @@ export default {
       serverUrl: serverUrl,
       invitedUser: {},
       showFormErrors: false,
-      isClient: false
+      isClient: false,
+      addValid: true,
+      inviteValid: true,
+      rules: [v => !!v || this.$t("required")],
+      emailRules: [
+        v => !!v || this.$t("required"),
+        v => /.+@.+\..+/.test(v) || this.$t("invalid_email")
+      ]
     };
   },
   validations: {
@@ -583,8 +290,8 @@ export default {
     })
   },
   methods: {
-    hideSubscribeModal() {
-      this.showSubscribeModal = false;
+    isEmail(v) {
+      return !/.+@.+\..+/.test(v);
     },
     inviteUser() {
       if (this.$v.invitedUser.email.$invalid) {
@@ -627,13 +334,17 @@ export default {
         });
     },
     addConstruction() {
-      if (!this.newConstruction.name || !this.newConstruction.nds) {
-        this.$notify({
-          group: "warn",
-          type: "error",
-          title: this.$i18n.messages[this.$i18n.locale]["attention"],
-          text: this.$i18n.messages[this.$i18n.locale]["register_invalid"]
-        });
+      // if (!this.newConstruction.name || !this.newConstruction.nds) {
+      //   this.$notify({
+      //     group: "warn",
+      //     type: "error",
+      //     title: this.$i18n.messages[this.$i18n.locale]["attention"],
+      //     text: this.$i18n.messages[this.$i18n.locale]["register_invalid"]
+      //   });
+      //   return;
+      // }
+      if (!this.$refs.addForm.validate()) {
+        this.loading = false;
         return;
       }
       this.loading = true;
@@ -659,6 +370,7 @@ export default {
           })
           .finally(() => {
             this.loading = false;
+            this.newConstruction = {};
           });
       } else {
         let formData = new FormData();
@@ -682,9 +394,9 @@ export default {
           })
           .finally(() => {
             this.loading = false;
+            this.newConstruction = {};
           });
       }
-      this.newConstruction = {};
     },
     chooseConstruction(item) {
       this.$store.dispatch("furniture/getFurniture", { projectId: item.id });

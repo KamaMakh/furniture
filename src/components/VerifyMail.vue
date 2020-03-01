@@ -1,43 +1,53 @@
 <template>
   <div class="verify-mail">
-    <div v-if="step === 1" class="verify-mail__inner">
-      <div class="verify-mail__title">
-        {{ $t("verify.title1") }}
-      </div>
-      <div class="verify-mail__text">
-        {{ $t("verify.text1") }} <br /><span>"{{ user.email }}"</span>. <br />
-        {{ $t("verify.text2") }}
-      </div>
-      <b-form @submit.prevent="sendCode">
-        <b-form-group
-          id="input-group-2"
-          :label="$t('enterCode')"
-          label-for="input-2"
-          :class="{
-            'is-danger': $v.code.$invalid && (code || showFormErrors)
-          }"
-        >
-          <b-form-input
-            id="name"
-            v-model="code"
-            required
-            name="name"
-            :placeholder="$t('enterCode')"
-          ></b-form-input>
-        </b-form-group>
-        <div class="verify-mail__resend" @click="sendEmail">
-          {{ $t("verify.noMessage") }}
+    <v-card>
+      <div v-if="step === 1" class="verify-mail__inner">
+        <div class="verify-mail__title">
+          <v-card-title class="text-center justify-center">
+            {{ $t("verify.title1") }}
+          </v-card-title>
         </div>
-        <b-button type="submit" squared class="submit-btn">
-          ok
-        </b-button>
-      </b-form>
-    </div>
+        <div class="verify-mail__text">
+          <v-card-text>
+            {{ $t("verify.text1") }} <br /><span>"{{ user.email }}"</span>.
+            <br />
+            {{ $t("verify.text2") }}
+          </v-card-text>
+        </div>
+        <v-form @submit.prevent="sendCode" ref="codeForm" v-model="formValid">
+          <v-card-text class="justify-center">
+            <v-col cols="10" class="ma-auto">
+              <v-text-field
+                v-model="code"
+                :label="$t('enterCode')"
+                :placeholder="$t('enterCode')"
+                :rules="[rules.required]"
+              ></v-text-field>
+            </v-col>
+          </v-card-text>
+          <div class="verify-mail__resend" @click="sendEmail">
+            {{ $t("verify.noMessage") }}
+          </div>
+          <v-card-actions class="justify-center mt-4">
+            <v-btn
+              color="#688e74"
+              large
+              :loading="loading"
+              dark
+              type="submit"
+              class="mt-2"
+            >
+              {{ $t("ok") }}
+            </v-btn>
+          </v-card-actions>
+        </v-form>
+      </div>
+    </v-card>
   </div>
 </template>
 
 <script>
-import { required, email } from "vuelidate/lib/validators";
+import { required } from "@/shared/validator";
 import { mapState } from "vuex";
 export default {
   name: "VerifyMail",
@@ -47,12 +57,12 @@ export default {
       email: null,
       showFormErrors: false,
       step: 1,
-      loading: false
+      loading: false,
+      formValid: true,
+      rules: {
+        required: value => required(value) || this.$t("required")
+      }
     };
-  },
-  validations: {
-    code: { required },
-    email: { required, email }
   },
   computed: {
     ...mapState({
@@ -61,20 +71,8 @@ export default {
   },
   methods: {
     sendCode() {
-      if (
-        this.$v.code.$pending ||
-        this.$v.code.$error ||
-        this.$v.code.$invalid
-      ) {
-        this.$notify({
-          group: "warn",
-          title: this.$i18n.messages[this.$i18n.locale]["attention"],
-          text: this.$i18n.messages[this.$i18n.locale]["register_invalid"],
-          type: "warn",
-          closeOnClick: true,
-          duration: 4000
-        });
-        this.showFormErrors = true;
+      if (!this.$refs.codeForm.validate()) {
+        this.loading = false;
         return;
       }
       this.loading = true;

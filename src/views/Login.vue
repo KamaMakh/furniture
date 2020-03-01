@@ -1,215 +1,177 @@
 <template>
-  <form v-if="!restore" @submit.prevent="login">
+  <v-form
+    ref="loginForm"
+    v-if="!restore"
+    v-model="loginValid"
+    @submit.prevent="login"
+    lazy-validation
+  >
     <div class="login">
-      <div
-        class="login__item"
-        :class="{
-          'is-danger': $v.form.email.$invalid && (form.email || showFormErrors)
-        }"
-      >
-        <input
-          type="email"
-          name="email"
-          autocomplete="email"
-          :placeholder="$t('email')"
-          v-model.trim="form.email"
-        />
-        <div class="error" v-if="!$v.form.email.email && form.email">
-          {{ $t("invalid_email") }}
-        </div>
-      </div>
-      <div
-        class="login__item"
-        :class="{
-          'is-danger':
-            $v.form.password.$invalid && (form.password || showFormErrors)
-        }"
-      >
-        <input
-          type="password"
-          name="password"
-          autocomplete="current-password"
-          :placeholder="$t('password')"
-          v-model="form.password"
-        />
-      </div>
+      <v-text-field
+        v-model="form.email"
+        :label="$t('email')"
+        :placeholder="$t('email')"
+        :rules="[rules.required, rules.email]"
+        type="email"
+        dark
+        autocomplete="email"
+        class="mb-2"
+      ></v-text-field>
+      <v-text-field
+        v-model="form.password"
+        :rules="[rules.required]"
+        :type="showPass ? 'text' : 'password'"
+        :label="$t('password')"
+        :placeholder="$t('password')"
+        dark
+        :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
+        @click:append="showPass = !showPass"
+        class="mb-2"
+      ></v-text-field>
       <div class="login__button">
-        <button
-          v-if="!loading"
-          class="btn"
-          type="button"
+        <v-btn
+          color="green"
+          dark
+          rounded
+          large
+          :loading="loading"
           @click.prevent="login"
         >
           {{ $t("login") }}
-        </button>
-        <button v-else class="btn">
-          <b-spinner small></b-spinner>
-        </button>
+        </v-btn>
       </div>
     </div>
     <div class="login__forgot" @click.prevent="restore = true">
       {{ $t("forgotPassword") }}
     </div>
-  </form>
-  <form v-else>
+  </v-form>
+  <v-form
+    v-else-if="restoreStep === 1"
+    v-model="step1Valid"
+    ref="step1Form"
+    @submit.prevent="sendEmail"
+    lazy-validation
+  >
     <div class="login">
-      <div v-if="restoreStep === 1">
-        <div
-          class="login__item"
-          :class="{
-            'is-danger':
-              $v.restoreEmail.$invalid && (restoreEmail || showFormErrors)
-          }"
+      <v-text-field
+        v-model="restoreEmail"
+        :label="$t('email')"
+        :placeholder="$t('email')"
+        :rules="[rules.required, rules.email]"
+        type="email"
+        dark
+        autocomplete="email"
+        class="mb-2"
+      ></v-text-field>
+      <div class="login__button">
+        <v-btn
+          color="green"
+          dark
+          rounded
+          large
+          :loading="loading"
+          @click.prevent="sendEmail"
         >
-          <input
-            type="email"
-            name="email"
-            autocomplete="email"
-            :placeholder="$t('email')"
-            v-model.trim="restoreEmail"
-          />
-          <div class="error" v-if="!$v.restoreEmail.email && restoreEmail">
-            {{ $t("invalid_email") }}
-          </div>
-        </div>
-        <div class="login__button">
-          <button
-            v-if="!loading"
-            class="btn"
-            type="button"
-            @click.prevent="sendEmail"
-          >
-            {{ $t("restorePassword") }}
-          </button>
-          <button v-else class="btn" type="button">
-            <b-spinner small></b-spinner>
-          </button>
-        </div>
-        <div class="login__back" @click="restore = false">
-          {{ $t("back") }}
-        </div>
+          {{ $t("restorePassword") }}
+        </v-btn>
       </div>
-      <div v-else-if="restoreStep === 2">
-        <div
-          class="login__item"
-          :class="{
-            'is-danger':
-              $v.restoreCode.$invalid && (restoreCode || showFormErrors)
-          }"
-        >
-          <input
-            type="text"
-            name="code"
-            :placeholder="$t('enterCode')"
-            v-model.trim="restoreCode"
-          />
-        </div>
-        <div class="login__button">
-          <button
-            v-if="!loading"
-            class="btn"
-            type="button"
-            @click.prevent="sendCode"
-          >
-            {{ $t("sendCode") }}
-          </button>
-          <button v-else class="btn" type="button">
-            <b-spinner small></b-spinner>
-          </button>
-        </div>
-        <div class="login__back" @click="restoreStep = 1">
-          {{ $t("back") }}
-        </div>
-      </div>
-      <div v-else-if="restoreStep === 3">
-        <div
-          class="register__item"
-          :class="{
-            'is-danger':
-              $v.restorePassword.$invalid && (restorePassword || showFormErrors)
-          }"
-        >
-          <input
-            type="password"
-            name="password"
-            autocomplete="current-password"
-            v-model="restorePassword"
-            :placeholder="$t('password')"
-            required
-          />
-          <div class="error" v-if="!$v.restorePassword.minLength">
-            {{
-              $t("invalid_password_length", {
-                length: $v.restorePassword.$params.minLength.min
-              })
-            }}
-          </div>
-          <div
-            class="error"
-            v-if="
-              (!$v.restorePassword.isHasNumber ||
-                !$v.restorePassword.isNotCyrillic ||
-                !$v.restorePassword.isHasEnglishLetter) &&
-                restorePassword
-            "
-          >
-            {{ $t("invalid_password_content") }}
-          </div>
-        </div>
-        <div
-          class="register__item"
-          :class="{
-            'is-danger': $v.restoreCPassword.$invalid && restoreCPassword
-          }"
-        >
-          <input
-            type="password"
-            name="c_password"
-            autocomplete="current-password"
-            v-model="restoreCPassword"
-            :placeholder="$t('c_password')"
-            required
-          />
-          <div
-            class="error"
-            v-if="!$v.restoreCPassword.sameAsPassword && restoreCPassword"
-          >
-            {{ $t("invalid_password_confirm") }}
-          </div>
-        </div>
-        <div class="login__button">
-          <button
-            v-if="!loading"
-            class="btn"
-            type="button"
-            @click.prevent="sendNewPassword"
-          >
-            {{ $t("restorePassword") }}
-          </button>
-          <button v-else class="btn" type="button">
-            <b-spinner small></b-spinner>
-          </button>
-        </div>
-        <div class="login__back" @click="restoreStep = 1">
-          {{ $t("back") }}
-        </div>
+      <div class="login__back" @click="restore = false">
+        {{ $t("back") }}
       </div>
     </div>
-  </form>
+  </v-form>
+  <v-form
+    v-else-if="restoreStep === 2"
+    v-model="step2Valid"
+    ref="step2Form"
+    @submit.prevent="sendCode"
+    lazy-validation
+  >
+    <div class="login">
+      <v-text-field
+        v-model="restoreCode"
+        :label="$t('enterCode')"
+        :placeholder="$t('enterCode')"
+        :rules="[rules.required]"
+        dark
+        class="mb-2"
+      ></v-text-field>
+      <div class="login__button">
+        <v-btn
+          color="green"
+          dark
+          rounded
+          large
+          :loading="loading"
+          @click.prevent="sendCode"
+        >
+          {{ $t("sendCode") }}
+        </v-btn>
+      </div>
+      <div class="login__back" @click="restoreStep = 1">
+        {{ $t("back") }}
+      </div>
+    </div>
+  </v-form>
+  <v-form
+    v-else-if="restoreStep === 3"
+    v-model="step3Valid"
+    ref="step3Form"
+    @submit.prevent="sendNewPassword"
+    lazy-validation
+  >
+    <div class="login">
+      <v-text-field
+        v-model="restorePassword"
+        :label="$t('password')"
+        :placeholder="$t('password')"
+        :rules="[rules.required, rules.min, rules.passwordRules]"
+        dark
+        :append-icon="showPass2 ? 'mdi-eye' : 'mdi-eye-off'"
+        @click:append="showPass2 = !showPass2"
+        :type="showPass2 ? 'text' : 'password'"
+        class="mb-2"
+      ></v-text-field>
+      <v-text-field
+        v-model="restoreCPassword"
+        :label="$t('c_password')"
+        :placeholder="$t('c_password')"
+        :rules="[rules.required, rules.sameAs]"
+        dark
+        :append-icon="showPass3 ? 'mdi-eye' : 'mdi-eye-off'"
+        @click:append="showPass3 = !showPass3"
+        :type="showPass3 ? 'text' : 'password'"
+        class="mb-2"
+      ></v-text-field>
+      <div class="login__button">
+        <v-btn
+          color="green"
+          dark
+          rounded
+          large
+          :loading="loading"
+          @click.prevent="sendNewPassword"
+        >
+          {{ $t("restorePassword") }}
+        </v-btn>
+      </div>
+      <div class="login__back" @click="restoreStep = 1">
+        {{ $t("back") }}
+      </div>
+    </div>
+  </v-form>
 </template>
 
 <script>
-/* eslint-disable */
-import Vue from "vue";
-import Validations from "vuelidate";
-import { required, email, minLength, sameAs } from "vuelidate/lib/validators";
 import {
+  required,
   isHasNumber,
   isNotCyrillic,
-  isHasEnglishLetter
+  isHasEnglishLetter,
+  minLength,
+  isEmail,
+  sameAs
 } from "@/shared/validator";
-
-Vue.use(Validations);
 
 export default {
   name: "Login",
@@ -223,63 +185,55 @@ export default {
       showFormErrors: false,
       restore: false,
       restoreStep: 1,
-      loading: false
-    }
-  },
-  validations: {
-    form: {
-      email: {
-        required,
-        email,
+      loading: false,
+      loginValid: true,
+      step1Valid: true,
+      step2Valid: true,
+      step3Valid: true,
+      rules: {
+        required: value => required(value) || this.$t("required"),
+        min: v =>
+          minLength(v, 8) ||
+          this.$t("invalid_password_length", {
+            length: 8
+          }),
+        emailMatch: () => "The email and password you entered don't match",
+        email: v => isEmail(v) || this.$t("invalid_email"),
+        sameAs: v =>
+          sameAs(v, this.restorePassword) ||
+          this.$t("invalid_password_confirm"),
+        passwordRules: v => {
+          return (
+            (isHasNumber(v) && isNotCyrillic(v) && isHasEnglishLetter(v)) ||
+            this.$t("invalid_password_content")
+          );
+        }
       },
-      password: {
-        required,
-      },
-    },
-    restoreEmail: {
-      required,
-      email
-    },
-    restoreCode: {
-      required
-    },
-    restorePassword: {
-      required,
-      minLength: minLength(8),
-      isHasNumber,
-      isNotCyrillic,
-      isHasEnglishLetter
-    },
-    restoreCPassword: {
-      sameAsPassword: sameAs("restorePassword")
-    }
+      showPass: false,
+      showPass2: false,
+      showPass3: false,
+      password: "Password"
+    };
   },
   methods: {
     login() {
-      if(this.$v.form.$pending || this.$v.form.$error || this.$v.form.$invalid){
-        Vue.notify({
-          group: 'warn',
-          title: this.$i18n.messages[this.$i18n.locale]["attention"],
-          text: this.$i18n.messages[this.$i18n.locale]["register_invalid"],
-          type: 'warn',
-          closeOnClick: true,
-          duration: 4000
-        });
-        this.showFormErrors = true;
+      if (!this.$refs.loginForm.validate()) {
+        this.loading = false;
         return;
       }
       this.loading = true;
-      this.$store.dispatch('user/login', {
-        email: this.form.email,
-        password: this.form.password.toLowerCase(),
-      })
+      this.$store
+        .dispatch("user/login", {
+          email: this.form.email,
+          password: this.form.password.toLowerCase()
+        })
         .then(() => {
-          this.$router.push({ name: 'Furniture' })
+          this.$router.push({ name: "Furniture" });
         })
         .catch(() => {
           this.$notify({
-            group: 'warn',
-            type: 'error',
+            group: "warn",
+            type: "error",
             title: this.$i18n.messages[this.$i18n.locale]["attention"],
             text: this.$i18n.messages[this.$i18n.locale]["login_invalid"]
           });
@@ -289,36 +243,29 @@ export default {
         });
     },
     sendEmail() {
-      if(this.$v.restoreEmail.$pending || this.$v.restoreEmail.$error || this.$v.restoreEmail.$invalid){
-        Vue.notify({
-          group: 'warn',
-          title: this.$i18n.messages[this.$i18n.locale]["attention"],
-          text: this.$i18n.messages[this.$i18n.locale]["register_invalid"],
-          type: 'warn',
-          closeOnClick: true,
-          duration: 4000
-        });
-        this.showFormErrors = true;
+      if (!this.$refs.step1Form.validate()) {
+        this.loading = false;
         return;
       }
       this.loading = true;
       let formData = new FormData();
       formData.append("mail", this.restoreEmail);
 
-      this.$store.dispatch('user/getCode', formData)
+      this.$store
+        .dispatch("user/getCode", formData)
         .then(() => {
           this.$notify({
-            group: 'warn',
-            type: 'success',
+            group: "warn",
+            type: "success",
             title: this.$i18n.messages[this.$i18n.locale]["attention"],
             text: this.$i18n.messages[this.$i18n.locale]["getCodeMessage"]
           });
           this.restoreStep = 2;
         })
-        .catch((error) => {
+        .catch(error => {
           this.$notify({
-            group: 'warn',
-            type: 'error',
+            group: "warn",
+            type: "error",
             title: this.$i18n.messages[this.$i18n.locale]["attention"],
             text: error
           });
@@ -328,16 +275,8 @@ export default {
         });
     },
     sendCode() {
-      if(this.$v.restoreEmail.$pending || this.$v.restoreEmail.$error || this.$v.restoreEmail.$invalid){
-        Vue.notify({
-          group: 'warn',
-          title: this.$i18n.messages[this.$i18n.locale]["attention"],
-          text: this.$i18n.messages[this.$i18n.locale]["register_invalid"],
-          type: 'warn',
-          closeOnClick: true,
-          duration: 4000
-        });
-        this.showFormErrors = true;
+      if (!this.$refs.step2Form.validate()) {
+        this.loading = false;
         return;
       }
       this.loading = true;
@@ -345,14 +284,15 @@ export default {
       formData.append("mail", this.restoreEmail);
       formData.append("codeMail", this.restoreCode);
 
-      this.$store.dispatch('user/sendCode', formData)
+      this.$store
+        .dispatch("user/sendCode", formData)
         .then(() => {
           this.restoreStep = 3;
         })
-        .catch((error) => {
+        .catch(error => {
           this.$notify({
-            group: 'warn',
-            type: 'error',
+            group: "warn",
+            type: "error",
             title: this.$i18n.messages[this.$i18n.locale]["attention"],
             text: error
           });
@@ -362,16 +302,8 @@ export default {
         });
     },
     sendNewPassword() {
-      if(this.$v.restorePassword.$pending || this.$v.restorePassword.$error || this.$v.restorePassword.$invalid){
-        Vue.notify({
-          group: 'warn',
-          title: this.$i18n.messages[this.$i18n.locale]["attention"],
-          text: this.$i18n.messages[this.$i18n.locale]["register_invalid"],
-          type: 'warn',
-          closeOnClick: true,
-          duration: 4000
-        });
-        this.showFormErrors = true;
+      if (!this.$refs.step3Form.validate()) {
+        this.loading = false;
         return;
       }
       this.loading = true;
@@ -380,14 +312,15 @@ export default {
       formData.append("codeMail", this.restoreCode);
       formData.append("newPassword", this.restorePassword.toLowerCase());
 
-      this.$store.dispatch('user/sendNewPassword', formData)
+      this.$store
+        .dispatch("user/sendNewPassword", formData)
         .then(() => {
-          this.$router.push({ name: 'Furniture' })
+          this.$router.push({ name: "Furniture" });
         })
-        .catch((error) => {
+        .catch(error => {
           this.$notify({
-            group: 'warn',
-            type: 'error',
+            group: "warn",
+            type: "error",
             title: this.$i18n.messages[this.$i18n.locale]["attention"],
             text: error
           });
@@ -441,14 +374,15 @@ $ffamily: "Roboto", sans-serif;
     &:last-child {
       margin-bottom: 0;
     }
-    &.is-danger{
-      input, .vs__selected-options{
+    &.is-danger {
+      input,
+      .vs__selected-options {
         border-bottom-color: #f04124 !important;
         color: #f04124;
       }
     }
   }
-  &__button{
+  &__button {
     /*margin-top: 40px;*/
     .btn {
       font-family: $ffamily;
@@ -462,7 +396,7 @@ $ffamily: "Roboto", sans-serif;
       -moz-box-shadow: none;
       box-shadow: none;
       border: none;
-      background: #2AAD54;
+      background: #2aad54;
       border-radius: 30px;
       padding: 11px 29px;
       -webkit-box-sizing: border-box;

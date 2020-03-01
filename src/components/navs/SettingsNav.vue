@@ -3,19 +3,19 @@
     <div class="sidebar_list menu-left">
       <ul>
         <li>
-          <b-link :to="{ name: 'Personal' }">
+          <router-link :to="{ name: 'Personal' }">
             {{ $t("personalCabinet") }}
-          </b-link>
+          </router-link>
         </li>
         <li>
-          <b-link :to="{ name: 'Finances' }">
+          <router-link :to="{ name: 'Finances' }">
             {{ $t("finances") }}
-          </b-link>
+          </router-link>
         </li>
         <li>
-          <b-link @click="downloadWithVueResource">
+          <a @click="downloadWithVueResource">
             {{ $t("privacy") }}
-          </b-link>
+          </a>
         </li>
       </ul>
     </div>

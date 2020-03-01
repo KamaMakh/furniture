@@ -23,6 +23,7 @@
   "register_error": "Bei der Registrierung ist ein Fehler aufgetreten.",
   "register_invalid": "Füllen Sie alle Formularfelder aus",
   "login_invalid": "Falsches Login oder Passwort",
+  "required": "Erforderlich",
   "attention": "Beachtung!",
   "orders": "Bestellungen und Lager",
   "statistics": "Statistiken",
@@ -116,6 +117,7 @@
   "country": "Land",
   "locality": "Ortschaft",
   "policyText": "Nutzungsbedingungen und<br> Datenschutzbestimmungen",
+  "maxSize": "Die Bildgröße muss weniger als {size} MB betragen!",
   "lp": {
     "first": {
       "title": "Wissen Sie genau, wie viel der Bau kosten wird",

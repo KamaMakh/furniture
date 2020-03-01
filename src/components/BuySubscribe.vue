@@ -22,16 +22,16 @@
             class="step-1__list-item list-item"
             @click="shooseSubscribe(subscribe, 'annual', subscribe.priceYear)"
           >
-            <b-row>
-              <b-col cols="6" class="align-items-center">
+            <v-row>
+              <v-col cols="6" class="align-items-center">
                 <div class="list-item__title">
                   {{ $t("subscription") }} "{{ subscribe.name }}"
                 </div>
                 <div class="list-item__sub-title">
                   {{ $t("annual") }}
                 </div>
-              </b-col>
-              <b-col
+              </v-col>
+              <v-col
                 cols="3"
                 class="d-flex justify-content-end align-items-center"
               >
@@ -41,30 +41,30 @@
                     active: subscribe.id === selectedSub.id && type === 'annual'
                   }"
                 ></div>
-              </b-col>
-              <b-col
+              </v-col>
+              <v-col
                 cols="3"
                 class="d-flex justify-content-end align-items-center"
               >
                 <div class="list-item__price">₽{{ subscribe.priceYear }}</div>
-              </b-col>
-            </b-row>
+              </v-col>
+            </v-row>
           </div>
           <div
             v-if="subscribe.id === selectedSubscribeId"
             class="step-1__list-item list-item"
             @click="shooseSubscribe(subscribe, 'monthly', subscribe.priceMonth)"
           >
-            <b-row>
-              <b-col cols="6" class="align-items-center">
+            <v-row>
+              <v-col cols="6" class="align-items-center">
                 <div class="list-item__title">
                   {{ $t("subscription") }} "{{ subscribe.name }}"
                 </div>
                 <div class="list-item__sub-title">
                   {{ $t("monthly") }}
                 </div>
-              </b-col>
-              <b-col
+              </v-col>
+              <v-col
                 cols="3"
                 class="d-flex justify-content-end align-items-center"
               >
@@ -75,39 +75,39 @@
                       subscribe.id === selectedSub.id && type === 'monthly'
                   }"
                 ></div>
-              </b-col>
-              <b-col
+              </v-col>
+              <v-col
                 cols="3"
                 class="d-flex justify-content-end align-items-center"
               >
                 <div class="list-item__price">₽{{ subscribe.priceMonth }}</div>
-              </b-col>
-            </b-row>
+              </v-col>
+            </v-row>
           </div>
         </div>
         <div class="step-1__list">
           <div class="step-1__list-item list-item total">
-            <b-row>
-              <b-col cols="6" class="align-items-center">
+            <v-row>
+              <v-col cols="6" class="align-items-center">
                 <div class="list-item__title">
                   {{ $t("total") }}
                 </div>
-              </b-col>
-              <b-col
+              </v-col>
+              <v-col
                 cols="6"
                 class="d-flex justify-content-end align-items-center"
               >
                 <div class="total-price">₽{{ total }}</div>
-              </b-col>
-            </b-row>
+              </v-col>
+            </v-row>
           </div>
         </div>
-        <div class="step-2__info info">
-          <div class="info-title" :class="{ shown: cardsAnimate }">
+        <div class="step-2__info myinfo">
+          <div class="myinfo-title" :class="{ shown: cardsAnimate }">
             {{ $t("subscription") }}
           </div>
-          <b-row class="price-block" :class="{ shown: cardsAnimate }">
-            <b-col
+          <v-row class="price-block" :class="{ shown: cardsAnimate }">
+            <v-col
               cols="8"
               class="align-items-start subscribe justify-content-end"
             >
@@ -117,52 +117,52 @@
               <div class="subscribe__sub-title">
                 {{ $t(type) }}
               </div>
-            </b-col>
-            <b-col
+            </v-col>
+            <v-col
               cols="4"
               class="d-flex justify-content-end align-items-start"
             >
               <div class="subscribe__price">₽{{ total }}</div>
-            </b-col>
-          </b-row>
-          <b-row class="price-block" :class="{ shown: cardsAnimate }">
-            <b-col cols="6" class="align-items-center total">
+            </v-col>
+          </v-row>
+          <v-row class="price-block" :class="{ shown: cardsAnimate }">
+            <v-col cols="6" class="align-items-center total">
               <div class="total__title">
                 {{ $t("total") }}
               </div>
-            </b-col>
-            <b-col
+            </v-col>
+            <v-col
               cols="6"
               class="d-flex justify-content-end align-items-center"
             >
               <div class="total__price">₽{{ total }}</div>
-            </b-col>
-          </b-row>
+            </v-col>
+          </v-row>
         </div>
-        <b-col cols="12" md="4" class="step-3__info">
-          <div class="info-title" :class="{ shown: cardsAnimate }">
+        <v-col cols="12" md="4" class="step-3__info">
+          <div class="myinfo-title" :class="{ shown: cardsAnimate }">
             {{ $t("subscription") }}
           </div>
-          <b-row width="100%">
-            <b-col cols="6" class="align-items-center total">
+          <v-row width="100%">
+            <v-col cols="6" class="align-items-center total">
               <div class="total__title">
                 {{ $t("total") }}
               </div>
-            </b-col>
-            <b-col
+            </v-col>
+            <v-col
               cols="6"
               class="d-flex justify-content-end align-items-center"
             >
               <div class="total__price">₽{{ total }}</div>
-            </b-col>
-          </b-row>
-        </b-col>
+            </v-col>
+          </v-row>
+        </v-col>
       </div>
       <div class="buy-subscribe-right" :class="{ 'pos-rel': subsRightAnimate }">
         <div class="step-1__btn" @click="chooseCard">
           {{ $t("pay") }}
         </div>
-        <b-col cols="12" md="12" class="step-2__cards cards">
+        <v-col cols="12" md="12" class="step-2__cards cards">
           <div
             class="cards__close close"
             :class="{ shown: cardsAnimate }"
@@ -198,112 +198,69 @@
               <span v-html="card.img"></span>
             </div>
           </div>
-        </b-col>
-        <b-col cols="12" md="8" class="step-3__cards cards">
+        </v-col>
+        <v-col cols="12" md="8" class="step-3__cards cards">
           <div class="cards__close" @click="step = 2">
-            <svg
-              width="33"
-              height="33"
-              viewBox="0 0 33 33"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M-6.10352e-05 31.8198L31.8197 1.69125e-05L32.5269 0.707124L0.707046 32.5269L-6.10352e-05 31.8198Z"
-                fill="#E0E0E0"
-              />
-              <path
-                d="M0.707031 0L32.5268 31.8198L31.8197 32.5269L-7.55191e-05 0.707107L0.707031 0Z"
-                fill="#E0E0E0"
-              />
-            </svg>
+            <IconClose width="33" height="33" />
           </div>
-          <b-form
+          <v-form
             onsubmit="pay(this);   return false;"
             @submit.prevent="submitTinkoff"
           >
-            <b-form-group
-              id="input-group-2"
+            <v-text-field
+              v-model="form.name"
               :label="$t('name')"
-              label-for="input-2"
-              :class="{
-                'is-danger':
-                  $v.form.name.$invalid && (form.name || showFormErrors)
-              }"
-            >
-              <b-form-input
-                id="name"
-                v-model="form.name"
-                required
-                name="name"
-                :placeholder="$t('name')"
-              ></b-form-input>
-            </b-form-group>
-            <b-form-group
-              id="input-group-2"
+              dark
+              :rules="[rules.required]"
+            ></v-text-field>
+            <v-text-field
+              v-model="form.email"
+              type="email"
+              dark
               :label="$t('email')"
-              label-for="input-2"
-              :class="{
-                'is-danger':
-                  $v.form.email.$invalid && (form.email || showFormErrors)
-              }"
-            >
-              <b-form-input
-                v-model="form.email"
-                type="email"
-                name="email"
-                required
-                :placeholder="$t('email')"
-              ></b-form-input>
-            </b-form-group>
-            <b-form-group
-              id="input-group-2"
+              :rules="[rules.required, rules.email]"
+            ></v-text-field>
+            <v-text-field
+              dark
+              v-model="form.phone"
               :label="$t('phone')"
-              label-for="input-2"
-            >
-              <b-form-input
-                v-model="form.phone"
-                v-mask="'+7 (###) ###-##-##'"
-                name="phone"
-                :placeholder="$t('phone')"
-              ></b-form-input>
-
-              <input
-                class="tinkoffPayRow"
-                type="hidden"
-                name="terminalkey"
-                value="1576306066627"
-              />
-              <input
-                class="tinkoffPayRow"
-                type="hidden"
-                name="frame"
-                value="true"
-              />
-              <input
-                class="tinkoffPayRow"
-                type="hidden"
-                name="language"
-                :value="lang"
-              />
-              <input
-                class="tinkoffPayRow"
-                type="hidden"
-                name="amount"
-                :value="form.amount"
-              />
-              <input
-                class="tinkoffPayRow"
-                type="hidden"
-                name="order"
-                :value="form.orderId"
-              />
-            </b-form-group>
-            <b-button type="submit" squared class="submit-btn">
+              v-mask="'+7 (###) ###-##-##'"
+            ></v-text-field>
+            <input
+              class="tinkoffPayRow"
+              type="hidden"
+              name="terminalkey"
+              value="1576306066627"
+            />
+            <input
+              class="tinkoffPayRow"
+              type="hidden"
+              name="frame"
+              value="true"
+            />
+            <input
+              class="tinkoffPayRow"
+              type="hidden"
+              name="language"
+              :value="lang"
+            />
+            <input
+              class="tinkoffPayRow"
+              type="hidden"
+              name="amount"
+              :value="form.amount"
+            />
+            <input
+              class="tinkoffPayRow"
+              type="hidden"
+              name="order"
+              :value="form.orderId"
+            />
+            <v-btn rounded dark large type="submit" color="#364b3c">
               {{ $t("pay") }}
-            </b-button>
-          </b-form>
-        </b-col>
+            </v-btn>
+          </v-form>
+        </v-col>
         <div class="step-4__title" :class="{ shown: step4Animate }">
           {{ $t("thanks") }}!
         </div>
@@ -325,14 +282,16 @@
 <script>
 import Vue from "vue";
 import { mapState } from "vuex";
-import Validations from "vuelidate";
-import { required, email } from "vuelidate/lib/validators";
+import { required, isEmail } from "@/shared/validator";
+import IconClose from "@/components/common/icons/IconClose";
 import VueMask from "v-mask";
 Vue.use(VueMask);
-Vue.use(Validations);
 export default {
   name: "BuySubscribe",
   props: ["selectedSubscribeId"],
+  components: {
+    IconClose
+  },
   data() {
     return {
       form: {},
@@ -341,6 +300,10 @@ export default {
       type: null,
       selectedSub: {},
       showFormErrors: false,
+      rules: {
+        required: value => required(value) || this.$t("required"),
+        email: value => isEmail(value) || this.$t("invalid_email")
+      },
       cards: [
         {
           name: "Visa",
@@ -378,17 +341,6 @@ export default {
       subsRightAnimate: false,
       step4Animate: false
     };
-  },
-  validations: {
-    form: {
-      email: {
-        required,
-        email
-      },
-      name: {
-        required
-      }
-    }
   },
   mounted() {
     this.$store.dispatch("furniture/getSubscribesList");
@@ -500,13 +452,15 @@ export default {
   * {
     transition: all 0.5s !important;
   }
+  overflow: hidden;
+  background: #fff;
   .step-1 {
     padding: 0;
     display: flex;
     flex-direction: column;
     max-width: 100%;
+    width: 700px;
     height: 380px;
-    width: 508px;
     overflow: hidden;
     @media all and(max-width: 480px) {
       height: 290px;
@@ -514,8 +468,9 @@ export default {
     .close,
     .step-2__cards,
     .step-3__cards.cards,
-    .info,
+    .myinfo,
     .step-3__info {
+      background: none !important;
       display: none;
       opacity: 0;
       position: absolute;
@@ -534,7 +489,7 @@ export default {
       left: -100%;
     }
     .cards__title,
-    .info-title {
+    .myinfo-title {
       position: absolute;
       opacity: 0 !important;
       right: -50px;
@@ -585,7 +540,7 @@ export default {
       .cards__close {
         display: block;
       }
-      .info {
+      .myinfo {
         display: flex;
       }
       .buy-subscribe-left,
@@ -603,7 +558,7 @@ export default {
       }
       .close,
       .step-2__cards,
-      .info {
+      .myinfo {
         /*display: none;*/
         opacity: 1;
         position: relative;
@@ -652,7 +607,7 @@ export default {
           width: 60%;
         }
       }
-      .info-title {
+      .myinfo-title {
         position: relative;
         opacity: 0.6 !important;
         right: 0;
@@ -746,9 +701,9 @@ export default {
       .list-item {
         cursor: pointer;
         align-items: center;
-        padding-bottom: 15px;
+        padding: 7px 0;
         border-bottom: 1px solid #e0e0e0;
-        margin-bottom: 15px;
+        margin-bottom: 0;
         @media all and(max-width: 480px) {
           margin-bottom: 0;
           border: none;
@@ -832,7 +787,7 @@ export default {
       margin: 0;
       padding: 20px 10px;
       height: 100%;
-      .info-title {
+      .myinfo-title {
         font-size: 22px;
         color: #4f4f4f;
         opacity: 0.6;
@@ -1010,7 +965,7 @@ export default {
       align-items: center;
       justify-content: space-between;
       margin: 0;
-      .info-title {
+      .myinfo-title {
         font-size: 16px;
         color: #4f4f4f;
         opacity: 0.6;

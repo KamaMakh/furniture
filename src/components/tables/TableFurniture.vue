@@ -1,21 +1,13 @@
 <template>
   <div v-if="construction && construction.id">
     <div class="custom-control custom-switch d-flex mb-2">
-      <input
-        type="checkbox"
-        class="custom-control-input"
-        :checked="ndsColumns"
+      <v-switch
         v-model="ndsColumns"
+        :label="$t('nds')"
         @change="hideNdsColumns"
-        id="customSwitch2"
-        style="cursor: pointer"
-      />
-      <label
-        class="custom-control-label"
-        for="customSwitch2"
-        style="cursor: pointer"
-        >{{ $t("nds") }}</label
-      >
+        light
+        color="#688e74"
+      ></v-switch>
     </div>
     <table class="table">
       <thead>
@@ -36,20 +28,7 @@
               class="icon"
               style="cursor: pointer"
             >
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 18 18"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M16 0H2C0.89 0 0 0.9 0 2V16C0 17.1 0.89 18 2 18H16C17.1 18 18 17.1 18 16V2C18 0.9 17.1 0 16 0ZM16 16H2V2.00001H16V16ZM10 14H8V10H4V8.00001H8V4.00001H10V8.00001H14V10H10V14Z"
-                  fill="#C4C4C4"
-                />
-              </svg>
+              <IconPlusSquared width="19" height="19" fill="#C4C4C4" />
             </span>
             <span class="ellipsis">
               {{ item.name }}
@@ -78,20 +57,7 @@
                 :title="$t('edit_group')"
                 class="setting-icon"
               >
-                <svg
-                  width="18"
-                  height="20"
-                  viewBox="0 0 18 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M15.877 9.99998C15.877 10.3116 15.8495 10.605 15.8129 10.8983L17.747 12.4108C17.9212 12.5483 17.967 12.7958 17.857 12.9975L16.0237 16.1691C15.9412 16.3158 15.7854 16.3983 15.6295 16.3983C15.5745 16.3983 15.5195 16.3891 15.4645 16.3708L13.182 15.4541C12.7054 15.8116 12.192 16.1233 11.6329 16.3525L11.2845 18.7816C11.257 19.0016 11.0645 19.1666 10.8354 19.1666H7.16872C6.93955 19.1666 6.74705 19.0016 6.71955 18.7816L6.37122 16.3525C5.81205 16.1233 5.29872 15.8208 4.82205 15.4541L2.53955 16.3708C2.49372 16.3891 2.43872 16.3983 2.38372 16.3983C2.21872 16.3983 2.06288 16.3158 1.98038 16.1691L0.14705 12.9975C0.0370501 12.7958 0.0828834 12.5483 0.25705 12.4108L2.19122 10.8983C2.15455 10.605 2.12705 10.3025 2.12705 9.99998C2.12705 9.69748 2.15455 9.39498 2.19122 9.10165L0.25705 7.58915C0.0828834 7.45165 0.0278834 7.20415 0.14705 7.00248L1.98038 3.83081C2.06288 3.68415 2.21872 3.60165 2.37455 3.60165C2.42955 3.60165 2.48455 3.61081 2.53955 3.62915L4.82205 4.54581C5.29872 4.18831 5.81205 3.87665 6.37122 3.64748L6.71955 1.21831C6.74705 0.998313 6.93955 0.833313 7.16872 0.833313H10.8354C11.0645 0.833313 11.257 0.998313 11.2845 1.21831L11.6329 3.64748C12.192 3.87665 12.7054 4.17915 13.182 4.54581L15.4645 3.62915C15.5104 3.61081 15.5654 3.60165 15.6204 3.60165C15.7854 3.60165 15.9412 3.68415 16.0237 3.83081L17.857 7.00248C17.967 7.20415 17.9212 7.45165 17.747 7.58915L15.8129 9.10165C15.8495 9.39498 15.877 9.68831 15.877 9.99998ZM14.0437 9.99998C14.0437 9.80748 14.0346 9.61498 13.9979 9.33081L13.8696 8.29498L14.6854 7.65331L15.6662 6.87415L15.0246 5.76498L13.8604 6.23248L12.8887 6.62665L12.0546 5.98498C11.6879 5.70998 11.3212 5.49915 10.9271 5.33415L9.95538 4.93998L9.80872 3.90415L9.63455 2.66665H8.36038L8.17705 3.90415L8.03038 4.93998L7.05872 5.33415C6.68288 5.48998 6.30705 5.70998 5.91288 6.00331L5.08788 6.62665L4.13455 6.24165L2.97038 5.77415L2.32872 6.88331L3.31872 7.65331L4.13455 8.29498L4.00622 9.33081C3.97872 9.60581 3.96038 9.81665 3.96038 9.99998C3.96038 10.1833 3.97872 10.3941 4.00622 10.6783L4.13455 11.7141L3.31872 12.3558L2.32872 13.1258L2.97038 14.235L4.13455 13.7675L5.10622 13.3733L5.94038 14.015C6.30705 14.29 6.67372 14.5008 7.06788 14.6658L8.03955 15.06L8.18622 16.0958L8.36038 17.3333H9.64372L9.82705 16.0958L9.97372 15.06L10.9454 14.6658C11.3212 14.51 11.6971 14.29 12.0912 13.9966L12.9162 13.3733L13.8696 13.7583L15.0337 14.2258L15.6754 13.1166L14.6854 12.3466L13.8696 11.705L13.9979 10.6691C14.0254 10.3941 14.0437 10.1925 14.0437 9.99998ZM9.00204 6.33331C6.97621 6.33331 5.33537 7.97415 5.33537 9.99998C5.33537 12.0258 6.97621 13.6666 9.00204 13.6666C11.0279 13.6666 12.6687 12.0258 12.6687 9.99998C12.6687 7.97415 11.0279 6.33331 9.00204 6.33331ZM7.16872 9.99998C7.16872 11.0083 7.99372 11.8333 9.00205 11.8333C10.0104 11.8333 10.8354 11.0083 10.8354 9.99998C10.8354 8.99165 10.0104 8.16665 9.00205 8.16665C7.99372 8.16665 7.16872 8.99165 7.16872 9.99998Z"
-                    fill="#DADADA"
-                  />
-                </svg>
+                <IconSettings width="18" height="18" fill="#dadada" />
               </span>
               <span
                 class="icon"
@@ -99,20 +65,7 @@
                 :title="$t('add_nomenclature')"
                 @click="showNomenclature(item)"
               >
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 18 18"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M16 0H2C0.89 0 0 0.9 0 2V16C0 17.1 0.89 18 2 18H16C17.1 18 18 17.1 18 16V2C18 0.9 17.1 0 16 0ZM16 16H2V2.00001H16V16ZM10 14H8V10H4V8.00001H8V4.00001H10V8.00001H14V10H10V14Z"
-                    fill="#C4C4C4"
-                  />
-                </svg>
+                <IconPlusSquared width="18" height="18" fill="#C4C4C4" />
               </span>
               {{ item.name }}
             </span>
@@ -124,11 +77,33 @@
           >
             <div class="d-flex">
               <span v-if="item.photos && item.photos[0]" class="icon">
-                <img :src="serverUrl + item.photos[0]['pathUrl']" alt="" />
+                <!--<img :src="serverUrl + item.photos[0]['pathUrl']" alt="" />-->
+                <v-img
+                  :src="serverUrl + item.photos[0]['pathUrl']"
+                  contain
+                  class="grey lighten-2"
+                  max-width="30"
+                  max-height="30"
+                  light
+                >
+                  <template v-slot:placeholder>
+                    <v-row
+                      class="fill-height ma-0"
+                      align="center"
+                      justify="center"
+                    >
+                      <v-progress-circular
+                        indeterminate
+                        color="grey lighten-5"
+                      ></v-progress-circular>
+                    </v-row>
+                  </template>
+                </v-img>
               </span>
               <span v-else class="icon no-img"></span>
               <span class="ellipsis" :title="item.name">
                 {{ item.name }}
+                {{ item.buy }}
               </span>
               <span
                 v-if="item.creatorId === user.id"
@@ -136,27 +111,7 @@
                 style="width: 20px; height: 25px; cursor: pointer; margin-left: 5px;"
                 @click="showDeleteNomenModal(item)"
               >
-                <svg
-                  version="1.1"
-                  id="IconsRepoEditor"
-                  xmlns="http://www.w3.org/2000/svg"
-                  xmlns:xlink="http://www.w3.org/1999/xlink"
-                  x="0px"
-                  y="0px"
-                  viewBox="0 0 60.167 60.167"
-                  style="enable-background:new 0 0 60.167 60.167;"
-                  xml:space="preserve"
-                  width="18px"
-                  height="18px"
-                  fill="#999"
-                  stroke="#999"
-                  stroke-width="2px"
-                >
-                  <g id="IconsRepo_bgCarrier"></g>
-                  <path
-                    d="M54.5,11.667H39.88V3.91c0-2.156-1.754-3.91-3.91-3.91H24.196c-2.156,0-3.91,1.754-3.91,3.91v7.756H5.667 c-0.552,0-1,0.448-1,1s0.448,1,1,1h2.042v40.5c0,3.309,2.691,6,6,6h32.75c3.309,0,6-2.691,6-6v-40.5H54.5c0.552,0,1-0.448,1-1 S55.052,11.667,54.5,11.667z M22.286,3.91c0-1.053,0.857-1.91,1.91-1.91H35.97c1.053,0,1.91,0.857,1.91,1.91v7.756H22.286V3.91z M50.458,54.167c0,2.206-1.794,4-4,4h-32.75c-2.206,0-4-1.794-4-4v-40.5h40.75V54.167z M38.255,46.153V22.847c0-0.552,0.448-1,1-1 s1,0.448,1,1v23.306c0,0.552-0.448,1-1,1S38.255,46.706,38.255,46.153z M29.083,46.153V22.847c0-0.552,0.448-1,1-1s1,0.448,1,1 v23.306c0,0.552-0.448,1-1,1S29.083,46.706,29.083,46.153z M19.911,46.153V22.847c0-0.552,0.448-1,1-1s1,0.448,1,1v23.306 c0,0.552-0.448,1-1,1S19.911,46.706,19.911,46.153z"
-                  ></path>
-                </svg>
+                <IconBasket width="18" height="18" fill="#999" stroke="#999" />
               </span>
             </div>
           </td>
@@ -257,95 +212,73 @@
     </table>
 
     <!--modals-->
-    <transition name="fade-none">
-      <div v-if="showAddModal">
-        <div class="modal-mask">
-          <div class="modal-wrapper">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-body">
-                  <form @submit="addGroup">
-                    <div class="form-group">
-                      <label for="input-name">{{ $t("construct_name") }}</label>
-                      <input
-                        type="text"
-                        id="input-name"
-                        class="form-control"
-                        :placeholder="$t('construct_name')"
-                        :class="{
-                          'is-danger': !group.name && showFormErrors
-                        }"
-                        v-model="group.name"
-                      />
-                    </div>
-                  </form>
-                </div>
-                <div v-if="!loading" class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    @click="showAddModal = false"
-                  >
-                    {{ $t("close") }}
-                  </button>
-                  <button
-                    type="button"
-                    class="btn btn-custom"
-                    @click="addGroup"
-                  >
-                    {{ $t("save") }}
-                  </button>
-                </div>
-                <div v-else class="modal-footer">
-                  <button type="button" class="btn btn-custom">
-                    <b-spinner small></b-spinner>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </transition>
+    <v-dialog v-model="showAddModal" width="400">
+      <v-card>
+        <v-card-title class="headline">
+          {{ group && group.id ? $t("edit_group") : $t("add_group") }}
+        </v-card-title>
+        <v-card-text>
+          <v-form
+            ref="addGroupForm"
+            v-model="addGroupValid"
+            @submit.prevent="addGroup"
+            lazy-validation
+          >
+            <v-row>
+              <v-col cols="12">
+                <v-text-field
+                  v-model="group.name"
+                  :label="$t('construct_name')"
+                  :placeholder="$t('construct_name')"
+                  :rules="rules"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+          </v-form>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="red darken-1" text @click="showAddModal = false">
+            {{ $t("close") }}
+          </v-btn>
 
-    <transition name="fade-none">
-      <div v-if="showRemoveNomekModal">
-        <div class="modal-mask">
-          <div class="modal-wrapper">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-body">
-                  <div class="d-flex align-items-center justify-content-center">
-                    {{ $t("delete") }} "{{ nomenclature.name }}"?
-                  </div>
-                </div>
-                <div v-if="!loading" class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    @click="showRemoveNomekModal = false"
-                  >
-                    {{ $t("close") }}
-                  </button>
-                  <button
-                    type="button"
-                    class="btn btn-custom"
-                    @click="deleteNomenclature"
-                  >
-                    {{ $t("delete") }}
-                  </button>
-                </div>
-                <div v-else class="modal-footer">
-                  <button type="button" class="btn btn-custom">
-                    <b-spinner small></b-spinner>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </transition>
+          <v-btn
+            color="green darken-1"
+            text
+            :loading="loading"
+            @click="addGroup"
+          >
+            {{ $t("save") }}
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="showRemoveNomekModal" width="400">
+      <v-card>
+        <v-card-title class="headline">
+          {{ $t("delete") }} "{{ nomenclature.name }}"?
+        </v-card-title>
+        <v-card-actions>
+          <v-btn
+            color="red darken-1"
+            text
+            @click="showRemoveNomekModal = false"
+          >
+            {{ $t("close") }}
+          </v-btn>
+
+          <v-btn
+            color="green darken-1"
+            text
+            :loading="loading"
+            @click="deleteNomenclature"
+          >
+            {{ $t("delete") }}
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
 
     <transition name="fade-none">
       <div v-if="showAddPhotoModal">
@@ -387,371 +320,290 @@
       </div>
     </transition>
 
-    <transition name="fade-none">
-      <div v-if="showNomekModal">
-        <div class="modal-mask">
-          <div class="modal-wrapper">
-            <div class="modal-dialog nomenclature-modal" role="document">
-              <div class="modal-content">
-                <div class="modal-body">
-                  <form @submit="addNomenclature">
-                    <div class="row ml-0 mr-0 nomenclature-column">
-                      <div class="body-left col col-lg-6 col-md-12">
-                        <div class="form-group row">
-                          <div style="flex: 1 1 100%; padding-bottom: 5px">
-                            <CustomGallery
-                              :nomenclature="nomenclature"
-                              :images="nomenclature.photos"
-                              :isCreator="
-                                nomenclature.creatorId === user.id &&
-                                  !absolutesDisabled
-                              "
-                              :files="files"
-                              @on-delete-new="deleteNewPhoto"
-                              @on-delete="deletePhotoModal"
-                              @on-add-file="readFile"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                      <div class="body-right col col-lg-6 col-md-12">
-                        <div class="form-group row">
-                          <div class="col col-8">
-                            <label class="title" for="nName">{{
-                              $t("construct_name")
-                            }}</label>
-                            <input
-                              type="text"
-                              id="nName"
-                              class="form-control"
-                              :disabled="absolutesDisabled"
-                              :class="{
-                                'is-danger':
-                                  $v.nomenclature.name.$invalid &&
-                                  (nomenclature.name || showFormErrors),
-                                disabled: absolutesDisabled
-                              }"
-                              v-model="nomenclature.name"
-                              :placeholder="$t('construct_name')"
-                            />
-                          </div>
-                          <div class="col col-4">
-                            <div
-                              v-if="
-                                nomenclature.creatorId === user.id ||
-                                  !nomenclature.id
-                              "
-                              class="custom-control custom-switch"
-                              :class="{ disabled: absolutesDisabled }"
-                            >
-                              <input
-                                type="checkbox"
-                                class="custom-control-input"
-                                :checked="nomenclature.ndsBool"
-                                v-model="nomenclature.ndsBool"
-                                :disabled="absolutesDisabled"
-                                @change="updatePrices"
-                                id="customSwitch1"
-                                style="cursor: pointer"
-                              />
-                              <label
-                                class="custom-control-label"
-                                for="customSwitch1"
-                                style="cursor: pointer"
-                                >{{ $t("nds") }}</label
-                              >
-                            </div>
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <div class="col col-lg-4 col-md-4 col-sm-12">
-                            <label class="title" for="nPrice">{{
-                              $t("price")
-                            }}</label>
-                            <input
-                              :disabled="absolutesDisabled"
-                              :class="{ disabled: absolutesDisabled }"
-                              type="number"
-                              id="nPrice"
-                              step="1000"
-                              class="form-control"
-                              :placeholder="$t('price')"
-                              v-model="price"
-                            />
-                          </div>
-                          <div class="col col-lg-4 col-md-4 col-sm-12">
-                            <label class="title" for="nShop">{{
-                              $t("magazine")
-                            }}</label>
-                            <input
-                              :disabled="absolutesDisabled"
-                              :class="{ disabled: absolutesDisabled }"
-                              type="text"
-                              id="nShop"
-                              class="form-control"
-                              v-model="nomenclature.magazine"
-                              :placeholder="$t('magazine')"
-                            />
-                          </div>
-                          <div
-                            class="col col-lg-4 col-md-4 col-sm-12 d-flex align-self-end flex-column"
-                          >
-                            <label
-                              class="title"
-                              for="nRole"
-                              style="margin-bottom: 3px;"
-                              >{{ $t("unit_sh") }}</label
-                            >
-                            <v-select
-                              :disabled="absolutesDisabled"
-                              :class="{ disabled: absolutesDisabled }"
-                              class="nomenclature-select w-100"
-                              id="nRole"
-                              :placeholder="
-                                nomenclature.id
-                                  ? nomenclature.units.name
-                                  : $t('unit_sh')
-                              "
-                              :options="units"
-                              v-model="nomenclature.units"
-                            >
-                            </v-select>
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <div class="col col-lg-4 col-md-4 col-sm-12">
-                            <label class="title" for="nCount">{{
-                              $t("count")
-                            }}</label>
-                            <input
-                              :disabled="absolutesDisabled"
-                              :class="{ disabled: absolutesDisabled }"
-                              type="number"
-                              id="nCount"
-                              step="1"
-                              class="form-control"
-                              :placeholder="$t('count')"
-                              v-model="nomenclature.count"
-                            />
-                          </div>
-                          <div class="col col-lg-4 col-md-4 col-sm-12">
-                            <label class="title">{{ $t("term") }}</label>
-                            <!--<input type="text" id="nTerm" class="form-control" :class="{ 'is-danger': $v.nomenclature.term.$invalid && (nomenclature.term || showFormErrors)}" :placeholder="$t('term')" v-model="nomenclature.term">-->
-                            <v-date-picker
-                              :class="{ disabled: absolutesDisabled }"
-                              :popover="{
-                                placement: 'bottom',
-                                visibility: 'click'
-                              }"
-                              v-model="nomenclature.termString"
-                              :input-props="{
-                                class: `form-control nomenclature`,
-                                id: 'nTerm'
-                              }"
-                              :locale="lang"
-                              :masks="{ L: 'DD.MM.YYYY' }"
-                            />
-                          </div>
-                          <div class="col col-lg-4 col-md-4 col-sm-12">
-                            <label class="title" for="nLink">{{
-                              $t("link")
-                            }}</label>
-                            <input
-                              :disabled="absolutesDisabled"
-                              :class="{ disabled: absolutesDisabled }"
-                              type="text"
-                              id="nLink"
-                              class="form-control"
-                              :placeholder="$t('link')"
-                              v-model="nomenclature.link"
-                            />
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <div
-                            v-if="nomenclature.ndsBool"
-                            class="col col-lg-4 col-md-4 col-sm-12"
-                            :class="{ disabled: !nomenclature.ndsBool }"
-                          >
-                            <label class="title" for="nNds">{{
-                              $t("nds")
-                            }}</label>
-                            <input
-                              :disabled="absolutesDisabled"
-                              :class="{ disabled: absolutesDisabled }"
-                              type="number"
-                              id="nNds"
-                              step="1"
-                              class="form-control"
-                              :placeholder="$t('nds')"
-                              v-model="nomenclature.nds"
-                              @change="updatePrices"
-                            />
-                          </div>
-                          <div
-                            v-if="nomenclature.ndsBool"
-                            class="col col-lg-4 col-md-4 col-sm-12"
-                            :class="{ disabled: !nomenclature.ndsBool }"
-                          >
-                            <label class="title" for="nNdsValue">{{
-                              $t("ndsValue")
-                            }}</label>
-                            <input
-                              type="number"
-                              id="nNdsValue"
-                              disabled
-                              step="any"
-                              class="form-control"
-                              :placeholder="$t('ndsValue')"
-                              v-model="nomenclature.ndsValue"
-                            />
-                          </div>
-                          <div class="col col-lg-4 col-md-4 col-sm-12">
-                            <label class="title" for="nPriceWithoutNds">{{
-                              $t("priceWithoutNds")
-                            }}</label>
-                            <input
-                              type="number"
-                              id="nPriceWithoutNds"
-                              disabled
-                              step="any"
-                              class="form-control"
-                              :placeholder="$t('priceWithoutNds')"
-                              v-model="nomenclature.priceWithoutNds"
-                            />
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <label
-                            v-for="(item, key) in nomenclature.status"
-                            :key="key"
-                            :class="{
-                              disabled:
-                                nomenclature.id === updatingId ||
-                                nomenclature.buy ||
-                                absolutesDisabled ||
-                                nomenclature.status[key]['mustConfirmedId'] !==
-                                  user.id
-                            }"
-                            @click="updateConfirm(nomenclature)"
-                          >
-                            <p-check
-                              class="pretty p-image p-plain text-left"
-                              name="test"
-                              v-model="nomenclature.status[key]['confirmed']"
-                            >
-                              <img
-                                slot="extra"
-                                class="image"
-                                src="../../assets/policycheck.svg"
-                              />
-                              {{ $t("confirmed") }}
-                              {{ item.nameMustConfirmed }}
-                            </p-check>
-                          </label>
-                        </div>
-                        <div
-                          v-if="!loading"
-                          class="form-group row justify-content-end pr-3"
-                        >
-                          <button
-                            type="button"
-                            class="btn btn-secondary btn-close mr-2"
-                            @click="showNomekModal = false"
-                          >
-                            {{ $t("close") }}
-                          </button>
-                          <button
-                            v-if="
-                              (nomenclature.creatorId === user.id ||
-                                !nomenclature.id) &&
-                                !nomenclature.buy
-                            "
-                            type="button"
-                            class="btn btn-custom"
-                            @click="addNomenclature"
-                          >
-                            {{ $t("save") }}
-                          </button>
-                          <button
-                            v-if="
-                              getStatus(nomenclature.status) ===
-                                'confirmed_simple' && !nomenclature.buy
-                            "
-                            type="button"
-                            class="btn btn-custom ml-2"
-                            @click="buyNomenclature(nomenclature)"
-                          >
-                            {{ $t("buy") }}
-                          </button>
-                          <button
-                            v-else-if="
-                              nomenclature.buy &&
-                                nomenclature.buyerId === user.id
-                            "
-                            type="button"
-                            class="btn btn-custom ml-2"
-                            @click="buyNomenclature(nomenclature)"
-                          >
-                            {{ $t("cancelPurchase") }}
-                          </button>
-                        </div>
-                        <div
-                          v-else
-                          class="form-group row justify-content-end pr-3"
-                        >
-                          <button type="button" class="btn btn-custom">
-                            <b-spinner small></b-spinner>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </transition>
-    <transition name="fade-none">
-      <div v-if="showRemovePhotoModal">
-        <div class="modal-mask">
-          <div class="modal-wrapper">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-body">
-                  <div class="d-flex align-items-center justify-content-center">
-                    {{ $t("delete") }} "{{ image.id }}"?
+    <v-dialog v-model="showNomekModal" width="850">
+      <v-card>
+        <v-card-text>
+          <v-form
+            ref="addNomenclatureForm"
+            v-model="addNomenclatureValid"
+            @submit.prevent="addNomenclature"
+            lazy-validation
+          >
+            <v-row class="ml-0 mr-0 nomenclature-column">
+              <div class="body-left col col-lg-6 col-md-12">
+                <div class="form-group row">
+                  <div style="flex: 1 1 100%; padding-bottom: 5px">
+                    <CustomGallery
+                      :nomenclature="nomenclature"
+                      :images="nomenclature.photos"
+                      :isCreator="
+                        nomenclature.creatorId === user.id && !absolutesDisabled
+                      "
+                      :files="files"
+                      @on-delete-new="deleteNewPhoto"
+                      @on-delete="deletePhotoModal"
+                      @on-add-file="readFile"
+                    />
                   </div>
                 </div>
-                <div v-if="!loading" class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    @click="showRemovePhotoModal = false"
+              </div>
+              <div class="body-right col col-lg-6 col-md-12">
+                <div class="form-group row">
+                  <div class="col col-8">
+                    <v-text-field
+                      v-model="nomenclature.name"
+                      :label="$t('construct_name')"
+                      :placeholder="$t('construct_name')"
+                      :rules="rules"
+                      :disabled="absolutesDisabled"
+                    ></v-text-field>
+                  </div>
+                  <div class="col col-4">
+                    <div
+                      v-if="
+                        nomenclature.creatorId === user.id || !nomenclature.id
+                      "
+                      class="custom-control custom-switch"
+                      :class="{ disabled: absolutesDisabled }"
+                    >
+                      <v-switch
+                        v-model="nomenclature.ndsBool"
+                        :label="$t('nds')"
+                        light
+                        color="#688e74"
+                      ></v-switch>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col col-lg-4 col-md-4 col-sm-12">
+                    <v-text-field
+                      v-model="price"
+                      :label="$t('price')"
+                      :placeholder="$t('price')"
+                      type="number"
+                      step="1000"
+                      :disabled="absolutesDisabled"
+                    ></v-text-field>
+                  </div>
+                  <div class="col col-lg-4 col-md-4 col-sm-12">
+                    <v-text-field
+                      v-model="nomenclature.magazine"
+                      :label="$t('magazine')"
+                      :placeholder="$t('magazine')"
+                      :disabled="absolutesDisabled"
+                    ></v-text-field>
+                  </div>
+                  <div class="col col-lg-4 col-md-4 col-sm-12">
+                    <v-select
+                      :label="$t('unit_sh')"
+                      :disabled="absolutesDisabled"
+                      class="nomenclature-select w-100"
+                      hide-details
+                      light
+                      :placeholder="
+                        nomenclature.id
+                          ? nomenclature.units.name
+                          : $t('unit_sh')
+                      "
+                      :items="units"
+                      item-text="abName"
+                      item-value="id"
+                      v-model="nomenclature.units"
+                    >
+                    </v-select>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col col-lg-4 col-md-4 col-sm-12">
+                    <v-text-field
+                      v-model="nomenclature.count"
+                      :label="$t('count')"
+                      :placeholder="$t('count')"
+                      :disabled="absolutesDisabled"
+                      type="number"
+                      step="1"
+                    ></v-text-field>
+                  </div>
+                  <div class="col col-lg-4 col-md-4 col-sm-12">
+                    <v-menu
+                      v-model="menu2"
+                      :disabled="absolutesDisabled"
+                      :close-on-content-click="false"
+                      :nudge-right="40"
+                      :return-value.sync="nomenclature.term"
+                      transition="scale-transition"
+                      offset-y
+                      min-width="290px"
+                    >
+                      <template v-slot:activator="{ on }">
+                        <v-text-field
+                          v-model="nomenclature.termString"
+                          :label="$t('term')"
+                          light
+                          v-on="on"
+                        ></v-text-field>
+                      </template>
+                      <v-date-picker
+                        v-model="nomenclature.termString"
+                        @input="menu2 = false"
+                        :locale="lang"
+                        first-day-of-week="1"
+                      ></v-date-picker>
+                    </v-menu>
+                  </div>
+                  <div class="col col-lg-4 col-md-4 col-sm-12">
+                    <v-text-field
+                      v-model="nomenclature.link"
+                      :label="$t('link')"
+                      :placeholder="$t('link')"
+                      :disabled="absolutesDisabled"
+                    ></v-text-field>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div
+                    v-if="nomenclature.ndsBool"
+                    class="col col-lg-4 col-md-4 col-sm-12"
+                    :class="{ disabled: !nomenclature.ndsBool }"
+                  >
+                    <v-text-field
+                      v-model="nomenclature.nds"
+                      :label="$t('nds')"
+                      :placeholder="$t('nds')"
+                      :disabled="absolutesDisabled"
+                      type="number"
+                      step="1"
+                      @change="updatePrices"
+                    ></v-text-field>
+                  </div>
+                  <div
+                    v-if="nomenclature.ndsBool"
+                    class="col col-lg-4 col-md-4 col-sm-12"
+                    :class="{ disabled: !nomenclature.ndsBool }"
+                  >
+                    <v-text-field
+                      v-model="nomenclature.ndsValue"
+                      :label="$t('ndsValue')"
+                      :placeholder="$t('ndsValue')"
+                      type="number"
+                      step="any"
+                      disabled
+                    ></v-text-field>
+                  </div>
+                  <div class="col col-lg-4 col-md-4 col-sm-12">
+                    <v-text-field
+                      v-model="nomenclature.priceWithoutNds"
+                      :label="$t('priceWithoutNds')"
+                      :placeholder="$t('priceWithoutNds')"
+                      type="number"
+                      step="any"
+                      disabled
+                    ></v-text-field>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <v-checkbox
+                    small
+                    v-for="(item, key) in nomenclature.status"
+                    @click="updateConfirm(nomenclature)"
+                    :loading="loading"
+                    :key="key"
+                    color="#688e74"
+                    style="font-size: 12px"
+                    v-model="nomenclature.status[key]['confirmed']"
+                    :disabled="
+                      nomenclature.id === updatingId ||
+                        nomenclature.buy ||
+                        absolutesDisabled ||
+                        nomenclature.status[key]['mustConfirmedId'] !== user.id
+                    "
+                    :label="`${$t('confirmed')} ${item.nameMustConfirmed}`"
+                  ></v-checkbox>
+                </div>
+                <div class="form-group row justify-content-end pr-3">
+                  <v-btn
+                    dark
+                    @click="showNomekModal = false"
+                    color="#999"
+                    class="ma-1"
                   >
                     {{ $t("close") }}
-                  </button>
-                  <button
-                    type="button"
-                    class="btn btn-custom"
-                    @click="deletePhoto"
+                  </v-btn>
+                  <v-btn
+                    v-if="
+                      (nomenclature.creatorId === user.id ||
+                        !nomenclature.id) &&
+                        !nomenclature.buy
+                    "
+                    color="#688e74"
+                    class="ma-1"
+                    dark
+                    :disabled="!addNomenclatureValid"
+                    :loading="loading"
+                    @click="addNomenclature"
                   >
-                    {{ $t("delete") }}
-                  </button>
-                </div>
-                <div v-else class="modal-footer">
-                  <button type="button" class="btn btn-custom">
-                    <b-spinner small></b-spinner>
-                  </button>
+                    {{ $t("save") }}
+                  </v-btn>
+
+                  <v-btn
+                    v-if="
+                      getStatus(nomenclature.status) === 'confirmed_simple' &&
+                        !nomenclature.buy
+                    "
+                    color="#688e74"
+                    class="ma-1"
+                    dark
+                    :loading="loading"
+                    @click="buyNomenclature(nomenclature)"
+                  >
+                    {{ $t("buy") }}
+                  </v-btn>
+                  <v-btn
+                    v-else-if="
+                      nomenclature.buy && nomenclature.buyerId === user.id
+                    "
+                    color="#688e74"
+                    class="ma-1"
+                    dark
+                    :loading="loading"
+                    @click="buyNomenclature(nomenclature)"
+                  >
+                    {{ $t("cancelPurchase") }}
+                  </v-btn>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </transition>
+            </v-row>
+          </v-form>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="showRemovePhotoModal" width="400">
+      <v-card>
+        <v-card-title class="headline">
+          {{ $t("delete") }} "{{ image.id }}"?
+        </v-card-title>
+        <v-card-actions>
+          <v-btn
+            color="red darken-1"
+            text
+            @click="showRemovePhotoModal = false"
+          >
+            {{ $t("close") }}
+          </v-btn>
+
+          <v-btn
+            color="green darken-1"
+            text
+            :loading="loading"
+            @click="deletePhoto"
+          >
+            {{ $t("delete") }}
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -760,21 +612,24 @@ import Vue from "vue";
 import Uploader from "vux-uploader-component";
 import { mapState } from "vuex";
 import VueMask from "v-mask";
-import Validations from "vuelidate";
-import { required } from "vuelidate/lib/validators";
 import { serverUrl } from "@/store/urls";
 import VCalendar from "v-calendar";
 import CustomGallery from "@/components/CustomGallery";
 import { userUrls } from "@/store/urls";
+import IconPlusSquared from "@/components/common/icons/IconPlusSquared";
+import IconSettings from "@/components/common/icons/IconSettings";
+import IconBasket from "@/components/common/icons/IconBasket";
 
 Vue.use(VCalendar);
 Vue.use(VueMask);
-Vue.use(Validations);
 export default {
   name: "TableFurniture",
   components: {
     Uploader,
-    CustomGallery
+    CustomGallery,
+    IconPlusSquared,
+    IconSettings,
+    IconBasket
   },
   data() {
     return {
@@ -800,15 +655,25 @@ export default {
       currentSort: "",
       currentSortDir: "asc",
       loading: false,
-      absolutesDisabled: false
+      absolutesDisabled: false,
+      addGroupValid: true,
+      addNomenclatureValid: true,
+      rules: [v => !!v || this.$t("required")],
+      emailRules: [
+        v => !!v || this.$t("required"),
+        v => /.+@.+\..+/.test(v) || this.$t("invalid_email")
+      ],
+      date: new Date().toISOString().substr(0, 10),
+      menu2: false
     };
   },
-  validations: {
-    nomenclature: {
-      name: { required }
-    }
-  },
   methods: {
+    parseDate(date) {
+      if (!date) return null;
+
+      const [year, month, day] = date.split("-");
+      return `${day.padStart(2, "0")}.${month.padStart(2, "0")}.${year}`;
+    },
     statusesHtml(furniture) {
       let items = "",
         whoBought = "";
@@ -859,6 +724,7 @@ export default {
         })
         .finally(() => {
           this.loading = false;
+          this.nomenclature = {};
         });
     },
     getStatus(statuses) {
@@ -880,16 +746,8 @@ export default {
       this.hideAllRows = !this.hideAllRows;
     },
     addGroup() {
-      if (!this.group.name) {
-        Vue.notify({
-          group: "warn",
-          title: this.$i18n.messages[this.$i18n.locale]["attention"],
-          text: this.$i18n.messages[this.$i18n.locale]["register_invalid"],
-          type: "warn",
-          closeOnClick: true,
-          duration: 4000
-        });
-        this.showFormErrors = true;
+      if (!this.$refs.addGroupForm.validate()) {
+        this.loading = false;
         return;
       }
       this.loading = true;
@@ -940,20 +798,24 @@ export default {
       }
     },
     addNomenclature() {
-      if (
-        this.$v.nomenclature.$pending ||
-        this.$v.nomenclature.$error ||
-        this.$v.nomenclature.$invalid
-      ) {
-        Vue.notify({
-          group: "warn",
-          title: this.$i18n.messages[this.$i18n.locale]["attention"],
-          text: this.$i18n.messages[this.$i18n.locale]["register_invalid"],
-          type: "warn",
-          closeOnClick: true,
-          duration: 4000
-        });
-        this.showFormErrors = true;
+      // if (
+      //   this.$v.nomenclature.$pending ||
+      //   this.$v.nomenclature.$error ||
+      //   this.$v.nomenclature.$invalid
+      // ) {
+      //   Vue.notify({
+      //     group: "warn",
+      //     title: this.$i18n.messages[this.$i18n.locale]["attention"],
+      //     text: this.$i18n.messages[this.$i18n.locale]["register_invalid"],
+      //     type: "warn",
+      //     closeOnClick: true,
+      //     duration: 4000
+      //   });
+      //   this.showFormErrors = true;
+      //   return;
+      // }
+      if (!this.$refs.addNomenclatureForm.validate()) {
+        this.loading = false;
         return;
       }
       this.loading = true;
@@ -972,7 +834,7 @@ export default {
       formData.append("name", this.nomenclature.name);
       formData.append("count", this.nomenclature.count);
 
-      let term = this.formatDate(this.nomenclature.termString);
+      let term = this.parseDate(this.nomenclature.termString);
       formData.append("term", term);
       formData.append("ndsBool", this.nomenclature.ndsBool);
 
@@ -1081,7 +943,7 @@ export default {
         count: 0,
         priceWithoutNds: 0,
         ndsBool: false,
-        termString: new Date(),
+        termString: new Date().toISOString().substr(0, 10),
         photos: []
       };
       this.$store.dispatch("furniture/setUnits").then(() => {
@@ -1094,7 +956,6 @@ export default {
     showEditNomenclature(item, event) {
       let enableOpen = false;
       this.absolutesDisabled = item.buy;
-
       if (event) {
         let tagName = event.target.tagName,
           parentName = event.target.parentNode.tagName,
@@ -1115,9 +976,9 @@ export default {
 
         let term = item.term.split(".");
         term = term[2] + "." + term[1] + "." + term[0];
-        item.termString = new Date(term);
+        item.termString = new Date(term).toISOString().substr(0, 10);
         this.nomenclature = item;
-        this.nomenclature.units["label"] = item.units.abName;
+        // this.nomenclature.units["label"] = item.units.abName;
         this.photos = [];
         this.files = [];
         this.price = item.price;
@@ -1382,17 +1243,7 @@ export default {
       roles: state => state.user.roles,
       modules: state => state.user.modules,
       enabledGroups: state => state.furniture.enabledGroups,
-      units(state) {
-        let unitsList = [];
-        state.furniture.units.forEach(item => {
-          unitsList.push({
-            label: item.abName,
-            name: item.name,
-            id: item.id
-          });
-        });
-        return unitsList;
-      },
+      units: state => state.furniture.units,
       lang: state => state.lang,
       titles(state) {
         if (this.ndsColumns) {
@@ -1522,6 +1373,9 @@ export default {
     price(val) {
       this.nomenclature.price = val;
       this.updatePrices();
+    },
+    date() {
+      this.nomenclature.term = this.formatDate(this.date);
     }
   },
   mounted() {
