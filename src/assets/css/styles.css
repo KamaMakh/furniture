@@ -326,4 +326,57 @@ input.nomenclature {
       height: 100%;
       opacity: 0; }
 
+.construction-settings-dialog {
+  border-radius: 2px !important; }
+  .construction-settings-dialog .close-btn {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    z-index: 10;
+    cursor: pointer;
+    top: 20px;
+    right: 20px;
+    left: auto; }
+  .construction-settings-dialog .v-card {
+    position: relative;
+    background: #F5F5F6 !important;
+    padding-top: 15px;
+    padding-left: 35px; }
+    .construction-settings-dialog .v-card .v-input__slot {
+      border-radius: 3px !important; }
+    .construction-settings-dialog .v-card input::placeholder {
+      color: #959595 !important; }
+    .construction-settings-dialog .v-card .v-input__append-inner {
+      margin-top: 4px !important; }
+    .construction-settings-dialog .v-card .theme--light.v-text-field--outlined:not(.v-input--is-focused):not(.v-input--has-state) > .v-input__control > .v-input__slot fieldset {
+      color: #dadada; }
+    .construction-settings-dialog .v-card button.invite {
+      height: 40px !important;
+      width: 100% !important; }
+  .construction-settings-dialog .invite-title {
+    color: #868686;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: left; }
+  .construction-settings-dialog .theme--light.v-btn.v-btn--disabled:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined) {
+    background-color: #fff !important;
+    border: 1px solid #DADADA;
+    box-sizing: border-box;
+    border-radius: 5px;
+    color: #000 !important; }
+    .construction-settings-dialog .theme--light.v-btn.v-btn--disabled:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined).redCustom {
+      color: #7A0303 !important; }
+    .construction-settings-dialog .theme--light.v-btn.v-btn--disabled:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined).greenCustom {
+      color: #00670A !important; }
+  .construction-settings-dialog .remove-user {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    bottom: 0;
+    left: 10px;
+    height: 100%;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.9) !important;
+    padding: 15px; }
+
 /*# sourceMappingURL=styles.css.map */

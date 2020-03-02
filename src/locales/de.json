@@ -118,6 +118,12 @@
   "locality": "Ortschaft",
   "policyText": "Nutzungsbedingungen und<br> Datenschutzbestimmungen",
   "maxSize": "Die Bildgröße muss weniger als {size} MB betragen!",
+  "inviteList": "Benutzerliste",
+  "photofixation": "Photofixation",
+  "userStatus": "Benutzerstatus",
+  "confirmRemoveUser": "Möchten Sie den Benutzer {email} wirklich aus {building} löschen?",
+  "yes": "Ja",
+  "no": "Nein",
   "lp": {
     "first": {
       "title": "Wissen Sie genau, wie viel der Bau kosten wird",

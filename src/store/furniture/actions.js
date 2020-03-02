@@ -17,7 +17,9 @@ import {
   getSubscribesListUrl,
   createOrderUrl,
   inviteUserUrl,
-  buyNomenclatureUrl
+  buyNomenclatureUrl,
+  invitemultipartUrl,
+  getConstructionUrl
 } from "@/store/urls";
 
 function addConstruction({ commit }, data) {
@@ -166,6 +168,29 @@ function getFurniture({ commit }, data) {
       .catch(error => {
         if (error.response && error.response.status === 200) {
           commit("setFurniture", error.response.data);
+          resolve();
+        } else {
+          reject();
+        }
+      });
+  });
+}
+
+function getConstruction({ commit }, data) {
+  return new Promise((resolve, reject) => {
+    api
+      .get(getConstructionUrl, { params: { projectId: data.id } })
+      .then(response => {
+        if (response.status === 200) {
+          commit("setConstruction", response.data);
+          resolve();
+        } else {
+          reject(response.data.message);
+        }
+      })
+      .catch(error => {
+        if (error.response && error.response.status === 200) {
+          commit("setConstruction", error.response.data);
           resolve();
         } else {
           reject();
@@ -476,6 +501,32 @@ function inviteUser({ commit }, data) {
   });
 }
 
+function inviteMultipartUser({ commit }, data) {
+  commit("ignore");
+  return new Promise((resolve, reject) => {
+    api
+      .post(invitemultipartUrl, data)
+      .then(response => {
+        if (
+          response.data.status &&
+          response.data.status === "OK" &&
+          response.status === 200
+        ) {
+          resolve(response.data);
+        } else {
+          reject(response.data);
+        }
+      })
+      .catch(error => {
+        if (error.response && error.response.status === 200) {
+          resolve(error.response);
+        } else {
+          reject(error.response);
+        }
+      });
+  });
+}
+
 function editEnabledGroups({ commit }, data) {
   commit("editEnabledGroups", data);
 }
@@ -506,5 +557,7 @@ export {
   getSubscribesList,
   createOrder,
   editEnabledGroups,
-  inviteUser
+  inviteUser,
+  inviteMultipartUser,
+  getConstruction
 };

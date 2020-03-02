@@ -118,6 +118,12 @@
   "locality": "Locality",
   "policyText": "Terms of Use and<br> Privacy Policy",
   "maxSize": "Image size should be less than {size} MB!",
+  "inviteList": "List of users",
+  "photofixation": "Photofixation",
+  "userStatus": "User status",
+  "confirmRemoveUser": "Are you sure you want to delete user {email} from {construction}?",
+  "yes": "Yes",
+  "no": "No",
   "lp": {
     "first": {
       "title": "Know exactly how much the construction will cost",

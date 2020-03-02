@@ -31,6 +31,8 @@ const uploadAvatarUrl = `${serverUrl}/api/user/profile/avatar/update`;
 const inviteUserUrl = `${serverUrl}/api/furniture/project/invite`;
 const buyNomenclatureUrl = `${serverUrl}/api/furniture/nomenclature/status/buy`;
 const requestModuleUrl = `${serverUrl}/api/order/module`;
+const invitemultipartUrl = `${serverUrl}/api/reginvite/invite`;
+const getConstructionUrl = `${serverUrl}/api/project/getone`;
 
 export {
   serverUrl,
@@ -61,5 +63,7 @@ export {
   inviteUserUrl,
   buyNomenclatureUrl,
   userUrls,
-  requestModuleUrl
+  requestModuleUrl,
+  invitemultipartUrl,
+  getConstructionUrl
 };

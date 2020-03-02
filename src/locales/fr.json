@@ -117,6 +117,12 @@
   "locality": "Localité",
   "policyText": "Conditions d'utilisation et<br> politique de confidentialité",
   "maxSize": "La taille de l'image doit être inférieure à {size} Mo!",
+  "inviteList": "Liste des utilisateurs",
+  "photofixation": "Photofixation",
+  "userStatus": "Statut d'utilisateur",
+  "confirmRemoveUser": "Voulez-vous vraiment supprimer l'utilisateur {email} de {construction}?",
+  "yes": "Oui",
+  "no": "Non",
   "lp": {
     "first": {
       "title": "Savoir exactement combien coûtera la construction",

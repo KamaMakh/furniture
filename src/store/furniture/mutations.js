@@ -35,7 +35,7 @@ function setUnits(state, units) {
 function updateConstruction(state, construction) {
   state.constructions.forEach((item, key) => {
     if (item.id === construction.id) {
-      state.constructions[key] = item;
+      state.constructions[key] = construction;
     }
   });
 }
