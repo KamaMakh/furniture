@@ -798,35 +798,25 @@ export default {
       }
     },
     addNomenclature() {
-      // if (
-      //   this.$v.nomenclature.$pending ||
-      //   this.$v.nomenclature.$error ||
-      //   this.$v.nomenclature.$invalid
-      // ) {
-      //   Vue.notify({
-      //     group: "warn",
-      //     title: this.$i18n.messages[this.$i18n.locale]["attention"],
-      //     text: this.$i18n.messages[this.$i18n.locale]["register_invalid"],
-      //     type: "warn",
-      //     closeOnClick: true,
-      //     duration: 4000
-      //   });
-      //   this.showFormErrors = true;
-      //   return;
-      // }
       if (!this.$refs.addNomenclatureForm.validate()) {
         this.loading = false;
         return;
       }
       this.loading = true;
       let formData = new FormData();
-
       if (this.nomenclature.id) {
         formData.append("nomenclatureId", this.nomenclature.id);
-        formData.append("unitId", this.nomenclature.units.id);
+        let unit = this.nomenclature.units.id
+          ? this.nomenclature.units.id
+          : this.nomenclature.units;
+        formData.append("unitId", unit);
       } else {
         formData.append("groupId", this.nomenclature.groupId);
-        formData.append("unitId", this.nomenclature.unit.id);
+        if (this.nomenclature.units) {
+          formData.append("unitId", this.nomenclature.units);
+        } else if (this.units && this.units.length) {
+          formData.append("unitId", this.units[0]["id"]);
+        }
         for (let i = 0; i < this.files.length; i++) {
           formData.append(`file`, this.files[i]);
         }
