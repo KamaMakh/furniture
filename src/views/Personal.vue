@@ -46,7 +46,7 @@
           {{ user.fio }}
         </div>
         <!--<div class="role">-->
-          <!--{{ getRole() }}-->
+        <!--{{ getRole() }}-->
         <!--</div>-->
       </div>
     </div>
@@ -74,8 +74,8 @@
               :items="countries"
               clearable
               hide-details
-              item-text="title"
-              item-value="country_id"
+              item-text="label"
+              item-value="id"
               :color="color"
               :label="$t('country')"
               v-debounce:300ms="getCountries"
@@ -84,14 +84,14 @@
           </v-col>
           <v-col cols="12" sm="6" md="4">
             <v-autocomplete
-              :disabled="country === undefined || !country.length"
+              :disabled="country === undefined"
               v-model="city"
               :items="cities"
-              :search-input.sync="city"
+              :search-input.sync="citySearch"
               clearable
               hide-details
-              item-text="title"
-              item-value="city_id"
+              item-text="name"
+              item-value="id"
               :label="$t('locality')"
               v-debounce:300ms="getCities"
               :color="color"
@@ -210,6 +210,7 @@ export default {
       loading: false,
       country: "",
       city: "",
+      citySearch: "",
       site: "",
       rules: {
         required: value => required(value) || this.$t("required"),
@@ -304,10 +305,12 @@ export default {
         return;
       }
       let formData = new FormData();
-      if (this.country && this.country.id) {
-        formData.append("countryId", this.country.id);
-        if (this.city && this.city.id) {
-          formData.append("cityId", this.city.id);
+      if (this.country) {
+        let countryId = this.country.id ? this.country.id : this.country;
+        formData.append("countryId", countryId);
+        if (this.city) {
+          let cityId = this.city.id ? this.city.id : this.city;
+          formData.append("cityId", cityId);
         } else {
           formData.append("cityId", -1);
         }
@@ -329,10 +332,11 @@ export default {
   },
   watch: {
     country(country) {
-      if (country && country.id) {
+      if (country) {
         this.city = undefined;
+        this.citySearch = undefined;
         this.$store.dispatch("user/getCities", {
-          countryId: country.id,
+          countryId: country.id ? country.id : country,
           title: this.city || "",
           page: 0
         });
@@ -353,12 +357,15 @@ export default {
         id: this.user.country.countryId
       };
       setTimeout(() => {
+        this.getCities();
         this.city = {
           label: this.user.city.title,
           name: this.user.city.title,
           id: this.user.city.cityId,
           countryId: this.user.city.countryId
         };
+        this.citySearch = this.user.city.title;
+        //this.city = this.user.city.title
       }, 800);
     }
   }
