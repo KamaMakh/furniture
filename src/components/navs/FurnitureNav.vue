@@ -91,7 +91,7 @@
           </v-btn>
 
           <v-btn
-            color="green darken-1"
+            color="#688e74"
             text
             :disabled="!addValid"
             :loading="loading"
@@ -284,7 +284,7 @@
                         color="#688e74"
                         class="mt-0"
                         :loading="loading"
-                        @change="updateUserStatus(item)"
+                        @click.native="updateUserStatus(item)"
                       ></v-checkbox>
                       <v-checkbox
                         v-model="item.accessEstimate"
@@ -292,7 +292,7 @@
                         hide-details
                         color="#688e74"
                         :loading="loading"
-                        @change="updateUserStatus(item)"
+                        @click.native="updateUserStatus(item)"
                       ></v-checkbox>
                       <v-checkbox
                         v-model="item.accessPhotofixation"
@@ -300,7 +300,7 @@
                         hide-details
                         color="#688e74"
                         :loading="loading"
-                        @change="updateUserStatus(item)"
+                        @click.native="updateUserStatus(item)"
                       ></v-checkbox>
                     </v-col>
                   </v-row>

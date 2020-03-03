@@ -16,7 +16,7 @@ let axiosInstance = axios.create({
 
   transformRequest: [
     (data, headers) => {
-      headers["Accept-Language"] = VueCookies.get("lang") || "en";
+      headers["Accept-Language"] = VueCookies.get("lang") || navigator.language.split("-")[0] || "en";
       if (VueCookies.get("token")) {
         headers["Authorization"] = "Bearer " + VueCookies.get("token");
       }

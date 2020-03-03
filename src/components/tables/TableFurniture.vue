@@ -103,7 +103,6 @@
               <span v-else class="icon no-img"></span>
               <span class="ellipsis" :title="item.name">
                 {{ item.name }}
-                {{ item.buy }}
               </span>
               <span
                 v-if="item.creatorId === user.id"
@@ -506,7 +505,7 @@
                   <v-checkbox
                     small
                     v-for="(item, key) in nomenclature.status"
-                    @click="updateConfirm(nomenclature)"
+                    @click.native="updateConfirm(nomenclature)"
                     :loading="loading"
                     :key="key"
                     color="#688e74"

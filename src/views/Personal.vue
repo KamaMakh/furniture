@@ -45,9 +45,9 @@
         <div class="name">
           {{ user.fio }}
         </div>
-        <div class="role">
-          {{ getRole() }}
-        </div>
+        <!--<div class="role">-->
+          <!--{{ getRole() }}-->
+        <!--</div>-->
       </div>
     </div>
     <div class="personal__title">
