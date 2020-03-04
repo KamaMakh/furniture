@@ -21,7 +21,7 @@
             >
               <IconPlusSquared width="19" height="19" fill="#999" />
             </span>
-            <span :class="{ 'ml-0': key === 0, ellipsis: key === 0 }">
+            <span :class="{ 'ml-0': key === 0, ellipsis: true }">
               {{ item.name }}
             </span>
           </td>
@@ -46,7 +46,7 @@
             ></div>
           </td>
           <td>
-            {{ item.term }}
+            {{ formatDate(item.term) }}
           </td>
           <td :class="{ green: item.status === 'APPROVED' }">
             {{ item.status }}
@@ -79,6 +79,7 @@
                   v-model="document.name"
                   :label="$t('fileName')"
                   :rules="[rules.required]"
+                  :color="color"
                   :disabled="absolutesDisabled"
                 ></v-text-field>
               </v-col>
@@ -99,6 +100,7 @@
                       v-model="document.termString"
                       :label="$t('term')"
                       light
+                      :color="color"
                       :rules="[rules.required]"
                       v-on="on"
                     ></v-text-field>
@@ -108,6 +110,7 @@
                     @input="menu2 = false"
                     :locale="lang"
                     first-day-of-week="1"
+                    :color="color"
                   ></v-date-picker>
                 </v-menu>
               </v-col>
@@ -120,6 +123,7 @@
                   :placeholder="$t('price')"
                   type="number"
                   step="1000"
+                  :color="color"
                   :rules="[rules.required]"
                   :disabled="absolutesDisabled"
                 ></v-text-field>
@@ -131,6 +135,7 @@
                   :placeholder="$t('priceWithoutNds')"
                   type="number"
                   step="any"
+                  :color="color"
                   disabled
                 ></v-text-field>
               </v-col>
@@ -144,6 +149,7 @@
                   :disabled="absolutesDisabled"
                   type="number"
                   step="1"
+                  :color="color"
                   @change="updatePrices"
                 ></v-text-field>
               </v-col>
@@ -243,7 +249,6 @@ export default {
     showDocModal() {
       this.showAddDocModal = true;
       if (this.$refs.addDocForm) {
-        this.$refs.addDocForm.reset();
         this.$refs.addDocForm.resetValidation();
       }
       this.document = {
@@ -432,6 +437,11 @@ export default {
   },
   watch: {
     price(val) {
+      val = parseFloat(val);
+      if(val < 0) {
+        val = 0;
+        this.price = 0;
+      }
       this.document.price = val;
       this.updatePrices();
     },

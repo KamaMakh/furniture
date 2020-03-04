@@ -34,7 +34,7 @@ const minLength = (v, length) => {
 };
 
 const required = value => {
-  if (value === undefined || value === null) {
+  if (value === undefined || value === null || value === "") {
     return false;
   } else {
     return true;
@@ -43,8 +43,6 @@ const required = value => {
 
 const fileMaxSize = (value, maxSize) => {
   if (value === undefined || value === null) return false;
-  /* eslint-disable */
-  console.log(value.size);
   return value.size < maxSize;
 };
 
