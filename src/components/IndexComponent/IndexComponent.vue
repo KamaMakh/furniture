@@ -941,7 +941,7 @@
           {{ $t("lp.getRegister") }}
         </div>
         <div class="register-modal__form">
-          <v-form>
+          <v-form v-model="registerValid" ref="registerForm">
             <v-card-text>
               <v-col cols="12" md="6" lg="6" xl="6" class="ma-auto">
                 <v-text-field
@@ -975,12 +975,22 @@
                   @click:append="showPass2 = !showPass2"
                   :type="showPass2 ? 'text' : 'password'"
                   class="mb-2"
-                  @blur="inputBlur"
-                  @keyup="inputBlur"
-                  @change="inputBlur"
                 ></v-text-field>
               </v-col>
             </v-card-text>
+            <v-card-actions>
+              <v-col cols="12" md="6" lg="6" xl="6" class="ma-auto">
+                <v-btn
+                  color="#fe5c19"
+                  dark
+                  large
+                  :loading="loading"
+                  @click.prevent="register"
+                >
+                  {{ $t("registration") }}
+                </v-btn>
+              </v-col>
+            </v-card-actions>
           </v-form>
         </div>
       </v-card>
@@ -1021,6 +1031,8 @@ export default {
   },
   data() {
     return {
+      loading: false,
+      registerValid: true,
       showRegisterModal: false,
       showRedirectModal: false,
       form: {},
@@ -1187,6 +1199,11 @@ export default {
       }, stepTime);
     },
     register() {
+      if (!this.$refs.registerForm.validate()) {
+        this.loading = false;
+        return;
+      }
+      this.loading = true;
       let role = "SUPERVISOR",
         currency = 1;
       this.$store
@@ -1210,6 +1227,9 @@ export default {
           this.inputDisabled = false;
           this.validated = false;
           this.showRedirectModal = false;
+        })
+        .finally(() => {
+          this.loading = false;
         });
     }
   },
