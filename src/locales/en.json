@@ -128,6 +128,10 @@
   "file": "File",
   "fileName": "File name",
   "chooseFile": "Select a file",
+  "review": "Review",
+  "approved": "Approved",
+  "rejected": "Rejected",
+  "notrelevant": "Not relevant",
   "lp": {
     "first": {
       "title": "Know exactly how much the construction will cost",

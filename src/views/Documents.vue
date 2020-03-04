@@ -20,7 +20,7 @@ export default {
     })
   },
   mounted() {
-    eslint-disable-next-line
+    /* eslint-disable-next-line */
     ym(57324937, "hit", "#/documents", {
       title: "Документы",
       referer: document.referrer

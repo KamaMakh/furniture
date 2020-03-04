@@ -128,6 +128,10 @@
   "file": "Datei",
   "fileName": "Dateiname",
   "chooseFile": "Datei auswählen",
+  "review": "Rezension",
+  "approved": "Genehmigt",
+  "rejected": "Abgelehnt",
+  "notrelevant": "Nicht relevant",
   "lp": {
     "first": {
       "title": "Wissen Sie genau, wie viel der Bau kosten wird",

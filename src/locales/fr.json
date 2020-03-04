@@ -127,6 +127,10 @@
   "file": "Fichier",
   "fileName": "Nom du fichier",
   "chooseFile": "Choisissez un fichier",
+  "review": "La revue",
+  "approved": "Approuvé",
+  "rejected": "rejeté",
+  "notrelevant": "Non pertinent",
   "lp": {
     "first": {
       "title": "Savoir exactement combien coûtera la construction",

@@ -49,7 +49,7 @@
             {{ formatDate(item.term) }}
           </td>
           <td :class="{ green: item.status === 'APPROVED' }">
-            {{ item.status }}
+            {{ $t(item.status.toLowerCase()) }}
           </td>
           <td>
             {{ item.priceWithoutNds }}
@@ -225,7 +225,7 @@ export default {
       addDocValid: true,
       documentsUrls: documentsUrls,
       hideAllRows: false,
-      tdWidths: [25, 10, 15, 10, 15, 10, 15],
+      tdWidths: [25, 10, 13, 14, 13, 10, 15],
       document: {},
       ndsColumns: true,
       files: [],
