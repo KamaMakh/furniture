@@ -14,18 +14,18 @@
         {{ user.fio }}
       </div>
     </div>
-    <div
-      class="sidebar__btn"
-      @click="
-        showAddModal = true;
-        newConstruction = {};
-      "
-    >
-      {{ $t("add_constr") }}
-      <span class="icon">
-        <IconPlusSquared width="19" height="19" />
-      </span>
-    </div>
+    <!--<div-->
+    <!--class="sidebar__btn"-->
+    <!--@click="-->
+    <!--showAddModal = true;-->
+    <!--newConstruction = {};-->
+    <!--"-->
+    <!--&gt;-->
+    <!--{{ $t("add_constr") }}-->
+    <!--<span class="icon">-->
+    <!--<IconPlusSquared width="19" height="19" />-->
+    <!--</span>-->
+    <!--</div>-->
     <div class="sidebar_list menu-left">
       <ul v-if="constructions">
         <li v-for="(item, key) in constructions" :key="key">
@@ -33,11 +33,11 @@
             :class="{ active: construction.id === item.id }"
             @click="chooseConstruction(item)"
           >
-            <span
-              v-if="item.creatorId === user.id"
-              @click.stop="editConstruction(item)"
-              class="icon"
-            ></span>
+            <!--<span-->
+            <!--v-if="item.creatorId === user.id"-->
+            <!--@click.stop="editConstruction(item)"-->
+            <!--class="icon"-->
+            <!--&gt;</span>-->
             {{ item.name }}
           </a>
         </li>
@@ -363,14 +363,14 @@ import { mapState } from "vuex";
 import { serverUrl } from "@/store/urls";
 import Validations from "vuelidate";
 import { required, email } from "vuelidate/lib/validators";
-import IconPlusSquared from "@/components/common/icons/IconPlusSquared";
+// import IconPlusSquared from "@/components/common/icons/IconPlusSquared";
 import IconClose from "@/components/common/icons/IconClose";
 
 Vue.use(Validations);
 export default {
   name: "DocumentsNav",
   components: {
-    IconPlusSquared,
+    // IconPlusSquared,
     IconClose
   },
   data() {
@@ -408,7 +408,7 @@ export default {
   },
   computed: {
     ...mapState({
-      construction: state => state.furniture.construction,
+      construction: state => state.documents.construction,
       constructions: state => state.furniture.constructions,
       user: state => state.user.user,
       avatarPath: state => state.user.avatarPath,
@@ -551,7 +551,7 @@ export default {
             text: error
           });
         });
-      this.$store.dispatch("furniture/setConstruction", item);
+      this.$store.dispatch("documents/setConstruction", item);
     },
     editConstruction(item) {
       this.$store.dispatch("furniture/getConstruction", item).then(() => {

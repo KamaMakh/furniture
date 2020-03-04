@@ -389,7 +389,7 @@ export default {
   computed: {
     ...mapState({
       rows: state => state.documents.documents || [],
-      construction: state => state.furniture.construction,
+      construction: state => state.documents.construction,
       constructions: state => state.furniture.constructions,
       user: state => state.user.user,
       lang: state => state.lang,
@@ -397,7 +397,7 @@ export default {
       titles(state) {
         return [
           {
-            name: state.furniture.construction.name,
+            name: state.documents.construction.name,
             sortable: true,
             code: "name"
           },

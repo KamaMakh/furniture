@@ -17,4 +17,8 @@ function setAccess(state, data) {
   state.access = data;
 }
 
-export { setDocuments, setDocument, setAccess };
+function setConstruction(state, construction) {
+  state.construction = construction;
+}
+
+export { setDocuments, setDocument, setAccess, setConstruction };

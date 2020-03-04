@@ -56,7 +56,12 @@ function addDocument({ commit }, data) {
   });
 }
 
+function setConstruction({ commit }, data) {
+  commit("setConstruction", data);
+}
+
 export {
   getDocuments,
-  addDocument
+  addDocument,
+  setConstruction
 }
