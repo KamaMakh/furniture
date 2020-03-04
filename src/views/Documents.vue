@@ -19,6 +19,16 @@ export default {
       modules: state => state.user.modules
     })
   },
+  methods: {
+    setDefaultData() {
+      if (this.$store.state.documents.construction.id === undefined) {
+        this.$store.dispatch(
+          "documents/setConstruction",
+          this.$store.state.furniture.constructions[0]
+        );
+      }
+    }
+  },
   mounted() {
     /* eslint-disable-next-line */
     ym(57324937, "hit", "#/documents", {
@@ -27,7 +37,7 @@ export default {
     });
     return new Promise(() => {
       this.$store.dispatch("furniture/getConstructions").then(() => {
-        // this.setDefaultData();
+        this.setDefaultData();
       });
     });
     // this.$store.dispatch("projects/requestModule", "Документы");
