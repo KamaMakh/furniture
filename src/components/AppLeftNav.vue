@@ -9,6 +9,9 @@
     <div v-else-if="navsType === 'Statistics'">
       <StatisticsNav />
     </div>
+    <div v-else-if="navsType === 'Documents'">
+      <DocumentsNav />
+    </div>
     <div
       v-else-if="['Settings', 'Finances', 'Personal'].indexOf(navsType) > -1"
     >
@@ -27,39 +30,40 @@
 </template>
 
 <script>
-/*eslint-disable*/
 import DefaultNav from "@/components/navs/DefaultNav";
 import ProjectsNav from "@/components/navs/ProjectsNav";
 import FurnitureNav from "@/components/navs/FurnitureNav";
 import StatisticsNav from "@/components/navs/StatisticsNav";
 import SettingsNav from "@/components/navs/SettingsNav";
+import DocumentsNav from "@/components/navs/DocumentsNav";
 export default {
   name: "AppLeftNav",
   props: ["navsType"],
-  components:{
+  components: {
     DefaultNav,
     ProjectsNav,
     FurnitureNav,
     StatisticsNav,
-    SettingsNav
+    SettingsNav,
+    DocumentsNav
   },
   data() {
     return {
       // navsType: null
       version: ""
-    }
+    };
   },
   mounted() {
     this.version = process.env.VUE_APP_VERSION;
   }
-}
+};
 </script>
 
 <style scoped lang="scss">
-.fullHeight{
+.fullHeight {
   height: 100%;
 }
-.navs-wrap{
+.navs-wrap {
   width: 300px;
   display: flex;
   flex-flow: nowrap column;
@@ -68,7 +72,7 @@ export default {
   box-sizing: border-box;
   padding-top: 60px;
   padding-right: 20px;
-  background: #DADADA;
+  background: #dadada;
   overflow-y: scroll;
   .app-version {
     color: #688e74;

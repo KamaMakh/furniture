@@ -124,6 +124,10 @@
   "confirmRemoveUser": "Are you sure you want to delete user {email} from {construction}?",
   "yes": "Yes",
   "no": "No",
+  "add": "Add",
+  "file": "File",
+  "fileName": "File name",
+  "chooseFile": "Select a file",
   "lp": {
     "first": {
       "title": "Know exactly how much the construction will cost",

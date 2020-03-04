@@ -27,10 +27,10 @@ export default {
   },
   mounted() {
     // eslint-disable-next-line
-    ym(57324937, "hit", "#/furniture", {
-      title: "Фурнитура",
-      referer: document.referrer
-    });
+    // ym(57324937, "hit", "#/furniture", {
+    //   title: "Фурнитура",
+    //   referer: document.referrer
+    // });
     return new Promise(() => {
       this.$store.dispatch("furniture/getConstructions").then(() => {
         this.setDefaultData();

@@ -1,4 +1,5 @@
 import { userUrls } from "../store/user/urls";
+import { documentsUrls } from "../store/documents/urls";
 
 const serverUrl =
   process.env.NODE_ENV === "development"
@@ -63,6 +64,7 @@ export {
   inviteUserUrl,
   buyNomenclatureUrl,
   userUrls,
+  documentsUrls,
   requestModuleUrl,
   invitemultipartUrl,
   getConstructionUrl

@@ -123,7 +123,11 @@
   "userStatus": "Benutzerstatus",
   "confirmRemoveUser": "Möchten Sie den Benutzer {email} wirklich aus {building} löschen?",
   "yes": "Ja",
+  "add": "Hinzufügen",
   "no": "Nein",
+  "file": "Datei",
+  "fileName": "Dateiname",
+  "chooseFile": "Datei auswählen",
   "lp": {
     "first": {
       "title": "Wissen Sie genau, wie viel der Bau kosten wird",

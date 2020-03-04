@@ -123,6 +123,10 @@
   "confirmRemoveUser": "Voulez-vous vraiment supprimer l'utilisateur {email} de {construction}?",
   "yes": "Oui",
   "no": "Non",
+  "add": "Ajouter",
+  "file": "Fichier",
+  "fileName": "Nom du fichier",
+  "chooseFile": "Choisissez un fichier",
   "lp": {
     "first": {
       "title": "Savoir exactement combien coûtera la construction",
