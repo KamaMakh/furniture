@@ -9,7 +9,7 @@
         <img :src="serverUrl + avatarPath" />
       </div>
       <div v-else class="logo"></div>
-      <div class="role">{{ $t("cabinet") }} {{ role }}</div>
+      <div class="role">{{ role }}</div>
       <div class="name">
         {{ user.fio }}
       </div>

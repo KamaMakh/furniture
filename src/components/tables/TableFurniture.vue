@@ -299,17 +299,17 @@
                 <div class="modal-footer">
                   <button
                     type="button"
-                    class="btn btn-secondary"
-                    @click="showAddPhotoModal = false"
-                  >
-                    {{ $t("close") }}
-                  </button>
-                  <button
-                    type="button"
                     class="btn btn-custom"
                     @click="addPhoto"
                   >
                     {{ $t("save") }}
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    @click="showAddPhotoModal = false"
+                  >
+                    {{ $t("close") }}
                   </button>
                 </div>
               </div>
@@ -520,15 +520,7 @@
                     :label="`${$t('confirmed')} ${item.nameMustConfirmed}`"
                   ></v-checkbox>
                 </div>
-                <div class="form-group row justify-content-end pr-3">
-                  <v-btn
-                    dark
-                    @click="showNomekModal = false"
-                    color="#999"
-                    class="ma-1"
-                  >
-                    {{ $t("close") }}
-                  </v-btn>
+                <div class="form-group row justify-content-end pr-3 ml-0 mr-0">
                   <v-btn
                     v-if="
                       (nomenclature.creatorId === user.id ||
@@ -536,13 +528,22 @@
                         !nomenclature.buy
                     "
                     color="#688e74"
-                    class="ma-1"
+                    class="ma-1 ml-0"
                     dark
                     :disabled="!addNomenclatureValid"
                     :loading="loading"
                     @click="addNomenclature"
                   >
                     {{ $t("save") }}
+                  </v-btn>
+
+                  <v-btn
+                    dark
+                    @click="showNomekModal = false"
+                    color="#999"
+                    class="ma-1"
+                  >
+                    {{ $t("close") }}
                   </v-btn>
 
                   <v-btn

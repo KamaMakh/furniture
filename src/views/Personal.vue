@@ -51,7 +51,7 @@
       </div>
     </div>
     <div class="personal__title">
-      Общая информация
+      {{ $t("myAccount") }}
     </div>
     <div class="personal__form">
       <v-form
