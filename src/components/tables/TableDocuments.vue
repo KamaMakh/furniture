@@ -337,53 +337,44 @@ export default {
         (event.target.tagName === "TD" ||
           event.target.classList.contains("ellipsis"))
       ) {
-        let groupKeys = [];
-        this.rows.forEach((item, key) => {
-          if (item.children && item.children > 1) {
-            groupKeys.push({ start: key, length: item.children });
-          }
-        });
-        groupKeys.forEach(item => {
-          let children = this.rows.slice(
-            item.start + 1,
-            item.length + item.start + 1
-          );
-          children.sort((a, b) => {
-            if (this.currentSort === column.code) {
-              return 0;
-            }
-            if (column.code === "term") {
-              let date1 = a[column.code].split(".");
-              let date2 = b[column.code].split(".");
-              date1 = date1[2] + "-" + date1[1] + "-" + date1[0];
-              date2 = date2[2] + "-" + date2[1] + "-" + date2[0];
-              return new Date(date1) - new Date(date2);
-            } else if (column.code === "status") {
-              let intValsArr = {
-                  not_confirmed_simple: 1,
-                  confirmed_simple: 2,
-                  purchased: 3
-                },
-                columnA = a["buy"]
-                  ? 3
-                  : intValsArr[this.getStatus(a[column.code])],
-                columnB = b["buy"]
-                  ? 3
-                  : intValsArr[this.getStatus(b[column.code])];
-              return columnA - columnB;
-            } else {
-              if (a[column.code] >= b[column.code]) {
-                return -1;
-              }
-            }
-          });
+        this.rows.sort((a, b) => {
           if (this.currentSort === column.code) {
-            children.reverse();
+            return 0;
           }
-          this.rows.splice(item.start + 1, children.length, ...children);
+          if (column.code === "term") {
+            let date1 = a[column.code];
+            let date2 = b[column.code];
+            date1 = date1[2] + "-" + date1[1] + "-" + date1[0];
+            date2 = date2[2] + "-" + date2[1] + "-" + date2[0];
+            return new Date(date1) - new Date(date2);
+          } else if (column.code === "status") {
+            let columnA = this.getStatus(a[column.code]),
+              columnB = this.getStatus(b[column.code]);
+            return columnA - columnB;
+          } else {
+            if (a[column.code] >= b[column.code]) {
+              return -1;
+            }
+          }
         });
+        if (this.currentSort === column.code) {
+          this.rows.reverse();
+        }
+        // this.rows.splice(item.start + 1, children.length, ...children);
         this.currentSort = column.code;
       }
+    },
+    getStatus(status) {
+       switch (status) {
+         case "review":
+           return 2;
+         case "approved":
+           return 1;
+         case "rejected":
+           return 4;
+         default:
+           return 3;
+       }
     }
   },
   computed: {
