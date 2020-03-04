@@ -41,17 +41,24 @@ function addDocument({ commit }, data) {
         }
       })
       .catch(error => {
-        if (error.response && error.response.status === 200) {
-          if (data.onlyOne) {
-            commit("setDocument", {
-              response: error.response.data,
-              group: data.group
-            });
-          }
-          resolve(error.response);
+        reject(error);
+      });
+  });
+}
+
+function downloadFile({ commit }, data) {
+  return new Promise((resolve, reject) => {
+    api
+      .get(documentsUrls.getOneDocUrl, { params: data, responseType: "blob" })
+      .then(response => {
+        if (response.status === 200) {
+          resolve(response.data);
         } else {
-          reject(error);
+          reject(response.data.message);
         }
+      })
+      .catch(error => {
+        reject(error.response.data.message);
       });
   });
 }
@@ -63,5 +70,6 @@ function setConstruction({ commit }, data) {
 export {
   getDocuments,
   addDocument,
-  setConstruction
+  setConstruction,
+  downloadFile
 }

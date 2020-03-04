@@ -40,10 +40,11 @@
             </span>
           </td>
           <td>
-            <div
-              :class="`contentType ${item.contentType}`"
-              @click="downloadFile(item)"
-            ></div>
+            <div @click="downloadFile(item)">
+              <v-btn icon color="#e22025" :loading="loadingId === item.id">
+                <v-icon dark>mdi-file-pdf-box</v-icon>
+              </v-btn>
+            </div>
           </td>
           <td>
             {{ formatDate(item.term) }}
@@ -172,7 +173,7 @@
                   :rules="[rules.required, rules.max]"
                   show-size
                   :color="color"
-                  accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, application/pdf"
+                  accept="image/jpeg, image/png, image/gif, .csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, application/pdf"
                 ></v-file-input>
               </v-col>
             </v-row>
@@ -203,20 +204,15 @@
 </template>
 
 <script>
-/* eslint-disable */
 import { mapState } from "vuex";
 import { serverUrl } from "@/store/urls";
 import { documentsUrls } from "@/store/urls";
 import IconPlusSquared from "@/components/common/icons/IconPlusSquared";
-import IconSettings from "@/components/common/icons/IconSettings";
-import IconBasket from "@/components/common/icons/IconBasket";
 import { required, fileMaxSize, isEmail } from "@/shared/validator";
 export default {
   name: "TableDocuments",
   components: {
-    IconPlusSquared,
-    IconSettings,
-    IconBasket
+    IconPlusSquared
   },
   data() {
     return {
@@ -232,6 +228,7 @@ export default {
       currentSort: "",
       currentSortDir: "asc",
       loading: false,
+      loadingId: null,
       price: 0,
       absolutesDisabled: false,
       color: "#688e74",
@@ -257,12 +254,34 @@ export default {
         nds: this.construction.nds || 0,
         price: 0,
         ndsValue: 0,
-        priceWithoutNds: 0,
+        priceWithoutNds: 0
       };
     },
     downloadFile(item) {
-      let url = `${this.serverUrl}${item.url}`;
-      window.open(url, "_blank");
+      this.loadingId = item.id;
+      this.$store
+        .dispatch("documents/downloadFile", { id: item.id })
+        .then(response => {
+          const url = window.URL.createObjectURL(new Blob([response]));
+          const link = document.createElement("a");
+          link.href = url;
+          link.setAttribute("download", `${item.name}.${item.contentType}`);
+          document.body.appendChild(link);
+          link.click();
+          window.URL.revokeObjectURL(url);
+          document.body.removeChild(link);
+        })
+        .catch(error => {
+          this.$notify({
+            group: "warn",
+            type: "error",
+            title: this.$i18n.messages[this.$i18n.locale]["attention"],
+            text: error
+          });
+        })
+        .finally(() => {
+          this.loadingId = null;
+        });
     },
     addDoc() {
       if (!this.$refs.addDocForm.validate()) {
@@ -363,16 +382,16 @@ export default {
       }
     },
     getStatus(status) {
-       switch (status) {
-         case "review":
-           return 2;
-         case "approved":
-           return 1;
-         case "rejected":
-           return 4;
-         default:
-           return 3;
-       }
+      switch (status) {
+        case "review":
+          return 2;
+        case "approved":
+          return 1;
+        case "rejected":
+          return 4;
+        default:
+          return 3;
+      }
     }
   },
   computed: {
@@ -427,7 +446,7 @@ export default {
   watch: {
     price(val) {
       val = parseFloat(val);
-      if(val < 0) {
+      if (val < 0) {
         val = 0;
         this.price = 0;
       }
