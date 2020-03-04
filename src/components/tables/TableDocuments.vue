@@ -262,14 +262,49 @@ export default {
       this.$store
         .dispatch("documents/downloadFile", { id: item.id })
         .then(response => {
-          const url = window.URL.createObjectURL(new Blob([response]));
-          const link = document.createElement("a");
-          link.href = url;
-          link.setAttribute("download", `${item.name}.${item.contentType}`);
-          document.body.appendChild(link);
-          link.click();
-          window.URL.revokeObjectURL(url);
-          document.body.removeChild(link);
+          let iOS =
+            !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
+
+          if (iOS) {
+            let type = "";
+            switch (item.contentType) {
+              case "pdf":
+                type = "application/pdf";
+                break;
+              case "txt":
+                type = "text/plain;charset=utf-8";
+                break;
+              case "xls":
+                type = "application/vnd.ms-excel";
+                break;
+              case "png":
+                type = "image/png";
+                break;
+              case "gif":
+                type = "image/gif";
+                break;
+              case "jpeg":
+                type = "image/jpeg";
+                break;
+            }
+
+            let reader = new FileReader();
+            let out = new Blob([response], { type: type });
+            reader.onload = () => {
+              window.location.href = reader.result;
+            };
+            reader.readAsDataURL(out);
+          } else {
+            const url = window.URL.createObjectURL(new Blob([response]));
+            const link = document.createElement("a");
+            link.href = url;
+            link.target = "_blank";
+            link.setAttribute("download", `${item.name}.${item.contentType}`);
+            document.body.appendChild(link);
+            link.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(link);
+          }
         })
         .catch(error => {
           this.$notify({
