@@ -344,8 +344,6 @@ export default {
           if (column.code === "term") {
             let date1 = a[column.code];
             let date2 = b[column.code];
-            date1 = date1[2] + "-" + date1[1] + "-" + date1[0];
-            date2 = date2[2] + "-" + date2[1] + "-" + date2[0];
             return new Date(date1) - new Date(date2);
           } else if (column.code === "status") {
             let columnA = this.getStatus(a[column.code]),
