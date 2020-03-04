@@ -242,7 +242,13 @@ export default {
   methods: {
     showDocModal() {
       this.showAddDocModal = true;
+      if (this.$refs.addDocForm) {
+        this.$refs.addDocForm.reset();
+        this.$refs.addDocForm.resetValidation();
+      }
       this.document = {
+        name: "",
+        term: "",
         nds: this.construction.nds || 0,
         price: 0,
         ndsValue: 0,
