@@ -158,7 +158,7 @@
               @submit.prevent="inviteUser"
             >
               <v-row>
-                <v-col cols="7">
+                <v-col cols="12" sm="4">
                   <v-text-field
                     v-model="invitedUser.email"
                     :label="$t('inviteUser')"
@@ -189,7 +189,7 @@
                     color="#688e74"
                   ></v-checkbox>
                 </v-col>
-                <v-col cols="4">
+                <v-col cols="12" sm="4">
                   <v-btn
                     class="invite"
                     small
@@ -241,7 +241,7 @@
                     </v-card-actions>
                   </v-card>
                   <v-row class="ma-0" style="flex-basis: 100%;">
-                    <v-col cols="7">
+                    <v-col cols="12" sm="4">
                       <v-text-field
                         :label="$t('invited')"
                         type="email"
@@ -254,7 +254,7 @@
                         disabled
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="4">
+                    <v-col cols="12" sm="4">
                       <v-btn
                         small
                         disabled

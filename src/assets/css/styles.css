@@ -337,11 +337,34 @@ input.nomenclature {
     top: 20px;
     right: 20px;
     left: auto; }
+    @media all and (max-width: 600px) {
+      .construction-settings-dialog .close-btn {
+        width: 20px;
+        height: 20px;
+        top: 10px;
+        right: 10px; }
+        .construction-settings-dialog .close-btn svg {
+          max-width: 100%; } }
   .construction-settings-dialog .v-card {
     position: relative;
     background: #F5F5F6 !important;
     padding-top: 15px;
     padding-left: 35px; }
+    @media all and (max-width: 960px) {
+      .construction-settings-dialog .v-card {
+        padding-left: 0;
+        padding-right: 0; } }
+    @media all and (max-width: 960px) {
+      .construction-settings-dialog .v-card .v-card__text {
+        padding-left: 0;
+        padding-right: 0; } }
+    @media all and (max-width: 480px) {
+      .construction-settings-dialog .v-card .v-card__actions .v-btn {
+        max-width: 50%;
+        width: auto !important;
+        min-width: 0;
+        height: 35px;
+        font-size: 12px; } }
     .construction-settings-dialog .v-card .v-input__slot {
       border-radius: 3px !important; }
     .construction-settings-dialog .v-card input::placeholder {
