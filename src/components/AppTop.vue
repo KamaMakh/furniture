@@ -287,6 +287,9 @@ $ffamily: "Roboto", sans-serif;
     &__logo {
       flex: 0 0 auto;
     }
+    &.scrollable {
+      overflow: auto;
+    }
   }
 }
 
