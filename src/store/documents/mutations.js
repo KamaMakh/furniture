@@ -21,4 +21,20 @@ function setConstruction(state, construction) {
   state.construction = construction;
 }
 
-export { setDocuments, setDocument, setAccess, setConstruction };
+function updateDocumentStatus(state, data) {
+  if (state.documents.length) {
+    state.documents.forEach((item, key) => {
+      if (item.id === data.id) {
+        state.documents[key]["status"] = data["status"];
+      }
+    });
+  }
+}
+
+export {
+  setDocuments,
+  setDocument,
+  setAccess,
+  setConstruction,
+  updateDocumentStatus
+};

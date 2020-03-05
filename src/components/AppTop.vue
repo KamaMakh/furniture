@@ -126,6 +126,9 @@ $ffamily: "Roboto", sans-serif;
   display: flex;
   justify-content: space-between;
   height: 45px;
+  @media all and(max-width: 1280px) {
+    max-width: 100%;
+  }
   &__logo {
     width: 50px;
     height: 45px;
@@ -150,10 +153,8 @@ $ffamily: "Roboto", sans-serif;
         font-family: $ffamily;
         font-style: normal;
         font-weight: normal;
-        font-size: 0;
         line-height: 21px;
         display: flex;
-        min-width: 0;
         width: 45px;
         height: 45px;
         align-items: center;
@@ -165,20 +166,26 @@ $ffamily: "Roboto", sans-serif;
         padding: 13px 7px;
         margin-right: 1px;
         text-decoration: none;
-        color: transparent;
+        color: #fff;
         background: #688e74;
         transition: all 0.3s;
         overflow: hidden;
+        min-width: 185px;
+        font-size: 16px;
         &:hover,
         &.active {
           background: #999;
           width: auto;
-          min-width: 185px;
-          font-size: 18px;
           color: #fff;
           .header-menu__icon {
             margin-right: 11px;
           }
+        }
+        @media all and(max-width: 1280px) {
+          font-size: 14px;
+          min-width: 0;
+          width: auto;
+          padding: 8px 5px 8px 5px;
         }
       }
     }
@@ -186,7 +193,7 @@ $ffamily: "Roboto", sans-serif;
   &__icon {
     width: 22px;
     height: 22px;
-    margin-right: 0;
+    margin-right: 11px;
   }
 }
 .options {
@@ -221,6 +228,12 @@ $ffamily: "Roboto", sans-serif;
         margin-right: 11px;
       }
     }
+    @media all and(max-width: 1280px) {
+      font-size: 14px;
+      min-width: 0;
+      width: auto;
+      padding: 8px 5px 8px 10px;
+    }
   }
   &__icon {
     width: 20px;
@@ -249,7 +262,7 @@ $ffamily: "Roboto", sans-serif;
   }
 }
 
-@media screen and(max-width: 768px) {
+@media screen and(max-width: 1280px) {
   .header-menu {
     ul {
       display: flex;
@@ -271,11 +284,8 @@ $ffamily: "Roboto", sans-serif;
     }
   }
   .header {
-    &.scrollable {
-      overflow: scroll;
-    }
     &__logo {
-      flex: 1 0 auto;
+      flex: 0 0 auto;
     }
   }
 }

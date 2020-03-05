@@ -67,9 +67,28 @@ function setConstruction({ commit }, data) {
   commit("setConstruction", data);
 }
 
+function changeDocStatus({ commit }, data) {
+  return new Promise((resolve, reject) => {
+    api
+      .post(documentsUrls.changeDocStatusUrl, data)
+      .then(response => {
+        if (response.status === 200) {
+          commit("updateDocumentStatus", response.data);
+          resolve(response.data);
+        } else {
+          reject(response.data.message);
+        }
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+}
+
 export {
   getDocuments,
   addDocument,
   setConstruction,
-  downloadFile
+  downloadFile,
+  changeDocStatus
 }

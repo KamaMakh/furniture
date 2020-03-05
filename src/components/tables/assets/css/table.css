@@ -192,4 +192,10 @@ label.title {
   .contentType.xls, .contentType.xlsx, .contentType.csv {
     background-image: url("../xls.png"); }
 
+.redCustom {
+  color: #7A0303 !important; }
+
+.greenCustom {
+  color: #00670A !important; }
+
 /*# sourceMappingURL=table.css.map */

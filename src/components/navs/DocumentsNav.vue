@@ -11,7 +11,7 @@
       <div v-else class="logo"></div>
       <div class="role">{{ role }}</div>
       <div class="name">
-        {{ user.fio }}
+        {{ user.fio | truncate }}
       </div>
     </div>
     <!--<div-->
@@ -38,7 +38,7 @@
             <!--@click.stop="editConstruction(item)"-->
             <!--class="icon"-->
             <!--&gt;</span>-->
-            {{ item.name }}
+            {{ item.name | truncate }}
           </a>
         </li>
       </ul>

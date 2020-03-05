@@ -1,7 +1,7 @@
 <template>
   <div class="flex-grow-1 furniture">
     <div class="col col-12 p-0">
-      <TableDocuments ref="table" />
+      <TableDocuments :leftMenuShow="leftMenuShow" ref="table" />
     </div>
   </div>
 </template>
@@ -11,6 +11,7 @@ import { mapState } from "vuex";
 import TableDocuments from "@/components/tables/TableDocuments";
 export default {
   name: "Documents",
+  props: ["leftMenuShow"],
   components: {
     TableDocuments
   },

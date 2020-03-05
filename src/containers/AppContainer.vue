@@ -25,7 +25,7 @@
           <AppLeft :navsType="navsType" />
         </v-navigation-drawer>
         <perfect-scrollbar class="content__body">
-          <router-view />
+          <router-view :leftMenuShow="leftMenuShow" />
         </perfect-scrollbar>
       </div>
     </div>

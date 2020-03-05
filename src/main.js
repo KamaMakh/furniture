@@ -67,6 +67,14 @@ router.beforeEach(async function(to, from, next) {
   }
 });
 
+Vue.filter("truncate", function (value) {
+  if (!value) return "";
+  if (value.length > 30) {
+    value = value.substring(0, 30) + "...";
+  }
+  return value;
+});
+
 new Vue({
   router,
   store,
