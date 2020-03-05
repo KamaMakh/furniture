@@ -133,6 +133,7 @@
   "rejected": "Rejected",
   "notrelevant": "Not relevant",
   "myAccount": "My account",
+  "documentMax": "You can download files up to {size} mb in size with the following extensions: pdf, word, exel, jpg, tif, autocad",
   "lp": {
     "first": {
       "title": "Know exactly how much the construction will cost",

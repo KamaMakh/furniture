@@ -84,7 +84,7 @@
                   :disabled="absolutesDisabled"
                 ></v-text-field>
               </v-col>
-              <v-col>
+              <v-col v-show="false">
                 <v-menu
                   v-model="menu2"
                   :disabled="absolutesDisabled"
@@ -102,7 +102,6 @@
                       :label="$t('term')"
                       light
                       :color="color"
-                      :rules="[rules.required]"
                       v-on="on"
                     ></v-text-field>
                   </template>
@@ -173,7 +172,9 @@
                   :rules="[rules.required, rules.max]"
                   show-size
                   :color="color"
-                  accept="image/jpeg, image/png, image/gif, .csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, application/pdf"
+                  :persistent-hint="true"
+                  :hint="$t('documentMax', { size: 5 })"
+                  accept=".dwg, application/acad, application/dxf, application/x-dwf, image/tiff, image/jpeg, .csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, .xls, .xlsx, .doc, .docx, application/pdf, application/pdf,application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                 ></v-file-input>
               </v-col>
             </v-row>
@@ -250,7 +251,7 @@ export default {
       }
       this.document = {
         name: "",
-        term: "",
+        termString: new Date().toISOString().substr(0, 10),
         nds: this.construction.nds || 0,
         price: 0,
         ndsValue: 0,
@@ -339,6 +340,10 @@ export default {
         .dispatch("documents/addDocument", formData)
         .then(() => {
           this.showAddDocModal = false;
+          if (this.$refs.addDocForm) {
+            this.$refs.addDocForm.reset();
+            this.$refs.addDocForm.resetValidation();
+          }
         })
         .catch(error => {
           this.$notify({
