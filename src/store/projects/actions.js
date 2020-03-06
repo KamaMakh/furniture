@@ -69,7 +69,7 @@ function requestModule({ commit }, module) {
     formData.append("name", module);
     api.post(requestModuleUrl, formData)
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         // commit("addConstruction", response.data);
         resolve();
       })

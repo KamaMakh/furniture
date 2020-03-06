@@ -29,6 +29,7 @@ export default {
   methods: {
     setLang() {
       this.$cookies.set("lang", this.$i18n.locale);
+      this.$vuetify.lang.current = this.$i18n.locale;
     }
   },
   watch: {
@@ -39,6 +40,7 @@ export default {
       this.$i18n.locale = val;
       this.$cookies.set("lang", val);
       this.$store.commit("setLang", val);
+      this.$vuetify.lang.current = val;
     }
   }
 };

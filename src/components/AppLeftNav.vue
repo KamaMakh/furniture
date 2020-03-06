@@ -12,6 +12,9 @@
     <div v-else-if="navsType === 'Documents'">
       <DocumentsNav />
     </div>
+    <div v-else-if="navsType === 'PhotoFixations'">
+      <PhotoFixationNav />
+    </div>
     <div
       v-else-if="['Settings', 'Finances', 'Personal'].indexOf(navsType) > -1"
     >
@@ -36,6 +39,7 @@ import FurnitureNav from "@/components/navs/FurnitureNav";
 import StatisticsNav from "@/components/navs/StatisticsNav";
 import SettingsNav from "@/components/navs/SettingsNav";
 import DocumentsNav from "@/components/navs/DocumentsNav";
+import PhotoFixationNav from "@/components/navs/PhotoFixationsNav";
 export default {
   name: "AppLeftNav",
   props: ["navsType"],
@@ -45,7 +49,8 @@ export default {
     FurnitureNav,
     StatisticsNav,
     SettingsNav,
-    DocumentsNav
+    DocumentsNav,
+    PhotoFixationNav
   },
   data() {
     return {

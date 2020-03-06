@@ -44,6 +44,14 @@
               {{ $t("users") }}
             </router-link>
           </li>
+          <li>
+            <router-link :to="{ name: 'PhotoFixations' }">
+              <span class="header-menu__icon">
+                <IconUsers width="20" height="19" />
+              </span>
+              {{ $t("photofixation") }}
+            </router-link>
+          </li>
         </ul>
       </div>
       <div class="header__options options">
@@ -155,7 +163,6 @@ $ffamily: "Roboto", sans-serif;
         font-weight: normal;
         line-height: 21px;
         display: flex;
-        width: 45px;
         height: 45px;
         align-items: center;
         text-align: center;
@@ -163,14 +170,15 @@ $ffamily: "Roboto", sans-serif;
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
         box-sizing: border-box;
-        padding: 13px 7px;
+        padding: 13px;
         margin-right: 1px;
         text-decoration: none;
         color: #fff;
         background: #688e74;
         transition: all 0.3s;
         overflow: hidden;
-        min-width: 185px;
+        min-width: 0;
+        width: auto;
         font-size: 16px;
         &:hover,
         &.active {

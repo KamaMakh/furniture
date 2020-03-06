@@ -1,5 +1,6 @@
 import { userUrls } from "../store/user/urls";
 import { documentsUrls } from "../store/documents/urls";
+import { galleryUrls } from "./photofixations/urls";
 
 const serverUrl =
   process.env.NODE_ENV === "development"
@@ -65,6 +66,7 @@ export {
   buyNomenclatureUrl,
   userUrls,
   documentsUrls,
+  galleryUrls,
   requestModuleUrl,
   invitemultipartUrl,
   getConstructionUrl

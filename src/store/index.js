@@ -6,6 +6,7 @@ import user from "./user";
 import projects from "./projects";
 import furniture from "./furniture";
 import documents from "./documents";
+import photofixations from "./photofixations";
 
 Vue.use(VueCookies);
 Vue.use(Vuex);
@@ -18,7 +19,8 @@ export default new Vuex.Store({
     user,
     projects,
     furniture,
-    documents
+    documents,
+    photofixations
   },
   state: {
     lang: VueCookies.get("lang") || navigator.language.split("-")[0] || "en"

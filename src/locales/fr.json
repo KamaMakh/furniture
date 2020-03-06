@@ -39,6 +39,7 @@
   "address": "Adresse",
   "order": "Ordre",
   "construction": "Chantier",
+  "warehouse": "Entrepôt",
   "documents": "Documents",
   "price": "Prix",
   "total": "Total",
@@ -117,6 +118,7 @@
   "locality": "Ville",
   "policyText": "Conditions d'utilisation et<br> politique de confidentialité",
   "maxSize": "La taille de l'image doit être inférieure à {size} Mo!",
+  "maxCount": "Nombre maximum de photos {count}",
   "inviteList": "Liste des utilisateurs",
   "photofixation": "Photofixation",
   "userStatus": "Statut d'utilisateur",
@@ -132,6 +134,8 @@
   "rejected": "rejeté",
   "notrelevant": "Non pertinent",
   "myAccount": "Mon compte",
+  "ok": "Ok",
+  "edit": "Modifier",
   "documentMax": "Vous pouvez télécharger des fichiers jusqu'à {size} mb avec les extensions suivantes: pdf, word, exel, jpg, tif, autocad",
   "lp": {
     "first": {

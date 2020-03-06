@@ -15,6 +15,7 @@ import Index from "../views/Index";
 import ConfirmText from "../views/ConfirmText";
 import Finances from "../views/Finances";
 import Personal from "../views/Personal";
+import PhotoFixation from "../views/PhotoFixation";
 
 Vue.use(VueRouter);
 
@@ -75,6 +76,11 @@ const routes = [
         path: "/users",
         name: "Users",
         component: Users
+      },
+      {
+        path: "/photofixations",
+        name: "PhotoFixations",
+        component: PhotoFixation
       },
       {
         path: "/privacy_policy",

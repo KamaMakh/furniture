@@ -118,6 +118,7 @@
   "locality": "Ortschaft",
   "policyText": "Nutzungsbedingungen und<br> Datenschutzbestimmungen",
   "maxSize": "Die Bildgröße muss weniger als {size} MB betragen!",
+  "maxCount": "Maximale Anzahl von Bildern {count}",
   "inviteList": "Benutzerliste",
   "photofixation": "Photofixation",
   "userStatus": "Benutzerstatus",
@@ -133,6 +134,8 @@
   "rejected": "Abgelehnt",
   "notrelevant": "Nicht relevant",
   "myAccount": "Mein Konto",
+  "ok": "Ok",
+  "edit": "Bearbeiten",
   "documentMax": "Sie können Dateien bis zu einer Größe von {Größe} MB mit den folgenden Erweiterungen herunterladen: pdf, word, exel, jpg, tif, autocad",
   "lp": {
     "first": {

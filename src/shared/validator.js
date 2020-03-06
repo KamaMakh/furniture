@@ -41,9 +41,38 @@ const required = value => {
   }
 };
 
+const requiredMultipleFiles = value => {
+  if (
+    value === undefined ||
+    value === null ||
+    value === "" ||
+    value.length === 0
+  ) {
+    return false;
+  } else {
+    return true;
+  }
+};
+
 const fileMaxSize = (value, maxSize) => {
   if (value === undefined || value === null) return false;
-  return value.size < maxSize;
+  return value.size <= maxSize;
+};
+
+const fileMultipleSize = (value, maxSize) => {
+  if (value === undefined || value === null) return false;
+  let validSize = true;
+  if (value.length) {
+    value.forEach(item => {
+      if (item.size >= maxSize) validSize = false;
+    });
+  }
+  return validSize;
+};
+
+const fileMaxCount = (value, maxCount) => {
+  if (value === undefined || value === null) return false;
+  return value.length <= maxCount;
 };
 
 export {
@@ -55,5 +84,8 @@ export {
   isHasEnglishLetter,
   minLength,
   required,
-  fileMaxSize
+  fileMaxSize,
+  fileMaxCount,
+  fileMultipleSize,
+  requiredMultipleFiles
 };

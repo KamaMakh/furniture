@@ -10,6 +10,7 @@ export default {
   name: "AppContainer",
   created() {
     this.$i18n.locale = this.$store.state.lang;
+    this.$vuetify.lang.current = this.$store.state.lang;
   }
 };
 </script>

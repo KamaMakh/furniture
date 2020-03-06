@@ -118,6 +118,7 @@
   "locality": "Locality",
   "policyText": "Terms of Use and<br> Privacy Policy",
   "maxSize": "Image size should be less than {size} MB!",
+  "maxCount": "Maximum number of pictures {count}",
   "inviteList": "List of users",
   "photofixation": "Photofixation",
   "userStatus": "User status",
@@ -133,6 +134,8 @@
   "rejected": "Rejected",
   "notrelevant": "Not relevant",
   "myAccount": "My account",
+  "edit": "Edit",
+  "ok": "Ok",
   "documentMax": "You can download files up to {size} mb in size with the following extensions: pdf, word, exel, jpg, tif, autocad",
   "lp": {
     "first": {
