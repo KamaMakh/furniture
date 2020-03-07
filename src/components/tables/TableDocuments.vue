@@ -24,7 +24,9 @@
             <span
               :class="{
                 'ml-0': key === 0,
-                ellipsis: key !== 0 && item.code !== 'creationDate'
+                ellipsis:
+                  (key !== 0 && item.code !== 'creationDate') ||
+                  windowWidth < 960
               }"
             >
               {{ key === 0 ? $t("documentName") : item.name }}
