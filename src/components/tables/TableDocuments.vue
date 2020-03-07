@@ -21,8 +21,13 @@
             >
               <IconPlusSquared width="19" height="19" fill="#999" />
             </span>
-            <span :class="{ 'ml-0': key === 0, ellipsis: true }">
-              {{ item.name }}
+            <span
+              :class="{
+                'ml-0': key === 0,
+                ellipsis: key !== 0 && item.code !== 'creationDate'
+              }"
+            >
+              {{ key === 0 ? $t("documentName") : item.name }}
             </span>
           </td>
         </tr>
@@ -50,9 +55,6 @@
               </v-btn>
             </div>
           </td>
-          <!--<td>-->
-          <!--{{ formatDate(item.term) }}-->
-          <!--</td>-->
           <td>
             <v-menu offset-y>
               <template v-slot:activator="{ on }">
@@ -96,6 +98,9 @@
           </td>
           <td>
             {{ item.price }}
+          </td>
+          <td>
+            {{ formatDate(item.creationDate) }}
           </td>
         </tr>
       </tbody>
@@ -487,7 +492,7 @@ export default {
           if (this.currentSort === column.code) {
             return 0;
           }
-          if (column.code === "term") {
+          if (column.code === "creationDate") {
             let date1 = a[column.code];
             let date2 = b[column.code];
             return new Date(date1) - new Date(date2);
@@ -525,7 +530,7 @@ export default {
     ...mapState({
       rows: state => state.documents.documents || [],
       construction: state => state.documents.construction,
-      constructions: state => state.furniture.constructions,
+      constructions: state => state.documents.constructions,
       user: state => state.user.user,
       lang: state => state.lang,
       access: state => state.documents.access,
@@ -541,11 +546,6 @@ export default {
             sortable: false,
             code: "file"
           },
-          // {
-          //   name: this.$i18n.messages[state.lang]["deadlines"],
-          //   sortable: true,
-          //   code: "term"
-          // },
           {
             name: this.$i18n.messages[state.lang]["status"],
             sortable: true,
@@ -565,6 +565,11 @@ export default {
             name: this.$i18n.messages[state.lang]["sum_price"],
             sortable: true,
             code: "totalPrice"
+          },
+          {
+            name: this.$i18n.messages[state.lang]["creationDate"],
+            sortable: true,
+            code: "creationDate"
           }
         ];
       }
@@ -581,7 +586,7 @@ export default {
       this.updatePrices();
     },
     date() {
-      this.document.term = this.formatDate(this.date);
+      this.document.creationDate = this.formatDate(this.date);
     },
     leftMenuShow() {
       this.getDocNameWidth();

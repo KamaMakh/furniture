@@ -7,5 +7,6 @@ export let documentsUrls = {
   addDocUrl: `${serverUrl}/api/estimate/add`,
   getOneDocUrl: `${serverUrl}/api/estimate/get`,
   getAllDocsUrl: `${serverUrl}/api/estimate/findbyproject`,
-  changeDocStatusUrl: `${serverUrl}/api/estimate/status/change`
+  changeDocStatusUrl: `${serverUrl}/api/estimate/status/change`,
+  getConstructionsUrl: `${serverUrl}/api/estimate/project/get/all`
 };

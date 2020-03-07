@@ -137,6 +137,8 @@
   "ok": "Ok",
   "edit": "Modifier",
   "documentMax": "Vous pouvez télécharger des fichiers jusqu'à {size} mb avec les extensions suivantes: pdf, word, exel, jpg, tif, autocad",
+  "documentName": "Titre du document",
+  "creationDate": "Date de création",
   "lp": {
     "first": {
       "title": "Savoir exactement combien coûtera la construction",

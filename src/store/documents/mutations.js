@@ -31,10 +31,46 @@ function updateDocumentStatus(state, data) {
   }
 }
 
+function setConstructions(state, constructions) {
+  state.constructions = constructions;
+}
+
+function updateConstruction(state, construction) {
+  state.constructions.forEach((item, key) => {
+    if (item.id === construction.id) {
+      state.constructions[key] = construction;
+    }
+  });
+}
+
+function closeConstruction(state, construction) {
+  state.constructions.forEach((item, key) => {
+    if (item.id === construction.id) {
+      state.constructions.splice(key, 1);
+      if (state.construction.id === construction.id) {
+        state.construction = {};
+      }
+    }
+  });
+}
+
+function addConstruction(state, construction) {
+  state.constructions.unshift(construction);
+}
+
+function ignore() {
+  return "ignored";
+}
+
 export {
   setDocuments,
   setDocument,
   setAccess,
   setConstruction,
-  updateDocumentStatus
+  updateDocumentStatus,
+  setConstructions,
+  updateConstruction,
+  closeConstruction,
+  ignore,
+  addConstruction
 };

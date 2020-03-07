@@ -22,19 +22,14 @@ export default {
   },
   methods: {
     setDefaultData() {
-      if (
-        !this.$store.state.documents.documents.length &&
-        this.$store.state.furniture.constructions[0]
-      ) {
+      if (this.$store.state.documents.constructions[0]) {
         this.$store.dispatch("documents/getDocuments", {
-          projectId: this.$store.state.furniture.constructions[0]["id"]
+          projectId: this.$store.state.documents.constructions[0]["id"]
         });
-        if (this.$store.state.documents.construction.id === undefined) {
-          this.$store.dispatch(
-            "documents/setConstruction",
-            this.$store.state.furniture.constructions[0]
-          );
-        }
+        this.$store.dispatch(
+          "documents/setConstruction",
+          this.$store.state.documents.constructions[0]
+        );
       }
     }
   },
@@ -45,7 +40,7 @@ export default {
       referer: document.referrer
     });
     return new Promise(() => {
-      this.$store.dispatch("furniture/getConstructions").then(() => {
+      this.$store.dispatch("documents/getConstructions").then(() => {
         this.setDefaultData();
       });
     });

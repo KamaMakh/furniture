@@ -13,10 +13,7 @@ export default {
   },
   methods: {
     setDefaultData() {
-      if (
-        !this.$store.state.photofixations.photoList.length &&
-        this.$store.state.photofixations.constructions[0]
-      ) {
+      if (this.$store.state.photofixations.constructions[0]) {
         this.$store.commit("photofixations/setLoadingStatus", true);
         this.$store
           .dispatch("photofixations/getAllPhotos", {

@@ -14,6 +14,18 @@
         {{ user.fio | truncate }}
       </div>
     </div>
+    <div
+      class="sidebar__btn"
+      @click="
+        showAddModal = true;
+        newConstruction = {};
+      "
+    >
+      {{ $t("add_constr") }}
+      <span class="icon">
+        <IconPlusSquared width="19" height="19" />
+      </span>
+    </div>
     <div class="sidebar_list menu-left">
       <ul v-if="constructions">
         <li v-for="(item, key) in constructions" :key="key">
@@ -21,6 +33,11 @@
             :class="{ active: construction.id === item.id }"
             @click="chooseConstruction(item)"
           >
+            <span
+              v-if="item.creatorId === user.id"
+              @click.stop="editConstruction(item)"
+              class="icon"
+            ></span>
             {{ item.name | truncate }}
           </a>
         </li>
@@ -343,13 +360,13 @@
 <script>
 import { mapState } from "vuex";
 import { serverUrl } from "@/store/urls";
-// import IconPlusSquared from "@/components/common/icons/IconPlusSquared";
+import IconPlusSquared from "@/components/common/icons/IconPlusSquared";
 import IconClose from "@/components/common/icons/IconClose";
 
 export default {
   name: "DocumentsNav",
   components: {
-    // IconPlusSquared,
+    IconPlusSquared,
     IconClose
   },
   data() {
@@ -380,7 +397,7 @@ export default {
   computed: {
     ...mapState({
       construction: state => state.documents.construction,
-      constructions: state => state.furniture.constructions,
+      constructions: state => state.documents.constructions,
       user: state => state.user.user,
       avatarPath: state => state.user.avatarPath,
       role: state => {
@@ -411,7 +428,7 @@ export default {
       );
 
       this.$store
-        .dispatch("furniture/inviteMultipartUser", formData)
+        .dispatch("documents/inviteMultipartUser", formData)
         .then(() => {
           this.invitedUser = {};
           this.editConstruction(this.newConstruction);
@@ -438,7 +455,7 @@ export default {
       formData.append("accessPhotofixation", !!user.accessPhotofixation);
 
       this.$store
-        .dispatch("furniture/inviteMultipartUser", formData)
+        .dispatch("documents/inviteMultipartUser", formData)
         .then(() => {
           // this.invitedUser = {};
           // this.editConstruction(this.newConstruction);
@@ -463,7 +480,7 @@ export default {
       this.loading = true;
       if (this.newConstruction.id === undefined) {
         this.$store
-          .dispatch("furniture/addConstruction", this.newConstruction)
+          .dispatch("documents/addConstruction", this.newConstruction)
           .then(() => {
             this.showAddModal = false;
           })
@@ -492,7 +509,7 @@ export default {
         formData.append("address", this.newConstruction.address);
         formData.append("nds", this.newConstruction.nds);
         this.$store
-          .dispatch("furniture/updateConstruction", formData)
+          .dispatch("documents/updateConstruction", formData)
           .then(() => {
             this.showAddModal = false;
             this.showEditModal = false;
@@ -525,7 +542,7 @@ export default {
       this.$store.dispatch("documents/setConstruction", item);
     },
     editConstruction(item) {
-      this.$store.dispatch("furniture/getConstruction", item).then(() => {
+      this.$store.dispatch("documents/getConstruction", item).then(() => {
         this.newConstruction = this.construction;
         this.invitedUser = {};
         this.showEditModal = true;
@@ -541,7 +558,7 @@ export default {
       formData.append("projectId", this.newConstruction.id);
       formData.append("active", false);
       this.$store
-        .dispatch("furniture/updateConstruction", formData)
+        .dispatch("documents/updateConstruction", formData)
         .then(() => {
           this.removeModal = false;
           this.showEditModal = false;
