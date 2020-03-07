@@ -1,8 +1,12 @@
 function setFixations(state, photos) {
-  if (!photos) {
-    photos = [];
+  if (!photos.photofixations) {
+    photos.photofixations = [];
   }
-  state.photoList = photos;
+  if (!photos.totalPhotofixationsCount) {
+    photos.totalPhotofixationsCount = 1;
+  }
+  state.photoList = photos.photofixations;
+  state.total = photos.totalPhotofixationsCount;
 }
 
 function addOneFixation(state, data) {
@@ -31,16 +35,43 @@ function updateOneFixationPhotos(state, data) {
   }
 }
 
+function setConstructions(state, constructions) {
+  state.constructions = constructions;
+}
+
+function updateConstruction(state, construction) {
+  state.constructions.forEach((item, key) => {
+    if (item.id === construction.id) {
+      state.constructions[key] = construction;
+    }
+  });
+}
+
+function closeConstruction(state, construction) {
+  state.constructions.forEach((item, key) => {
+    if (item.id === construction.id) {
+      state.constructions.splice(key, 1);
+      if (state.construction.id === construction.id) {
+        state.construction = {};
+      }
+    }
+  });
+}
+
+function addConstruction(state, construction) {
+  state.constructions.unshift(construction);
+}
+
+function ignore() {
+  return "ignored";
+}
+
 function setLoadingStatus(state, data) {
   state.listLoading = data;
 }
 
 function setConstruction(state, construction) {
   state.construction = construction;
-}
-
-function setConstructions(state, constructions) {
-  state.constructions = constructions;
 }
 
 export {
@@ -50,5 +81,9 @@ export {
   updateOneFixationPhotos,
   setLoadingStatus,
   setConstruction,
-  setConstructions
+  setConstructions,
+  updateConstruction,
+  closeConstruction,
+  ignore,
+  addConstruction
 };

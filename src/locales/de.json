@@ -139,6 +139,7 @@
   "documentMax": "Sie können Dateien bis zu einer Größe von {Größe} MB mit den folgenden Erweiterungen herunterladen: pdf, word, exel, jpg, tif, autocad",
   "documentName": "Titel des Dokuments",
   "creationDate": "Erstellungsdatum",
+  "author": "Der Autor",
   "lp": {
     "first": {
       "title": "Wissen Sie genau, wie viel der Bau kosten wird",

@@ -3,5 +3,6 @@ export default {
   constructions: [],
   photoList: [],
   onePhoto: {},
-  listLoading: true
+  listLoading: true,
+  total: 1
 };

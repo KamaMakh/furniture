@@ -139,6 +139,7 @@
   "documentMax": "You can download files up to {size} mb in size with the following extensions: pdf, word, exel, jpg, tif, autocad",
   "documentName": "Document name",
   "creationDate": "Creation date",
+  "author": "Author",
   "lp": {
     "first": {
       "title": "Know exactly how much the construction will cost",

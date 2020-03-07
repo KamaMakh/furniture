@@ -46,6 +46,14 @@
           </v-col>
           <v-col cols="10">
             <v-row>
+              <v-col cols="12">
+                <v-row>
+                  <v-col xs="10" class="text-left" style="color: #999;">
+                    {{ $t("creationDate") }}:
+                    {{ formatDate(fixation.dateCreate) }}
+                  </v-col>
+                </v-row>
+              </v-col>
               <v-col
                 v-for="(photo, photoKey) in fixation.photos"
                 :key="photoKey + photo"
@@ -147,6 +155,14 @@
               </v-col>
             </v-row>
           </v-col>
+          <v-col cols="12">
+            <v-row>
+              <v-col v-if="construction.creatorId === user.id" cols="2"></v-col>
+              <v-col sm="10" class="text-left" style="color: #999;">
+                {{ $t("author") }}: {{ fixation.photoCreatorName }}
+              </v-col>
+            </v-row>
+          </v-col>
           <v-col v-if="fixation.comment" cols="12" class="pb-0">
             <v-divider class="pb-0"></v-divider>
           </v-col>
@@ -162,7 +178,11 @@
       </v-container>
     </v-card>
     <div class="text-center">
-      <v-pagination v-model="page" :color="color" :length="2"></v-pagination>
+      <v-pagination
+        v-model="page"
+        :color="color"
+        :length="pagesCount"
+      ></v-pagination>
     </div>
 
     <v-btn
@@ -553,6 +573,17 @@ export default {
       setTimeout(() => {
         document.getElementById(refName).click();
       }, 500);
+    },
+    formatDate(date) {
+      let d = new Date(date),
+        month = "" + (d.getMonth() + 1),
+        day = "" + d.getDate(),
+        year = d.getFullYear();
+
+      if (month.length < 2) month = "0" + month;
+      if (day.length < 2) day = "0" + day;
+
+      return [day, month, year].join(".");
     }
   },
   computed: {
@@ -561,7 +592,8 @@ export default {
       photoList: state => state.photofixations.photoList,
       listLoading: state => state.photofixations.listLoading,
       user: state => state.user.user,
-      lang: state => state.lang
+      lang: state => state.lang,
+      pagesCount: state => Math.ceil(state.photofixations.total / 10)
     })
   },
   watch: {
@@ -583,6 +615,17 @@ export default {
             });
           }, 500);
         });
+    },
+    construction() {
+      this.page = 1;
+      let scrollElement = document.querySelector(".content__body.ps");
+      setTimeout(() => {
+        scrollElement.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: "smooth"
+        });
+      }, 500);
     }
   }
 };
