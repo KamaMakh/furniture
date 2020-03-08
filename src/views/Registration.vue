@@ -147,7 +147,8 @@ export default {
         return;
       }
       let role = "SUPERVISOR",
-        currency = 1;
+        currency = 1,
+        hostName = document.location.hostname;
 
       this.loading = true;
       this.$store
@@ -158,7 +159,8 @@ export default {
           phone: this.form.phone,
           role: role,
           currencyId: currency,
-          info: this.form.info
+          info: this.form.info,
+          adrSite: hostName
         })
         .then(() => {
           this.$store.dispatch("user/getVerifyCode");

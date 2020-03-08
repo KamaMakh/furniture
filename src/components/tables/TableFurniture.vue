@@ -159,11 +159,11 @@
             </div>
           </td>
           <!--<td-->
-            <!--v-if="item.price !== undefined && ndsColumns"-->
-            <!--width="5%"-->
-            <!--@click="showEditNomenclature(item, $event)"-->
+          <!--v-if="item.price !== undefined && ndsColumns"-->
+          <!--width="5%"-->
+          <!--@click="showEditNomenclature(item, $event)"-->
           <!--&gt;-->
-            <!--{{ item.nds }}-->
+          <!--{{ item.nds }}-->
           <!--</td>-->
           <td
             v-if="item.price !== undefined"
@@ -242,12 +242,7 @@
             {{ $t("close") }}
           </v-btn>
 
-          <v-btn
-            :color="color"
-            text
-            :loading="loading"
-            @click="addGroup"
-          >
+          <v-btn :color="color" text :loading="loading" @click="addGroup">
             {{ $t("save") }}
           </v-btn>
         </v-card-actions>
@@ -594,12 +589,7 @@
             {{ $t("close") }}
           </v-btn>
 
-          <v-btn
-            :color="color"
-            text
-            :loading="loading"
-            @click="deletePhoto"
-          >
+          <v-btn :color="color" text :loading="loading" @click="deletePhoto">
             {{ $t("delete") }}
           </v-btn>
         </v-card-actions>
