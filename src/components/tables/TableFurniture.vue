@@ -72,6 +72,7 @@
           </td>
           <td
             v-else
+            width="30%"
             style="display: table-cell; padding: 10px 5px;"
             @click="showEditNomenclature(item, $event)"
           >
@@ -101,7 +102,7 @@
                 </v-img>
               </span>
               <span v-else class="icon no-img"></span>
-              <span class="ellipsis" :title="item.name">
+              <span class="ellipsis ml-0" :title="item.name">
                 {{ item.name }}
               </span>
               <span
@@ -116,14 +117,14 @@
           </td>
           <td
             v-if="item.price !== undefined"
-            width="6%"
+            width="5%"
             @click="showEditNomenclature(item, $event)"
           >
             {{ item.count }}
           </td>
           <td
             v-if="item.price !== undefined"
-            width="6%"
+            width="5%"
             @click="showEditNomenclature(item, $event)"
           >
             {{ item.units ? item.units.abName : "" }}
@@ -131,14 +132,14 @@
 
           <td
             v-if="item.price !== undefined"
-            width="8%"
+            width="7%"
             @click="showEditNomenclature(item, $event)"
           >
             {{ item.term }}
           </td>
           <td
             v-if="item.price !== undefined"
-            width="10%"
+            width="9%"
             style="word-break: initial"
             @click="showEditNomenclature(item, $event)"
           >
@@ -157,52 +158,52 @@
               </span>
             </div>
           </td>
-          <td
-            v-if="item.price !== undefined && ndsColumns"
-            width="6%"
-            @click="showEditNomenclature(item, $event)"
-          >
-            {{ item.nds }}
-          </td>
+          <!--<td-->
+            <!--v-if="item.price !== undefined && ndsColumns"-->
+            <!--width="5%"-->
+            <!--@click="showEditNomenclature(item, $event)"-->
+          <!--&gt;-->
+            <!--{{ item.nds }}-->
+          <!--</td>-->
           <td
             v-if="item.price !== undefined"
-            width="6%"
+            width="5%"
             @click="showEditNomenclature(item, $event)"
           >
             {{ item.priceWithoutNds }}
           </td>
           <td
             v-if="item.price !== undefined && ndsColumns"
-            width="6%"
+            width="5%"
             @click="showEditNomenclature(item, $event)"
           >
             {{ item.price }}
           </td>
           <td
             v-if="item.price !== undefined && ndsColumns"
-            width="6%"
+            width="5%"
             @click="showEditNomenclature(item, $event)"
           >
             {{ item.ndsValue }}
           </td>
           <td
             v-if="item.price !== undefined"
-            width="6%"
+            width="5%"
             @click="showEditNomenclature(item, $event)"
           >
             {{ item.totalPrice }}
           </td>
           <td
             v-if="item.price !== undefined"
-            width="6%"
+            width="5%"
             @click="showEditNomenclature(item, $event)"
           >
             <span class="ellipsis">
               {{ item.magazine }}
             </span>
           </td>
-          <td v-if="item.price !== undefined" width="20%">
-            <span class="ellipsis" style="max-width: 120px;">
+          <td v-if="item.price !== undefined" width="18%">
+            <span class="ellipsis" style="max-width: 120px; text-align: left;">
               <a :href="item.link" target="_blank">{{ item.link }}</a>
             </span>
           </td>
@@ -237,12 +238,12 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="red darken-1" text @click="showAddModal = false">
+          <v-btn color="grey darken-1" text @click="showAddModal = false">
             {{ $t("close") }}
           </v-btn>
 
           <v-btn
-            color="green darken-1"
+            :color="color"
             text
             :loading="loading"
             @click="addGroup"
@@ -260,7 +261,7 @@
         </v-card-title>
         <v-card-actions>
           <v-btn
-            color="red darken-1"
+            color="grey darken-1"
             text
             @click="showRemoveNomekModal = false"
           >
@@ -268,7 +269,7 @@
           </v-btn>
 
           <v-btn
-            color="green darken-1"
+            color="color"
             text
             :loading="loading"
             @click="deleteNomenclature"
@@ -520,7 +521,7 @@
                     :label="`${$t('confirmed')} ${item.nameMustConfirmed}`"
                   ></v-checkbox>
                 </div>
-                <div class="form-group row justify-content-end pr-3 ml-0 mr-0">
+                <div class="form-group row justify-space-between ml-0 mr-0">
                   <v-btn
                     v-if="
                       (nomenclature.creatorId === user.id ||
@@ -586,7 +587,7 @@
         </v-card-title>
         <v-card-actions>
           <v-btn
-            color="red darken-1"
+            color="grey darken-1"
             text
             @click="showRemovePhotoModal = false"
           >
@@ -594,7 +595,7 @@
           </v-btn>
 
           <v-btn
-            color="green darken-1"
+            :color="color"
             text
             :loading="loading"
             @click="deletePhoto"
@@ -644,7 +645,7 @@ export default {
       nomenclature: {},
       showFormErrors: false,
       serverUrl: serverUrl,
-      tdWidths: [18, 6, 6, 10, 6, 6, 6, 6, 6, 6, 6, 20],
+      tdWidths: [30, 5, 5, 7, 9, 5, 5, 5, 5, 5, 5, 18],
       updatingId: null,
       price: 0,
       photos: [],
@@ -659,6 +660,7 @@ export default {
       addGroupValid: true,
       addNomenclatureValid: true,
       rules: [v => !!v || this.$t("required")],
+      color: "#688e74",
       emailRules: [
         v => !!v || this.$t("required"),
         v => /.+@.+\..+/.test(v) || this.$t("invalid_email")
@@ -1263,11 +1265,11 @@ export default {
               sortable: true,
               code: "status"
             },
-            {
-              name: this.$i18n.messages[state.lang]["vatRate"],
-              sortable: true,
-              code: "nds"
-            },
+            // {
+            //   name: this.$i18n.messages[state.lang]["vatRate"],
+            //   sortable: true,
+            //   code: "nds"
+            // },
             {
               name: this.$i18n.messages[state.lang]["priceWithoutNds"],
               sortable: true,
@@ -1434,7 +1436,7 @@ $ffamily: "Roboto", sans-serif;
       }
       td span.ellipsis {
         display: block;
-        max-width: 85px;
+        max-width: 95px;
         white-space: nowrap;
         overflow: hidden;
         margin: 0 auto;
