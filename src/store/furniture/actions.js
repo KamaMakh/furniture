@@ -16,9 +16,7 @@ import {
   updateConstructUrl,
   getSubscribesListUrl,
   createOrderUrl,
-  inviteUserUrl,
   buyNomenclatureUrl,
-  invitemultipartUrl,
   getConstructionUrl
 } from "@/store/urls";
 
@@ -475,58 +473,6 @@ function createOrder({ commit }, data) {
   });
 }
 
-function inviteUser({ commit }, data) {
-  commit("ignore");
-  return new Promise((resolve, reject) => {
-    api
-      .post(inviteUserUrl, data)
-      .then(response => {
-        if (
-          response.data.status &&
-          response.data.status === "OK" &&
-          response.status === 200
-        ) {
-          resolve(response.data);
-        } else {
-          reject(response.data);
-        }
-      })
-      .catch(error => {
-        if (error.response && error.response.status === 200) {
-          resolve(error.response);
-        } else {
-          reject(error.response);
-        }
-      });
-  });
-}
-
-function inviteMultipartUser({ commit }, data) {
-  commit("ignore");
-  return new Promise((resolve, reject) => {
-    api
-      .post(invitemultipartUrl, data)
-      .then(response => {
-        if (
-          response.data.status &&
-          response.data.status === "OK" &&
-          response.status === 200
-        ) {
-          resolve(response.data);
-        } else {
-          reject(response.data);
-        }
-      })
-      .catch(error => {
-        if (error.response && error.response.status === 200) {
-          resolve(error.response);
-        } else {
-          reject(error.response);
-        }
-      });
-  });
-}
-
 function editEnabledGroups({ commit }, data) {
   commit("editEnabledGroups", data);
 }
@@ -557,7 +503,5 @@ export {
   getSubscribesList,
   createOrder,
   editEnabledGroups,
-  inviteUser,
-  inviteMultipartUser,
   getConstruction
 };

@@ -1,6 +1,7 @@
 import { userUrls } from "../store/user/urls";
 import { documentsUrls } from "../store/documents/urls";
 import { galleryUrls } from "./photofixations/urls";
+import { constructionUrls } from "./constructions/urls";
 
 const serverUrl =
   process.env.NODE_ENV === "development"
@@ -31,6 +32,7 @@ const getSubscribesListUrl = `${serverUrl}/api/payment/price/get`;
 const createOrderUrl = `${serverUrl}/api/payment/tinkoff/order/create`;
 const uploadAvatarUrl = `${serverUrl}/api/user/profile/avatar/update`;
 const inviteUserUrl = `${serverUrl}/api/furniture/project/invite`;
+const removeUserUrl = `${serverUrl}/api/reginvite/delete`;
 const buyNomenclatureUrl = `${serverUrl}/api/furniture/nomenclature/status/buy`;
 const requestModuleUrl = `${serverUrl}/api/order/module`;
 const invitemultipartUrl = `${serverUrl}/api/reginvite/invite`;
@@ -69,5 +71,7 @@ export {
   galleryUrls,
   requestModuleUrl,
   invitemultipartUrl,
-  getConstructionUrl
+  removeUserUrl,
+  getConstructionUrl,
+  constructionUrls
 };

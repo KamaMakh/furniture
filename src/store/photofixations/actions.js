@@ -1,6 +1,6 @@
 /* eslint-disable */
 import api from "@/shared/api";
-import { galleryUrls, getConstructionUrl, updateConstructUrl, inviteUserUrl, invitemultipartUrl, createConstructUrl } from "@/store/urls"
+import { galleryUrls, getConstructionUrl, updateConstructUrl, createConstructUrl } from "@/store/urls"
 
 function getConstructions({ commit }) {
   return new Promise((resolve, reject) => {
@@ -171,58 +171,6 @@ function updateConstruction({ commit }, data) {
   });
 }
 
-function inviteUser({ commit }, data) {
-  commit("ignore");
-  return new Promise((resolve, reject) => {
-    api
-      .post(inviteUserUrl, data)
-      .then(response => {
-        if (
-          response.data.status &&
-          response.data.status === "OK" &&
-          response.status === 200
-        ) {
-          resolve(response.data);
-        } else {
-          reject(response.data);
-        }
-      })
-      .catch(error => {
-        if (error.response && error.response.status === 200) {
-          resolve(error.response);
-        } else {
-          reject(error.response);
-        }
-      });
-  });
-}
-
-function inviteMultipartUser({ commit }, data) {
-  commit("ignore");
-  return new Promise((resolve, reject) => {
-    api
-      .post(invitemultipartUrl, data)
-      .then(response => {
-        if (
-          response.data.status &&
-          response.data.status === "OK" &&
-          response.status === 200
-        ) {
-          resolve(response.data);
-        } else {
-          reject(response.data);
-        }
-      })
-      .catch(error => {
-        if (error.response && error.response.status === 200) {
-          resolve(error.response);
-        } else {
-          reject(error.response);
-        }
-      });
-  });
-}
-
 function addConstruction({ commit }, data) {
   return new Promise((resolve, reject) => {
     api
@@ -260,7 +208,5 @@ export {
   addPhoto,
   updateConstruction,
   getConstruction,
-  inviteUser,
-  inviteMultipartUser,
   addConstruction
 }
