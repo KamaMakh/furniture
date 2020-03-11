@@ -143,6 +143,7 @@
   "documentName": "Titel des Dokuments",
   "creationDate": "Erstellungsdatum",
   "author": "Der Autor",
+  "isYourEmail": "Sie können sich nicht auf die Baustelle einladen.",
   "lp": {
     "first": {
       "title": "Wissen Sie genau, wie viel der Bau kosten wird",

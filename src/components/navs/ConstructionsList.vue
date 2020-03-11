@@ -165,9 +165,9 @@
                     type="email"
                     outlined
                     dense
+                    :rules="isYourEmail"
                     color="#688e74"
                     background-color="#fff"
-                    hide-details
                   ></v-text-field>
 
                   <v-checkbox
@@ -391,7 +391,8 @@ export default {
       emailRules: [
         v => !!v || this.$t("required"),
         v => /.+@.+\..+/.test(v) || this.$t("invalid_email")
-      ]
+      ],
+      isYourEmail: [v => v !== this.user.email || this.$t("isYourEmail")]
     };
   },
   computed: {

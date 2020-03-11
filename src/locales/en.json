@@ -143,6 +143,7 @@
   "documentName": "Document name",
   "creationDate": "Creation date",
   "author": "Author",
+  "isYourEmail": "You cannot invite yourself to the construction site.",
   "lp": {
     "first": {
       "title": "Know exactly how much the construction will cost",
