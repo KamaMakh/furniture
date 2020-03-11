@@ -10,11 +10,14 @@ function setConstructions(state, constructions) {
 }
 
 function setConstruction(state, construction) {
+  state.groups = [];
+  state.furniture = {};
   state.construction = construction;
 }
 
 function addConstruction(state, construction) {
   state.constructions.unshift(construction);
+  setConstruction(state, construction);
 }
 
 function closeConstruction(state, construction) {

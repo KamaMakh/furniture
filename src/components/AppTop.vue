@@ -1,7 +1,13 @@
 <template>
   <div>
     <div class="header" :class="{ scrollable: headerScroll }">
-      <a class="header__logo" @click="toggleLeftMenu"></a>
+      <div class="header__logo-wrap">
+        <a class="header__logo" @click="toggleLeftMenu"></a>
+        <div class="circle" style="animation-delay: 0s"></div>
+        <div class="circle" style="animation-delay: 1s"></div>
+        <div class="circle" style="animation-delay: 2s"></div>
+        <div class="circle" style="animation-delay: 3s"></div>
+      </div>
       <div class="header__menu header-menu">
         <ul>
           <li v-if="modules.indexOf('Furniture') > -1">
@@ -137,12 +143,30 @@ $ffamily: "Roboto", sans-serif;
   @media all and(max-width: 1280px) {
     max-width: 100%;
   }
+  &__logo-wrap {
+    position: relative;
+    width: 50px;
+    margin-right: 11px;
+    .circle {
+      top: 0;
+      left: 0;
+      border-radius: 10%;
+      background-color: #abcab5;
+      width: 50px;
+      height: 45px;
+      position: absolute;
+      opacity: 0;
+      animation: scaleIn 4s infinite cubic-bezier(0.36, 0.11, 0.89, 0.32);
+    }
+  }
   &__logo {
+    display: block;
     width: 50px;
     height: 45px;
-    margin-right: 11px;
     background: url("../assets/logo.svg") 0 -3px no-repeat;
     cursor: pointer;
+    position: relative;
+    z-index: 50;
   }
   &__menu {
     flex: 1 1 auto;
@@ -310,6 +334,17 @@ $ffamily: "Roboto", sans-serif;
     &__icon {
       margin: 0;
     }
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.5, 0.5);
+    opacity: 0.3;
+  }
+  to {
+    transform: scale(1.5, 1.5);
+    opacity: 0;
   }
 }
 </style>

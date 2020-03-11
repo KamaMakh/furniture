@@ -1,5 +1,9 @@
 <template>
-  <ConstructionsList module="documents" @choose="chooseConstruction" />
+  <ConstructionsList
+    ref="constructionsList"
+    module="documents"
+    @choose="chooseConstruction"
+  />
 </template>
 
 <script>
@@ -26,6 +30,9 @@ export default {
           });
         });
       this.$store.dispatch("documents/setConstruction", item);
+    },
+    changeShowConst() {
+      this.$refs.constructionsList.showAddModal = true;
     }
   }
 };

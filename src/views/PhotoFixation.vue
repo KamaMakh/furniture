@@ -1,6 +1,9 @@
 <template>
   <div class="photofixation">
-    <PhotoFixationsList />
+    <h1 class="text-left mb-4">
+      {{ $t("photofixationH1") }}
+    </h1>
+    <PhotoFixationsList @createConstruction="createConstruction" />
   </div>
 </template>
 
@@ -30,6 +33,9 @@ export default {
           );
         }
       }
+    },
+    createConstruction() {
+      this.$emit("createConstruction");
     }
   },
   mounted() {

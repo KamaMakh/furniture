@@ -1,112 +1,114 @@
 <template>
   <div v-if="construction && construction.id">
-    <table class="table" style="width: 100%" id="documentsTable">
-      <thead>
-        <tr style="background: rgb(255,255,255,0.2); border: none;">
-          <td
-            v-for="(item, key) in titles"
-            :key="key"
-            :width="tdWidths[key] + '%'"
-            :title="item.name"
-            @click="sort(item, $event)"
-            style="cursor: pointer; text-align: center;"
-            :class="{ bold: item.code === currentSort }"
-          >
-            <span
-              v-if="key === 0 && access"
-              @click="showDocModal()"
-              :title="$t('add_group')"
-              class="icon"
-              style="cursor: pointer"
-            >
-              <IconPlusSquared width="19" height="19" fill="#999" />
-            </span>
-            <span
-              :class="{
-                'ml-0': key === 0,
-                ellipsis:
-                  (key !== 0 && item.code !== 'creationDate') ||
-                  windowWidth < 960
-              }"
-            >
-              {{ key === 0 ? $t("documentName") : item.name }}
-            </span>
-          </td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          style="cursor: pointer"
-          v-for="(item, key) in rows"
-          :key="key"
-          :class="{ odd: key % 2 === 0 || key === 0 }"
-        >
-          <td style="display: table-cell; padding: 10px 5px;" id="docName">
-            <span
-              class="ellipsis ml-0 text-left pl-3"
-              :style="{ maxWidth: docNameWidth + 'px' }"
+    <perfect-scrollbar style="padding-bottom: 20px;">
+      <table class="table" style="width: 100%" id="documentsTable">
+        <thead>
+          <tr style="background: rgb(255,255,255,0.2); border: none;">
+            <td
+              v-for="(item, key) in titles"
+              :key="key"
+              :width="tdWidths[key] + '%'"
               :title="item.name"
+              @click="sort(item, $event)"
+              style="cursor: pointer; text-align: center;"
+              :class="{ bold: item.code === currentSort }"
             >
-              {{ item.name }}
-            </span>
-          </td>
-          <td>
-            <div @click="downloadFile(item)">
-              <v-btn icon color="#e22025" :loading="loadingId === item.id">
-                <v-icon dark>mdi-file-pdf-box</v-icon>
-              </v-btn>
-            </div>
-          </td>
-          <td>
-            <v-menu offset-y>
-              <template v-slot:activator="{ on }">
-                <v-btn
-                  v-on="on"
-                  outlined
-                  style="border: none; text-transform: none;"
-                  color="#999"
-                  :disabled="construction.creatorId !== user.id"
-                  :class="{
-                    greenCustom: item.status === 'approved',
-                    redCustom: item.status === 'rejected'
-                  }"
-                  :loading="statusLoadingId === item.id"
-                >
-                  <v-icon
-                    v-if="construction.creatorId === user.id"
-                    :color="'#999'"
-                    left
-                    >mdi-pencil</v-icon
-                  >
-                  {{ $t(item.status.toLowerCase()) }}
+              <span
+                v-if="key === 0 && access"
+                @click="showDocModal()"
+                :title="$t('add_group')"
+                class="icon"
+                style="cursor: pointer"
+              >
+                <IconPlusSquared width="19" height="19" fill="#999" />
+              </span>
+              <span
+                :class="{
+                  'ml-0': key === 0,
+                  ellipsis:
+                    (key !== 0 && item.code !== 'creationDate') ||
+                    windowWidth < 960
+                }"
+              >
+                {{ key === 0 ? $t("documentName") : item.name }}
+              </span>
+            </td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            style="cursor: pointer"
+            v-for="(item, key) in rows"
+            :key="key"
+            :class="{ odd: key % 2 === 0 || key === 0 }"
+          >
+            <td style="display: table-cell; padding: 10px 5px;" id="docName">
+              <span
+                class="ellipsis ml-0 text-left pl-3"
+                :style="{ maxWidth: docNameWidth + 'px' }"
+                :title="item.name"
+              >
+                {{ item.name }}
+              </span>
+            </td>
+            <td>
+              <div @click="downloadFile(item)">
+                <v-btn icon color="#e22025" :loading="loadingId === item.id">
+                  <v-icon dark>mdi-file-pdf-box</v-icon>
                 </v-btn>
-              </template>
-              <v-list>
-                <v-list-item
-                  v-for="(stat, index) in statusesArr"
-                  :key="index"
-                  @click="changeStatus(stat.value, item)"
-                >
-                  <v-list-item-title>{{ stat.title }}</v-list-item-title>
-                </v-list-item>
-              </v-list>
-            </v-menu>
-          </td>
-          <td>
-            {{ item.priceWithoutNds }}
-          </td>
-          <td>
-            {{ item.ndsValue }}
-          </td>
-          <td>
-            {{ item.price }}
-          </td>
-          <td>
-            {{ formatDate(item.creationDate) }}
-          </td>
-        </tr>
-      </tbody>
-    </table>
+              </div>
+            </td>
+            <td>
+              <v-menu offset-y>
+                <template v-slot:activator="{ on }">
+                  <v-btn
+                    v-on="on"
+                    outlined
+                    style="border: none; text-transform: none;"
+                    color="#999"
+                    :disabled="construction.creatorId !== user.id"
+                    :class="{
+                      greenCustom: item.status === 'approved',
+                      redCustom: item.status === 'rejected'
+                    }"
+                    :loading="statusLoadingId === item.id"
+                  >
+                    <v-icon
+                      v-if="construction.creatorId === user.id"
+                      :color="'#999'"
+                      left
+                      >mdi-pencil</v-icon
+                    >
+                    {{ $t(item.status.toLowerCase()) }}
+                  </v-btn>
+                </template>
+                <v-list>
+                  <v-list-item
+                    v-for="(stat, index) in statusesArr"
+                    :key="index"
+                    @click="changeStatus(stat.value, item)"
+                  >
+                    <v-list-item-title>{{ stat.title }}</v-list-item-title>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
+            </td>
+            <td>
+              {{ item.priceWithoutNds }}
+            </td>
+            <td>
+              {{ item.ndsValue }}
+            </td>
+            <td>
+              {{ item.price }}
+            </td>
+            <td>
+              {{ formatDate(item.creationDate) }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </perfect-scrollbar>
     <!--modals-->
     <v-dialog v-model="showAddDocModal" width="600">
       <v-card>
@@ -244,6 +246,14 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+  </div>
+  <div v-else class="d-flex align-center justify-center" style="height: 300px">
+    <v-btn outlined large class="ma-auto" @click="createConstruction">
+      <v-icon left>
+        mdi-plus
+      </v-icon>
+      {{ $t("add_constr") }}
+    </v-btn>
   </div>
 </template>
 
@@ -526,6 +536,9 @@ export default {
         default:
           return 3;
       }
+    },
+    createConstruction() {
+      this.$emit("createConstruction");
     }
   },
   computed: {

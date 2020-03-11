@@ -13,7 +13,7 @@
           class="content__left-menu"
           :class="{ opened: leftMenuShow }"
         >
-          <AppLeft :navsType="navsType" />
+          <AppLeft :navsType="navsType" ref="appLeft" />
         </div>
         <v-navigation-drawer
           v-else
@@ -21,11 +21,15 @@
           v-model="leftMenuShow"
           absolute
           temporary
+          style="z-index: 60"
         >
-          <AppLeft :navsType="navsType" />
+          <AppLeft :navsType="navsType" ref="appLeft" />
         </v-navigation-drawer>
         <perfect-scrollbar class="content__body">
-          <router-view :leftMenuShow="leftMenuShow" />
+          <router-view
+            :leftMenuShow="leftMenuShow"
+            @createConstruction="showConstructionModal"
+          />
         </perfect-scrollbar>
       </div>
     </div>
@@ -74,6 +78,9 @@ export default {
   methods: {
     leftMenuToggle(data) {
       this.leftMenuShow = data;
+    },
+    showConstructionModal() {
+      this.$refs.appLeft.changeShowConst();
     }
   },
   computed: {
@@ -148,6 +155,9 @@ export default {
     justify-content: center;
     &__body {
       padding: 20px 25px;
+      @media all and(max-width: 960px) {
+        padding: 20px 15px;
+      }
     }
     &__left-menu {
       position: absolute;

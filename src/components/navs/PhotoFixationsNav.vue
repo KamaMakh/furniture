@@ -1,5 +1,9 @@
 <template>
-  <ConstructionsList module="photofixations" @choose="chooseConstruction" />
+  <ConstructionsList
+    ref="constructionsList"
+    module="photofixations"
+    @choose="chooseConstruction"
+  />
 </template>
 
 <script>
@@ -32,6 +36,9 @@ export default {
           });
         });
       this.$store.dispatch("photofixations/setConstruction", item);
+    },
+    changeShowConst() {
+      this.$refs.constructionsList.showAddModal = true;
     }
   }
 };

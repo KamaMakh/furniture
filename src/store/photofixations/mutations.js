@@ -60,6 +60,7 @@ function closeConstruction(state, construction) {
 
 function addConstruction(state, construction) {
   state.constructions.unshift(construction);
+  setConstruction(state, construction);
 }
 
 function ignore() {
@@ -71,6 +72,7 @@ function setLoadingStatus(state, data) {
 }
 
 function setConstruction(state, construction) {
+  state.photoList = [];
   state.construction = construction;
 }
 

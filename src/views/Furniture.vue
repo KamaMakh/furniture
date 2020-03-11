@@ -1,7 +1,10 @@
 <template>
   <div class="flex-grow-1 furniture">
-    <div class="col col-12 p-0">
-      <TableFurniture ref="table" />
+    <div class="col col-12 pa-0">
+      <h1 class="text-left mb-4">
+        {{ $t("furnitureH1") }}
+      </h1>
+      <TableFurniture ref="table" @createConstruction="createConstruction" />
     </div>
   </div>
 </template>
@@ -106,6 +109,9 @@ export default {
         }
       }
       this.isFirstOpen = false;
+    },
+    createConstruction() {
+      this.$emit("createConstruction");
     }
   }
 };

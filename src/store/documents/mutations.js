@@ -18,6 +18,7 @@ function setAccess(state, data) {
 }
 
 function setConstruction(state, construction) {
+  state.documents = [];
   state.construction = construction;
 }
 
@@ -56,6 +57,7 @@ function closeConstruction(state, construction) {
 
 function addConstruction(state, construction) {
   state.constructions.unshift(construction);
+  setConstruction(state, construction);
 }
 
 function ignore() {

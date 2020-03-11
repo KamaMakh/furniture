@@ -1,27 +1,27 @@
 <template>
   <perfect-scrollbar class="fullHeight navs-wrap">
     <div v-if="navsType === 'Projects'" class="fullHeight">
-      <ProjectsNav />
+      <ProjectsNav ref="nav" />
     </div>
     <div v-else-if="navsType === 'Furniture'">
-      <FurnitureNav />
+      <FurnitureNav ref="nav" />
     </div>
     <div v-else-if="navsType === 'Statistics'">
-      <StatisticsNav />
+      <StatisticsNav ref="nav" />
     </div>
     <div v-else-if="navsType === 'Documents'">
-      <DocumentsNav />
+      <DocumentsNav ref="nav" />
     </div>
     <div v-else-if="navsType === 'PhotoFixations'">
-      <PhotoFixationNav />
+      <PhotoFixationNav ref="nav" />
     </div>
     <div
       v-else-if="['Settings', 'Finances', 'Personal'].indexOf(navsType) > -1"
     >
-      <SettingsNav />
+      <SettingsNav ref="nav" />
     </div>
     <div v-else class="fullHeight">
-      <DefaultNav />
+      <DefaultNav ref="nav" />
     </div>
     <div
       v-if="['Settings', 'Finances', 'Personal'].indexOf(navsType) > -1"
@@ -42,7 +42,7 @@ import DocumentsNav from "@/components/navs/DocumentsNav";
 import PhotoFixationNav from "@/components/navs/PhotoFixationsNav";
 export default {
   name: "AppLeftNav",
-  props: ["navsType"],
+  props: ["navsType", "showConst"],
   components: {
     DefaultNav,
     ProjectsNav,
@@ -57,6 +57,11 @@ export default {
       // navsType: null
       version: ""
     };
+  },
+  methods: {
+    changeShowConst() {
+      this.$refs.nav.changeShowConst();
+    }
   },
   mounted() {
     this.version = process.env.VUE_APP_VERSION;

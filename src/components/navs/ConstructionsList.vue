@@ -364,7 +364,7 @@ import IconPlusSquared from "@/components/common/icons/IconPlusSquared";
 import IconClose from "@/components/common/icons/IconClose";
 export default {
   name: "ConstructionsList",
-  props: ["module"],
+  props: ["module", "showConst"],
   components: {
     IconPlusSquared,
     IconClose

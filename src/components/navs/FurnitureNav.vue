@@ -1,5 +1,9 @@
 <template>
-  <ConstructionsList module="furniture" @choose="chooseConstruction" />
+  <ConstructionsList
+    ref="constructionsList"
+    module="furniture"
+    @choose="chooseConstruction"
+  />
 </template>
 
 <script>
@@ -16,6 +20,9 @@ export default {
     chooseConstruction(item) {
       this.$store.dispatch("furniture/getFurniture", { projectId: item.id });
       this.$store.dispatch("furniture/setConstruction", item);
+    },
+    changeShowConst() {
+      this.$refs.constructionsList.showAddModal = true;
     }
   }
 };

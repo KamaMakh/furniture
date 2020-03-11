@@ -1,5 +1,5 @@
 <template>
-  <div class="auth">
+  <per class="auth">
     <div class="auth__form form">
       <div class="form__header">
         <div class="form__tabs">
@@ -24,7 +24,7 @@
         <router-view />
       </div>
     </div>
-  </div>
+  </per>
 </template>
 
 <script>
@@ -56,6 +56,7 @@ $ffamily: "Roboto", sans-serif;
   background-size: cover;
   min-height: 100%;
   padding: 40px 10px;
+  overflow: auto;
 }
 .form {
   display: flex;

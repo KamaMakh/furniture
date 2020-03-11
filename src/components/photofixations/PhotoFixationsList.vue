@@ -1,5 +1,5 @@
 <template>
-  <div class="photofixations-list">
+  <div v-if="construction && construction.id" class="photofixations-list">
     <v-card
       v-for="(fixation, key) in photoList"
       :key="key + fixation"
@@ -360,6 +360,14 @@
       </v-card>
     </v-dialog>
   </div>
+  <div v-else class="d-flex align-center justify-center" style="height: 300px">
+    <v-btn outlined large class="ma-auto" @click="createConstruction">
+      <v-icon left>
+        mdi-plus
+      </v-icon>
+      {{ $t("add_constr") }}
+    </v-btn>
+  </div>
 </template>
 
 <script>
@@ -584,6 +592,9 @@ export default {
       if (day.length < 2) day = "0" + day;
 
       return [day, month, year].join(".");
+    },
+    createConstruction() {
+      this.$emit("createConstruction");
     }
   },
   computed: {
