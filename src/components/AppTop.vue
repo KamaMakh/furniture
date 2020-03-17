@@ -61,6 +61,38 @@
         </ul>
       </div>
       <div class="header__options options">
+        <div class="header__contacts d-flex mr-0 mr-sm-2 align-center">
+          <span class="desktop">
+            {{ $t("support.default") }}:
+            <a href="tel:+7-903-903-39-29" class="pl-1">+7-903-903-39-29</a>
+            Telegram:
+            <a target="_blank" href="tg://resolve?domain=stroyassistent">
+              @stroyassistent</a
+            >
+          </span>
+          <span class="mobile flex-grow-1 flex-shrink-0">
+            <v-btn
+              icon
+              color="#fff"
+              href="tel:+7-903-903-39-29"
+              target="_blank"
+            >
+              <v-icon center>
+                mdi-phone
+              </v-icon>
+            </v-btn>
+            <v-btn
+              icon
+              color="#fff"
+              href="tg://resolve?domain=stroyassistent"
+              target="_blank"
+            >
+              <v-icon center>
+                mdi-telegram
+              </v-icon>
+            </v-btn>
+          </span>
+        </div>
         <router-link :to="{ name: 'Settings' }" class="options__btn">
           <span class="options__icon"></span>
           {{ $t("settings") }}
@@ -142,6 +174,29 @@ $ffamily: "Roboto", sans-serif;
   height: 45px;
   @media all and(max-width: 1280px) {
     max-width: 100%;
+  }
+  &__contacts {
+    color: #fff;
+    font-size: 12px;
+    justify-content: flex-end;
+    @media all and(max-width: 1024px) {
+      flex: 1 0 auto;
+    }
+    a {
+      font-size: 12px;
+      color: #688e74;
+    }
+    .desktop {
+      @media all and(max-width: 1024px) {
+        display: none;
+      }
+    }
+    .mobile {
+      display: none;
+      @media all and(max-width: 1024px) {
+        display: block;
+      }
+    }
   }
   &__logo-wrap {
     position: relative;
@@ -251,6 +306,7 @@ $ffamily: "Roboto", sans-serif;
     -o-transition: all 0.3s;
     transition: all 0.3s;
     text-decoration: none;
+    flex: 1 0 auto;
     &:hover,
     &.active {
       background: #999;

@@ -16,6 +16,7 @@ import ConfirmText from "../views/ConfirmText";
 import Finances from "../views/Finances";
 import Personal from "../views/Personal";
 import PhotoFixation from "../views/PhotoFixation";
+import Contacts from "../views/Contacts";
 
 Vue.use(VueRouter);
 
@@ -59,6 +60,11 @@ const routes = [
             path: "personal",
             name: "Personal",
             component: Personal
+          },
+          {
+            path: "contacts",
+            name: "Contacts",
+            component: Contacts
           }
         ]
       },

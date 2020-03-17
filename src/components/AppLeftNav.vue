@@ -16,7 +16,9 @@
       <PhotoFixationNav ref="nav" />
     </div>
     <div
-      v-else-if="['Settings', 'Finances', 'Personal'].indexOf(navsType) > -1"
+      v-else-if="
+        ['Settings', 'Finances', 'Personal', 'Contacts'].indexOf(navsType) > -1
+      "
     >
       <SettingsNav ref="nav" />
     </div>

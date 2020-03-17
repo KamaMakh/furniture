@@ -144,6 +144,10 @@
   "creationDate": "Erstellungsdatum",
   "author": "Der Autor",
   "isYourEmail": "Sie können sich nicht auf die Baustelle einladen.",
+  "support": {
+    "default": "Ansprechpartner für technischen Support",
+    "telegram": "Telegramm für technischen Support"
+  },
   "lp": {
     "first": {
       "title": "Wissen Sie genau, wie viel der Bau kosten wird",

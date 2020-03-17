@@ -144,6 +144,10 @@
   "creationDate": "Creation date",
   "author": "Author",
   "isYourEmail": "You cannot invite yourself to the construction site.",
+  "support": {
+    "default": "Technical Support Contacts",
+    "telegram": "Tech support telegram"
+  },
   "lp": {
     "first": {
       "title": "Know exactly how much the construction will cost",

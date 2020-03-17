@@ -13,6 +13,11 @@
           </router-link>
         </li>
         <li>
+          <router-link :to="{ name: 'Contacts' }">
+            {{ $t("contacts") }}
+          </router-link>
+        </li>
+        <li>
           <a @click="downloadWithVueResource">
             {{ $t("privacy") }}
           </a>

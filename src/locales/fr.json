@@ -144,6 +144,10 @@
   "creationDate": "Date de création",
   "author": "L'auteur",
   "isYourEmail": "Vous ne pouvez pas vous inviter sur le chantier.",
+  "support": {
+    "default": "Contacts du support technique",
+    "telegram": "Télégramme d'assistance technique"
+  },
   "lp": {
     "first": {
       "title": "Savoir exactement combien coûtera la construction",
