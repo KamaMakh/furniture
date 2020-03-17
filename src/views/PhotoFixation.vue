@@ -32,6 +32,10 @@ export default {
             this.$store.state.photofixations.constructions[0]
           );
         }
+        this.$store.state.emptyConstructions = false;
+      } else {
+        this.$store.state.photofixations.construction = {};
+        this.$store.state.emptyConstructions = true;
       }
     },
     createConstruction() {

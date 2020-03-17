@@ -1,5 +1,5 @@
 <template>
-  <per class="auth">
+  <perfect-scrollbar class="auth">
     <div class="auth__form form">
       <div class="form__header">
         <div class="form__tabs">
@@ -24,7 +24,7 @@
         <router-view />
       </div>
     </div>
-  </per>
+  </perfect-scrollbar>
 </template>
 
 <script>

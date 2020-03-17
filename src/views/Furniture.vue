@@ -100,12 +100,14 @@ export default {
           this.$store.dispatch("furniture/getFurniture", {
             projectId: this.$store.state.furniture.constructions[0]["id"]
           });
-          // if (this.$store.state.furniture.construction.id === undefined) {
           this.$store.dispatch(
             "furniture/setConstruction",
             this.$store.state.furniture.constructions[0]
           );
-          // }
+          this.$store.state.emptyConstructions = false;
+        } else {
+          this.$store.state.furniture.construction = {};
+          this.$store.state.emptyConstructions = true;
         }
       }
       this.isFirstOpen = false;

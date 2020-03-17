@@ -25,7 +25,8 @@ export default new Vuex.Store({
     constructions
   },
   state: {
-    lang: VueCookies.get("lang") || navigator.language.split("-")[0] || "en"
+    lang: VueCookies.get("lang") || navigator.language.split("-")[0] || "en",
+    emptyConstructions: false
   },
   getters: {
     loggedIn(state) {

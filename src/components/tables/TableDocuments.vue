@@ -247,7 +247,11 @@
       </v-card>
     </v-dialog>
   </div>
-  <div v-else class="d-flex align-center justify-center" style="height: 300px">
+  <div
+    v-else-if="empty"
+    class="d-flex align-center justify-center"
+    style="height: 300px"
+  >
     <v-btn outlined large class="ma-auto" @click="createConstruction">
       <v-icon left>
         mdi-plus
@@ -546,6 +550,7 @@ export default {
       rows: state => state.documents.documents || [],
       construction: state => state.documents.construction,
       constructions: state => state.documents.constructions,
+      empty: state => state.emptyConstructions,
       user: state => state.user.user,
       lang: state => state.lang,
       access: state => state.documents.access,

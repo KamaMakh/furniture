@@ -608,7 +608,11 @@
       </v-card>
     </v-dialog>
   </div>
-  <div v-else class="d-flex align-center justify-center" style="height: 300px">
+  <div
+    v-else-if="empty"
+    class="d-flex align-center justify-center"
+    style="height: 300px"
+  >
     <v-btn outlined large class="ma-auto" @click="createConstruction">
       <v-icon left>
         mdi-plus
@@ -1242,6 +1246,7 @@ export default {
     ...mapState({
       rows: state => state.furniture.furniture.groups || [],
       furniture: state => state.furniture.furniture,
+      empty: state => state.emptyConstructions,
       construction: state => state.furniture.construction,
       constructions: state => state.furniture.constructions,
       user: state => state.user.user,

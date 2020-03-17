@@ -37,6 +37,10 @@ export default {
           "documents/setConstruction",
           this.$store.state.documents.constructions[0]
         );
+        this.$store.state.emptyConstructions = false;
+      } else {
+        this.$store.state.documents.construction = {};
+        this.$store.state.emptyConstructions = true;
       }
     },
     createConstruction() {
