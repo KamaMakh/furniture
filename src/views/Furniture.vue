@@ -29,6 +29,7 @@ export default {
     })
   },
   mounted() {
+    this.$store.state.furniture.construction = {};
     /* eslint-disable-next-line */
     ym(57324937, "hit", "#/furniture", {
       title: "Фурнитура",
@@ -97,15 +98,25 @@ export default {
         }
       } else {
         if (this.$store.state.furniture.constructions[0]) {
-          this.$store.dispatch("furniture/getFurniture", {
-            projectId: this.$store.state.furniture.constructions[0]["id"]
-          });
+          this.$store.commit("furniture/setLoadingStatus", true);
+          this.$store
+            .dispatch("furniture/getFurniture", {
+              projectId: this.$store.state.furniture.constructions[0]["id"]
+            })
+            .then(() => {
+              setTimeout(() => {
+                this.$store.commit("furniture/setLoadingStatus", false);
+              }, 500);
+            });
           this.$store.dispatch(
             "furniture/setConstruction",
             this.$store.state.furniture.constructions[0]
           );
           this.$store.state.emptyConstructions = false;
         } else {
+          setTimeout(() => {
+            this.$store.commit("furniture/setLoadingStatus", false);
+          }, 500);
           this.$store.state.furniture.construction = {};
           this.$store.state.emptyConstructions = true;
         }

@@ -18,7 +18,14 @@ export default {
   },
   methods: {
     chooseConstruction(item) {
-      this.$store.dispatch("furniture/getFurniture", { projectId: item.id });
+      this.$store.commit("furniture/setLoadingStatus", true);
+      this.$store
+        .dispatch("furniture/getFurniture", { projectId: item.id })
+        .then(() => {
+          setTimeout(() => {
+            this.$store.commit("furniture/setLoadingStatus", false);
+          }, 500);
+        });
       this.$store.dispatch("furniture/setConstruction", item);
     },
     changeShowConst() {

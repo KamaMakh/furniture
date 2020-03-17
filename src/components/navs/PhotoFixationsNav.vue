@@ -25,7 +25,9 @@ export default {
           page: 0
         })
         .then(() => {
-          this.$store.commit("photofixations/setLoadingStatus", false);
+          setTimeout(() => {
+            this.$store.commit("photofixations/setLoadingStatus", false);
+          }, 500);
         })
         .catch(error => {
           this.$notify({

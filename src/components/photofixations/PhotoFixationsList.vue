@@ -1,183 +1,186 @@
 <template>
   <div v-if="construction && construction.id" class="photofixations-list">
-    <v-card
-      v-for="(fixation, key) in photoList"
-      :key="key + fixation"
-      class="mb-6"
-      style="position: relative"
+    <v-skeleton-loader
+      ref="skeleton"
+      :loading="listLoading"
+      transition="scale-transition"
+      type="list-item-avatar-three-line"
+      class="mx-auto"
     >
-      <v-container fluid>
-        <v-row>
-          <v-col v-if="listLoading" cols="2">
-            <v-boilerplate type="list-item-two-line"> </v-boilerplate>
-          </v-col>
-          <v-col
-            v-else-if="construction.creatorId === user.id"
-            class="d-flex child-flex flex-wrap flex-column"
-            cols="2"
-          >
-            <v-btn
-              outlined
-              style="border: none; font-size: 13px;"
-              :color="color"
-              :disabled="fixation.photos.length >= 5"
-              class="fotofixations-btn"
-              @click="
-                showAddPhotoForm = true;
-                photoFixation = fixation;
-              "
-            >
-              <v-icon left>mdi-image-plus</v-icon>
-              {{ $t("add").toLowerCase() }}
-            </v-btn>
-            <v-btn
-              outlined
-              style="border: none; font-size: 13px;"
-              :color="'#999'"
-              class="fotofixations-btn"
-              @click="
-                showEditFixationForm = true;
-                photoFixation = fixation;
-              "
-            >
-              <v-icon left>mdi-pencil</v-icon>
-              {{ $t("edit").toLowerCase() }}
-            </v-btn>
-          </v-col>
-          <v-col cols="10">
+      <span>
+        <v-card
+          v-for="(fixation, key) in photoList"
+          :key="key + fixation"
+          class="mb-6"
+          style="position: relative"
+        >
+          <v-container fluid>
             <v-row>
-              <v-col cols="12">
+              <v-col
+                v-if="construction.creatorId === user.id"
+                class="d-flex child-flex flex-wrap flex-column"
+                cols="2"
+              >
+                <v-btn
+                  outlined
+                  style="border: none; font-size: 13px;"
+                  :color="color"
+                  :disabled="fixation.photos.length >= 5"
+                  class="fotofixations-btn"
+                  @click="
+                    showAddPhotoForm = true;
+                    photoFixation = fixation;
+                  "
+                >
+                  <v-icon left>mdi-image-plus</v-icon>
+                  {{ $t("add").toLowerCase() }}
+                </v-btn>
+                <v-btn
+                  outlined
+                  style="border: none; font-size: 13px;"
+                  :color="'#999'"
+                  class="fotofixations-btn"
+                  @click="
+                    showEditFixationForm = true;
+                    photoFixation = fixation;
+                  "
+                >
+                  <v-icon left>mdi-pencil</v-icon>
+                  {{ $t("edit").toLowerCase() }}
+                </v-btn>
+              </v-col>
+              <v-col cols="10">
                 <v-row>
-                  <v-col xs="10" class="text-left" style="color: #999;">
-                    {{ $t("creationDate") }}:
-                    {{ formatDate(fixation.dateCreate) }}
+                  <v-col cols="12">
+                    <v-row>
+                      <v-col xs="10" class="text-left" style="color: #999;">
+                        {{ $t("creationDate") }}:
+                        {{ formatDate(fixation.dateCreate) }}
+                      </v-col>
+                    </v-row>
+                  </v-col>
+                  <v-col
+                    v-for="(photo, photoKey) in fixation.photos"
+                    :key="photoKey + photo"
+                    class="d-flex child-flex"
+                    cols="6"
+                    sm="4"
+                    md="2"
+                    style="position: relative"
+                  >
+                    <v-menu
+                      v-if="construction.creatorId === user.id"
+                      v-model="photo.showMenu"
+                      absolute
+                      offset-y
+                      style="max-width: 600px"
+                    >
+                      <template v-slot:activator="{ on }">
+                        <v-card flat tile class="d-flex" v-on="on">
+                          <v-img
+                            :src="`${serverUrl}${photo.url}&type=200px`"
+                            :lazy-src="`${serverUrl}${photo.url}`"
+                            aspect-ratio="1"
+                            class="grey lighten-2"
+                          >
+                            <template v-slot:placeholder>
+                              <v-row
+                                class="fill-height ma-0"
+                                align="center"
+                                justify="center"
+                              >
+                                <v-progress-circular
+                                  indeterminate
+                                  color="grey lighten-5"
+                                ></v-progress-circular>
+                              </v-row>
+                            </template>
+                          </v-img>
+                        </v-card>
+                      </template>
+                      <v-list>
+                        <v-list-item v-if="construction.creatorId === user.id">
+                          <v-list-item-title>
+                            <v-btn
+                              icon
+                              @click="
+                                currPhoto = photo;
+                                showRemovePhotoForm = true;
+                                photoFixation = fixation;
+                              "
+                            >
+                              <v-icon color="red">mdi-trash-can</v-icon>
+                            </v-btn>
+                          </v-list-item-title>
+                        </v-list-item>
+                        <v-list-item>
+                          <v-list-item-title>
+                            <v-btn
+                              icon
+                              @click="
+                                toggleClickViewer(photoKey, fixation.photos)
+                              "
+                            >
+                              <v-icon :color="color">mdi-overscan</v-icon>
+                            </v-btn>
+                          </v-list-item-title>
+                        </v-list-item>
+                      </v-list>
+                    </v-menu>
+                    <v-card v-else flat tile class="d-flex">
+                      <v-img
+                        :src="`${serverUrl}${photo.url}&type=200px`"
+                        :lazy-src="`${serverUrl}${photo.url}`"
+                        aspect-ratio="1"
+                        class="grey lighten-2"
+                        style="cursor: pointer;"
+                        @click="toggleClickViewer(photoKey, fixation.photos)"
+                      >
+                        <template v-slot:placeholder>
+                          <v-row
+                            class="fill-height ma-0"
+                            align="center"
+                            justify="center"
+                          >
+                            <v-progress-circular
+                              indeterminate
+                              color="grey lighten-5"
+                            ></v-progress-circular>
+                          </v-row>
+                        </template>
+                      </v-img>
+                    </v-card>
                   </v-col>
                 </v-row>
               </v-col>
-              <v-col
-                v-for="(photo, photoKey) in fixation.photos"
-                :key="photoKey + photo"
-                class="d-flex child-flex"
-                cols="6"
-                sm="4"
-                md="2"
-                style="position: relative"
-              >
-                <v-skeleton-loader
-                  :loading="listLoading"
-                  transition="scale-transition"
-                  type="image"
-                  height="144"
-                >
-                  <v-menu
+              <v-col cols="12">
+                <v-row>
+                  <v-col
                     v-if="construction.creatorId === user.id"
-                    v-model="photo.showMenu"
-                    absolute
-                    offset-y
-                    style="max-width: 600px"
-                  >
-                    <template v-slot:activator="{ on }">
-                      <v-card flat tile class="d-flex" v-on="on">
-                        <v-img
-                          :src="`${serverUrl}${photo.url}&type=200px`"
-                          :lazy-src="`${serverUrl}${photo.url}`"
-                          aspect-ratio="1"
-                          class="grey lighten-2"
-                        >
-                          <template v-slot:placeholder>
-                            <v-row
-                              class="fill-height ma-0"
-                              align="center"
-                              justify="center"
-                            >
-                              <v-progress-circular
-                                indeterminate
-                                color="grey lighten-5"
-                              ></v-progress-circular>
-                            </v-row>
-                          </template>
-                        </v-img>
-                      </v-card>
-                    </template>
-                    <v-list>
-                      <v-list-item v-if="construction.creatorId === user.id">
-                        <v-list-item-title>
-                          <v-btn
-                            icon
-                            @click="
-                              currPhoto = photo;
-                              showRemovePhotoForm = true;
-                              photoFixation = fixation;
-                            "
-                          >
-                            <v-icon color="red">mdi-trash-can</v-icon>
-                          </v-btn>
-                        </v-list-item-title>
-                      </v-list-item>
-                      <v-list-item>
-                        <v-list-item-title>
-                          <v-btn
-                            icon
-                            @click="
-                              toggleClickViewer(photoKey, fixation.photos)
-                            "
-                          >
-                            <v-icon :color="color">mdi-overscan</v-icon>
-                          </v-btn>
-                        </v-list-item-title>
-                      </v-list-item>
-                    </v-list>
-                  </v-menu>
-                  <v-card v-else flat tile class="d-flex">
-                    <v-img
-                      :src="`${serverUrl}${photo.url}&type=200px`"
-                      :lazy-src="`${serverUrl}${photo.url}`"
-                      aspect-ratio="1"
-                      class="grey lighten-2"
-                      style="cursor: pointer;"
-                      @click="toggleClickViewer(photoKey, fixation.photos)"
-                    >
-                      <template v-slot:placeholder>
-                        <v-row
-                          class="fill-height ma-0"
-                          align="center"
-                          justify="center"
-                        >
-                          <v-progress-circular
-                            indeterminate
-                            color="grey lighten-5"
-                          ></v-progress-circular>
-                        </v-row>
-                      </template>
-                    </v-img>
-                  </v-card>
-                </v-skeleton-loader>
+                    cols="2"
+                  ></v-col>
+                  <v-col sm="10" class="text-left" style="color: #999;">
+                    {{ $t("author") }}: {{ fixation.photoCreatorName }}
+                  </v-col>
+                </v-row>
+              </v-col>
+              <v-col v-if="fixation.comment" cols="12" class="pb-0">
+                <v-divider class="pb-0"></v-divider>
+              </v-col>
+              <v-col v-if="fixation.comment" cols="12" class="pt-0">
+                <v-card-text
+                  class="text-comment text-left mt-2"
+                  style="color: #999; width: 100%;"
+                >
+                  {{ fixation.comment }}
+                </v-card-text>
               </v-col>
             </v-row>
-          </v-col>
-          <v-col cols="12">
-            <v-row>
-              <v-col v-if="construction.creatorId === user.id" cols="2"></v-col>
-              <v-col sm="10" class="text-left" style="color: #999;">
-                {{ $t("author") }}: {{ fixation.photoCreatorName }}
-              </v-col>
-            </v-row>
-          </v-col>
-          <v-col v-if="fixation.comment" cols="12" class="pb-0">
-            <v-divider class="pb-0"></v-divider>
-          </v-col>
-          <v-col v-if="fixation.comment" cols="12" class="pt-0">
-            <v-card-text
-              class="text-comment text-left mt-2"
-              style="color: #999; width: 100%;"
-            >
-              {{ fixation.comment }}
-            </v-card-text>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-card>
-    <div class="text-center">
+          </v-container>
+        </v-card>
+      </span>
+    </v-skeleton-loader>
+    <div v-if="photoList && photoList.length" class="text-center">
       <v-pagination
         v-model="page"
         :color="color"
@@ -189,7 +192,7 @@
       :color="color"
       dark
       fixed
-      bottom
+      top
       right
       fab
       @click="showAddFixationForm = true"
@@ -386,25 +389,7 @@ import {
 } from "@/shared/validator";
 export default {
   name: "PhotoFixationsList",
-  components: {
-    VBoilerplate: {
-      functional: true,
-      render(h, { data, props, children }) {
-        return h(
-          "v-skeleton-loader",
-          {
-            ...data,
-            props: {
-              boilerplate: true,
-              elevation: 2,
-              ...props
-            }
-          },
-          children
-        );
-      }
-    }
-  },
+  components: {},
   data() {
     return {
       page: 1,

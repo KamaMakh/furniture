@@ -10,217 +10,229 @@
       ></v-switch>
     </div>
     <perfect-scrollbar style="padding-bottom: 20px;">
-      <table class="table">
-        <thead>
-          <tr>
-            <td
-              v-for="(item, key) in titles"
-              :key="key"
-              :width="tdWidths[key] + '%'"
-              :title="item.name"
-              @click="sort(item, $event)"
-              style="cursor: pointer"
-              :class="{ bold: item.code === currentSort }"
-            >
-              <span
-                v-if="key === 0"
-                @click="showModal"
-                :title="$t('add_group')"
-                class="icon"
+      <v-skeleton-loader
+        :loading="tableLoading"
+        ref="skeleton"
+        type="table-tbody"
+        transition="scale-transition"
+        :tile="false"
+        class="mx-auto"
+      >
+        <table class="table">
+          <thead>
+            <tr>
+              <td
+                v-for="(item, key) in titles"
+                :key="key"
+                :width="tdWidths[key] + '%'"
+                :title="item.name"
+                @click="sort(item, $event)"
                 style="cursor: pointer"
+                :class="{ bold: item.code === currentSort }"
               >
-                <IconPlusSquared width="19" height="19" fill="#C4C4C4" />
-              </span>
-              <span class="ellipsis">
-                {{ item.name }}
-              </span>
-            </td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            style="cursor: pointer"
-            v-for="(item, key) in rows"
-            :key="key"
-            :class="{ odd: key % 2 === 0 || key === 0 }"
-          >
-            <td
-              v-if="item.price === undefined"
-              colspan="12"
-              class="d-table-cell border-right"
-              @click="toggleGroupRows(item, $event)"
-              :child="enabledGroups[item.id]"
-            >
-              <span class="d-flex align-items-center justify-content-start">
                 <span
-                  v-if="!item.price && item.creatorId === user.id"
-                  @click="showModal(item)"
-                  :title="$t('edit_group')"
-                  class="setting-icon"
-                >
-                  <IconSettings width="18" height="18" fill="#dadada" />
-                </span>
-                <span
+                  v-if="key === 0"
+                  @click="showModal"
+                  :title="$t('add_group')"
                   class="icon"
                   style="cursor: pointer"
-                  :title="$t('add_nomenclature')"
-                  @click="showNomenclature(item)"
                 >
-                  <IconPlusSquared width="18" height="18" fill="#C4C4C4" />
+                  <IconPlusSquared width="19" height="19" fill="#C4C4C4" />
                 </span>
-                {{ item.name }}
-              </span>
-            </td>
-            <td
-              v-else
-              width="30%"
-              style="display: table-cell; padding: 10px 5px;"
-              @click="showEditNomenclature(item, $event)"
-            >
-              <div class="d-flex">
-                <span v-if="item.photos && item.photos[0]" class="icon">
-                  <!--<img :src="serverUrl + item.photos[0]['pathUrl']" alt="" />-->
-                  <v-img
-                    :src="serverUrl + item.photos[0]['pathUrl']"
-                    contain
-                    class="grey lighten-2"
-                    max-width="30"
-                    max-height="30"
-                    light
-                  >
-                    <template v-slot:placeholder>
-                      <v-row
-                        class="fill-height ma-0"
-                        align="center"
-                        justify="center"
-                      >
-                        <v-progress-circular
-                          indeterminate
-                          color="grey lighten-5"
-                        ></v-progress-circular>
-                      </v-row>
-                    </template>
-                  </v-img>
-                </span>
-                <span v-else class="icon no-img"></span>
-                <span class="ellipsis ml-0" :title="item.name">
+                <span class="ellipsis">
                   {{ item.name }}
                 </span>
-                <span
-                  v-if="item.creatorId === user.id"
-                  :title="$t('delete')"
-                  style="width: 20px; height: 25px; cursor: pointer; margin-left: 5px;"
-                  @click="showDeleteNomenModal(item)"
-                >
-                  <IconBasket
-                    width="18"
-                    height="18"
-                    fill="#999"
-                    stroke="#999"
-                  />
-                </span>
-              </div>
-            </td>
-            <td
-              v-if="item.price !== undefined"
-              width="5%"
-              @click="showEditNomenclature(item, $event)"
+              </td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              style="cursor: pointer"
+              v-for="(item, key) in rows"
+              :key="key"
+              :class="{ odd: key % 2 === 0 || key === 0 }"
             >
-              {{ item.count }}
-            </td>
-            <td
-              v-if="item.price !== undefined"
-              width="5%"
-              @click="showEditNomenclature(item, $event)"
-            >
-              {{ item.units ? item.units.abName : "" }}
-            </td>
-
-            <td
-              v-if="item.price !== undefined"
-              width="7%"
-              @click="showEditNomenclature(item, $event)"
-            >
-              {{ item.term }}
-            </td>
-            <td
-              v-if="item.price !== undefined"
-              width="9%"
-              style="word-break: initial"
-              @click="showEditNomenclature(item, $event)"
-            >
-              <div id="anim">
-                <span class="tooltip-custom">
-                  <span class="tooltip-html" v-html="statusesHtml(item)"></span>
-                  <span v-if="item.buy">
-                    {{ $t("purchased") }}
+              <td
+                v-if="item.price === undefined"
+                colspan="12"
+                class="d-table-cell border-right"
+                @click="toggleGroupRows(item, $event)"
+                :child="enabledGroups[item.id]"
+              >
+                <span class="d-flex align-items-center justify-content-start">
+                  <span
+                    v-if="!item.price && item.creatorId === user.id"
+                    @click="showModal(item)"
+                    :title="$t('edit_group')"
+                    class="setting-icon"
+                  >
+                    <IconSettings width="18" height="18" fill="#dadada" />
                   </span>
                   <span
-                    v-else-if="getStatus(item.status) === 'confirmed_simple'"
+                    class="icon"
+                    style="cursor: pointer"
+                    :title="$t('add_nomenclature')"
+                    @click="showNomenclature(item)"
                   >
-                    {{ $t("confirmed_simple") }}
+                    <IconPlusSquared width="18" height="18" fill="#C4C4C4" />
                   </span>
-                  <span v-else>
-                    {{ $t("not_confirmed_simple") }}
-                  </span>
+                  {{ item.name }}
                 </span>
-              </div>
-            </td>
-            <!--<td-->
-            <!--v-if="item.price !== undefined && ndsColumns"-->
-            <!--width="5%"-->
-            <!--@click="showEditNomenclature(item, $event)"-->
-            <!--&gt;-->
-            <!--{{ item.nds }}-->
-            <!--</td>-->
-            <td
-              v-if="item.price !== undefined"
-              width="5%"
-              @click="showEditNomenclature(item, $event)"
-            >
-              {{ item.priceWithoutNds }}
-            </td>
-            <td
-              v-if="item.price !== undefined && ndsColumns"
-              width="5%"
-              @click="showEditNomenclature(item, $event)"
-            >
-              {{ item.price }}
-            </td>
-            <td
-              v-if="item.price !== undefined && ndsColumns"
-              width="5%"
-              @click="showEditNomenclature(item, $event)"
-            >
-              {{ item.ndsValue }}
-            </td>
-            <td
-              v-if="item.price !== undefined"
-              width="5%"
-              @click="showEditNomenclature(item, $event)"
-            >
-              {{ item.totalPrice }}
-            </td>
-            <td
-              v-if="item.price !== undefined"
-              width="5%"
-              @click="showEditNomenclature(item, $event)"
-            >
-              <span class="ellipsis">
-                {{ item.magazine }}
-              </span>
-            </td>
-            <td v-if="item.price !== undefined" width="18%">
-              <span
-                class="ellipsis"
-                style="max-width: 120px; text-align: left;"
+              </td>
+              <td
+                v-else
+                width="30%"
+                style="display: table-cell; padding: 10px 5px;"
+                @click="showEditNomenclature(item, $event)"
               >
-                <a :href="item.link" target="_blank">{{ item.link }}</a>
-              </span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+                <div class="d-flex">
+                  <span v-if="item.photos && item.photos[0]" class="icon">
+                    <!--<img :src="serverUrl + item.photos[0]['pathUrl']" alt="" />-->
+                    <v-img
+                      :src="serverUrl + item.photos[0]['pathUrl']"
+                      contain
+                      class="grey lighten-2"
+                      max-width="30"
+                      max-height="30"
+                      light
+                    >
+                      <template v-slot:placeholder>
+                        <v-row
+                          class="fill-height ma-0"
+                          align="center"
+                          justify="center"
+                        >
+                          <v-progress-circular
+                            indeterminate
+                            color="grey lighten-5"
+                          ></v-progress-circular>
+                        </v-row>
+                      </template>
+                    </v-img>
+                  </span>
+                  <span v-else class="icon no-img"></span>
+                  <span class="ellipsis ml-0" :title="item.name">
+                    {{ item.name }}
+                  </span>
+                  <span
+                    v-if="item.creatorId === user.id"
+                    :title="$t('delete')"
+                    style="width: 20px; height: 25px; cursor: pointer; margin-left: 5px;"
+                    @click="showDeleteNomenModal(item)"
+                  >
+                    <IconBasket
+                      width="18"
+                      height="18"
+                      fill="#999"
+                      stroke="#999"
+                    />
+                  </span>
+                </div>
+              </td>
+              <td
+                v-if="item.price !== undefined"
+                width="5%"
+                @click="showEditNomenclature(item, $event)"
+              >
+                {{ item.count }}
+              </td>
+              <td
+                v-if="item.price !== undefined"
+                width="5%"
+                @click="showEditNomenclature(item, $event)"
+              >
+                {{ item.units ? item.units.abName : "" }}
+              </td>
+
+              <td
+                v-if="item.price !== undefined"
+                width="7%"
+                @click="showEditNomenclature(item, $event)"
+              >
+                {{ item.term }}
+              </td>
+              <td
+                v-if="item.price !== undefined"
+                width="9%"
+                style="word-break: initial"
+                @click="showEditNomenclature(item, $event)"
+              >
+                <div id="anim">
+                  <span class="tooltip-custom">
+                    <span
+                      class="tooltip-html"
+                      v-html="statusesHtml(item)"
+                    ></span>
+                    <span v-if="item.buy">
+                      {{ $t("purchased") }}
+                    </span>
+                    <span
+                      v-else-if="getStatus(item.status) === 'confirmed_simple'"
+                    >
+                      {{ $t("confirmed_simple") }}
+                    </span>
+                    <span v-else>
+                      {{ $t("not_confirmed_simple") }}
+                    </span>
+                  </span>
+                </div>
+              </td>
+              <!--<td-->
+              <!--v-if="item.price !== undefined && ndsColumns"-->
+              <!--width="5%"-->
+              <!--@click="showEditNomenclature(item, $event)"-->
+              <!--&gt;-->
+              <!--{{ item.nds }}-->
+              <!--</td>-->
+              <td
+                v-if="item.price !== undefined"
+                width="5%"
+                @click="showEditNomenclature(item, $event)"
+              >
+                {{ item.priceWithoutNds }}
+              </td>
+              <td
+                v-if="item.price !== undefined && ndsColumns"
+                width="5%"
+                @click="showEditNomenclature(item, $event)"
+              >
+                {{ item.price }}
+              </td>
+              <td
+                v-if="item.price !== undefined && ndsColumns"
+                width="5%"
+                @click="showEditNomenclature(item, $event)"
+              >
+                {{ item.ndsValue }}
+              </td>
+              <td
+                v-if="item.price !== undefined"
+                width="5%"
+                @click="showEditNomenclature(item, $event)"
+              >
+                {{ item.totalPrice }}
+              </td>
+              <td
+                v-if="item.price !== undefined"
+                width="5%"
+                @click="showEditNomenclature(item, $event)"
+              >
+                <span class="ellipsis">
+                  {{ item.magazine }}
+                </span>
+              </td>
+              <td v-if="item.price !== undefined" width="18%">
+                <span
+                  class="ellipsis"
+                  style="max-width: 120px; text-align: left;"
+                >
+                  <a :href="item.link" target="_blank">{{ item.link }}</a>
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </v-skeleton-loader>
     </perfect-scrollbar>
 
     <!--modals-->
@@ -1248,6 +1260,7 @@ export default {
       furniture: state => state.furniture.furniture,
       empty: state => state.emptyConstructions,
       construction: state => state.furniture.construction,
+      tableLoading: state => state.furniture.tableLoading,
       constructions: state => state.furniture.constructions,
       user: state => state.user.user,
       roles: state => state.user.roles,

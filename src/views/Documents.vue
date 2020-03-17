@@ -30,15 +30,24 @@ export default {
   methods: {
     setDefaultData() {
       if (this.$store.state.documents.constructions[0]) {
-        this.$store.dispatch("documents/getDocuments", {
-          projectId: this.$store.state.documents.constructions[0]["id"]
-        });
+        this.$store
+          .dispatch("documents/getDocuments", {
+            projectId: this.$store.state.documents.constructions[0]["id"]
+          })
+          .then(() => {
+            setTimeout(() => {
+              this.$store.commit("documents/setLoadingStatus", false);
+            }, 500);
+          });
         this.$store.dispatch(
           "documents/setConstruction",
           this.$store.state.documents.constructions[0]
         );
         this.$store.state.emptyConstructions = false;
       } else {
+        setTimeout(() => {
+          this.$store.commit("documents/setLoadingStatus", false);
+        }, 500);
         this.$store.state.documents.construction = {};
         this.$store.state.emptyConstructions = true;
       }
@@ -48,6 +57,8 @@ export default {
     }
   },
   mounted() {
+    this.$store.state.documents.construction = {};
+    this.$store.commit("documents/setLoadingStatus", true);
     /* eslint-disable-next-line */
     ym(57324937, "hit", "#/documents", {
       title: "Документы",

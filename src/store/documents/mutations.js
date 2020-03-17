@@ -60,6 +60,10 @@ function addConstruction(state, construction) {
   setConstruction(state, construction);
 }
 
+function setLoadingStatus(state, data) {
+  state.tableLoading = data;
+}
+
 function ignore() {
   return "ignored";
 }
@@ -74,5 +78,6 @@ export {
   updateConstruction,
   closeConstruction,
   ignore,
-  addConstruction
+  addConstruction,
+  setLoadingStatus
 };

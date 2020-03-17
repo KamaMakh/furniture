@@ -4,5 +4,6 @@ export default {
   documents: [],
   document: {},
   enabledGroups: [],
-  access: true
+  access: true,
+  tableLoading: true
 };

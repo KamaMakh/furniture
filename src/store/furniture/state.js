@@ -4,5 +4,6 @@ export default {
   constructions: [],
   units: [],
   subscribes: [],
-  enabledGroups: []
+  enabledGroups: [],
+  tableLoading: true
 };

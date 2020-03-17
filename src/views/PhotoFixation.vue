@@ -24,7 +24,9 @@ export default {
             page: 0
           })
           .then(() => {
-            this.$store.commit("photofixations/setLoadingStatus", false);
+            setTimeout(() => {
+              this.$store.commit("photofixations/setLoadingStatus", false);
+            }, 500);
           });
         if (this.$store.state.photofixations.construction.id === undefined) {
           this.$store.dispatch(
@@ -43,6 +45,8 @@ export default {
     }
   },
   mounted() {
+    this.$store.state.photofixations.construction = {};
+    this.$store.commit("photofixations/setLoadingStatus", true);
     /* eslint-disable-next-line */
     ym(57324937, "hit", "#/photofixations", {
       title: "Фотофиксации",

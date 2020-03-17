@@ -19,8 +19,14 @@ export default {
   },
   methods: {
     chooseConstruction(item) {
+      this.$store.commit("documents/setLoadingStatus", true);
       this.$store
         .dispatch("documents/getDocuments", { projectId: item.id })
+        .then(() => {
+          setTimeout(() => {
+            this.$store.commit("documents/setLoadingStatus", false);
+          }, 500);
+        })
         .catch(error => {
           this.$notify({
             group: "warn",

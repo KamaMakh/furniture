@@ -178,6 +178,10 @@ function ignore() {
   return "ignored";
 }
 
+function setLoadingStatus(state, data) {
+  state.tableLoading = data;
+}
+
 function clearState(state) {
   state.furniture = {};
   state.construction = {};
@@ -204,5 +208,6 @@ export {
   ignore,
   setSubscribes,
   editEnabledGroups,
-  closeConstruction
+  closeConstruction,
+  setLoadingStatus
 };
