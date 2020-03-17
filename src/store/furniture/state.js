@@ -1,9 +1,13 @@
 export default {
-  furniture: {},
+  furniture: {
+    groups: []
+  },
   construction: {},
   constructions: [],
   units: [],
   subscribes: [],
   enabledGroups: [],
-  tableLoading: true
+  tableLoading: true,
+  totalSum: {},
+  groupSum: {}
 };

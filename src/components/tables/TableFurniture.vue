@@ -53,7 +53,7 @@
               :class="{ odd: key % 2 === 0 || key === 0 }"
             >
               <td
-                v-if="item.price === undefined"
+                v-if="item.price === undefined && item.isTotal === undefined"
                 colspan="12"
                 class="d-table-cell border-right"
                 @click="toggleGroupRows(item, $event)"
@@ -79,6 +79,7 @@
                   {{ item.name }}
                 </span>
               </td>
+              <td v-else-if="item.isTotal"></td>
               <td
                 v-else
                 width="30%"
@@ -130,14 +131,14 @@
                 </div>
               </td>
               <td
-                v-if="item.price !== undefined"
+                v-if="item.price !== undefined || item.isTotal"
                 width="5%"
                 @click="showEditNomenclature(item, $event)"
               >
-                {{ item.count }}
+                {{ item.isTotal ? "" : item.count }}
               </td>
               <td
-                v-if="item.price !== undefined"
+                v-if="item.price !== undefined || item.isTotal"
                 width="5%"
                 @click="showEditNomenclature(item, $event)"
               >
@@ -145,19 +146,19 @@
               </td>
 
               <td
-                v-if="item.price !== undefined"
+                v-if="item.price !== undefined || item.isTotal"
                 width="7%"
                 @click="showEditNomenclature(item, $event)"
               >
-                {{ item.term }}
+                {{ item.isTotal ? "" : item.term }}
               </td>
               <td
-                v-if="item.price !== undefined"
+                v-if="item.price !== undefined || item.isTotal"
                 width="9%"
                 style="word-break: initial"
                 @click="showEditNomenclature(item, $event)"
               >
-                <div id="anim">
+                <div v-if="!item.isTotal" id="anim">
                   <span class="tooltip-custom">
                     <span
                       class="tooltip-html"
@@ -176,6 +177,9 @@
                     </span>
                   </span>
                 </div>
+                <div v-else>
+                  {{ $t("total") }}
+                </div>
               </td>
               <!--<td-->
               <!--v-if="item.price !== undefined && ndsColumns"-->
@@ -185,35 +189,37 @@
               <!--{{ item.nds }}-->
               <!--</td>-->
               <td
-                v-if="item.price !== undefined"
+                v-if="item.price !== undefined || item.isTotal"
                 width="5%"
                 @click="showEditNomenclature(item, $event)"
               >
-                {{ item.priceWithoutNds }}
+                {{
+                  item.isTotal ? item.sumWithoutNdsPrice : item.priceWithoutNds
+                }}
               </td>
               <td
-                v-if="item.price !== undefined && ndsColumns"
+                v-if="(item.price !== undefined && ndsColumns) || item.isTotal"
                 width="5%"
                 @click="showEditNomenclature(item, $event)"
               >
-                {{ item.price }}
+                {{ item.isTotal ? item.sumPrice : item.price }}
               </td>
               <td
-                v-if="item.price !== undefined && ndsColumns"
+                v-if="(item.price !== undefined && ndsColumns) || item.isTotal"
+                width="7%"
+                @click="showEditNomenclature(item, $event)"
+              >
+                {{ item.isTotal ? item.sumNdsValue : item.ndsValue }}
+              </td>
+              <td
+                v-if="item.price !== undefined || item.isTotal"
                 width="5%"
                 @click="showEditNomenclature(item, $event)"
               >
-                {{ item.ndsValue }}
+                {{ item.isTotal ? item.sumTotalPrice : item.totalPrice }}
               </td>
               <td
-                v-if="item.price !== undefined"
-                width="5%"
-                @click="showEditNomenclature(item, $event)"
-              >
-                {{ item.totalPrice }}
-              </td>
-              <td
-                v-if="item.price !== undefined"
+                v-if="item.price !== undefined || item.isTotal"
                 width="5%"
                 @click="showEditNomenclature(item, $event)"
               >
@@ -221,7 +227,7 @@
                   {{ item.magazine }}
                 </span>
               </td>
-              <td v-if="item.price !== undefined" width="18%">
+              <td v-if="item.price !== undefined || item.isTotal" width="18%">
                 <span
                   class="ellipsis"
                   style="max-width: 120px; text-align: left;"
@@ -231,6 +237,34 @@
               </td>
             </tr>
           </tbody>
+          <tfoot>
+            <tr
+              style="background: rgb(225, 225, 225, 0.2); font-size: 13px;"
+              class="white--text text-left"
+            >
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th>
+                Итого:
+              </th>
+              <th>
+                {{ totalSum.sumWithoutNdsPrice }}
+              </th>
+              <th>
+                {{ totalSum.sumPrice }}
+              </th>
+              <th class="pl-1 pr-1">
+                {{ totalSum.sumNdsValue }}
+              </th>
+              <th>
+                {{ totalSum.sumTotalPrice }}
+              </th>
+              <th></th>
+              <th></th>
+            </tr>
+          </tfoot>
         </table>
       </v-skeleton-loader>
     </perfect-scrollbar>
@@ -671,7 +705,7 @@ export default {
       nomenclature: {},
       showFormErrors: false,
       serverUrl: serverUrl,
-      tdWidths: [30, 5, 5, 7, 9, 5, 5, 5, 5, 5, 5, 18],
+      tdWidths: [30, 5, 5, 7, 9, 5, 5, 5, 7, 5, 5, 16],
       updatingId: null,
       price: 0,
       photos: [],
@@ -884,6 +918,9 @@ export default {
           })
           .then(() => {
             this.showNomekModal = false;
+            this.$store.dispatch("furniture/getAllSum", {
+              furnitureId: this.furniture["id"]
+            });
             if (this.files.length) {
               this.addPhoto();
             }
@@ -907,6 +944,9 @@ export default {
             onlyOne: this.enabledGroups[this.nomenclature.group.id]
           })
           .then(() => {
+            this.$store.dispatch("furniture/getAllSum", {
+              furnitureId: this.furniture["id"]
+            });
             this.showNomekModal = false;
             if (!this.enabledGroups[this.nomenclature.group.id]) {
               // this.enabledGroups[this.nomenclature.group.id] = true;
@@ -1036,6 +1076,9 @@ export default {
         .dispatch("furniture/deleteNomenclature", this.nomenclature)
         .then(() => {
           this.showRemoveNomekModal = false;
+          this.$store.dispatch("furniture/getAllSum", {
+            furnitureId: this.furniture["id"]
+          });
         })
         .catch(error => {
           this.$notify({
@@ -1208,7 +1251,7 @@ export default {
         groupKeys.forEach(item => {
           let children = this.rows.slice(
             item.start + 1,
-            item.length + item.start + 1
+            item.length + item.start
           );
           children.sort((a, b) => {
             if (this.currentSort === column.code) {
@@ -1267,6 +1310,7 @@ export default {
       modules: state => state.user.modules,
       enabledGroups: state => state.furniture.enabledGroups,
       units: state => state.furniture.units,
+      totalSum: state => state.furniture.totalSum,
       lang: state => state.lang,
       titles(state) {
         if (this.ndsColumns) {

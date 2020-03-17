@@ -18,6 +18,7 @@ export default {
   },
   methods: {
     chooseConstruction(item) {
+      this.$store.state.furniture.totalSum = {};
       this.$store.commit("furniture/setLoadingStatus", true);
       this.$store
         .dispatch("furniture/getFurniture", { projectId: item.id })

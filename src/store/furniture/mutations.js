@@ -66,10 +66,17 @@ function updateGroup(state, data) {
 function setNomenclatures(state, data) {
   state.furniture.groups[state.furniture.groups.indexOf(data.group)][
     "children"
-  ] = data.response.length;
+  ] = data.response.length + 1;
+  state.furniture.groups[state.furniture.groups.indexOf(data.group)][
+    "totalSum"
+  ] = data.totalSum;
   data.response.forEach((item, key) => {
     data.response[key]["group"] = data.group;
   });
+
+  data.totalSum["isTotal"] = true;
+  data.response.push(data.totalSum);
+
   state.furniture.groups.splice(
     state.furniture.groups.indexOf(data.group) + 1,
     0,
@@ -87,6 +94,8 @@ function setNomenclature(state, data) {
     0,
     data.response
   );
+  data.totalSum["isTotal"] = true;
+  state.furniture.groups.splice(data.group["children"], 1, data.totalSum);
 }
 
 function deleteNomenclatures(state, data) {
@@ -106,6 +115,12 @@ function deleteNomenclatures(state, data) {
       state.furniture.groups[
         state.furniture.groups.indexOf(data.nomenclature.group)
       ]["children"] -= 1;
+      data.totalSum["isTotal"] = true;
+      state.furniture.groups.splice(
+        data.nomenclature.group["children"],
+        1,
+        data.totalSum
+      );
     }
   }
 }
@@ -131,6 +146,12 @@ function hideNomenclatures(state, data) {
 function updateNomenclature(state, data) {
   if (state.furniture.groups.indexOf(data.nomenclature) > -1) {
     data.response["group"] = data.nomenclature["group"];
+    data.totalSum["isTotal"] = true;
+    state.furniture.groups.splice(
+      data.nomenclature["group"]["children"],
+      1,
+      data.totalSum
+    );
     state.furniture.groups[state.furniture.groups.indexOf(data.nomenclature)] =
       data.response;
   } else {
@@ -182,6 +203,14 @@ function setLoadingStatus(state, data) {
   state.tableLoading = data;
 }
 
+function setTotalSum(state, data) {
+  state.totalSum = data;
+}
+
+function setGroupSum(state, data) {
+  state.groupSum = data;
+}
+
 function clearState(state) {
   state.furniture = {};
   state.construction = {};
@@ -209,5 +238,7 @@ export {
   setSubscribes,
   editEnabledGroups,
   closeConstruction,
-  setLoadingStatus
+  setLoadingStatus,
+  setTotalSum,
+  setGroupSum
 };

@@ -2,22 +2,21 @@ import api from "@/shared/api";
 import {
   furnitureConstructsUrl,
   createConstructUrl,
-  createFurnitureGroup,
-  updateFurnitureGroup,
-  getFurniture as furnitureUrl,
-  getUnitsUrl,
-  createNomenclatureUrl,
-  getNomenclatureUrl,
+  // getFurniture as furnitureUrl,
+  // getUnitsUrl,
+  // createNomenclatureUrl,
+  // getNomenclatureUrl,
   statusConfirmUrl,
-  deleteNomenclatureUrl,
-  updateNomenclatureUrl,
+  // deleteNomenclatureUrl,
+  // updateNomenclatureUrl,
   deletePhotoUrl,
   addPhotoUrl,
   updateConstructUrl,
   getSubscribesListUrl,
   createOrderUrl,
-  buyNomenclatureUrl,
-  getConstructionUrl
+  // buyNomenclatureUrl,
+  getConstructionUrl,
+  furnitureUrls
 } from "@/store/urls";
 
 function addConstruction({ commit }, data) {
@@ -105,7 +104,7 @@ function getConstructions({ commit }) {
 function addGroup({ commit }, data) {
   return new Promise((resolve, reject) => {
     api
-      .post(createFurnitureGroup, data)
+      .post(furnitureUrls.createGroupUrl, data)
       .then(response => {
         if (response.status === 200) {
           commit("addGroup", response.data);
@@ -128,7 +127,7 @@ function addGroup({ commit }, data) {
 function updateGroup({ commit }, data) {
   return new Promise((resolve, reject) => {
     api
-      .post(updateFurnitureGroup, data.data)
+      .post(furnitureUrls.updateGroupUrl, data.data)
       .then(response => {
         if (response.status === 200) {
           commit("updateGroup", { response: response.data, group: data.group });
@@ -154,10 +153,11 @@ function updateGroup({ commit }, data) {
 function getFurniture({ commit }, data) {
   return new Promise((resolve, reject) => {
     api
-      .get(furnitureUrl, { params: data })
+      .get(furnitureUrls.getFurnitureUrl, { params: data })
       .then(response => {
         if (response.status === 200) {
           commit("setFurniture", response.data);
+          getAllSum({ commit }, { furnitureId: response.data.id });
           resolve();
         } else {
           reject(response.data.message);
@@ -200,7 +200,7 @@ function getConstruction({ commit }, data) {
 function setUnits({ commit }) {
   return new Promise((resolve, reject) => {
     api
-      .get(getUnitsUrl)
+      .get(furnitureUrls.getUnitsUrl)
       .then(response => {
         if (response.status === 200) {
           commit("setUnits", response.data);
@@ -223,11 +223,17 @@ function setUnits({ commit }) {
 function setNomenclature({ commit }, data) {
   return new Promise((resolve, reject) => {
     api
-      .get(getNomenclatureUrl, { params: { groupId: data.id } })
+      .get(furnitureUrls.getNomenclatureUrl, { params: { groupId: data.id } })
       .then(response => {
         if (response.status === 200) {
-          commit("setNomenclatures", { response: response.data, group: data });
-          resolve(response);
+          getGroupSum({ commit }, { groupId: data.id }).then(response2 => {
+            commit("setNomenclatures", {
+              response: response.data,
+              group: data,
+              totalSum: response2.data
+            });
+            resolve(response);
+          });
         } else {
           reject(response.data.message);
         }
@@ -246,14 +252,19 @@ function setNomenclature({ commit }, data) {
 function addNomenclature({ commit }, data) {
   return new Promise((resolve, reject) => {
     api
-      .post(createNomenclatureUrl, data.data)
+      .post(furnitureUrls.createNomenclatureUrl, data.data)
       .then(response => {
         if (response.status === 200) {
           if (data.onlyOne) {
-            commit("setNomenclature", {
-              response: response.data,
-              group: data.group
-            });
+            getGroupSum({ commit }, { groupId: data.group.id }).then(
+              response2 => {
+                commit("setNomenclature", {
+                  response: response.data,
+                  group: data.group,
+                  totalSum: response2.data
+                });
+              }
+            );
           }
           resolve(response.data);
         } else {
@@ -279,13 +290,18 @@ function addNomenclature({ commit }, data) {
 function updateNomenclature({ commit }, data) {
   return new Promise((resolve, reject) => {
     api
-      .post(updateNomenclatureUrl, data.data)
+      .post(furnitureUrls.updateNomenclatureUrl, data.data)
       .then(response => {
         if (response.status === 200) {
-          commit("updateNomenclature", {
-            response: response.data,
-            nomenclature: data.nomenclature
-          });
+          getGroupSum({ commit }, { groupId: data.nomenclature.group.id }).then(
+            response2 => {
+              commit("updateNomenclature", {
+                response: response.data,
+                nomenclature: data.nomenclature,
+                totalSum: response2.data
+              });
+            }
+          );
           resolve(response.data);
         } else {
           reject(response.data.message);
@@ -305,7 +321,7 @@ function updateNomenclature({ commit }, data) {
 function buyNomenclature({ commit }, data) {
   return new Promise((resolve, reject) => {
     api
-      .post(buyNomenclatureUrl, data.data)
+      .post(furnitureUrls.buyNomenclatureUrl, data.data)
       .then(response => {
         if (response.status === 200) {
           commit("updateNomenclature", {
@@ -331,13 +347,20 @@ function buyNomenclature({ commit }, data) {
 function deleteNomenclature({ commit }, data) {
   return new Promise((resolve, reject) => {
     api
-      .delete(`${deleteNomenclatureUrl}?nomenclatureId=${data.id}`)
+      .delete(
+        `${furnitureUrls.deleteNomenclatureUrl}?nomenclatureId=${data.id}`
+      )
       .then(response => {
         if (response.status === 200) {
-          commit("deleteNomenclatures", {
-            response: response.data,
-            nomenclature: data
-          });
+          getGroupSum({ commit }, { groupId: data.group.id }).then(
+            response2 => {
+              commit("deleteNomenclatures", {
+                response: response.data,
+                nomenclature: data,
+                totalSum: response2.data
+              });
+            }
+          );
           resolve();
         } else {
           reject(response.data.message);
@@ -473,6 +496,42 @@ function createOrder({ commit }, data) {
   });
 }
 
+function getAllSum({ commit }, data) {
+  return new Promise((resolve, reject) => {
+    api
+      .get(furnitureUrls.getAllSumUrl, { params: data })
+      .then(response => {
+        if (response.status === 200) {
+          commit("setTotalSum", response.data);
+          resolve(response);
+        } else {
+          reject(response);
+        }
+      })
+      .catch(error => {
+        reject(error.response.message);
+      });
+  });
+}
+
+function getGroupSum({ commit }, data) {
+  return new Promise((resolve, reject) => {
+    api
+      .get(furnitureUrls.getGroupSumUrl, { params: data })
+      .then(response => {
+        if (response.status === 200) {
+          commit("ignore");
+          resolve(response);
+        } else {
+          reject(response);
+        }
+      })
+      .catch(error => {
+        reject(error.response.message);
+      });
+  });
+}
+
 function editEnabledGroups({ commit }, data) {
   commit("editEnabledGroups", data);
 }
@@ -503,5 +562,7 @@ export {
   getSubscribesList,
   createOrder,
   editEnabledGroups,
-  getConstruction
+  getConstruction,
+  getAllSum,
+  getGroupSum
 };

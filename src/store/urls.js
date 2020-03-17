@@ -2,6 +2,7 @@ import { userUrls } from "../store/user/urls";
 import { documentsUrls } from "../store/documents/urls";
 import { galleryUrls } from "./photofixations/urls";
 import { constructionUrls } from "./constructions/urls";
+import { furnitureUrls } from "./furniture/urls";
 
 const serverUrl =
   process.env.NODE_ENV === "development"
@@ -12,14 +13,14 @@ const registerUrl = `${serverUrl}/api/auth/reg`;
 const furnitureConstructsUrl = `${serverUrl}/api/furniture/project/get/all`;
 const createConstructUrl = `${serverUrl}/api/project/create`;
 const updateConstructUrl = `${serverUrl}/api/project/update`;
-const createFurnitureGroup = `${serverUrl}/api/furniture/group/create`;
-const updateFurnitureGroup = `${serverUrl}/api/furniture/group/update`;
-const getFurniture = `${serverUrl}/api/furniture/get`;
-const getUnitsUrl = `${serverUrl}/api/directory/units/get`;
-const createNomenclatureUrl = `${serverUrl}/api/furniture/nomenclature/create`;
-const getNomenclatureUrl = `${serverUrl}/api/furniture/nomenclature/get`;
-const deleteNomenclatureUrl = `${serverUrl}/api/furniture/nomenclature/delete`;
-const updateNomenclatureUrl = `${serverUrl}/api/furniture/nomenclature/update`;
+// const createFurnitureGroup = `${serverUrl}/api/furniture/group/create`;
+// const updateFurnitureGroup = `${serverUrl}/api/furniture/group/update`;
+// const getFurniture = `${serverUrl}/api/furniture/get`;
+// const getUnitsUrl = `${serverUrl}/api/directory/units/get`;
+// const createNomenclatureUrl = `${serverUrl}/api/furniture/nomenclature/create`;
+// const getNomenclatureUrl = `${serverUrl}/api/furniture/nomenclature/get`;
+// const deleteNomenclatureUrl = `${serverUrl}/api/furniture/nomenclature/delete`;
+// const updateNomenclatureUrl = `${serverUrl}/api/furniture/nomenclature/update`;
 const getMe = `${serverUrl}/api/user/profile/get`;
 const statusConfirmUrl = `${serverUrl}/api/furniture/nomenclature/status/confirm`;
 const deletePhotoUrl = `${serverUrl}/api/furniture/nomenclature/photo/delete`;
@@ -33,7 +34,7 @@ const createOrderUrl = `${serverUrl}/api/payment/tinkoff/order/create`;
 const uploadAvatarUrl = `${serverUrl}/api/user/profile/avatar/update`;
 const inviteUserUrl = `${serverUrl}/api/furniture/project/invite`;
 const removeUserUrl = `${serverUrl}/api/reginvite/delete`;
-const buyNomenclatureUrl = `${serverUrl}/api/furniture/nomenclature/status/buy`;
+// const buyNomenclatureUrl = `${serverUrl}/api/furniture/nomenclature/status/buy`;
 const requestModuleUrl = `${serverUrl}/api/order/module`;
 const invitemultipartUrl = `${serverUrl}/api/reginvite/invite`;
 const getConstructionUrl = `${serverUrl}/api/project/getone`;
@@ -45,16 +46,16 @@ export {
   furnitureConstructsUrl,
   createConstructUrl,
   updateConstructUrl,
-  createFurnitureGroup,
-  updateFurnitureGroup,
-  getFurniture,
-  getUnitsUrl,
-  createNomenclatureUrl,
-  getNomenclatureUrl,
+  // createFurnitureGroup,
+  // updateFurnitureGroup,
+  // getFurniture,
+  // getUnitsUrl,
+  // createNomenclatureUrl,
+  // getNomenclatureUrl,
   getMe,
   statusConfirmUrl,
-  deleteNomenclatureUrl,
-  updateNomenclatureUrl,
+  // deleteNomenclatureUrl,
+  // updateNomenclatureUrl,
   deletePhotoUrl,
   addPhotoUrl,
   getCurrenciesUrl,
@@ -65,7 +66,7 @@ export {
   createOrderUrl,
   uploadAvatarUrl,
   inviteUserUrl,
-  buyNomenclatureUrl,
+  // buyNomenclatureUrl,
   userUrls,
   documentsUrls,
   galleryUrls,
@@ -73,5 +74,6 @@ export {
   invitemultipartUrl,
   removeUserUrl,
   getConstructionUrl,
-  constructionUrls
+  constructionUrls,
+  furnitureUrls
 };
