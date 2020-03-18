@@ -252,7 +252,7 @@
               <th></th>
               <th></th>
               <th>
-                Итого:
+                {{ $t("total") }}:
               </th>
               <th>
                 {{ totalSum.sumWithoutNdsPrice }}
