@@ -743,7 +743,7 @@ export default {
       let table = document.getElementById("furnitureTable");
       if (table) {
         setTimeout(() => {
-          this.docNameWidth = table.offsetWidth / 3;
+          this.docNameWidth = table.offsetWidth / 4;
         }, 700);
       }
     },
