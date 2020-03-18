@@ -1036,6 +1036,7 @@ export default {
       this.price = 0;
     },
     showEditNomenclature(item, event) {
+      if (item.isTotal) return;
       let enableOpen = false;
       this.absolutesDisabled = item.buy;
       if (event) {
