@@ -195,6 +195,7 @@
       top
       right
       fab
+      style="top: 60px;"
       @click="showAddFixationForm = true"
     >
       <v-icon>mdi-plus</v-icon>

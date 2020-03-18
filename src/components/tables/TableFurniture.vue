@@ -18,7 +18,7 @@
         :tile="false"
         class="mx-auto"
       >
-        <table class="table">
+        <table class="table" id="furnitureTable">
           <thead>
             <tr>
               <td
@@ -39,7 +39,10 @@
                 >
                   <IconPlusSquared width="19" height="19" fill="#C4C4C4" />
                 </span>
-                <span class="ellipsis">
+                <span
+                  class="ellipsis"
+                  :style="{ maxWidth: docNameWidth + 'px' }"
+                >
                   {{ item.name }}
                 </span>
               </td>
@@ -82,7 +85,7 @@
               <td v-else-if="item.isTotal"></td>
               <td
                 v-else
-                width="30%"
+                width="27%"
                 style="display: table-cell; padding: 10px 5px;"
                 @click="showEditNomenclature(item, $event)"
               >
@@ -112,7 +115,11 @@
                     </v-img>
                   </span>
                   <span v-else class="icon no-img"></span>
-                  <span class="ellipsis ml-0" :title="item.name">
+                  <span
+                    class="ellipsis ml-0"
+                    :title="item.name"
+                    :style="{ maxWidth: docNameWidth + 'px' }"
+                  >
                     {{ item.name }}
                   </span>
                   <span
@@ -147,7 +154,7 @@
 
               <td
                 v-if="item.price !== undefined || item.isTotal"
-                width="7%"
+                width="10%"
                 @click="showEditNomenclature(item, $event)"
               >
                 {{ item.isTotal ? "" : item.term }}
@@ -685,6 +692,7 @@ Vue.use(VCalendar);
 Vue.use(VueMask);
 export default {
   name: "TableFurniture",
+  props: ["leftMenuShow"],
   components: {
     Uploader,
     CustomGallery,
@@ -705,7 +713,7 @@ export default {
       nomenclature: {},
       showFormErrors: false,
       serverUrl: serverUrl,
-      tdWidths: [30, 5, 5, 7, 9, 5, 5, 5, 7, 5, 5, 16],
+      tdWidths: [27, 5, 5, 7, 9, 5, 10, 5, 7, 5, 5, 16],
       updatingId: null,
       price: 0,
       photos: [],
@@ -726,10 +734,19 @@ export default {
         v => /.+@.+\..+/.test(v) || this.$t("invalid_email")
       ],
       date: new Date().toISOString().substr(0, 10),
-      menu2: false
+      menu2: false,
+      docNameWidth: 230
     };
   },
   methods: {
+    getDocNameWidth() {
+      let table = document.getElementById("furnitureTable");
+      if (table) {
+        setTimeout(() => {
+          this.docNameWidth = table.offsetWidth / 3;
+        }, 700);
+      }
+    },
     parseDate(date) {
       if (!date) return null;
 
@@ -1443,6 +1460,9 @@ export default {
     },
     date() {
       this.nomenclature.term = this.formatDate(this.date);
+    },
+    leftMenuShow() {
+      this.getDocNameWidth();
     }
   },
   mounted() {

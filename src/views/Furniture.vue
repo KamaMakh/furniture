@@ -4,7 +4,11 @@
       <h1 class="text-left mb-4">
         {{ $t("furnitureH1") }}
       </h1>
-      <TableFurniture ref="table" @createConstruction="createConstruction" />
+      <TableFurniture
+        :leftMenuShow="leftMenuShow"
+        ref="table"
+        @createConstruction="createConstruction"
+      />
     </div>
   </div>
 </template>
@@ -14,6 +18,7 @@ import { mapState } from "vuex";
 import TableFurniture from "@/components/tables/TableFurniture";
 export default {
   name: "Furniture",
+  props: ["leftMenuShow"],
   components: {
     TableFurniture
   },
