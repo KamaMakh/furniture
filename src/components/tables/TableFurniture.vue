@@ -184,9 +184,7 @@
                     </span>
                   </span>
                 </div>
-                <div v-else>
-                  {{ $t("total") }}
-                </div>
+                <div v-else>{{ $t("total") }} "{{ item.group.name }}":</div>
               </td>
               <!--<td-->
               <!--v-if="item.price !== undefined && ndsColumns"-->
@@ -247,7 +245,7 @@
           <tfoot>
             <tr
               style="background: rgb(225, 225, 225, 0.2); font-size: 13px;"
-              class="white--text text-left"
+              class="white--text text-center"
             >
               <th></th>
               <th></th>
@@ -491,21 +489,21 @@
                       :disabled="absolutesDisabled"
                       :close-on-content-click="false"
                       :nudge-right="40"
-                      :return-value.sync="nomenclature.term"
                       transition="scale-transition"
                       offset-y
                       min-width="290px"
                     >
                       <template v-slot:activator="{ on }">
                         <v-text-field
-                          v-model="nomenclature.termString"
+                          v-model="nomenclature.term"
                           :label="$t('term')"
+                          @blur="date = parseDate(nomenclature.term)"
                           light
                           v-on="on"
                         ></v-text-field>
                       </template>
                       <v-date-picker
-                        v-model="nomenclature.termString"
+                        v-model="date"
                         @input="menu2 = false"
                         :locale="lang"
                         first-day-of-week="1"
@@ -750,8 +748,8 @@ export default {
     parseDate(date) {
       if (!date) return null;
 
-      const [year, month, day] = date.split("-");
-      return `${day.padStart(2, "0")}.${month.padStart(2, "0")}.${year}`;
+      const [day, month, year] = date.split(".");
+      return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
     },
     statusesHtml(furniture) {
       let items = "",
@@ -903,8 +901,8 @@ export default {
       formData.append("name", this.nomenclature.name);
       formData.append("count", this.nomenclature.count);
 
-      let term = this.parseDate(this.nomenclature.termString);
-      formData.append("term", term);
+      // let term = this.parseDate(this.nomenclature.termString);
+      formData.append("term", this.nomenclature.term);
       formData.append("ndsBool", this.nomenclature.ndsBool);
 
       if (this.nomenclature.ndsBool) {
@@ -995,15 +993,19 @@ export default {
       this.group = group || {};
     },
     formatDate(date) {
-      let d = new Date(date),
-        month = "" + (d.getMonth() + 1),
-        day = "" + d.getDate(),
-        year = d.getFullYear();
+      // let d = new Date(date),
+      //   month = "" + (d.getMonth() + 1),
+      //   day = "" + d.getDate(),
+      //   year = d.getFullYear();
+      //
+      // if (month.length < 2) month = "0" + month;
+      // if (day.length < 2) day = "0" + day;
+      //
+      // return [day, month, year].join(".");
+      if (!date) return null;
 
-      if (month.length < 2) month = "0" + month;
-      if (day.length < 2) day = "0" + day;
-
-      return [day, month, year].join(".");
+      const [year, month, day] = date.split("-");
+      return `${day}.${month}.${year}`;
     },
     showNomenclature(item) {
       this.showNomekModal = true;
@@ -1049,9 +1051,10 @@ export default {
         this.$store.dispatch("furniture/setUnits");
         this.showNomekModal = true;
 
-        let term = item.term.split(".");
-        term = term[2] + "." + term[1] + "." + term[0];
-        item.termString = new Date(term).toISOString().substr(0, 10);
+        // let term = item.term.split(".");
+        // term = term[2] + "." + term[1] + "." + term[0];
+        /* eslint-disable */
+        //new Date(term).toISOString().substr(0, 10);
         this.nomenclature = item;
         // this.nomenclature.units["label"] = item.units.abName;
         this.photos = [];
@@ -1460,6 +1463,7 @@ export default {
     },
     date() {
       this.nomenclature.term = this.formatDate(this.date);
+      console.log(this.formatDate(this.date), this.nomenclature.term);
     },
     leftMenuShow() {
       this.getDocNameWidth();

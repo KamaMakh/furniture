@@ -74,6 +74,7 @@ function setNomenclatures(state, data) {
     data.response[key]["group"] = data.group;
   });
 
+  data.totalSum["group"] = data.group;
   data.totalSum["isTotal"] = true;
   data.response.push(data.totalSum);
 
@@ -95,6 +96,7 @@ function setNomenclature(state, data) {
     data.response
   );
   data.totalSum["isTotal"] = true;
+  data.totalSum["group"] = data.group;
   state.furniture.groups.splice(data.group["children"], 1, data.totalSum);
 }
 
@@ -116,6 +118,7 @@ function deleteNomenclatures(state, data) {
         state.furniture.groups.indexOf(data.nomenclature.group)
       ]["children"] -= 1;
       data.totalSum["isTotal"] = true;
+      data.totalSum["group"] = data.nomenclature.group;
       state.furniture.groups.splice(
         data.nomenclature.group["children"],
         1,
@@ -146,6 +149,7 @@ function hideNomenclatures(state, data) {
 function updateNomenclature(state, data) {
   if (state.furniture.groups.indexOf(data.nomenclature) > -1) {
     data.response["group"] = data.nomenclature["group"];
+    data.totalSum["group"] = data.nomenclature["group"];
     data.totalSum["isTotal"] = true;
     state.furniture.groups.splice(
       data.nomenclature["group"]["children"],
