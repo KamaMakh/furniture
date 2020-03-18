@@ -308,12 +308,7 @@ function updateNomenclature({ commit }, data) {
         }
       })
       .catch(error => {
-        if (error.response && error.response.status === 200) {
-          commit("updateNomenclature", { response: error.response.data });
-          resolve(error.response.message);
-        } else {
-          reject(error.response.message);
-        }
+        reject(error.response.message);
       });
   });
 }
@@ -324,22 +319,22 @@ function buyNomenclature({ commit }, data) {
       .post(furnitureUrls.buyNomenclatureUrl, data.data)
       .then(response => {
         if (response.status === 200) {
-          commit("updateNomenclature", {
-            response: response.data,
-            nomenclature: data.nomenclature
-          });
+          getGroupSum({ commit }, { groupId: data.nomenclature.group.id }).then(
+            response2 => {
+              commit("updateNomenclature", {
+                response: response.data,
+                nomenclature: data.nomenclature,
+                totalSum: response2.data
+              });
+            }
+          );
           resolve(response.data);
         } else {
           reject(response);
         }
       })
       .catch(error => {
-        if (error.response && error.response.status === 200) {
-          commit("updateNomenclature", { response: error.response.data });
-          resolve(error.response);
-        } else {
-          reject(error.response);
-        }
+        reject(error.response);
       });
   });
 }
