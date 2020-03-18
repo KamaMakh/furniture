@@ -902,6 +902,11 @@ export default {
       formData.append("count", this.nomenclature.count);
 
       // let term = this.parseDate(this.nomenclature.termString);
+      if (!this.nomenclature.term) {
+        this.nomenclature.term = this.formatDate(
+          new Date().toISOString().substr(0, 10)
+        );
+      }
       formData.append("term", this.nomenclature.term);
       formData.append("ndsBool", this.nomenclature.ndsBool);
 
