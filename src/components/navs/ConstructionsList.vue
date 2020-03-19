@@ -128,7 +128,6 @@
               <v-text-field
                 v-model="newConstruction.nds"
                 :label="$t('nds')"
-                :rules="rules"
                 type="number"
                 outlined
                 dense
