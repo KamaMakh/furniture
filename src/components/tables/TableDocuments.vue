@@ -117,6 +117,18 @@
           </tbody>
         </table>
       </v-skeleton-loader>
+      <v-btn
+        :color="color"
+        dark
+        fixed
+        top
+        right
+        fab
+        style="top: 60px;"
+        @click="showDocModal()"
+      >
+        <v-icon>mdi-plus</v-icon>
+      </v-btn>
     </perfect-scrollbar>
     <!--modals-->
     <v-dialog v-model="showAddDocModal" width="600">
