@@ -97,14 +97,14 @@ export default {
   },
   methods: {
     setMainPic(thumb) {
-      if (event.target.tagName === "IMG") {
-        this.mainPicSrc = {
-          src: thumb.isNew
-            ? thumb.src
-            : this.serverUrl + thumb.pathUrl + "&type=1000px",
-          id: thumb.id
-        };
-      }
+      // if (event.target.tagName === "IMG") {
+      this.mainPicSrc = {
+        src: thumb.isNew
+          ? thumb.src
+          : this.serverUrl + thumb.pathUrl + "&type=1000px",
+        id: thumb.id
+      };
+      // }
     },
     deletePic(image) {
       if (image.isNew) {
