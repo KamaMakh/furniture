@@ -106,7 +106,7 @@
         </div>
         <v-col cols="12" sm="8" md="8" class="pb-0">
           <v-card-text>
-            <v-form ref="addForm" v-model="addValid" lazy-validation>
+            <v-form ref="editForm" v-model="editValid" lazy-validation>
               <v-text-field
                 v-model="newConstruction.name"
                 :label="$t('construct_name')"
@@ -378,6 +378,7 @@ export default {
       showFormErrors: false,
       isClient: false,
       addValid: true,
+      editValid: true,
       inviteValid: true,
       rules: [v => !!v || this.$t("required")],
       currentRemoveUser: null,
@@ -501,10 +502,6 @@ export default {
         });
     },
     addConstruction() {
-      if (!this.$refs.addForm.validate()) {
-        this.loading = false;
-        return;
-      }
       this.loading = true;
       if (
         this.newConstruction.nds === undefined ||
@@ -515,6 +512,10 @@ export default {
         this.newConstruction.nds = 0;
       }
       if (this.newConstruction.id === undefined) {
+        if (!this.$refs.addForm.validate()) {
+          this.loading = false;
+          return;
+        }
         this.$store
           .dispatch(`${this.module}/addConstruction`, this.newConstruction)
           .then(() => {
@@ -539,6 +540,10 @@ export default {
             this.newConstruction = {};
           });
       } else {
+        if (!this.$refs.editForm.validate()) {
+          this.loading = false;
+          return;
+        }
         let formData = new FormData();
         formData.append("projectId", this.newConstruction.id);
         formData.append("name", this.newConstruction.name);
