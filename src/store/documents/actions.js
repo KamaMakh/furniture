@@ -142,7 +142,7 @@ function updateConstruction({ commit }, data) {
             resolve();
           } else {
             commit("updateConstruction", response.data);
-            resolve();
+            resolve(response.data);
           }
         } else {
           reject(response.data.message);
@@ -169,7 +169,7 @@ function addConstruction({ commit }, data) {
             reject({ subscribeError: true });
           } else {
             commit("addConstruction", response.data);
-            resolve();
+            resolve(response.data);
           }
         } else {
           reject(response.data.message);

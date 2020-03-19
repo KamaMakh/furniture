@@ -29,7 +29,7 @@
           >
             <span
               v-if="item.creatorId === user.id"
-              @click.stop="editConstruction(item)"
+              @click="editConstruction(item)"
               class="icon"
             ></span>
             {{ item.name | truncate }}
@@ -517,8 +517,9 @@ export default {
         }
         this.$store
           .dispatch(`${this.module}/addConstruction`, this.newConstruction)
-          .then(() => {
+          .then(response => {
             this.showAddModal = false;
+            this.chooseConstruction(response);
           })
           .catch(error => {
             if (error.subscribeError) {

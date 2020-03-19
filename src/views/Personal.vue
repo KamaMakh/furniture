@@ -68,6 +68,7 @@
               :color="color"
               outlined
               dense
+              :background-color="bgColor"
             ></v-text-field>
           </v-col>
           <v-col cols="12" sm="6" md="4">
@@ -82,6 +83,7 @@
               :label="$t('country')"
               outlined
               dense
+              :background-color="bgColor"
               v-debounce:300ms="getCountries"
             >
             </v-autocomplete>
@@ -109,6 +111,7 @@
               :color="color"
               outlined
               dense
+              :background-color="bgColor"
             ></v-text-field>
           </v-col>
         </v-row>
@@ -120,6 +123,7 @@
               :color="color"
               outlined
               dense
+              :background-color="bgColor"
             ></v-text-field>
           </v-col>
           <v-col cols="12" sm="6" md="4">
@@ -130,6 +134,7 @@
               :color="color"
               outlined
               dense
+              :background-color="bgColor"
             ></v-text-field>
           </v-col>
           <v-col cols="12" sm="6" md="4">
@@ -139,6 +144,7 @@
               :color="color"
               outlined
               dense
+              :background-color="bgColor"
             ></v-text-field>
           </v-col>
         </v-row>
@@ -150,6 +156,7 @@
               :color="color"
               outlined
               dense
+              :background-color="bgColor"
             ></v-textarea>
           </v-col>
           <v-col
@@ -165,6 +172,7 @@
               disabled
               outlined
               dense
+              :background-color="bgColor"
             ></v-text-field>
           </v-col>
         </v-row>
@@ -242,7 +250,8 @@ export default {
       },
       avatarValid: true,
       profileValid: true,
-      color: "#688e74"
+      color: "#688e74",
+      bgColor: "#fff"
     };
   },
   computed: {
@@ -400,7 +409,7 @@ export default {
 $ffamily: "Roboto", sans-serif;
 .personal {
   padding: 50px;
-  background: rgba(255, 255, 255, 0.3);
+  background: #fff;
   font-family: $ffamily !important;
   text-align: left;
   border-radius: 4px;
