@@ -57,12 +57,16 @@ router.beforeEach(async function(to, from, next) {
         store.commit("user/setEnableModules");
       }
       if (!VueCookies.get("token")) {
-        router.push({ name: "Login" });
+        if (localStorage.getItem("alreadyOpen")) {
+          router.push({ name: "Login" });
+        } else {
+          router.push({ name: "Registration" });
+        }
       } else {
         next();
       }
     } catch (e) {
-      router.push("/auth");
+      // router.push("/auth");
     }
   }
 });

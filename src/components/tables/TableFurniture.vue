@@ -251,9 +251,7 @@
               <th></th>
               <th></th>
               <th></th>
-              <th>
-                {{ $t("total") }}:
-              </th>
+              <th>{{ $t("total") }}:</th>
               <th>
                 {{ totalSum.sumWithoutNdsPrice }}
               </th>

@@ -66,6 +66,8 @@
               :label="$t('name')"
               :rules="[rules.required]"
               :color="color"
+              outlined
+              dense
             ></v-text-field>
           </v-col>
           <v-col cols="12" sm="6" md="4">
@@ -78,25 +80,36 @@
               item-value="id"
               :color="color"
               :label="$t('country')"
+              outlined
+              dense
               v-debounce:300ms="getCountries"
             >
             </v-autocomplete>
           </v-col>
           <v-col cols="12" sm="6" md="4">
-            <v-autocomplete
-              :disabled="country === undefined"
-              v-model="city"
-              :items="cities"
-              :search-input.sync="citySearch"
-              clearable
-              hide-details
-              item-text="name"
-              item-value="id"
+            <!--<v-autocomplete-->
+            <!--:disabled="country === undefined"-->
+            <!--v-model="city"-->
+            <!--:items="cities"-->
+            <!--:search-input.sync="citySearch"-->
+            <!--clearable-->
+            <!--hide-details-->
+            <!--item-text="name"-->
+            <!--item-value="id"-->
+            <!--:label="$t('locality')"-->
+            <!--v-debounce:300ms="getCities"-->
+            <!--:color="color"-->
+            <!--outlined-->
+            <!--dense-->
+            <!--&gt;-->
+            <!--</v-autocomplete>-->
+            <v-text-field
+              v-model="user.cityStr"
               :label="$t('locality')"
-              v-debounce:300ms="getCities"
               :color="color"
-            >
-            </v-autocomplete>
+              outlined
+              dense
+            ></v-text-field>
           </v-col>
         </v-row>
         <v-row class="mb-4">
@@ -105,6 +118,8 @@
               v-model="user.site"
               :label="$t('site')"
               :color="color"
+              outlined
+              dense
             ></v-text-field>
           </v-col>
           <v-col cols="12" sm="6" md="4">
@@ -113,6 +128,8 @@
               :label="$t('phone')"
               v-mask="'+7 (###) ###-##-##'"
               :color="color"
+              outlined
+              dense
             ></v-text-field>
           </v-col>
           <v-col cols="12" sm="6" md="4">
@@ -120,6 +137,8 @@
               v-model="user.nameOrganization"
               :label="$t('companyName')"
               :color="color"
+              outlined
+              dense
             ></v-text-field>
           </v-col>
         </v-row>
@@ -129,19 +148,23 @@
               :label="$t('info')"
               v-model="user.info"
               :color="color"
+              outlined
+              dense
             ></v-textarea>
           </v-col>
           <v-col
             cols="12"
             sm="6"
             md="4"
-            class="d-flex align-items-end align-self-end"
+            class="d-flex align-items-end align-self-start"
           >
             <v-text-field
               v-model="user.currency.name"
               :label="$t('currency')"
               :color="color"
               disabled
+              outlined
+              dense
             ></v-text-field>
           </v-col>
         </v-row>
@@ -308,17 +331,18 @@ export default {
       if (this.country) {
         let countryId = this.country.id ? this.country.id : this.country;
         formData.append("countryId", countryId);
-        if (this.city) {
-          let cityId = this.city.id ? this.city.id : this.city;
-          formData.append("cityId", cityId);
-        } else {
-          formData.append("cityId", -1);
-        }
+        // if (this.city) {
+        //   let cityId = this.city.id ? this.city.id : this.city;
+        //   formData.append("cityId", cityId);
+        // } else {
+        //   formData.append("cityId", -1);
+        // }
       } else {
         formData.append("countryId", -1);
       }
       formData.append("fio", this.user.fio);
 
+      if (this.user.cityStr) formData.append("cityStr", this.user.cityStr);
       if (this.user.phone) formData.append("phone", this.user.phone);
       if (this.user.site) formData.append("site", this.user.site);
       if (this.user.info) formData.append("info", this.user.info);

@@ -138,6 +138,7 @@
         :placeholder="$t('c_password')"
         :rules="[rules.required, rules.sameAs]"
         dark
+        autocomplete="current-password"
         :append-icon="showPass3 ? 'mdi-eye' : 'mdi-eye-off'"
         @click:append="showPass3 = !showPass3"
         :type="showPass3 ? 'text' : 'password'"
@@ -175,6 +176,16 @@ import {
 
 export default {
   name: "Login",
+  // eslint-disable-next-line
+  beforeRouteEnter(to, from, next) {
+    if (localStorage.getItem("alreadyOpen")) {
+      next();
+    } else {
+      next(vm => {
+        vm.$router.push({ name: "Registration" });
+      });
+    }
+  },
   data() {
     return {
       form: {},

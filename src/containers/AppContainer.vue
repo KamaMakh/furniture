@@ -96,6 +96,13 @@ export default {
     ...mapState({
       user: state => state.user.user
     })
+  },
+  mounted() {
+    let scriptTag = document.createElement("script");
+    scriptTag.src = "//code.jivosite.com/widget/tczsqwowIJ";
+    scriptTag.id = "my-datatable";
+    scriptTag.setAttribute("async", true);
+    document.getElementsByTagName("head")[0].appendChild(scriptTag);
   }
 };
 </script>

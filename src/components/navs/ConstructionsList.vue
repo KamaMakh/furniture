@@ -14,13 +14,7 @@
         {{ user.fio | truncate }}
       </div>
     </div>
-    <div
-      class="sidebar__btn"
-      @click="
-        showAddModal = true;
-        newConstruction = {};
-      "
-    >
+    <div class="sidebar__btn" @click="showAddConstModal">
       {{ $t("add_constr") }}
       <span class="icon">
         <IconPlusSquared width="19" height="19" />
@@ -76,7 +70,6 @@
                   v-model="newConstruction.nds"
                   :label="$t('nds')"
                   :placeholder="$t('nds')"
-                  :rules="rules"
                   type="number"
                 ></v-text-field>
               </v-col>
@@ -413,6 +406,12 @@ export default {
     })
   },
   methods: {
+    showAddConstModal() {
+      this.showAddModal = true;
+      this.newConstruction = {
+        nds: 0
+      };
+    },
     isEmail(v) {
       return !/.+@.+\..+/.test(v);
     },
@@ -507,6 +506,14 @@ export default {
         return;
       }
       this.loading = true;
+      if (
+        this.newConstruction.nds === undefined ||
+        this.newConstruction.nds === null ||
+        this.newConstruction.nds < 0 ||
+        this.newConstruction.nds === ""
+      ) {
+        this.newConstruction.nds = 0;
+      }
       if (this.newConstruction.id === undefined) {
         this.$store
           .dispatch(`${this.module}/addConstruction`, this.newConstruction)
@@ -535,7 +542,9 @@ export default {
         let formData = new FormData();
         formData.append("projectId", this.newConstruction.id);
         formData.append("name", this.newConstruction.name);
-        formData.append("address", this.newConstruction.address);
+        if (this.newConstruction.address) {
+          formData.append("address", this.newConstruction.address);
+        }
         formData.append("nds", this.newConstruction.nds);
         this.$store
           .dispatch(`${this.module}/updateConstruction`, formData)

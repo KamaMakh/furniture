@@ -159,7 +159,7 @@ export default {
           phone: this.form.phone,
           role: role,
           currencyId: currency,
-          info: this.form.info,
+          info: this.form.info || "",
           adrSite: hostName
         })
         .then(() => {
@@ -214,6 +214,7 @@ export default {
       referer: document.referrer
     });
     this.$store.dispatch("user/setCurrencies");
+    localStorage.setItem("alreadyOpen", "1");
   }
 };
 </script>
