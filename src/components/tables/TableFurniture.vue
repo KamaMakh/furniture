@@ -531,7 +531,7 @@
                       type="number"
                       step="1"
                       :rules="[newRules.nds]"
-                      @change="updatePrices"
+                      @input="updatePrices()"
                     ></v-text-field>
                   </div>
                   <div
@@ -1267,7 +1267,7 @@ export default {
           if (this.nomenclature.nds < 0) {
             this.nomenclature.nds = 0;
           }
-          let ndsPercentValue = this.nomenclature.nds/100 + 100;
+          let ndsPercentValue = this.nomenclature.nds/100 + 1;
           this.nomenclature["priceWithoutNds"] = (
             this.nomenclature.price / parseFloat(ndsPercentValue)
           ).toFixed(2);
