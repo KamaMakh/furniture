@@ -1267,8 +1267,9 @@ export default {
           if (this.nomenclature.nds < 0) {
             this.nomenclature.nds = 0;
           }
+          let ndsPercentValue = this.nomenclature.nds/100 + 100;
           this.nomenclature["priceWithoutNds"] = (
-            this.nomenclature.price / parseFloat("1." + this.nomenclature.nds)
+            this.nomenclature.price / parseFloat(ndsPercentValue)
           ).toFixed(2);
           this.nomenclature["ndsValue"] = (
             this.nomenclature.price - this.nomenclature["priceWithoutNds"]
