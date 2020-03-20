@@ -94,9 +94,10 @@
       >
         <v-btn
           v-if="
-            user.userSubscription &&
-              user.userSubscription.name !==
-                $t('tariffsPage.optimal.tariffName')
+            !dateValid ||
+              (user.userSubscription &&
+                user.userSubscription.name !==
+                  $t('tariffsPage.optimal.tariffName'))
           "
           dark
           outlined
@@ -151,9 +152,10 @@
       <div class="btn">
         <v-btn
           v-if="
-            user.userSubscription &&
-              user.userSubscription.name !==
-                $t('tariffsPage.premium.tariffName')
+            !dateValid ||
+              (user.userSubscription &&
+                user.userSubscription.name !==
+                  $t('tariffsPage.premium.tariffName'))
           "
           dark
           outlined
@@ -192,7 +194,8 @@ export default {
   data() {
     return {
       showSubscribeModal: false,
-      subId: null
+      subId: null,
+      dateValid: false
     };
   },
   components: {
@@ -202,6 +205,13 @@ export default {
     ...mapState({
       user: state => state.user.user
     })
+  },
+  mounted() {
+    if (this.user && this.user.userSubscription) {
+      let tariffDate = new Date(this.user.userSubscription.dateValid),
+        now = new Date();
+      this.dateValid = tariffDate > now;
+    }
   }
 };
 </script>
