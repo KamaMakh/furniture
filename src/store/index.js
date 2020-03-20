@@ -26,7 +26,13 @@ export default new Vuex.Store({
   },
   state: {
     lang: VueCookies.get("lang") || navigator.language.split("-")[0] || "en",
-    emptyConstructions: false
+    emptyConstructions: false,
+    snackBar: {
+      value: false,
+      color: "success",
+      text: "Внимание!",
+      button_text: "Ok"
+    }
   },
   getters: {
     loggedIn(state) {

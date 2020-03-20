@@ -9,7 +9,6 @@
         <img :src="serverUrl + avatarPath" />
       </div>
       <div v-else class="logo"></div>
-      <div class="role">{{ role }}</div>
       <div class="name">
         {{ user.fio | truncate }}
       </div>
@@ -71,6 +70,7 @@
                   :label="$t('nds')"
                   :placeholder="$t('nds')"
                   type="number"
+                  :rules="[newRules.nds]"
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -130,6 +130,7 @@
                 :label="$t('nds')"
                 type="number"
                 outlined
+                :rules="[newRules.nds]"
                 dense
                 color="#688e74"
                 background-color="#fff"
@@ -354,6 +355,7 @@ import { mapState } from "vuex";
 import { serverUrl } from "@/store/urls";
 import IconPlusSquared from "@/components/common/icons/IconPlusSquared";
 import IconClose from "@/components/common/icons/IconClose";
+import { ndsCount } from "@/shared/validator";
 export default {
   name: "ConstructionsList",
   props: ["module", "showConst"],
@@ -379,6 +381,9 @@ export default {
       addValid: true,
       editValid: true,
       inviteValid: true,
+      newRules: {
+        nds: value => ndsCount(value) || this.$t("messages.error.nds")
+      },
       rules: [v => !!v || this.$t("required")],
       currentRemoveUser: null,
       emailRules: [
@@ -397,6 +402,7 @@ export default {
         return state[this.module].constructions;
       },
       user: state => state.user.user,
+      snackBar: state => state.snackBar,
       avatarPath: state => state.user.avatarPath,
       role: state => {
         if (state.user.roles[0]) {
@@ -436,6 +442,9 @@ export default {
         .then(() => {
           this.invitedUser = {};
           this.editConstruction(this.newConstruction);
+          this.snackBar.value = true;
+          this.snackBar.text = this.$t("messages.success.invite");
+          this.snackBar.color = "success";
         })
         .catch(e => {
           this.$notify({
@@ -460,6 +469,9 @@ export default {
           this.invitedUser = {};
           this.editConstruction(this.newConstruction);
           this.currentRemoveUser = null;
+          this.snackBar.value = true;
+          this.snackBar.text = this.$t("messages.success.removeInvite");
+          this.snackBar.color = "success";
         })
         .catch(e => {
           this.$notify({
@@ -485,8 +497,9 @@ export default {
       this.$store
         .dispatch(`constructions/inviteMultipartUser`, formData)
         .then(() => {
-          // this.invitedUser = {};
-          // this.editConstruction(this.newConstruction);
+          this.snackBar.value = true;
+          this.snackBar.text = this.$t("messages.success.save");
+          this.snackBar.color = "success";
         })
         .catch(e => {
           this.$notify({
@@ -520,6 +533,9 @@ export default {
           .then(response => {
             this.showAddModal = false;
             this.chooseConstruction(response);
+            this.snackBar.value = true;
+            this.snackBar.text = this.$t("messages.success.save");
+            this.snackBar.color = "success";
           })
           .catch(error => {
             if (error.subscribeError) {
@@ -553,9 +569,13 @@ export default {
         formData.append("nds", this.newConstruction.nds);
         this.$store
           .dispatch(`${this.module}/updateConstruction`, formData)
-          .then(() => {
+          .then(response => {
             this.showAddModal = false;
             this.showEditModal = false;
+            this.chooseConstruction(response);
+            this.snackBar.value = true;
+            this.snackBar.text = this.$t("messages.success.save");
+            this.snackBar.color = "success";
           })
           .catch(error => {
             this.$notify({
@@ -575,11 +595,16 @@ export default {
       this.$emit("choose", item);
     },
     editConstruction(item) {
-      this.$store.dispatch(`${this.module}/getConstruction`, item).then(() => {
-        this.newConstruction = this.construction;
-        this.invitedUser = {};
-        this.showEditModal = true;
-      });
+      this.$store
+        .dispatch(`${this.module}/getConstruction`, item)
+        .then(() => {
+          this.newConstruction = this.construction;
+          this.invitedUser = {};
+          this.showEditModal = true;
+        })
+        .then(() => {
+          this.chooseConstruction(item);
+        });
     },
     showRemoveModal(item) {
       this.newConstruction = item;
@@ -595,6 +620,9 @@ export default {
         .then(() => {
           this.removeModal = false;
           this.showEditModal = false;
+          this.snackBar.value = true;
+          this.snackBar.text = this.$t("messages.success.removeConst");
+          this.snackBar.color = "success";
         })
         .catch(error => {
           this.$notify({
@@ -608,28 +636,6 @@ export default {
           this.loading = false;
         });
       this.newConstruction = {};
-    },
-    addAvatar() {
-      this.loading = true;
-      let formData = new FormData();
-      formData.append(`file`, this.files);
-      this.$store
-        .dispatch("user/uploadAvatar", formData)
-        .then(() => {
-          this.showAvatarModal = false;
-          this.files = [];
-        })
-        .catch(error => {
-          this.$notify({
-            group: "warn",
-            type: "error",
-            title: this.$i18n.messages[this.$i18n.locale]["attention"],
-            text: error
-          });
-        })
-        .finally(() => {
-          this.loading = false;
-        });
     }
   }
 };

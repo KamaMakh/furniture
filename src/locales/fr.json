@@ -148,6 +148,22 @@
     "default": "Contacts du support technique",
     "telegram": "Télégramme d'assistance technique"
   },
+  "messages": {
+    "success": {
+      "save": "Les données ont bien été enregistrées",
+      "removeConst": "Build supprimé",
+      "removeNomen": "Nomenclature supprimé",
+      "removePhoto": "Image supprimée",
+      "invite": "Invitation envoyée",
+      "removeInvite": "Utilisateur supprimé",
+      "buyNomenclature": "Nomenclature achetée",
+      "createGroup": "Groupe créé"
+    },
+    "error": {
+      "errorText": "Une erreur s'est produite.",
+      "nds": "La TVA ne peut pas être supérieure à 100 et inférieure à zéro"
+    }
+  },
   "lp": {
     "first": {
       "title": "Savoir exactement combien coûtera la construction",

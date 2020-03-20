@@ -459,6 +459,9 @@ export default {
                 this.$store.commit("photofixations/setLoadingStatus", false);
               });
           }
+          this.snackBar.value = true;
+          this.snackBar.text = this.$t("messages.success.save");
+          this.snackBar.color = "success";
         })
         .catch(error => {
           this.$notify({
@@ -488,6 +491,9 @@ export default {
         .then(() => {
           this.showEditFixationForm = false;
           this.photoFixation = {};
+          this.snackBar.value = true;
+          this.snackBar.text = this.$t("messages.success.save");
+          this.snackBar.color = "success";
         })
         .catch(error => {
           this.$notify({
@@ -520,6 +526,9 @@ export default {
             this.$refs.addPhotoForm.reset();
             this.$refs.addPhotoForm.resetValidation();
           }
+          this.snackBar.value = true;
+          this.snackBar.text = this.$t("messages.success.save");
+          this.snackBar.color = "success";
         })
         .catch(error => {
           this.$notify({
@@ -547,6 +556,9 @@ export default {
           this.showRemovePhotoForm = false;
           this.photoFixation = {};
           this.currPhoto = {};
+          this.snackBar.value = true;
+          this.snackBar.text = this.$t("messages.success.removePhoto");
+          this.snackBar.color = "success";
         })
         .catch(error => {
           this.$notify({
@@ -595,6 +607,7 @@ export default {
       empty: state => state.emptyConstructions,
       user: state => state.user.user,
       lang: state => state.lang,
+      snackBar: state => state.snackBar,
       pagesCount: state => Math.ceil(state.photofixations.total / 10)
     })
   },

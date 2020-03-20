@@ -530,6 +530,7 @@
                       :disabled="absolutesDisabled"
                       type="number"
                       step="1"
+                      :rules="[newRules.nds]"
                       @change="updatePrices"
                     ></v-text-field>
                   </div>
@@ -683,6 +684,7 @@ import { userUrls } from "@/store/urls";
 import IconPlusSquared from "@/components/common/icons/IconPlusSquared";
 import IconSettings from "@/components/common/icons/IconSettings";
 import IconBasket from "@/components/common/icons/IconBasket";
+import { ndsCount } from "@/shared/validator";
 
 Vue.use(VCalendar);
 Vue.use(VueMask);
@@ -723,6 +725,9 @@ export default {
       absolutesDisabled: false,
       addGroupValid: true,
       addNomenclatureValid: true,
+      newRules: {
+        nds: value => ndsCount(value) || this.$t("messages.error.nds")
+      },
       rules: [v => !!v || this.$t("required")],
       color: "#688e74",
       emailRules: [
@@ -788,6 +793,9 @@ export default {
             this.absolutesDisabled = response.buy;
           }
           this.showNomekModal = false;
+          this.snackBar.value = true;
+          this.snackBar.text = this.$t("messages.success.save");
+          this.snackBar.color = "success";
         })
         .catch(error => {
           this.$notify({
@@ -838,6 +846,9 @@ export default {
           })
           .then(() => {
             this.showAddModal = false;
+            this.snackBar.value = true;
+            this.snackBar.text = this.$t("messages.success.save");
+            this.snackBar.color = "success";
           })
           .catch(error => {
             this.$notify({
@@ -858,6 +869,9 @@ export default {
           })
           .then(() => {
             this.showAddModal = false;
+            this.snackBar.value = true;
+            this.snackBar.text = this.$t("messages.success.createGroup");
+            this.snackBar.color = "success";
           })
           .catch(error => {
             this.$notify({
@@ -942,6 +956,9 @@ export default {
             if (this.files.length) {
               this.addPhoto();
             }
+            this.snackBar.value = true;
+            this.snackBar.text = this.$t("messages.success.save");
+            this.snackBar.color = "success";
           })
           .catch(error => {
             this.$notify({
@@ -977,6 +994,9 @@ export default {
                 this.nomenclature.group
               );
             }
+            this.snackBar.value = true;
+            this.snackBar.text = this.$t("messages.success.save");
+            this.snackBar.color = "success";
           })
           .catch(error => {
             this.$notify({
@@ -1221,6 +1241,9 @@ export default {
         })
         .then(() => {
           this.updatingId = null;
+          this.snackBar.value = true;
+          this.snackBar.text = this.$t("messages.success.save");
+          this.snackBar.color = "success";
         })
         .catch(error => {
           this.$notify({
@@ -1336,6 +1359,7 @@ export default {
       units: state => state.furniture.units,
       totalSum: state => state.furniture.totalSum,
       lang: state => state.lang,
+      snackBar: state => state.snackBar,
       titles(state) {
         if (this.ndsColumns) {
           return [

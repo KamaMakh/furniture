@@ -75,6 +75,11 @@ const fileMaxCount = (value, maxCount) => {
   return value.length <= maxCount;
 };
 
+const ndsCount = value => {
+  if (value === undefined || value === null) return false;
+  return parseInt(value) <= 100 && parseInt(value) >= 0;
+};
+
 export {
   isEmail,
   sameAs,
@@ -87,5 +92,6 @@ export {
   fileMaxSize,
   fileMaxCount,
   fileMultipleSize,
-  requiredMultipleFiles
+  requiredMultipleFiles,
+  ndsCount
 };

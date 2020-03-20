@@ -148,6 +148,22 @@
     "default": "Ansprechpartner für technischen Support",
     "telegram": "Telegramm für technischen Support"
   },
+  "messages": {
+    "success": {
+      "save": "Daten erfolgreich gespeichert",
+      "removeConst": "Build gelöscht",
+      "removeNomen": "Nomenklatur gelöscht",
+      "removePhoto": "Bild gelöscht",
+      "invite": "Einladung gesendet",
+      "removeInvite": "Benutzer gelöscht",
+      "buyNomenclature": "Nomenklatur gekauft",
+      "createGroup": "Gruppe erstellt"
+    },
+    "error": {
+      "errorText": "Ein Fehler ist aufgetreten.",
+      "nds": "Die Mehrwertsteuer darf nicht mehr als 100 und nicht weniger als Null betragen"
+    }
+  },
   "lp": {
     "first": {
       "title": "Wissen Sie genau, wie viel der Bau kosten wird",

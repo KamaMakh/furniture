@@ -4,8 +4,8 @@
       <div v-if="user.avatar || avatarPath" class="personal__logo">
         <v-img
           :src="serverUrl + avatarPath"
-          contain
           class="lighten-2"
+          max-width="140"
           max-height="140"
           light
         >
@@ -149,16 +149,16 @@
           </v-col>
         </v-row>
         <v-row>
-          <v-col cols="12" sm="4">
-            <v-textarea
-              :label="$t('info')"
-              v-model="user.info"
-              :color="color"
-              outlined
-              dense
-              :background-color="bgColor"
-            ></v-textarea>
-          </v-col>
+          <!--<v-col cols="12" sm="4">-->
+          <!--<v-textarea-->
+          <!--:label="$t('info')"-->
+          <!--v-model="user.info"-->
+          <!--:color="color"-->
+          <!--outlined-->
+          <!--dense-->
+          <!--:background-color="bgColor"-->
+          <!--&gt;</v-textarea>-->
+          <!--</v-col>-->
           <v-col
             cols="12"
             sm="6"
@@ -258,6 +258,7 @@ export default {
     ...mapState({
       user: state => state.user.user,
       avatarPath: state => state.user.avatarPath,
+      snackBar: state => state.snackBar,
       countries(state) {
         let countryList = [];
         state.user.countries.forEach(item => {
@@ -303,6 +304,9 @@ export default {
         .then(() => {
           this.showAvatarModal = false;
           this.files = [];
+          this.snackBar.value = true;
+          this.snackBar.text = this.$t("messages.success.save");
+          this.snackBar.color = "success";
         })
         .catch(error => {
           this.$notify({
@@ -358,9 +362,17 @@ export default {
       if (this.user.nameOrganization)
         formData.append("nameOrganization", this.user.nameOrganization);
       this.loading = true;
-      this.$store.dispatch("user/updateProfile", formData).finally(() => {
-        this.loading = false;
-      });
+      this.$store
+        .dispatch("user/updateProfile", formData)
+        .then(() => {
+          this.snackBar.value = true;
+          this.snackBar.text = this.$t("messages.success.save");
+          this.snackBar.color = "success";
+          this.$router.push({ name: "Furniture" });
+        })
+        .finally(() => {
+          this.loading = false;
+        });
     }
   },
   watch: {

@@ -148,6 +148,22 @@
     "default": "Technical Support Contacts",
     "telegram": "Tech support telegram"
   },
+  "messages": {
+    "success": {
+      "save": "Data saved successfully",
+      "removeConst": "Build deleted",
+      "removeNomen": "Nomenclature deleted",
+      "removePhoto": "Picture deleted",
+      "invite": "Invitation sent",
+      "removeInvite": "User deleted",
+      "buyNomenclature": "Nomenclature purchased",
+      "createGroup": "Group created"
+    },
+    "error": {
+      "errorText": "An error has occurred",
+      "nds": "VAT cannot be more than 100 and less than zero"
+    }
+  },
   "lp": {
     "first": {
       "title": "Know exactly how much the construction will cost",

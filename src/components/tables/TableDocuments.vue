@@ -361,6 +361,11 @@ export default {
       formData.append(`estimateId`, document.id);
       this.$store
         .dispatch("documents/changeDocStatus", formData)
+        .then(() => {
+          this.snackBar.value = true;
+          this.snackBar.text = this.$t("messages.success.save");
+          this.snackBar.color = "success";
+        })
         .catch(error => {
           this.$notify({
             group: "warn",
@@ -473,6 +478,9 @@ export default {
             this.$refs.addDocForm.reset();
             this.$refs.addDocForm.resetValidation();
           }
+          this.snackBar.value = true;
+          this.snackBar.text = this.$t("messages.success.save");
+          this.snackBar.color = "success";
         })
         .catch(error => {
           this.$notify({
@@ -576,6 +584,7 @@ export default {
       user: state => state.user.user,
       lang: state => state.lang,
       access: state => state.documents.access,
+      snackBar: state => state.snackBar,
       titles(state) {
         return [
           {
