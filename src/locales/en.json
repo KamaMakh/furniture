@@ -237,7 +237,7 @@
       "ability5": "Ability to create up to 3 warehouses",
       "ability6": "Ability to create more than three buildings",
       "ability7": "Ability to create more than three warehouses",
-      "btnText": "Go to tariff",
+      "btnText": "Go to optimal",
       "flag": "Monthly",
       "price": "From 2333 \u20BD per month",
       "tariffName": "EXTENDED"

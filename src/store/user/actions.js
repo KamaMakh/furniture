@@ -160,19 +160,13 @@ function logout({ commit }) {
   commit('resetUser');
 }
 
-function checkUser({ commit }) {
+function getUser({ commit }) {
   return new Promise((resolve, reject) => {
-    api.post(getMe)
+    api.get(getMe)
       .then((response) => {
-        const user = response.data.data;
-
-        if (user) {
-          commit('setUser', user);
-        } else {
-          commit('resetUser');
-        }
-
-        resolve();
+        const user = response.data;
+        commit("setUser", user);
+        resolve(response);
       })
       .catch(error => onError(error, reject));
   });
@@ -305,5 +299,6 @@ export {
   getVerifyCode,
   getCountries,
   getCities,
-  updateProfile
+  updateProfile,
+  getUser
 }

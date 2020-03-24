@@ -85,20 +85,9 @@
           {{ $t("tariffsPage.optimal.ability7") }}
         </div>
       </div>
-      <div
-        v-if="
-          user.userSubscription &&
-            user.userSubscription.name !== $t('tariffsPage.premium.tariffName')
-        "
-        class="btn"
-      >
+      <div class="btn">
         <v-btn
-          v-if="
-            !dateValid ||
-              (user.userSubscription &&
-                user.userSubscription.name !==
-                  $t('tariffsPage.optimal.tariffName'))
-          "
+          v-if="!dateValid"
           dark
           outlined
           type="submit"
@@ -110,7 +99,14 @@
         >
           {{ $t("tariffsPage.optimal.btnText") }}
         </v-btn>
-        <div v-else class="btn">
+        <div
+          v-else-if="
+            user.userSubscription &&
+              user.userSubscription.name ===
+                $t('tariffsPage.optimal.tariffName')
+          "
+          class="btn"
+        >
           {{ $t("tariffsPage.free.btnText") }}
         </div>
       </div>
@@ -151,12 +147,7 @@
       </div>
       <div class="btn">
         <v-btn
-          v-if="
-            !dateValid ||
-              (user.userSubscription &&
-                user.userSubscription.name !==
-                  $t('tariffsPage.premium.tariffName'))
-          "
+          v-if="!dateValid"
           dark
           outlined
           type="submit"
@@ -168,7 +159,14 @@
         >
           {{ $t("tariffsPage.premium.btnText") }}
         </v-btn>
-        <div v-else class="btn">
+        <div
+          v-else-if="
+            user.userSubscription &&
+              user.userSubscription.name ===
+                $t('tariffsPage.premium.tariffName')
+          "
+          class="btn"
+        >
           {{ $t("tariffsPage.free.btnText") }}
         </div>
       </div>
@@ -207,7 +205,13 @@ export default {
     })
   },
   mounted() {
-    if (this.user && this.user.userSubscription) {
+    /* eslint-disable */
+    console.log(this.user.userSubscription);
+    if (
+      this.user &&
+      this.user.userSubscription &&
+      this.user.userSubscription.countProject > 1
+    ) {
       let tariffDate = new Date(this.user.userSubscription.dateValid),
         now = new Date();
       this.dateValid = tariffDate > now;

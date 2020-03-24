@@ -41,6 +41,7 @@ export default {
       this.$cookies.set("lang", val);
       this.$store.commit("setLang", val);
       this.$vuetify.lang.current = val;
+      this.$store.dispatch("user/getUser");
     }
   }
 };
