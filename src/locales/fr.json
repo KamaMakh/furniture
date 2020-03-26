@@ -35,6 +35,7 @@
   "projects": "Projets",
   "add_constr": "Ajouter chantier",
   "construct_name": "Référence",
+  "simple_name": "Nom",
   "save": "Ok",
   "close": "Annuler",
   "address": "Adresse",
@@ -161,7 +162,8 @@
     },
     "error": {
       "errorText": "Une erreur s'est produite.",
-      "nds": "La TVA ne peut pas être supérieure à 100 et inférieure à zéro"
+      "nds": "La TVA ne peut pas être supérieure à 100 et inférieure à zéro",
+      "required": "Requis"
     }
   },
   "lp": {

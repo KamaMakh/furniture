@@ -35,6 +35,7 @@
   "projects": "Projects",
   "add_constr": "Add construction",
   "construct_name": "Title",
+  "simple_name": "Name",
   "save": "Save",
   "close": "Close",
   "address": "Address",
@@ -161,7 +162,8 @@
     },
     "error": {
       "errorText": "An error has occurred",
-      "nds": "VAT cannot be more than 100 and less than zero"
+      "nds": "VAT cannot be more than 100 and less than zero",
+      "required": "Required"
     }
   },
   "lp": {

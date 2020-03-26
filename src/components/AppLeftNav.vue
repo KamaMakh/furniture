@@ -22,6 +22,9 @@
     >
       <SettingsNav ref="nav" />
     </div>
+    <div v-else-if="navsType === 'Warehouse'">
+      <WarehouseNav ref="nav" />
+    </div>
     <div v-else class="fullHeight">
       <DefaultNav ref="nav" />
     </div>
@@ -42,6 +45,7 @@ import StatisticsNav from "@/components/navs/StatisticsNav";
 import SettingsNav from "@/components/navs/SettingsNav";
 import DocumentsNav from "@/components/navs/DocumentsNav";
 import PhotoFixationNav from "@/components/navs/PhotoFixationsNav";
+import WarehouseNav from "@/components/navs/WarehouseNav";
 export default {
   name: "AppLeftNav",
   props: ["navsType", "showConst"],
@@ -52,7 +56,8 @@ export default {
     StatisticsNav,
     SettingsNav,
     DocumentsNav,
-    PhotoFixationNav
+    PhotoFixationNav,
+    WarehouseNav
   },
   data() {
     return {

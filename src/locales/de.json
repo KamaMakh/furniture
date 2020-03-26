@@ -35,6 +35,7 @@
   "projects": "projekte",
   "add_constr": "Konstruktion hinzufügen",
   "construct_name": "Titel",
+  "simple_name": "Name",
   "save": "Speichern",
   "close": "Schließen",
   "address": "Adresse",
@@ -161,7 +162,8 @@
     },
     "error": {
       "errorText": "Ein Fehler ist aufgetreten.",
-      "nds": "Die Mehrwertsteuer darf nicht mehr als 100 und nicht weniger als Null betragen"
+      "nds": "Die Mehrwertsteuer darf nicht mehr als 100 und nicht weniger als Null betragen",
+      "required": "Erforderlich"
     }
   },
   "lp": {

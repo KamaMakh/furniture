@@ -17,6 +17,7 @@ import Finances from "../views/Finances";
 import Personal from "../views/Personal";
 import PhotoFixation from "../views/PhotoFixation";
 import Contacts from "../views/Contacts";
+import Warehouse from "../views/Warehouse";
 
 Vue.use(VueRouter);
 
@@ -87,6 +88,11 @@ const routes = [
         path: "/photofixations",
         name: "PhotoFixations",
         component: PhotoFixation
+      },
+      {
+        path: "/warehouse",
+        name: "Warehouse",
+        component: Warehouse
       },
       {
         path: "/privacy_policy",

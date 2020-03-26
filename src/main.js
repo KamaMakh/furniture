@@ -71,10 +71,11 @@ router.beforeEach(async function(to, from, next) {
   }
 });
 
-Vue.filter("truncate", function(value) {
+Vue.filter("truncate", function(value, length) {
+  if (!length) length = 30;
   if (!value) return "";
-  if (value.length > 30) {
-    value = value.substring(0, 30) + "...";
+  if (value.length > length) {
+    value = value.substring(0, length) + "...";
   }
   return value;
 });

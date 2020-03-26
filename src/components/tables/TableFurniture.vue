@@ -1163,6 +1163,7 @@ export default {
         });
     },
     deleteNewPhoto(image) {
+      console.log(image);
       this.files = [];
       this.nomenclature.photos.splice(
         this.nomenclature.photos.indexOf(image),

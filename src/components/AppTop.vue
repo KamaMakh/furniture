@@ -10,7 +10,7 @@
       </div>
       <div class="header__menu header-menu">
         <ul>
-          <li v-if="modules.indexOf('Furniture') > -1">
+          <li>
             <router-link :to="{ name: 'Furniture' }">
               <span class="header-menu__icon">
                 <IconCart width="19" height="18" />
@@ -34,7 +34,7 @@
           <!--{{ $t("statistics") }}-->
           <!--</router-link>-->
           <!--</li>-->
-          <li v-if="modules.indexOf('Documents') > -1">
+          <li>
             <router-link :to="{ name: 'Documents' }">
               <span class="header-menu__icon">
                 <IconDocuments width="20" height="19" />
@@ -56,6 +56,14 @@
                 <IconUsers width="20" height="19" />
               </span>
               {{ $t("photofixation") }}
+            </router-link>
+          </li>
+          <li>
+            <router-link :to="{ name: 'Warehouse' }">
+              <span class="header-menu__icon">
+                <IconHome width="22" height="19" />
+              </span>
+              {{ $t("warehouse") }}
             </router-link>
           </li>
         </ul>
@@ -112,7 +120,7 @@
 import { mapState } from "vuex";
 import LocaleChanger from "@/components/LocaleChanger";
 import IconCart from "@/components/common/icons/IconCart";
-// import IconHome from "@/components/common/icons/IconHome";
+import IconHome from "@/components/common/icons/IconHome";
 // import IconTransport from "@/components/common/icons/IconTransport";
 import IconDocuments from "@/components/common/icons/IconDocuments";
 import IconUsers from "@/components/common/icons/IconUsers";
@@ -122,7 +130,7 @@ export default {
   components: {
     LocaleChanger,
     IconCart,
-    // IconHome,
+    IconHome,
     // IconTransport,
     IconDocuments,
     IconUsers

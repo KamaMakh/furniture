@@ -8,13 +8,13 @@ import furniture from "./furniture";
 import documents from "./documents";
 import photofixations from "./photofixations";
 import constructions from "./constructions";
+import warehouse from "./warehouse";
 
 Vue.use(VueCookies);
 Vue.use(Vuex);
 
 VueCookies.config("40d");
 
-// export default function () {
 export default new Vuex.Store({
   modules: {
     user,
@@ -22,7 +22,8 @@ export default new Vuex.Store({
     furniture,
     documents,
     photofixations,
-    constructions
+    constructions,
+    warehouse
   },
   state: {
     lang: VueCookies.get("lang") || navigator.language.split("-")[0] || "en",
@@ -49,5 +50,3 @@ export default new Vuex.Store({
     }
   }
 });
-// return Store;
-// }

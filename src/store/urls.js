@@ -3,6 +3,7 @@ import { documentsUrls } from "../store/documents/urls";
 import { galleryUrls } from "./photofixations/urls";
 import { constructionUrls } from "./constructions/urls";
 import { furnitureUrls } from "./furniture/urls";
+import { warehouseUrls } from "./warehouse/urls";
 
 const serverUrl =
   process.env.NODE_ENV === "development"
@@ -13,14 +14,6 @@ const registerUrl = `${serverUrl}/api/auth/reg`;
 const furnitureConstructsUrl = `${serverUrl}/api/furniture/project/get/all`;
 const createConstructUrl = `${serverUrl}/api/project/create`;
 const updateConstructUrl = `${serverUrl}/api/project/update`;
-// const createFurnitureGroup = `${serverUrl}/api/furniture/group/create`;
-// const updateFurnitureGroup = `${serverUrl}/api/furniture/group/update`;
-// const getFurniture = `${serverUrl}/api/furniture/get`;
-// const getUnitsUrl = `${serverUrl}/api/directory/units/get`;
-// const createNomenclatureUrl = `${serverUrl}/api/furniture/nomenclature/create`;
-// const getNomenclatureUrl = `${serverUrl}/api/furniture/nomenclature/get`;
-// const deleteNomenclatureUrl = `${serverUrl}/api/furniture/nomenclature/delete`;
-// const updateNomenclatureUrl = `${serverUrl}/api/furniture/nomenclature/update`;
 const getMe = `${serverUrl}/api/user/profile/get`;
 const statusConfirmUrl = `${serverUrl}/api/furniture/nomenclature/status/confirm`;
 const deletePhotoUrl = `${serverUrl}/api/furniture/nomenclature/photo/delete`;
@@ -46,16 +39,8 @@ export {
   furnitureConstructsUrl,
   createConstructUrl,
   updateConstructUrl,
-  // createFurnitureGroup,
-  // updateFurnitureGroup,
-  // getFurniture,
-  // getUnitsUrl,
-  // createNomenclatureUrl,
-  // getNomenclatureUrl,
   getMe,
   statusConfirmUrl,
-  // deleteNomenclatureUrl,
-  // updateNomenclatureUrl,
   deletePhotoUrl,
   addPhotoUrl,
   getCurrenciesUrl,
@@ -66,7 +51,6 @@ export {
   createOrderUrl,
   uploadAvatarUrl,
   inviteUserUrl,
-  // buyNomenclatureUrl,
   userUrls,
   documentsUrls,
   galleryUrls,
@@ -75,5 +59,6 @@ export {
   removeUserUrl,
   getConstructionUrl,
   constructionUrls,
-  furnitureUrls
+  furnitureUrls,
+  warehouseUrls
 };
