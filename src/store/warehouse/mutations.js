@@ -77,20 +77,28 @@ function setNomenclatures(state, data) {
 function updateNomenclature(state, data) {
   state.warehouseNomenclatures.forEach((item, key) => {
     if (
-      item["id"] === data.nomenclature.id &&
-      item["count"] === data.nomenclature.count
+      item["storageNomenclatureId"] === data.nomenclature.storageNomenclatureId
     ) {
+      data.response["groupId"] = data.nomenclature.groupId;
       state.warehouseNomenclatures[key] = data.response;
     }
+    state.warehouseNomenclatures.unshift("trigger");
+    state.warehouseNomenclatures.shift();
   });
 }
 
 function updateNomenclaturePhoto(state, data) {
   state.warehouseNomenclatures.forEach((item, key) => {
-    if (item["id"] === data.nomenclature.id) {
+    if (
+      item["storageNomenclatureId"] === data.nomenclature.storageNomenclatureId
+    ) {
       state.warehouseNomenclatures[key]["photos"] = data.response;
     }
   });
+}
+
+function setTotalSum(state, data) {
+  state.totalSum = data;
 }
 
 function ignore() {
@@ -112,5 +120,6 @@ export {
   setNomenclature,
   updateNomenclature,
   setNomenclatures,
-  updateNomenclaturePhoto
+  updateNomenclaturePhoto,
+  setTotalSum
 };

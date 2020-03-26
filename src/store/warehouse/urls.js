@@ -14,5 +14,7 @@ export let warehouseUrls = {
   updateNomenclature: `${serverUrl}/storage/group/nomenclature/update`,
   getConstructionsUrl: `${serverUrl}/project/get/all`,
   deletePhoto: `${serverUrl}/nomenclature/photo/delete`,
-  addphoto: `${serverUrl}/nomenclature/photo/add`
+  addphoto: `${serverUrl}/nomenclature/photo/add`,
+  getAllSum: `${serverUrl}/storage/group/sum/all`,
+  getGroupSum: `${serverUrl}/storage/group/sum`
 };

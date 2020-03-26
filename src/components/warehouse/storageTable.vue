@@ -23,7 +23,7 @@
               >
                 {{ header.text }}
               </th>
-              <th class="text-right">
+              <th class="text-center">
                 {{ $t("actions") }}
               </th>
             </tr>
@@ -150,6 +150,19 @@
               </td>
             </tr>
           </tbody>
+          <tfoot>
+            <tr>
+              <th colspan="3" class="text-right">
+                {{ $t("total") }}
+              </th>
+              <th class="text-right">
+                {{ totalSum.sumPrice }}
+              </th>
+              <th>
+                {{ totalSum.sumTotalPrice }}
+              </th>
+            </tr>
+          </tfoot>
         </template>
         <template v-slot:top>
           <v-toolbar flat color="white">
@@ -299,7 +312,7 @@
                       hide-details
                       light
                       :placeholder="
-                        nomenclature.id
+                        nomenclature.storageNomenclatureId
                           ? nomenclature.units.name
                           : $t('unit_sh')
                       "
@@ -515,10 +528,10 @@ export default {
           {
             text: `${this.$t("order")}/${this.$t("warehouse")}`,
             value: "fat",
-            align: "left"
+            align: "center"
           },
-          { text: this.$t("price"), value: "carbs", align: "right" },
-          { text: this.$t("total"), value: "total", align: "right" }
+          { text: this.$t("price"), value: "carbs", align: "center" },
+          { text: this.$t("total"), value: "total", align: "center" }
         ];
       }
     })
@@ -605,8 +618,11 @@ export default {
       }
       this.loading = true;
       let formData = new FormData();
-      if (this.nomenclature.id) {
-        formData.append("storageNomenclatureId", this.nomenclature.id);
+      if (this.nomenclature.storageNomenclatureId) {
+        formData.append(
+          "storageNomenclatureId",
+          this.nomenclature.storageNomenclatureId
+        );
         let unit = this.nomenclature.units.id
           ? this.nomenclature.units.id
           : this.nomenclature.units;
@@ -653,7 +669,7 @@ export default {
         formData.append("magazine", this.nomenclature.magazine);
       }
 
-      if (this.nomenclature.id) {
+      if (this.nomenclature.storageNomenclatureId) {
         this.$store
           .dispatch("warehouse/updateNomenclature", {
             data: formData,
@@ -661,6 +677,9 @@ export default {
             nomenclature: this.nomenclature
           })
           .then(() => {
+            this.$store.dispatch("warehouse/getAllSum", {
+              storageId: this.warehouse["id"]
+            });
             this.showNomekModal = false;
             if (this.files.length) {
               this.addPhoto();
@@ -687,9 +706,9 @@ export default {
             group: this.nomenclature.group
           })
           .then(() => {
-            // this.$store.dispatch("furniture/getAllSum", {
-            //   furnitureId: this.furniture["id"]
-            // });
+            this.$store.dispatch("warehouse/getAllSum", {
+              storageId: this.warehouse["id"]
+            });
             this.showNomekModal = false;
             this.snackBar.value = true;
             this.snackBar.text = this.$t("messages.success.save");
@@ -707,7 +726,10 @@ export default {
     },
     addPhoto() {
       let formData = new FormData();
-      formData.append("nomenclatureId", this.nomenclature.id);
+      formData.append(
+        "nomenclatureId",
+        this.nomenclature.storageNomenclatureId
+      );
 
       for (let i = 0; i < this.files.length; i++) {
         formData.append(`file`, this.files[i]);
@@ -832,7 +854,7 @@ export default {
       if (newFile) {
         let reader = new FileReader();
         reader.onload = e => {
-          if (!this.nomenclature.id) {
+          if (!this.nomenclature.storageNomenclatureId) {
             this.nomenclature.photos = [];
           }
           this.nomenclature.photos.push({
@@ -888,5 +910,20 @@ export default {
     justify-content: center;
     background: #c4c4c4;
   }
+  .theme--light.v-data-table tbody tr td:not(.v-data-table__mobile-row) {
+    border-right: thin solid rgba(0, 0, 0, 0.12);
+  }
+  tfoot {
+    th {
+      border-top: thin solid rgba(0, 0, 0, 0.12);
+      text-align: right;
+      &:not(:last-child) {
+        border-right: thin solid rgba(0, 0, 0, 0.12);
+      }
+    }
+  }
+  /*tr:not(:last-child) th:not(.v-data-table__mobile-row) {*/
+  /*border-bottom: thin solid rgba(0, 0, 0, 0.12);*/
+  /*}*/
 }
 </style>

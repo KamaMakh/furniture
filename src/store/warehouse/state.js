@@ -8,5 +8,7 @@ export default {
   tableLoading: true,
   warehouse: {},
   warehouseGroups: [],
-  warehouseNomenclatures: []
+  warehouseNomenclatures: [],
+  totalSum: {},
+  groupSum: {}
 };

@@ -51,11 +51,10 @@ function getWarehouse({ commit }) {
     api
       .get(warehouseUrls.getAll)
       .then(response => {
-        if (response.status === 200) {
-          commit("setWarehouse", response.data);
-          commit("setAccess", true);
-          resolve(response);
-        }
+        getAllSum({ commit }, { storageId: response.data[0].id });
+        commit("setWarehouse", response.data);
+        commit("setAccess", true);
+        resolve(response);
       })
       .catch(error => {
         reject(error);
@@ -252,6 +251,20 @@ function addNomenclaturePhoto({ commit }, data) {
   });
 }
 
+function getAllSum({ commit }, data) {
+  return new Promise((resolve, reject) => {
+    api
+      .get(warehouseUrls.getAllSum, { params: data })
+      .then(response => {
+        commit("setTotalSum", response.data);
+        resolve(response);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+}
+
 export {
   getWarehouse,
   setConstruction,
@@ -265,5 +278,6 @@ export {
   updateNomenclature,
   getNomenclatures,
   deleteNomenclaturePhoto,
-  addNomenclaturePhoto
+  addNomenclaturePhoto,
+  getAllSum
 };
