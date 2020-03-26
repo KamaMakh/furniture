@@ -488,16 +488,6 @@ export default {
       page: 1,
       pageCount: 5,
       itemsPerPage: 25,
-      headers: [
-        { text: this.$t("simple_name"), value: "name", align: "left" },
-        {
-          text: `${this.$t("order")}/${this.$t("warehouse")}`,
-          value: "fat",
-          align: "left"
-        },
-        { text: this.$t("price"), value: "carbs", align: "right" },
-        { text: this.$t("total"), value: "total", align: "right" }
-      ],
       editedIndex: -1,
       date: new Date().toISOString().substr(0, 10),
       menu2: false
@@ -514,7 +504,23 @@ export default {
       totalSum: state => state.warehouse.totalSum,
       lang: state => state.lang,
       snackBar: state => state.snackBar,
-      warehouseNomenclatures: state => state.warehouse.warehouseNomenclatures
+      warehouseNomenclatures: state => state.warehouse.warehouseNomenclatures,
+      headers() {
+        return [
+          {
+            text: this.$t("simple_name"),
+            value: "name",
+            align: "left"
+          },
+          {
+            text: `${this.$t("order")}/${this.$t("warehouse")}`,
+            value: "fat",
+            align: "left"
+          },
+          { text: this.$t("price"), value: "carbs", align: "right" },
+          { text: this.$t("total"), value: "total", align: "right" }
+        ];
+      }
     })
   },
   methods: {
