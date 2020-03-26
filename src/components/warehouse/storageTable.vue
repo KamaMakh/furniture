@@ -726,8 +726,9 @@ export default {
     },
     addPhoto() {
       let formData = new FormData();
+      formData.append("nomenclatureId", this.nomenclature.nomenclatureId);
       formData.append(
-        "nomenclatureId",
+        "storageNomenclatureId",
         this.nomenclature.storageNomenclatureId
       );
 
