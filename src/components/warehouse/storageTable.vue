@@ -61,8 +61,12 @@
                   </v-icon>
                 </v-btn>
               </th>
-              <td class="text-right">
-                <v-btn icon small @click="showNomenclature(group)">
+              <th class="text-right">
+                <v-btn
+                  icon
+                  small
+                  @click="showNomenclature(group, groupedItems[group.id])"
+                >
                   <v-icon small :color="color">
                     mdi-plus
                   </v-icon>
@@ -77,7 +81,7 @@
                     mdi-pencil
                   </v-icon>
                 </v-btn>
-              </td>
+              </th>
             </tr>
             <tr v-for="(item, nkey) in groupedItems[group.id]" :key="nkey">
               <td
@@ -148,6 +152,18 @@
                   </v-icon>
                 </v-btn>
               </td>
+            </tr>
+            <tr v-if="group.totalSum" class="text-right">
+              <td colspan="2" class="text-right">
+                {{ $t("total") }}
+              </td>
+              <td class="text-right">
+                {{ group.totalSum.sumPrice }}
+              </td>
+              <td>
+                {{ group.totalSum.sumTotalPrice }}
+              </td>
+              <td></td>
             </tr>
           </tbody>
           <tfoot>
@@ -703,7 +719,8 @@ export default {
         this.$store
           .dispatch("warehouse/addNomenclature", {
             data: formData,
-            group: this.nomenclature.group
+            group: this.nomenclature.group,
+            nomenclature: this.nomenclature
           })
           .then(() => {
             this.$store.dispatch("warehouse/getAllSum", {
@@ -750,7 +767,7 @@ export default {
           this.snackBar.color = "error";
         });
     },
-    showNomenclature(item) {
+    showNomenclature(item, opened) {
       this.showNomekModal = true;
       this.files = [];
       this.nomenclature = {
@@ -763,7 +780,8 @@ export default {
         priceWithoutNds: 0,
         ndsBool: false,
         termString: new Date().toISOString().substr(0, 10),
-        photos: []
+        photos: [],
+        groupOpened: !!opened
       };
       this.$store.dispatch("furniture/setUnits").then(() => {
         if (this.units[0]) {
@@ -913,6 +931,11 @@ export default {
   }
   .theme--light.v-data-table tbody tr td:not(.v-data-table__mobile-row) {
     border-right: thin solid rgba(0, 0, 0, 0.12);
+  }
+  tbody {
+    th {
+      border-top: thin solid rgba(0, 0, 0, 0.12);
+    }
   }
   tfoot {
     th {

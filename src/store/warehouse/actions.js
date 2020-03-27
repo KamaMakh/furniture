@@ -5,7 +5,6 @@ import {
   updateConstructUrl,
   createConstructUrl
 } from "@/store/urls";
-import { getGroupSum } from "../furniture/actions";
 
 function getConstructions({ commit }) {
   return new Promise((resolve, reject) => {
@@ -140,8 +139,16 @@ function updateGroup({ commit }, data) {
     api
       .post(warehouseUrls.updateGroup, data.data)
       .then(response => {
-        commit("updateGroup", { response: response.data, group: data.group });
-        resolve();
+        getGroupSum({ commit }, { storageGroupId: data.group.id }).then(
+          response2 => {
+            data.group["totalSum"] = response2.data;
+            commit("updateGroup", {
+              response: response.data,
+              group: data.group
+            });
+            resolve();
+          }
+        );
       })
       .catch(error => {
         reject(error);
@@ -154,15 +161,22 @@ function addNomenclature({ commit }, data) {
     api
       .post(warehouseUrls.createNomenclature, data.data)
       .then(response => {
-        // commit("setNomenclature", {
-        //   response: response.data,
-        //   group: data.group
-        // });
-        commit("ignore");
-        getNomenclatures(
-          { commit },
-          { group: data.group, data: { storageGroupId: data.group.id } }
-        );
+        if (data.nomenclature.groupOpened) {
+          getGroupSum({ commit }, { storageGroupId: data.group.id }).then(
+            response2 => {
+              commit("setNomenclature", {
+                response: response.data,
+                group: data.group,
+                totalSum: response2.data
+              });
+            }
+          );
+        } else {
+          getNomenclatures(
+            { commit },
+            { group: data.group, data: { storageGroupId: data.group.id } }
+          );
+        }
         resolve(response.data);
       })
       .catch(error => {
@@ -177,7 +191,7 @@ function updateNomenclature({ commit }, data) {
       .post(warehouseUrls.updateNomenclature, data.data)
       .then(response => {
         if (response.status === 200) {
-          getGroupSum({ commit }, { groupId: data.nomenclature.group.id }).then(
+          getGroupSum({ commit }, { storageGroupId: data.group.id }).then(
             response2 => {
               commit("updateNomenclature", {
                 response: response.data,
@@ -202,10 +216,15 @@ function getNomenclatures({ commit }, data) {
     api
       .get(warehouseUrls.getGroupNomenclatures, { params: data.data })
       .then(response => {
-        commit("setNomenclatures", {
-          response: response.data,
-          group: data.group
-        });
+        getGroupSum({ commit }, { storageGroupId: data.group.id }).then(
+          response2 => {
+            data.group["totalSum"] = response2.data;
+            commit("setNomenclatures", {
+              response: response.data,
+              group: data.group
+            });
+          }
+        );
         resolve(response);
       })
       .catch(error => {
@@ -265,6 +284,20 @@ function getAllSum({ commit }, data) {
   });
 }
 
+function getGroupSum({ commit }, data) {
+  return new Promise((resolve, reject) => {
+    api
+      .get(warehouseUrls.getGroupSum, { params: data })
+      .then(response => {
+        commit("ignore");
+        resolve(response);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+}
+
 export {
   getWarehouse,
   setConstruction,
@@ -279,5 +312,6 @@ export {
   getNomenclatures,
   deleteNomenclaturePhoto,
   addNomenclaturePhoto,
-  getAllSum
+  getAllSum,
+  getGroupSum
 };
