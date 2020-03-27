@@ -141,7 +141,13 @@
                 {{ item.totalPrice }}
               </td>
               <td class="text-right">
-                <v-btn small icon class="text-center">
+                <v-btn
+                  small
+                  icon
+                  class="text-center"
+                  @click="showTransfer(item)"
+                  :disabled="item.count < 1"
+                >
                   <v-icon small :color="color">
                     mdi-upload
                   </v-icon>
@@ -251,6 +257,50 @@
     <!--<v-pagination v-model="page" :length="pageCount"></v-pagination>-->
 
     <!--modals-->
+    <v-dialog v-model="showTransferModal" width="500">
+      <v-card>
+        <v-card-title
+          class="headline"
+          v-html="
+            $t('storage.transferFromStorage', { name: nomenclature.name })
+          "
+        >
+        </v-card-title>
+        <v-card-text>
+          <v-form
+            ref="transferToProjectForm"
+            v-model="transferValid"
+            @submit.prevent="transferToProject"
+            lazy-validation
+          >
+            <v-row>
+              <v-col cols="12">
+                <v-text-field
+                  v-model="transferToProjectCount"
+                  :label="$t('count')"
+                  :rules="[rules.required, rules.naturalCount, rules.maxCount]"
+                  type="number"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+          </v-form>
+        </v-card-text>
+        <v-card-actions class="text-right justify-end">
+          <v-btn color="grey darken-1" text @click="showTransferModal = false">
+            {{ $t("cancel") }}
+          </v-btn>
+
+          <v-btn
+            :color="color"
+            text
+            :loading="loading"
+            @click="transferToProject"
+          >
+            {{ $t("ok") }}
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
     <v-dialog v-model="showNomekModal" width="850">
       <v-card>
         <v-card-text>
@@ -480,7 +530,7 @@
 </template>
 
 <script>
-import { required, ndsCount } from "@/shared/validator";
+import { required, ndsCount, naturalCount, maxCount } from "@/shared/validator";
 import { mapState } from "vuex";
 import CustomGallery from "@/components/CustomGallery";
 import { serverUrl } from "@/store/urls";
@@ -493,11 +543,14 @@ export default {
     return {
       group: {},
       addGroupValid: true,
+      transferValid: true,
       color: "#688e74",
       showGroupModal: false,
       showNomekModal: false,
+      showTransferModal: false,
       showRemovePhotoModal: false,
       nomenclature: {},
+      transferToProjectCount: 0,
       updatingId: null,
       price: 0,
       photos: [],
@@ -512,12 +565,19 @@ export default {
       rules: {
         required: value =>
           required(value) || this.$t("messages.error.required"),
-        nds: value => ndsCount(value) || this.$t("messages.error.nds")
+        nds: value => ndsCount(value) || this.$t("messages.error.nds"),
+        naturalCount: value =>
+          naturalCount(value) || this.$t("messages.error.naturalCount"),
+        maxCount: value => {
+          return (
+            maxCount(value, this.nomenclature.count) ||
+            this.$t("messages.error.quantity")
+          );
+        }
       },
       page: 1,
       pageCount: 5,
       itemsPerPage: 25,
-      editedIndex: -1,
       date: new Date().toISOString().substr(0, 10),
       menu2: false
     };
@@ -553,6 +613,38 @@ export default {
     })
   },
   methods: {
+    transferToProject() {
+      this.loading = true;
+      if (!this.$refs.transferToProjectForm.validate()) {
+        this.loading = false;
+        return;
+      }
+      let formData = new FormData();
+      formData.append(
+        "storageNomenclatureId",
+        this.nomenclature.storageNomenclatureId
+      );
+      formData.append("projectId", this.construction.id);
+      formData.append("count", this.transferToProjectCount);
+      this.$store
+        .dispatch("warehouse/transferFromStorage", {
+          data: formData,
+          projectId: this.construction.id
+        })
+        .then(() => {
+          this.showTransferModal = false;
+          this.nomenclature.count -= this.transferToProjectCount;
+          this.addNomenclature();
+        })
+        .catch(() => {
+          this.snackBar.value = true;
+          this.snackBar.text = this.$t("messages.error.errorText");
+          this.snackBar.color = "error";
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    },
     showAddGroupModal(group) {
       this.showGroupModal = true;
       if (group) {
@@ -565,6 +657,10 @@ export default {
       } else {
         this.group = {};
       }
+    },
+    showTransfer(nomenclature) {
+      this.nomenclature = nomenclature;
+      this.showTransferModal = true;
     },
     addGroup() {
       if (!this.$refs.addGroupForm.validate()) {
@@ -946,8 +1042,5 @@ export default {
       }
     }
   }
-  /*tr:not(:last-child) th:not(.v-data-table__mobile-row) {*/
-  /*border-bottom: thin solid rgba(0, 0, 0, 0.12);*/
-  /*}*/
 }
 </style>

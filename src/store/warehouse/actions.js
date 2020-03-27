@@ -190,23 +190,21 @@ function updateNomenclature({ commit }, data) {
     api
       .post(warehouseUrls.updateNomenclature, data.data)
       .then(response => {
-        if (response.status === 200) {
-          getGroupSum({ commit }, { storageGroupId: data.group.id }).then(
-            response2 => {
-              commit("updateNomenclature", {
-                response: response.data,
-                nomenclature: data.nomenclature,
-                totalSum: response2.data
-              });
-            }
-          );
-          resolve(response.data);
-        } else {
-          reject(response.data.message);
-        }
+        getGroupSum({ commit }, { storageGroupId: data.group.id }).then(
+          response2 => {
+            commit("updateNomenclature", {
+              response: response.data,
+              nomenclature: data.nomenclature,
+              totalSum: response2.data
+            });
+          }
+        );
+        resolve(response.data);
       })
       .catch(error => {
-        reject(error.response.message);
+        /* eslint-disable */
+        console.log(error);
+        reject(error);
       });
   });
 }
@@ -225,6 +223,29 @@ function getNomenclatures({ commit }, data) {
             });
           }
         );
+        resolve(response);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+}
+
+function getProjectNomenclatures({ commit }, data) {
+  return new Promise((resolve, reject) => {
+    api
+      .get(warehouseUrls.getProjectGroupNomenclatures, { params: data.data })
+      .then(response => {
+        // getGroupSum({ commit }, { storageGroupId: data.group.id }).then(
+        //   response2 => {
+        //     data.group["totalSum"] = response2.data;
+        //
+        //   }
+        // );
+        commit("setProjectNomenclatures", {
+          response: response.data,
+          group: data.group
+        });
         resolve(response);
       })
       .catch(error => {
@@ -298,6 +319,42 @@ function getGroupSum({ commit }, data) {
   });
 }
 
+function transferFromStorage({ commit }, data) {
+  return new Promise((resolve, reject) => {
+    api
+      .post(`${warehouseUrls.storageToProject}`, data.data)
+      .then(response => {
+        commit("ignore");
+        getProjectGroups({ commit }, { projectId: data.projectId });
+        // getProjectNomenclatures(
+        //   { commit },
+        //   { data: { projectGroupId: response.data.groupId, page: 0 } }
+        // );
+        resolve(response);
+      })
+      .catch(error => {
+        /* eslint-disable */
+        console.log(error);
+        reject(error.response.message);
+      });
+  });
+}
+
+function getProjectGroups({ commit }, data) {
+  return new Promise((resolve, reject) => {
+    api
+      .get(warehouseUrls.getProjectGroups, { params: data })
+      .then(response => {
+        commit("setProjectGroups", response.data);
+        // getAllSum({ commit }, { furnitureId: response.data.id });
+        resolve();
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+}
+
 export {
   getWarehouse,
   setConstruction,
@@ -313,5 +370,8 @@ export {
   deleteNomenclaturePhoto,
   addNomenclaturePhoto,
   getAllSum,
-  getGroupSum
+  getGroupSum,
+  transferFromStorage,
+  getProjectGroups,
+  getProjectNomenclatures
 };

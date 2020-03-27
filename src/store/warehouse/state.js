@@ -7,8 +7,9 @@ export default {
   access: true,
   tableLoading: true,
   warehouse: {},
-  warehouseGroups: [],
+  projectGroups: [],
   warehouseNomenclatures: [],
+  projectNomenclatures: [],
   totalSum: {},
   groupSum: {}
 };

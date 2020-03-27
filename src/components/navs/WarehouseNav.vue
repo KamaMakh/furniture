@@ -20,13 +20,15 @@ export default {
     chooseConstruction(item) {
       // this.$store.state.furniture.totalSum = {};
       this.$store.commit("warehouse/setLoadingStatus", true);
-      // this.$store
-      //   .dispatch("furniture/getFurniture", { projectId: item.id })
-      //   .then(() => {
-      //     setTimeout(() => {
-      //       this.$store.commit("furniture/setLoadingStatus", false);
-      //     }, 500);
-      //   });
+      this.$store
+        .dispatch("warehouse/getProjectGroups", {
+          projectId: item.id
+        })
+        .then(() => {
+          setTimeout(() => {
+            this.$store.commit("warehouse/setLoadingStatus", false);
+          }, 500);
+        });
       this.$store.dispatch("warehouse/setConstruction", item);
     },
     changeShowConst() {

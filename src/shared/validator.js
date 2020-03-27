@@ -80,6 +80,16 @@ const ndsCount = value => {
   return parseInt(value) <= 100 && parseInt(value) >= 0;
 };
 
+const naturalCount = value => {
+  if (value === undefined || value === null) return false;
+  return parseInt(value) > 0;
+};
+
+const maxCount = (value, maxCount) => {
+  if (value === undefined || value === null) return false;
+  return parseInt(value) <= maxCount;
+};
+
 export {
   isEmail,
   sameAs,
@@ -93,5 +103,7 @@ export {
   fileMaxCount,
   fileMultipleSize,
   requiredMultipleFiles,
-  ndsCount
+  ndsCount,
+  naturalCount,
+  maxCount
 };

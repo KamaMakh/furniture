@@ -163,7 +163,9 @@
     "error": {
       "errorText": "Une erreur s'est produite.",
       "nds": "La TVA ne peut pas être supérieure à 100 et inférieure à zéro",
-      "required": "Requis"
+      "required": "Requis",
+      "naturalCount": "Seuls les nombres positifs sont supérieurs à 0",
+      "quantity": "Montant invalide"
     }
   },
   "lp": {
@@ -257,5 +259,10 @@
       "price": "À partir de 3750 \u20BD par mois",
       "tariffName": "PREMIUM"
     }
+  },
+  "storage": {
+    "transferFromStorage": "Transférer l'article \n{name}",
+    "transferFromProject": "Transférer l'article \n{name}",
+    "transfer": "Transférer"
   }
 }

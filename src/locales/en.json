@@ -163,7 +163,9 @@
     "error": {
       "errorText": "An error has occurred",
       "nds": "VAT cannot be more than 100 and less than zero",
-      "required": "Required"
+      "required": "Required",
+      "naturalCount": "Only positive numbers are greater than 0",
+      "quantity": "Invalid quantity"
     }
   },
   "lp": {
@@ -257,5 +259,10 @@
       "price": "From 3750 \u20BD per month",
       "tariffName": "PREMIUM"
     }
+  },
+  "storage": {
+    "transferFromStorage": "Transfer item \n{name}",
+    "transferFromProject": "Transfer item \n{name}",
+    "transfer": "Transfer"
   }
 }

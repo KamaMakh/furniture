@@ -163,7 +163,9 @@
     "error": {
       "errorText": "Ein Fehler ist aufgetreten.",
       "nds": "Die Mehrwertsteuer darf nicht mehr als 100 und nicht weniger als Null betragen",
-      "required": "Erforderlich"
+      "required": "Erforderlich",
+      "naturalCount": "Nur positive Zahlen sind größer als 0",
+      "quantity": "Ungültiger Betrag"
     }
   },
   "lp": {
@@ -257,5 +259,10 @@
       "price": "Ab 3750 \u20BD pro Monat",
       "tariffName": "PREMIUM"
     }
+  },
+  "storage": {
+    "transferFromStorage": "Übertragen Sie den Artikel \n{name}",
+    "transferFromProject": "Übertragen Sie den Artikel \n{name}",
+    "transfer": "Übertragen"
   }
 }

@@ -1,10 +1,10 @@
 <template>
   <div>
     <v-row>
-      <v-col cols="12" md="5">
+      <v-col cols="12" md="4">
         <chantierTable />
       </v-col>
-      <v-col cols="12" md="7">
+      <v-col cols="12" md="8">
         <storageTable />
       </v-col>
     </v-row>
@@ -45,15 +45,15 @@ export default {
     setDefaultData() {
       if (this.$store.state.warehouse.constructions[0]) {
         this.$store.commit("warehouse/setLoadingStatus", true);
-        // this.$store
-        //   .dispatch("furniture/getFurniture", {
-        //     projectId: this.$store.state.furniture.constructions[0]["id"]
-        //   })
-        //   .then(() => {
-        //     setTimeout(() => {
-        //       this.$store.commit("furniture/setLoadingStatus", false);
-        //     }, 500);
-        //   });
+        this.$store
+          .dispatch("warehouse/getProjectGroups", {
+            projectId: this.$store.state.warehouse.constructions[0]["id"]
+          })
+          .then(() => {
+            setTimeout(() => {
+              this.$store.commit("warehouse/setLoadingStatus", false);
+            }, 500);
+          });
         this.$store.dispatch(
           "warehouse/setConstruction",
           this.$store.state.warehouse.constructions[0]

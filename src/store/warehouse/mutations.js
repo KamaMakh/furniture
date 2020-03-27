@@ -81,6 +81,12 @@ function setNomenclatures(state, data) {
   }
 }
 
+function setProjectNomenclatures(state, data) {
+  if (data.response.projectNomenclatures) {
+    state.projectNomenclatures.push(...data.response.projectNomenclatures);
+  }
+}
+
 function updateNomenclature(state, data) {
   state.warehouseNomenclatures.forEach((item, key) => {
     if (
@@ -111,6 +117,11 @@ function updateNomenclaturePhoto(state, data) {
   });
 }
 
+function setProjectGroups(state, data) {
+  state.projectGroups = data;
+  state.projectNomenclatures = [];
+}
+
 function setTotalSum(state, data) {
   state.totalSum = data;
 }
@@ -134,6 +145,8 @@ export {
   setNomenclature,
   updateNomenclature,
   setNomenclatures,
+  setProjectNomenclatures,
   updateNomenclaturePhoto,
-  setTotalSum
+  setTotalSum,
+  setProjectGroups
 };
