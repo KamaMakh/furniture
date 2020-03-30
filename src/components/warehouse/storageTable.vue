@@ -19,6 +19,7 @@
               <th
                 v-for="(header, key) in headers"
                 :key="key"
+                :width="header.width ? header.width : ''"
                 :style="{ 'text-align': header.align }"
               >
                 {{ header.text }}
@@ -599,15 +600,21 @@ export default {
           {
             text: this.$t("simple_name"),
             value: "name",
-            align: "left"
+            align: "left",
+            width: "35%"
           },
           {
-            text: `${this.$t("order")}/${this.$t("warehouse")}`,
+            text: `${this.$t("count")}`,
             value: "fat",
             align: "center"
           },
           { text: this.$t("price"), value: "carbs", align: "center" },
-          { text: this.$t("total"), value: "total", align: "center" }
+          {
+            text: this.$t("total"),
+            value: "total",
+            align: "center",
+            width: "30%"
+          }
         ];
       }
     })
@@ -631,9 +638,12 @@ export default {
           data: formData,
           projectId: this.construction.id
         })
-        .then(() => {
+        .then(response => {
           this.showTransferModal = false;
           this.nomenclature.count -= this.transferToProjectCount;
+          this.nomenclature["group"] = {
+            id: response.data.storageGroupId
+          };
           this.addNomenclature();
         })
         .catch(() => {
@@ -724,7 +734,10 @@ export default {
       return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
     },
     addNomenclature() {
-      if (!this.$refs.addNomenclatureForm.validate()) {
+      if (
+        this.$refs.addNomenclatureForm &&
+        !this.$refs.addNomenclatureForm.validate()
+      ) {
         this.loading = false;
         return;
       }

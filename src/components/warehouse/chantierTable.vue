@@ -22,6 +22,7 @@
                 :key="key"
                 :style="{ 'text-align': header.align }"
                 :colspan="header.colspan || 1"
+                :width="header.width ? header.width : ''"
               >
                 {{ header.text }}
               </th>
@@ -335,7 +336,8 @@ export default {
           },
           {
             text: `${this.$t("count")}`,
-            align: "center"
+            align: "center",
+            width: "20%"
           }
         ];
       }
