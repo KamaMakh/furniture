@@ -202,8 +202,6 @@ function updateNomenclature({ commit }, data) {
         resolve(response.data);
       })
       .catch(error => {
-        /* eslint-disable */
-        console.log(error);
         reject(error);
       });
   });
@@ -326,15 +324,13 @@ function transferFromStorage({ commit }, data) {
       .then(response => {
         commit("ignore");
         getProjectGroups({ commit }, { projectId: data.projectId });
-        // getProjectNomenclatures(
-        //   { commit },
-        //   { data: { projectGroupId: response.data.groupId, page: 0 } }
-        // );
+        getProjectNomenclatures(
+          { commit },
+          { data: { projectGroupId: response.data.projectGroupId, page: 0 } }
+        );
         resolve(response);
       })
       .catch(error => {
-        /* eslint-disable */
-        console.log(error);
         reject(error.response.message);
       });
   });
