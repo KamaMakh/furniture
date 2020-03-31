@@ -13,7 +13,10 @@
           <li>
             <router-link :to="{ name: 'Furniture' }">
               <span class="header-menu__icon">
-                <IconCart width="19" height="18" />
+                <!--                <IconCart width="19" height="18" />-->
+                <v-icon dark>
+                  mdi-text-box-check-outline
+                </v-icon>
               </span>
               {{ $t("furniture") }}
             </router-link>
@@ -26,18 +29,23 @@
           <!--{{ $t("projects") }}-->
           <!--</router-link>-->
           <!--</li>-->
-          <!--<li v-if="modules.indexOf('Statistics') > -1">-->
-          <!--<router-link :to="{ name: 'Statistics' }">-->
-          <!--<span class="header-menu__icon">-->
-          <!--<IconTransport width="25" height="19" />-->
-          <!--</span>-->
-          <!--{{ $t("statistics") }}-->
-          <!--</router-link>-->
-          <!--</li>-->
+          <li v-if="modules.indexOf('Statistics') > -1">
+            <router-link :to="{ name: 'Statistics' }">
+              <span class="header-menu__icon">
+                <v-icon dark>
+                  mdi-poll
+                </v-icon>
+              </span>
+              {{ $t("statistics") }}
+            </router-link>
+          </li>
           <li>
             <router-link :to="{ name: 'Documents' }">
               <span class="header-menu__icon">
-                <IconDocuments width="20" height="19" />
+                <!--                <IconDocuments width="20" height="19" />-->
+                <v-icon dark>
+                  mdi-clipboard-file-outline
+                </v-icon>
               </span>
               {{ $t("documents") }}
             </router-link>
@@ -53,7 +61,10 @@
           <li>
             <router-link :to="{ name: 'PhotoFixations' }">
               <span class="header-menu__icon">
-                <IconUsers width="20" height="19" />
+                <!--                <IconUsers width="20" height="19" />-->
+                <v-icon dark>
+                  mdi-camera-outline
+                </v-icon>
               </span>
               {{ $t("photofixation") }}
             </router-link>
@@ -61,7 +72,10 @@
           <li>
             <router-link :to="{ name: 'Warehouse' }">
               <span class="header-menu__icon">
-                <IconHome width="22" height="19" />
+                <!--                <IconHome width="22" height="19" />-->
+                <v-icon dark>
+                  mdi-warehouse
+                </v-icon>
               </span>
               {{ $t("warehouse") }}
             </router-link>
@@ -119,21 +133,22 @@
 <script>
 import { mapState } from "vuex";
 import LocaleChanger from "@/components/LocaleChanger";
-import IconCart from "@/components/common/icons/IconCart";
-import IconHome from "@/components/common/icons/IconHome";
+// import IconCart from "@/components/common/icons/IconCart";
+// import IconHome from "@/components/common/icons/IconHome";
 // import IconTransport from "@/components/common/icons/IconTransport";
-import IconDocuments from "@/components/common/icons/IconDocuments";
-import IconUsers from "@/components/common/icons/IconUsers";
+// import IconStatistics from "@/components/common/icons/IconStatistics";
+// import IconDocuments from "@/components/common/icons/IconDocuments";
+// import IconUsers from "@/components/common/icons/IconUsers";
 export default {
   name: "AppTop",
   props: ["leftMenuShow"],
   components: {
-    LocaleChanger,
-    IconCart,
-    IconHome,
-    // IconTransport,
-    IconDocuments,
-    IconUsers
+    LocaleChanger
+    // IconCart,
+    // IconHome,
+    // IconStatistics,
+    // IconDocuments,
+    // IconUsers
   },
   data() {
     return {
@@ -266,7 +281,7 @@ $ffamily: "Roboto", sans-serif;
         overflow: hidden;
         min-width: 0;
         width: auto;
-        font-size: 16px;
+        font-size: 15px;
         &:hover,
         &.active {
           background: #999;

@@ -1,5 +1,5 @@
 <template>
-  <v-form v-model="registerValid" ref="registerForm" @submit.prevent="register">
+  <v-form v-model="registerValid" ref="registerForm" @submit.prevent="register" autocomplete="off">
     <div class="register">
       <v-text-field
         v-model="form.email"
@@ -7,14 +7,15 @@
         :placeholder="$t('email')"
         :rules="[rules.required, rules.email]"
         type="email"
+        autocomplete="off"
         dark
-        autocomplete="email"
         class="mb-2"
       ></v-text-field>
       <v-text-field
         v-model="form.password"
         :label="$t('password')"
         :placeholder="$t('password')"
+        autocomplete="off"
         :rules="[rules.required, rules.min, rules.passwordRules]"
         dark
         :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
@@ -26,6 +27,7 @@
         v-model="form.c_password"
         :label="$t('c_password')"
         :placeholder="$t('c_password')"
+        autocomplete="off"
         :rules="[rules.required, rules.sameAs]"
         dark
         :append-icon="showPass2 ? 'mdi-eye' : 'mdi-eye-off'"

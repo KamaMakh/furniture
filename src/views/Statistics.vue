@@ -18,38 +18,60 @@ import { mapState } from "vuex";
 // import TableAllOperations from "@/components/tables/TableAllOperations";
 export default {
   name: "Statistics",
+  props: ["leftMenuShow"],
+  data() {
+    return {
+      isFirstOpen: true
+    };
+  },
   components: {
     // TableOperations,
     // TableAllOperations
   },
-  computed: {
-    ...mapState({
-      modules: state => state.user.modules
-    })
-  },
   mounted() {
-    // eslint-disable-next-line
+    this.$store.state.warehouse.construction = {};
+    /* eslint-disable-next-line */
     ym(57324937, "hit", "#/statistics", {
       title: "Статистика",
       referer: document.referrer
     });
-    if(this.modules.indexOf(this.$route.name) < 0) {
-      this.$router.push("/settings");
-      return;
+    return new Promise(() => {
+      // this.$store.dispatch("statistics/getWarehouse");
+      this.$store.dispatch("statistics/getConstructions").then(() => {
+        this.setDefaultData();
+      });
+    });
+  },
+  methods: {
+    setDefaultData() {
+      if (this.$store.state.warehouse.constructions[0]) {
+        this.$store.commit("statistics/setLoadingStatus", true);
+        this.$store
+          .dispatch("statistics/getProjectGroups", {
+            projectId: this.$store.state.warehouse.constructions[0]["id"]
+          })
+          .then(() => {
+            setTimeout(() => {
+              this.$store.commit("statistics/setLoadingStatus", false);
+            }, 500);
+          });
+        this.$store.dispatch(
+          "statistics/setConstruction",
+          this.$store.state.warehouse.constructions[0]
+        );
+        this.$store.state.emptyConstructions = false;
+      } else {
+        setTimeout(() => {
+          this.$store.commit("statistics/setLoadingStatus", false);
+        }, 500);
+        this.$store.state.warehouse.construction = {};
+        // this.$store.state.emptyConstructions = true;
+      }
+      this.isFirstOpen = false;
+    },
+    createConstruction() {
+      this.$emit("createConstruction");
     }
-    this.$store.dispatch("projects/requestModule", "Статистика");
-    return new Promise((resolve, reject) => {
-      this.$store.dispatch("furniture/getConstructions")
-        .then((response) => {
-          if(!this.$store.state.furniture.furniture.groups && this.$store.state.furniture.constructions[0]) {
-            this.$store.dispatch("furniture/getFurniture", {"projectId":this.$store.state.furniture.constructions[0]["id"]});
-            this.$store.dispatch("furniture/setConstruction", {
-              "id":this.$store.state.furniture.constructions[0]["id"],
-              "name":this.$store.state.furniture.constructions[0]["name"],
-            });
-          }
-        });
-    })
   }
 };
 </script>

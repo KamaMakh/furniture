@@ -9,6 +9,7 @@ import documents from "./documents";
 import photofixations from "./photofixations";
 import constructions from "./constructions";
 import warehouse from "./warehouse";
+import statistics from "./statistics";
 
 Vue.use(VueCookies);
 Vue.use(Vuex);
@@ -23,7 +24,8 @@ export default new Vuex.Store({
     documents,
     photofixations,
     constructions,
-    warehouse
+    warehouse,
+    statistics
   },
   state: {
     lang: VueCookies.get("lang") || navigator.language.split("-")[0] || "en",

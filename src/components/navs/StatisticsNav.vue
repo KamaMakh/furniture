@@ -1,58 +1,39 @@
 <template>
-  <div class="sidebar">
-    <div class="sidebar_list menu-left">
-      <ul v-if="constructions">
-        <li v-for="(item, key) in constructions" :key="key">
-          <a
-            :class="{ active: construction.id === item.id }"
-            @click="chooseConstruction(item)"
-            >{{ item.name }}</a
-          >
-        </li>
-      </ul>
-    </div>
-  </div>
+  <ConstructionsList
+    ref="constructionsList"
+    module="statistics"
+    @choose="chooseConstruction"
+  />
 </template>
 
 <script>
-import { mapState } from "vuex";
-import Vue from "vue";
-import VCalendar from "v-calendar";
-Vue.use(VCalendar);
+import ConstructionsList from "./ConstructionsList";
 
 export default {
   name: "StatisticsNav",
-  data() {
-    return {
-      dateTo: new Date(),
-      dateLocale: {},
-      dateFromV: new Date()
-    };
+  components: {
+    ConstructionsList
   },
-  computed: {
-    ...mapState("furniture", ["constructions"]),
-    ...mapState("furniture", ["construction"]),
-    ...mapState(["lang"]),
-    dateFrom: {
-      get() {
-        let date = new Date();
-        return new Date(date.setMonth(date.getMonth() - 1));
-      },
-      set(value) {
-        this.dateFromV = value;
-        return value;
-      }
-    }
+  data() {
+    return {};
   },
   methods: {
     chooseConstruction(item) {
-      this.$store.dispatch("furniture/getFurniture", {
-        projectId: item.id
-      });
-      this.$store.dispatch("furniture/setConstruction", {
-        id: item.id,
-        name: item.name
-      });
+      // this.$store.state.furniture.totalSum = {};
+      this.$store.commit("warehouse/setLoadingStatus", true);
+      this.$store
+        .dispatch("warehouse/getProjectGroups", {
+          projectId: item.id
+        })
+        .then(() => {
+          setTimeout(() => {
+            this.$store.commit("warehouse/setLoadingStatus", false);
+          }, 500);
+        });
+      this.$store.dispatch("warehouse/setConstruction", item);
+    },
+    changeShowConst() {
+      this.$refs.constructionsList.showAddModal = true;
     }
   }
 };

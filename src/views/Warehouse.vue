@@ -30,10 +30,10 @@ export default {
   mounted() {
     this.$store.state.warehouse.construction = {};
     /* eslint-disable-next-line */
-    // ym(57324937, "hit", "#/warehouse", {
-    //   title: "Склад",
-    //   referer: document.referrer
-    // });
+    ym(57324937, "hit", "#/warehouse", {
+      title: "Склад",
+      referer: document.referrer
+    });
     return new Promise(() => {
       this.$store.dispatch("warehouse/getWarehouse");
       this.$store.dispatch("warehouse/getConstructions").then(() => {
