@@ -164,6 +164,9 @@ export default {
             this.$store.commit("statistics/setLoadingStatus", false);
           }, 500);
         });
+    },
+    construction() {
+      this.page = 1;
     }
   }
 };

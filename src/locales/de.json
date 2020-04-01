@@ -146,6 +146,8 @@
   "creationDate": "Erstellungsdatum",
   "date": "Datum",
   "dateRange": "Datumsbereich",
+  "chooseRange": "Wählen Sie einen Datumsbereich im Kalender",
+  "chooseRangeEnd": "Wählen Sie das Bereichsende",
   "author": "Der Autor",
   "isYourEmail": "Sie können sich nicht auf die Baustelle einladen.",
   "search": "Suche",

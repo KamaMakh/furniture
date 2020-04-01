@@ -74,6 +74,10 @@
 .sidebar .date-range__input input {
   font-size: 13px;
 }
+.sidebar .date-range__info-text {
+  font-size: 13px;
+  margin-bottom: 10px;
+}
 
 .menu-left ul {
   padding: 0;

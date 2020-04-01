@@ -146,6 +146,8 @@
   "creationDate": "Creation date",
   "date": "Date",
   "dateRange": "Date range",
+  "chooseRange": "Select a date range on the calendar",
+  "chooseRangeEnd": "Choose end of range",
   "author": "Author",
   "isYourEmail": "You cannot invite yourself to the construction site.",
   "search": "Search",

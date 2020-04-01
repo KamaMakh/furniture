@@ -22,6 +22,14 @@
               </template>
             </v-text-field>
           </div>
+          <div class="date-range__info-text">
+            <span v-if="dates.length === 0">
+              {{ $t("chooseRange") }}
+            </span>
+            <span v-else-if="dates.length === 1">
+              {{ $t("chooseRangeEnd") }}
+            </span>
+          </div>
           <div class="date-range__picker">
             <v-date-picker
               no-title

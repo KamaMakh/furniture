@@ -229,6 +229,9 @@ $ffamily: "Roboto", sans-serif;
     width: 50px;
     margin-right: 11px;
     overflow: hidden;
+    @media all and(max-width: 480px) {
+      flex: 1 0 auto;
+    }
     .circle {
       top: 0;
       left: 0;
@@ -373,6 +376,9 @@ $ffamily: "Roboto", sans-serif;
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    @media all and(max-width: 480px) {
+      flex: 1 0 auto;
+    }
     &:hover {
       background: #999;
     }

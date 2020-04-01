@@ -146,6 +146,8 @@
   "creationDate": "Date de création",
   "date": "Date",
   "dateRange": "Plage de dates",
+  "chooseRange": "Sélectionnez une plage de dates sur le calendrier",
+  "chooseRangeEnd": "Choisissez la fin de gamme",
   "author": "L'auteur",
   "isYourEmail": "Vous ne pouvez pas vous inviter sur le chantier.",
   "search": "Chercher",
