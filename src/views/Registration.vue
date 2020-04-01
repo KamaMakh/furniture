@@ -59,6 +59,7 @@
           large
           :loading="loading"
           @click.prevent="register"
+          :disabled="!policy || !registerValid"
         >
           {{ $t("registration") }}
         </v-btn>
@@ -149,7 +150,7 @@ export default {
       window.open(this.url, "_blank");
     },
     register() {
-      if (!this.$refs.registerForm.validate()) {
+      if (!this.$refs.registerForm.validate() || !this.policy) {
         this.loading = false;
         return;
       }
