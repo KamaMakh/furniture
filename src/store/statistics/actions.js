@@ -1,6 +1,6 @@
 import api from "@/shared/api";
 import {
-  warehouseUrls,
+  statisticsUrls,
   getConstructionUrl,
   updateConstructUrl,
   createConstructUrl
@@ -9,7 +9,7 @@ import {
 function getConstructions({ commit }) {
   return new Promise((resolve, reject) => {
     api
-      .get(warehouseUrls.getConstructionsUrl)
+      .get(statisticsUrls.getConstructionsUrl)
       .then(response => {
         if (response.status === 200) {
           commit("setConstructions", response.data);
@@ -45,14 +45,28 @@ function getConstruction({ commit }, data) {
   });
 }
 
-function getWarehouse({ commit }) {
+function getAllTransfers({ commit }, data) {
   return new Promise((resolve, reject) => {
     api
-      .get(warehouseUrls.getAll)
+      .get(statisticsUrls.allTransfers, { params: data })
       .then(response => {
-        getAllSum({ commit }, { storageId: response.data[0].id });
-        commit("setWarehouse", response.data);
-        commit("setAccess", true);
+        commit("setTransfers", response.data);
+        commit("ignore");
+        resolve(response);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+}
+
+function getAllTransfersByDate({ commit }, data) {
+  return new Promise((resolve, reject) => {
+    api
+      .get(statisticsUrls.searchTransfer, { params: data })
+      .then(response => {
+        commit("setTransfers", response.data);
+        commit("ignore");
         resolve(response);
       })
       .catch(error => {
@@ -120,254 +134,12 @@ function addConstruction({ commit }, data) {
   });
 }
 
-function addGroup({ commit }, data) {
-  return new Promise((resolve, reject) => {
-    api
-      .post(`${warehouseUrls.createGroup}`, data)
-      .then(response => {
-        commit("addGroup", response.data);
-        resolve();
-      })
-      .catch(error => {
-        reject(error);
-      });
-  });
-}
-
-function updateGroup({ commit }, data) {
-  return new Promise((resolve, reject) => {
-    api
-      .post(warehouseUrls.updateGroup, data.data)
-      .then(response => {
-        getGroupSum({ commit }, { storageGroupId: data.group.id }).then(
-          response2 => {
-            data.group["totalSum"] = response2.data;
-            commit("updateGroup", {
-              response: response.data,
-              group: data.group
-            });
-            resolve();
-          }
-        );
-      })
-      .catch(error => {
-        reject(error);
-      });
-  });
-}
-
-function addNomenclature({ commit }, data) {
-  return new Promise((resolve, reject) => {
-    api
-      .post(warehouseUrls.createNomenclature, data.data)
-      .then(response => {
-        if (data.nomenclature.groupOpened) {
-          getGroupSum({ commit }, { storageGroupId: data.group.id }).then(
-            response2 => {
-              commit("setNomenclature", {
-                response: response.data,
-                group: data.group,
-                totalSum: response2.data
-              });
-            }
-          );
-        } else {
-          getNomenclatures(
-            { commit },
-            { group: data.group, data: { storageGroupId: data.group.id } }
-          );
-        }
-        resolve(response.data);
-      })
-      .catch(error => {
-        reject(error);
-      });
-  });
-}
-
-function updateNomenclature({ commit }, data) {
-  return new Promise((resolve, reject) => {
-    api
-      .post(warehouseUrls.updateNomenclature, data.data)
-      .then(response => {
-        getGroupSum({ commit }, { storageGroupId: data.group.id }).then(
-          response2 => {
-            commit("updateNomenclature", {
-              response: response.data,
-              nomenclature: data.nomenclature,
-              totalSum: response2.data
-            });
-          }
-        );
-        resolve(response.data);
-      })
-      .catch(error => {
-        reject(error);
-      });
-  });
-}
-
-function getNomenclatures({ commit }, data) {
-  return new Promise((resolve, reject) => {
-    api
-      .get(warehouseUrls.getGroupNomenclatures, { params: data.data })
-      .then(response => {
-        getGroupSum({ commit }, { storageGroupId: data.group.id }).then(
-          response2 => {
-            data.group["totalSum"] = response2.data;
-            commit("setNomenclatures", {
-              response: response.data,
-              group: data.group
-            });
-          }
-        );
-        resolve(response);
-      })
-      .catch(error => {
-        reject(error);
-      });
-  });
-}
-
-function getProjectNomenclatures({ commit }, data) {
-  return new Promise((resolve, reject) => {
-    api
-      .get(warehouseUrls.getProjectGroupNomenclatures, { params: data.data })
-      .then(response => {
-        // getGroupSum({ commit }, { storageGroupId: data.group.id }).then(
-        //   response2 => {
-        //     data.group["totalSum"] = response2.data;
-        //
-        //   }
-        // );
-        commit("setProjectNomenclatures", {
-          response: response.data,
-          group: data.group
-        });
-        resolve(response);
-      })
-      .catch(error => {
-        reject(error);
-      });
-  });
-}
-
-function deleteNomenclaturePhoto({ commit }, data) {
-  return new Promise((resolve, reject) => {
-    api
-      .delete(`${warehouseUrls.deletePhoto}?photoId=${data.photoId}`)
-      .then(response => {
-        commit("updateNomenclaturePhoto", {
-          response: response.data,
-          nomenclature: data.nomenclature
-        });
-        resolve();
-      })
-      .catch(error => {
-        reject(error.response.message);
-      });
-  });
-}
-
-function addNomenclaturePhoto({ commit }, data) {
-  return new Promise((resolve, reject) => {
-    api
-      .post(
-        `${warehouseUrls.addphoto}?nomenclatureId=${data.nomenclature.id}`,
-        data.data
-      )
-      .then(response => {
-        commit("updateNomenclaturePhoto", {
-          response: response.data,
-          nomenclature: data.nomenclature
-        });
-        resolve(response);
-      })
-      .catch(error => {
-        reject(error.response.message);
-      });
-  });
-}
-
-function getAllSum({ commit }, data) {
-  return new Promise((resolve, reject) => {
-    api
-      .get(warehouseUrls.getAllSum, { params: data })
-      .then(response => {
-        commit("setTotalSum", response.data);
-        resolve(response);
-      })
-      .catch(error => {
-        reject(error);
-      });
-  });
-}
-
-function getGroupSum({ commit }, data) {
-  return new Promise((resolve, reject) => {
-    api
-      .get(warehouseUrls.getGroupSum, { params: data })
-      .then(response => {
-        commit("ignore");
-        resolve(response);
-      })
-      .catch(error => {
-        reject(error);
-      });
-  });
-}
-
-function transferFromStorage({ commit }, data) {
-  return new Promise((resolve, reject) => {
-    api
-      .post(`${warehouseUrls.storageToProject}`, data.data)
-      .then(response => {
-        commit("ignore");
-        getProjectGroups({ commit }, { projectId: data.projectId });
-        getProjectNomenclatures(
-          { commit },
-          { data: { projectGroupId: response.data.projectGroupId, page: 0 } }
-        );
-        resolve(response);
-      })
-      .catch(error => {
-        reject(error.response.message);
-      });
-  });
-}
-
-function getProjectGroups({ commit }, data) {
-  return new Promise((resolve, reject) => {
-    api
-      .get(warehouseUrls.getProjectGroups, { params: data })
-      .then(response => {
-        commit("setProjectGroups", response.data);
-        // getAllSum({ commit }, { furnitureId: response.data.id });
-        resolve();
-      })
-      .catch(error => {
-        reject(error);
-      });
-  });
-}
-
 export {
-  getWarehouse,
+  getAllTransfers,
   setConstruction,
   updateConstruction,
   getConstruction,
   getConstructions,
   addConstruction,
-  addGroup,
-  updateGroup,
-  addNomenclature,
-  updateNomenclature,
-  getNomenclatures,
-  deleteNomenclaturePhoto,
-  addNomenclaturePhoto,
-  getAllSum,
-  getGroupSum,
-  transferFromStorage,
-  getProjectGroups,
-  getProjectNomenclatures
+  getAllTransfersByDate
 };

@@ -31,6 +31,7 @@
   "furnitureH1": "Material Approval",
   "planning": "Planning",
   "users": "Users",
+  "user": "User",
   "acceptance": "Acceptance",
   "projects": "Projects",
   "add_constr": "Add construction",
@@ -143,8 +144,12 @@
   "documentMax": "You can download files up to {size} mb in size with the following extensions: pdf, word, exel, jpg, tif, autocad",
   "documentName": "Document name",
   "creationDate": "Creation date",
+  "date": "Date",
+  "dateRange": "Date range",
   "author": "Author",
   "isYourEmail": "You cannot invite yourself to the construction site.",
+  "search": "Search",
+  "apply": "Apply",
   "support": {
     "default": "Technical Support Contacts",
     "telegram": "Tech support telegram"
@@ -263,6 +268,8 @@
   "storage": {
     "transferFromStorage": "Transfer item \n{name}",
     "transferFromProject": "Transfer item \n{name}",
-    "transfer": "Transfer"
+    "transfer": "Transfer",
+    "projectToStorage": "From construction site \"{name}\" to the warehouse",
+    "storageToProject": "From warehouse to construction site \"{name}\""
   }
 }

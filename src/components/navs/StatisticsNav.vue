@@ -1,13 +1,57 @@
 <template>
-  <ConstructionsList
-    ref="constructionsList"
-    module="statistics"
-    @choose="chooseConstruction"
-  />
+  <span>
+    <ConstructionsList
+      ref="constructionsList"
+      module="statistics"
+      @choose="chooseConstruction"
+    >
+      <template v-slot:dates>
+        <div class="date-range">
+          <div class="date-range__input">
+            <v-text-field
+              v-model="dateRangeText"
+              :label="$t('dateRange')"
+              prepend-icon="event"
+              :color="color"
+              readonly
+            >
+              <template v-if="dates && dates.length === 2" v-slot:append>
+                <v-icon right style="cursor: pointer" @click="clearFilter()">
+                  mdi-close
+                </v-icon>
+              </template>
+            </v-text-field>
+          </div>
+          <div class="date-range__picker">
+            <v-date-picker
+              no-title
+              :color="color"
+              v-model="dates"
+              range
+              reactive
+            ></v-date-picker>
+          </div>
+          <div class="date-range__btn mt-3 text-center">
+            <v-btn
+              small
+              :color="color"
+              class="white--text"
+              :disabled="!dates || dates.length < 2"
+              @click="getTransfersByDate()"
+              :loading="tableLoading"
+            >
+              {{ $t("apply") }}
+            </v-btn>
+          </div>
+        </div>
+      </template>
+    </ConstructionsList>
+  </span>
 </template>
 
 <script>
 import ConstructionsList from "./ConstructionsList";
+import { mapState } from "vuex";
 
 export default {
   name: "StatisticsNav",
@@ -15,26 +59,85 @@ export default {
     ConstructionsList
   },
   data() {
-    return {};
+    return {
+      color: "#688e74",
+      dates: []
+    };
+  },
+  computed: {
+    ...mapState({
+      construction: state => state.statistics.construction,
+      tableLoading: state => state.statistics.tableLoading
+    }),
+    dateRangeText() {
+      let formattedDates = [];
+      this.dates.forEach((item, key) => {
+        formattedDates[key] = this.formatDate(item);
+        if (key === 0) {
+          formattedDates[key] = `${this.$t("from")} ${formattedDates[key]}`;
+        } else {
+          formattedDates[key] = `${this.$t("to")} ${formattedDates[key]}`;
+        }
+      });
+      return formattedDates.join(" - ");
+    }
   },
   methods: {
-    chooseConstruction(item) {
-      // this.$store.state.furniture.totalSum = {};
-      this.$store.commit("warehouse/setLoadingStatus", true);
+    clearFilter() {
+      this.dates = [];
+      this.chooseConstruction(this.construction);
+    },
+    getTransfersByDate() {
+      this.$store.commit("statistics/setLoadingStatus", true);
       this.$store
-        .dispatch("warehouse/getProjectGroups", {
-          projectId: item.id
+        .dispatch("statistics/getAllTransfersByDate", {
+          projectId: this.construction.id,
+          page: 0,
+          dateFrom: this.formatDate(this.dates[0]),
+          dateTo: this.formatDate(this.dates[1])
         })
         .then(() => {
           setTimeout(() => {
-            this.$store.commit("warehouse/setLoadingStatus", false);
+            this.$store.commit("statistics/setLoadingStatus", false);
           }, 500);
         });
-      this.$store.dispatch("warehouse/setConstruction", item);
+    },
+    formatDate(date) {
+      if (!date) return null;
+
+      const [year, month, day] = date.split("-");
+      return `${day}.${month}.${year}`;
+    },
+    chooseConstruction(item) {
+      this.dates = [];
+      this.$store.commit("statistics/setLoadingStatus", true);
+      this.$store
+        .dispatch("statistics/getAllTransfers", {
+          projectId: item.id,
+          page: 0
+        })
+        .then(() => {
+          setTimeout(() => {
+            this.$store.commit("statistics/setLoadingStatus", false);
+          }, 500);
+        });
+      this.$store.dispatch("statistics/setConstruction", item);
     },
     changeShowConst() {
       this.$refs.constructionsList.showAddModal = true;
+    },
+    setDefaultDates() {
+      let now = new Date(),
+        lastMonth = new Date();
+      lastMonth.setMonth(lastMonth.getMonth() - 1);
+      this.dates = [
+        now.toISOString().substr(0, 10),
+        lastMonth.toISOString().substr(0, 10)
+      ];
     }
+  },
+  mounted() {
+    // this.setDefaultDates();
   }
 };
 </script>

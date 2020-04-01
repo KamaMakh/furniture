@@ -60,6 +60,20 @@ $ffamily: "Roboto", sans-serif;
       cursor: pointer;
     }
   }
+  .date-range {
+    margin-top: 45px;
+    padding-bottom: 50px;
+    padding-left: 15px;
+    .v-picker__body {
+      max-width: 100%;
+    }
+    &__input {
+      margin-bottom: 20px;
+      input {
+        font-size: 13px;
+      }
+    }
+  }
 }
 .menu-left {
   ul {

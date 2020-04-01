@@ -31,6 +31,7 @@
   "furnitureH1": "Согласование материалов",
   "planning": "Планинг",
   "users": "Пользователи",
+  "user": "Пользователь",
   "acceptance": "Приемка",
   "projects": "Проекты",
   "add_constr": "Добавить стройку",
@@ -143,8 +144,12 @@
   "documentMax": "Вы можете загрузить файлы размером до {size} мб следующих расширений : pdf, word, exel, jpg, tif, autocad",
   "documentName": "Наименование документа",
   "creationDate": "Дата создания",
+  "date": "Дата",
+  "dateRange": "Диапазон дат",
   "author": "Автор",
   "isYourEmail": "Вы не можете пригласить самого себя к стройке.",
+  "search": "Поиск",
+  "apply": "Применить",
   "support": {
     "default": "Контакты тех. поддержки",
     "telegram": "Тех. поддержка telegram"
@@ -263,6 +268,8 @@
   "storage": {
     "transferFromStorage": "Перенести номенклатуру {name}",
     "transferFromProject": "Перенести номенклатуру {name}",
-    "transfer": "Перенести"
+    "transfer": "Перенести",
+    "projectToStorage": "Со стройки \"{name}\" на склад",
+    "storageToProject": "Со склада на стройку \"{name}\""
   }
 }

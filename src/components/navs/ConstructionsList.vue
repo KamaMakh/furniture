@@ -36,6 +36,7 @@
         </li>
       </ul>
     </div>
+    <slot name="dates"></slot>
     <!--dialogs-->
     <v-dialog v-model="showAddModal" width="500">
       <v-card>

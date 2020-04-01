@@ -31,6 +31,7 @@
   "furnitureH1": "Materialgenehmigung",
   "planning": "Planung",
   "users": "Benutzer",
+  "user": "Benutzer",
   "acceptance": "Annahme",
   "projects": "projekte",
   "add_constr": "Konstruktion hinzufügen",
@@ -143,8 +144,12 @@
   "documentMax": "Sie können Dateien bis zu einer Größe von {Größe} MB mit den folgenden Erweiterungen herunterladen: pdf, word, exel, jpg, tif, autocad",
   "documentName": "Titel des Dokuments",
   "creationDate": "Erstellungsdatum",
+  "date": "Datum",
+  "dateRange": "Datumsbereich",
   "author": "Der Autor",
   "isYourEmail": "Sie können sich nicht auf die Baustelle einladen.",
+  "search": "Suche",
+  "apply": "Anwenden",
   "support": {
     "default": "Ansprechpartner für technischen Support",
     "telegram": "Telegramm für technischen Support"
@@ -263,6 +268,8 @@
   "storage": {
     "transferFromStorage": "Übertragen Sie den Artikel \n{name}",
     "transferFromProject": "Übertragen Sie den Artikel \n{name}",
-    "transfer": "Übertragen"
+    "transfer": "Übertragen",
+    "projectToStorage": "Von der Baustelle \"{name}\" zum Lager",
+    "storageToProject": "Vom Lager zur Baustelle \"{name}\""
   }
 }

@@ -12,7 +12,6 @@
 </template>
 
 <script>
-// import { mapState } from "vuex";
 import storageTable from "@/components/warehouse/storageTable";
 import chantierTable from "@/components/warehouse/chantierTable";
 export default {

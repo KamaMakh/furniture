@@ -31,6 +31,7 @@
   "furnitureH1": "Approbation du matériel",
   "planning": "Planification",
   "users": "Les utilisateurs",
+  "user": "Utilisateur",
   "acceptance": "Acceptation",
   "projects": "Projets",
   "add_constr": "Ajouter chantier",
@@ -143,8 +144,12 @@
   "documentMax": "Vous pouvez télécharger des fichiers jusqu'à {size} mb avec les extensions suivantes: pdf, word, exel, jpg, tif, autocad",
   "documentName": "Titre du document",
   "creationDate": "Date de création",
+  "date": "Date",
+  "dateRange": "Plage de dates",
   "author": "L'auteur",
   "isYourEmail": "Vous ne pouvez pas vous inviter sur le chantier.",
+  "search": "Chercher",
+  "apply": "Appliquer",
   "support": {
     "default": "Contacts du support technique",
     "telegram": "Télégramme d'assistance technique"
@@ -263,6 +268,8 @@
   "storage": {
     "transferFromStorage": "Transférer l'article \n{name}",
     "transferFromProject": "Transférer l'article \n{name}",
-    "transfer": "Transférer"
+    "transfer": "Transférer",
+    "projectToStorage": "Du chantier \"{name}\" à l'entrepôt",
+    "storageToProject": "De l'entrepôt au chantier \"{name}\""
   }
 }

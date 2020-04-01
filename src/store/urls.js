@@ -4,6 +4,7 @@ import { galleryUrls } from "./photofixations/urls";
 import { constructionUrls } from "./constructions/urls";
 import { furnitureUrls } from "./furniture/urls";
 import { warehouseUrls } from "./warehouse/urls";
+import { statisticsUrls } from "./statistics/urls";
 
 const serverUrl =
   process.env.NODE_ENV === "development"
@@ -60,5 +61,6 @@ export {
   getConstructionUrl,
   constructionUrls,
   furnitureUrls,
-  warehouseUrls
+  warehouseUrls,
+  statisticsUrls
 };

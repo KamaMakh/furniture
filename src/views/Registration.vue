@@ -1,5 +1,10 @@
 <template>
-  <v-form v-model="registerValid" ref="registerForm" @submit.prevent="register" autocomplete="off">
+  <v-form
+    v-model="registerValid"
+    ref="registerForm"
+    @submit.prevent="register"
+    autocomplete="off"
+  >
     <div class="register">
       <v-text-field
         v-model="form.email"
