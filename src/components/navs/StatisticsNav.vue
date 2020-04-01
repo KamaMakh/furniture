@@ -28,7 +28,9 @@
               :color="color"
               v-model="dates"
               range
+              scrollable
               reactive
+              first-day-of-week="1"
             ></v-date-picker>
           </div>
           <div class="date-range__btn mt-3 text-center">

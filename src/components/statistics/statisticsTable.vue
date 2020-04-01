@@ -20,6 +20,7 @@
         hide-default-footer
         :items-per-page="25"
         :loading="tableLoading"
+        :search="search"
       >
         <template v-slot:item.dateCreate="{ item }">
           {{ formatDate(item.dateCreate) }}
@@ -151,6 +152,14 @@ export default {
           page: value - 1
         })
         .then(() => {
+          let scrollElement = document.querySelector(".content__body.ps");
+          setTimeout(() => {
+            scrollElement.scrollTo({
+              top: 0,
+              left: 0,
+              behavior: "smooth"
+            });
+          }, 300);
           setTimeout(() => {
             this.$store.commit("statistics/setLoadingStatus", false);
           }, 500);

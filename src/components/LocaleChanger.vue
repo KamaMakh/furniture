@@ -1,5 +1,5 @@
 <template>
-  <div class="locale-changer">
+  <div class="locale-changer" :class="{ 'app-top': parentClass === 'app-top' }">
     <v-select
       v-model="currLang"
       :items="langs"

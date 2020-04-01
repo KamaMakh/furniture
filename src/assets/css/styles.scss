@@ -542,3 +542,34 @@ $pink: #688e74;
     padding: 15px;
   }
 }
+.app-top {
+  &.locale-changer {
+    width: 45px;
+    margin-left: 1px;
+    &:hover {
+      background: #999;
+    }
+    select {
+      border: none;
+      font-family: "Roboto", sans-serif;
+      font-size: 21px;
+      color: #fff;
+      text-transform: uppercase;
+      background: transparent;
+      option {
+        background-color: transparent !important;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+        border: none;
+        color: #333;
+      }
+    }
+    .v-text-field.v-text-field--solo .v-input__append-inner, .v-text-field.v-text-field--solo .v-input__prepend-inner {
+      display: none;
+    }
+    .v-select__selection--comma {
+      margin-right: 0;
+    }
+  }
+}

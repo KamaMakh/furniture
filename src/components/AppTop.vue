@@ -116,8 +116,11 @@
           </span>
         </div>
         <router-link :to="{ name: 'Settings' }" class="options__btn">
-          <span class="options__icon"></span>
-          {{ $t("settings") }}
+          <!--          <span class="options__icon"></span>-->
+          <!--          {{ $t("settings") }}-->
+          <v-icon dark>
+            mdi-cog-outline
+          </v-icon>
         </router-link>
         <div class="options__lang" @click="toggleLang">
           <LocaleChanger :parentClass="'app-top'" bgColor="#688e74" />
@@ -225,6 +228,7 @@ $ffamily: "Roboto", sans-serif;
     position: relative;
     width: 50px;
     margin-right: 11px;
+    overflow: hidden;
     .circle {
       top: 0;
       left: 0;
@@ -309,6 +313,7 @@ $ffamily: "Roboto", sans-serif;
 .options {
   display: flex;
   &__btn {
+    width: 45px !important;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -321,7 +326,8 @@ $ffamily: "Roboto", sans-serif;
     color: #d6e8ce;
     display: flex;
     align-items: center;
-    padding: 13px 13px 13px 30px;
+    justify-content: center;
+    /*padding: 13px 13px 13px 30px;*/
     cursor: pointer;
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
@@ -340,7 +346,7 @@ $ffamily: "Roboto", sans-serif;
       }
     }
     @media all and(max-width: 1280px) {
-      font-size: 14px;
+      font-size: 13px;
       min-width: 0;
       width: auto;
       padding: 8px 5px 8px 10px;
@@ -358,7 +364,7 @@ $ffamily: "Roboto", sans-serif;
     background: url("../assets/logout.svg") 0 0 no-repeat;
   }
   &__logout {
-    width: 42px;
+    width: 45px;
     height: 45px;
     background: #688e74;
     margin-left: 1px;
