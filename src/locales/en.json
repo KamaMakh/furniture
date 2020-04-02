@@ -71,6 +71,7 @@
   "nomenclature": "Nomenclature",
   "actions": "Actions",
   "add_nomenclature": "Add a photo",
+  "group": "Group",
   "edit_group": "Edit group",
   "add_group": "Add group",
   "sign_in": "Sign in",
@@ -270,6 +271,8 @@
   "storage": {
     "transferFromStorage": "Transfer item \"{name}\"",
     "transferFromProject": "Transfer item \"{name}\"",
+    "toStorage": "Warehouse replenishment",
+    "fromStorage": "Write-off from stock",
     "transfer": "Transfer",
     "projectToStorage": "From construction site \"{name}\" to the warehouse",
     "storageToProject": "From warehouse to construction site \"{name}\""

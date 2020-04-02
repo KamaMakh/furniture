@@ -71,6 +71,7 @@
   "nomenclature": "Nomenklatur",
   "actions": "Aktionen",
   "add_nomenclature": "Füge ein Foto hinzu",
+  "group": "Gruppe",
   "edit_group": "Gruppe bearbeiten",
   "add_group": "Gruppe hinzufügen",
   "sign_in": "Einloggen",
@@ -270,6 +271,8 @@
   "storage": {
     "transferFromStorage": "Übertragen Sie den Artikel \"{name}\"",
     "transferFromProject": "Übertragen Sie den Artikel \"{name}\"",
+    "toStorage": "Lagernachschub",
+    "fromStorage": "Abschreibung ab Lager",
     "transfer": "Übertragen",
     "projectToStorage": "Von der Baustelle \"{name}\" zum Lager",
     "storageToProject": "Vom Lager zur Baustelle \"{name}\""

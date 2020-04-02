@@ -71,6 +71,7 @@
   "nomenclature": "Nomenclature",
   "actions": "Actions",
   "add_nomenclature": "Ajouter un élément",
+  "group": "Groupe",
   "edit_group": "Modifier le groupe",
   "add_group": "Ajouter un groupe",
   "sign_in": "Se connecter",
@@ -270,6 +271,8 @@
   "storage": {
     "transferFromStorage": "Transférer l'article \"{name}\"",
     "transferFromProject": "Transférer l'article \"{name}\"",
+    "toStorage": "Réapprovisionnement de l'entrepôt",
+    "fromStorage": "Radiation du stock",
     "transfer": "Transférer",
     "projectToStorage": "Du chantier \"{name}\" à l'entrepôt",
     "storageToProject": "De l'entrepôt au chantier \"{name}\""

@@ -4,14 +4,14 @@
       <v-card-title>
         {{ $t("statistics") }}
         <v-spacer></v-spacer>
-        <v-text-field
-          v-model="search"
-          append-icon="mdi-magnify"
-          :label="$t('search')"
-          single-line
-          hide-details
-          :search="search"
-        ></v-text-field>
+        <!--        <v-text-field-->
+        <!--          v-model="search"-->
+        <!--          append-icon="mdi-magnify"-->
+        <!--          :label="$t('search')"-->
+        <!--          single-line-->
+        <!--          hide-details-->
+        <!--          :search="search"-->
+        <!--        ></v-text-field>-->
       </v-card-title>
       <v-data-table
         :headers="headers"
@@ -21,49 +21,25 @@
         :items-per-page="25"
         :loading="tableLoading"
         :search="search"
+        group-by="groupIdentify"
+        :show-group-by="false"
       >
-        <template v-slot:item.dateCreate="{ item }">
-          {{ formatDate(item.dateCreate) }}
+        <template v-slot:body="{ groupedItems }">
+          <tbody
+            v-for="(groups, key) in groupedItems"
+            :key="key"
+            v-html="createGroupRows(key, groups)"
+          ></tbody>
         </template>
-        <template v-slot:item.creatorName="{ item }">
-          {{ item.creatorName }}
-        </template>
-        <template v-slot:item.nomenclatureName="{ item }">
-          {{ item.nomenclatureName }}
-        </template>
-        <template v-slot:item.type="{ item }">
-          {{
-            item.type === "project to storage"
-              ? $t("storage.projectToStorage", { name: construction.name })
-              : $t("storage.storageToProject", { name: construction.name })
-          }}
-        </template>
-        <template v-slot:item.count="{ item }">
-          {{ item.count }}
-        </template>
-        <template
-          v-if="transfers && false"
-          v-slot:body="{ item, options, groupedItems, group }"
-        >
-          <tbody>
-            <tr v-for="(transfer, key) in transfers" :key="key + transfer">
-              <td class="text-center">
-                {{ formatDate(transfer.dateCreate) }}
-              </td>
-              <td class="text-center">
-                {{ transfer.creatorName }}
-              </td>
-              <td class="text-right">
-                {{ transfer.nomenclatureName }}
-              </td>
-              <td class="text-right">
-                {{ transfer.type }}
-              </td>
-              <td class="text-right">
-                {{ transfer.count }}
-              </td>
-            </tr>
-          </tbody>
+        <template v-if="false" v-slot:group="{ group, options, items }">
+          <tr>
+            <td colspan="5" class="pa-0">
+              <table
+                class="custom"
+                v-html="createGroupRows(group, items)"
+              ></table>
+            </td>
+          </tr>
         </template>
       </v-data-table>
     </v-card>
@@ -91,7 +67,17 @@ export default {
   computed: {
     ...mapState({
       construction: state => state.statistics.construction,
-      transfers: state => state.statistics.transfers,
+      transfers(state) {
+        let filtered = [];
+        state.statistics.transfers.forEach((item, key) => {
+          item["dateCreate"] = this.formatDate(item["dateCreate"]);
+          item[
+            "groupIdentify"
+          ] = `${item["dateCreate"]} | ${item["creatorName"]}`;
+          filtered[key] = item;
+        });
+        return filtered;
+      },
       tableLoading: state => state.statistics.tableLoading,
       user: state => state.user.user,
       lang: state => state.lang,
@@ -101,30 +87,49 @@ export default {
       snackBar: state => state.snackBar,
       headers() {
         return [
-          {
-            text: this.$t("date"),
-            align: "center",
-            value: "dateCreate"
-          },
-          {
-            text: `${this.$t("user")}`,
-            align: "center",
-            value: "creatorName"
-          },
+          // {
+          //   text: this.$t("date"),
+          //   align: "center",
+          //   value: "dateCreate"
+          // },
+          // {
+          //   text: `${this.$t("user")}`,
+          //   align: "center",
+          //   value: "creatorName"
+          // },
           {
             text: `${this.$t("nomenclature")}`,
             align: "center",
-            value: "nomenclatureName"
-          },
-          {
-            text: this.$t("actions"),
-            align: "center",
-            value: "type"
+            value: "nomenclatureName",
+            sortable: false,
+            width: "30%"
           },
           {
             text: this.$t("count"),
             align: "center",
-            value: "count"
+            value: "count",
+            sortable: false,
+            width: "10%"
+          },
+          {
+            text: this.$t("price"),
+            align: "center",
+            value: "price",
+            sortable: false,
+            width: "10%"
+          },
+          {
+            text: this.$t("total"),
+            align: "center",
+            value: "total",
+            sortable: false,
+            width: "15%"
+          },
+          {
+            text: this.$t("actions"),
+            align: "center",
+            value: "type",
+            sortable: false
           }
         ];
       }
@@ -141,6 +146,79 @@ export default {
       if (day.length < 2) day = "0" + day;
 
       return [day, month, year].join(".");
+    },
+    groupBy(items, key) {
+      return items.reduce(
+        (result, item) => ({
+          ...result,
+          [item[key]]: [...(result[item[key]] || []), item]
+        }),
+        {}
+      );
+    },
+    createGroupRows(group, items) {
+      let head = `<tr class="v-row-group__header">
+            <th colspan="5" style="font-size: 14px">
+              ${group}
+            </th>
+          </tr>`,
+        rows = "",
+        priceSum = 0,
+        priceTotalSum = 0;
+      items = this.groupBy(items, "groupName");
+
+      for (let key in items) {
+        let groupRows = items[key];
+        rows += `<tr><th class="text-left" style="height: 30px" colspan="5">${key}</th></tr>`;
+        for (let transfer of groupRows) {
+          let type = "",
+            countColor = "green";
+          rows += `<tr><td>${transfer.nomenclatureName}</td>`;
+          if (
+            transfer.type === "storage to project" ||
+            transfer.type === "from storage"
+          ) {
+            countColor = "red";
+            priceSum -= transfer.price;
+            priceTotalSum -= transfer.price * transfer.count;
+          } else {
+            priceSum += transfer.price;
+            priceTotalSum += transfer.price * transfer.count;
+          }
+          rows += `<td> ${
+            countColor === "green"
+              ? '<span style="color: green">+' + transfer.count + "</span>"
+              : '<span style="color: red">-' + transfer.count + "</span>"
+          }</td>`;
+          rows += `<td>${transfer.price}</td>`;
+
+          rows += `<td>${transfer.price * transfer.count}</td>`;
+          if (transfer.type === "project to storage") {
+            type = this.$t("storage.projectToStorage", {
+              name: this.construction.name
+            });
+          } else if (transfer.type === "storage to project") {
+            type = this.$t("storage.storageToProject", {
+              name: this.construction.name
+            });
+          } else if (transfer.type === "to storage") {
+            type = this.$t("storage.toStorage");
+          } else if (transfer.type === "from storage") {
+            type = this.$t("storage.fromStorage");
+          }
+
+          rows += `<td>${type}
+                    </td></tr>`;
+        }
+      }
+      rows += `<tr>
+<td style="height: 30px;"></td>
+<td style="height: 30px;" class="text-right"> <b>${this.$t("total")}</b></td>
+<td style="height: 30px;"> <b>${priceSum}</b> </td>
+<td style="height: 30px;"> <b>${priceTotalSum}</b> </td>
+<td style="height: 30px;"></td>
+</tr>`;
+      return head + rows;
     }
   },
   watch: {

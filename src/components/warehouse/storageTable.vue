@@ -853,10 +853,10 @@ export default {
     addPhoto() {
       let formData = new FormData();
       formData.append("nomenclatureId", this.nomenclature.nomenclatureId);
-      formData.append(
-        "storageNomenclatureId",
-        this.nomenclature.storageNomenclatureId
-      );
+      // formData.append(
+      //   "storageNomenclatureId",
+      //   this.nomenclature.storageNomenclatureId
+      // );
 
       for (let i = 0; i < this.files.length; i++) {
         formData.append(`file`, this.files[i]);

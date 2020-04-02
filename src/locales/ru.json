@@ -71,6 +71,7 @@
   "nomenclature": "Номенклатура",
   "actions": "Действия",
   "add_nomenclature": "Добавить номенклатуру",
+  "group": "Группа",
   "edit_group": "Редактировать группу",
   "add_group": "Добавить группу",
   "sign_in": "Войти",
@@ -270,6 +271,8 @@
   "storage": {
     "transferFromStorage": "Перенести номенклатуру \"{name}\"",
     "transferFromProject": "Перенести номенклатуру \"{name}\"",
+    "toStorage": "Пополнение склада",
+    "fromStorage": "Списание со склада",
     "transfer": "Перенести",
     "projectToStorage": "Со стройки \"{name}\" на склад",
     "storageToProject": "Со склада на стройку \"{name}\""
