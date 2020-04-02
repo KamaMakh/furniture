@@ -171,7 +171,9 @@ export default {
           adrSite: hostName
         })
         .then(() => {
-          this.$store.dispatch("user/getVerifyCode");
+          setTimeout(() => {
+            this.$store.dispatch("user/getVerifyCode");
+          }, 2000);
           this.$router.push({ name: "Personal" });
         })
         .catch(() => {
