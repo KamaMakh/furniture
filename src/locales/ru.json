@@ -268,8 +268,8 @@
     }
   },
   "storage": {
-    "transferFromStorage": "Перенести номенклатуру {name}",
-    "transferFromProject": "Перенести номенклатуру {name}",
+    "transferFromStorage": "Перенести номенклатуру \"{name}\"",
+    "transferFromProject": "Перенести номенклатуру \"{name}\"",
     "transfer": "Перенести",
     "projectToStorage": "Со стройки \"{name}\" на склад",
     "storageToProject": "Со склада на стройку \"{name}\""

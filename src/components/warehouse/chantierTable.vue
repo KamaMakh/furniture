@@ -45,7 +45,7 @@
         >
           <tbody v-for="(group, key) in projectGroups" :key="key + group">
             <tr class="v-row-group__header text-left">
-              <th colspan="7" :title="group.name">
+              <th colspan="8" :title="group.name">
                 {{ group.name | truncate }}
                 <v-btn
                   v-if="groupedItems[group.id]"
@@ -115,6 +115,19 @@
                 @click="showEditNomenclature(item, group)"
               >
                 {{ item.count }}
+              </td>
+              <td class="text-center">
+                <v-btn
+                  small
+                  icon
+                  class="text-center"
+                  @click="showTransfer(item, group)"
+                  :disabled="item.count < 1"
+                >
+                  <v-icon small :color="color">
+                    mdi-upload
+                  </v-icon>
+                </v-btn>
               </td>
             </tr>
           </tbody>
@@ -286,6 +299,50 @@
         </v-card-text>
       </v-card>
     </v-dialog>
+    <v-dialog v-model="showTransferModal" width="500">
+      <v-card>
+        <v-card-title
+          class="headline"
+          v-html="
+            $t('storage.transferFromProject', { name: nomenclature.name })
+          "
+        >
+        </v-card-title>
+        <v-card-text>
+          <v-form
+            ref="transferToStorageForm"
+            v-model="transferValid"
+            @submit.prevent="transferToStorage"
+            lazy-validation
+          >
+            <v-row>
+              <v-col cols="12">
+                <v-text-field
+                  v-model="transferToStorageCount"
+                  :label="$t('count')"
+                  :rules="[rules.required, rules.naturalCount, rules.maxCount]"
+                  type="number"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+          </v-form>
+        </v-card-text>
+        <v-card-actions class="text-right justify-end">
+          <v-btn color="grey darken-1" text @click="showTransferModal = false">
+            {{ $t("cancel") }}
+          </v-btn>
+
+          <v-btn
+            :color="color"
+            text
+            :loading="loading"
+            @click="transferToStorage"
+          >
+            {{ $t("ok") }}
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -293,6 +350,7 @@
 import { mapState } from "vuex";
 import CustomGallery from "@/components/CustomGallery";
 import { serverUrl } from "@/store/urls";
+import { required, naturalCount, maxCount } from "@/shared/validator";
 export default {
   name: "chantierTable",
   components: {
@@ -300,10 +358,13 @@ export default {
   },
   data() {
     return {
+      transferValid: true,
       color: "#688e74",
       showNomekModal: false,
+      showTransferModal: false,
       nomenclature: {},
       absolutesDisabled: true,
+      transferToStorageCount: 0,
       photos: [],
       files: [],
       image: {},
@@ -311,7 +372,19 @@ export default {
       serverUrl: serverUrl,
       loading: false,
       arrowLoadingId: null,
-      page: 0
+      page: 0,
+      rules: {
+        required: value =>
+          required(value) || this.$t("messages.error.required"),
+        naturalCount: value =>
+          naturalCount(value) || this.$t("messages.error.naturalCount"),
+        maxCount: value => {
+          return (
+            maxCount(value, this.nomenclature.count) ||
+            this.$t("messages.error.quantity")
+          );
+        }
+      }
     };
   },
   computed: {
@@ -338,12 +411,54 @@ export default {
             text: `${this.$t("count")}`,
             align: "center",
             width: "20%"
+          },
+          {
+            text: this.$t("actions"),
+            align: "center",
+            width: "10%"
           }
         ];
       }
     })
   },
   methods: {
+    transferToStorage() {
+      this.loading = true;
+      if (!this.$refs.transferToStorageForm.validate()) {
+        this.loading = false;
+        return;
+      }
+      let formData = new FormData();
+      formData.append("projectNomenclatureId", this.nomenclature.id);
+      formData.append("count", this.transferToStorageCount);
+      this.$store
+        .dispatch("warehouse/transferFromProject", {
+          data: formData,
+          projectId: this.construction.id,
+          group: this.nomenclature.group
+        })
+        .then(() => {
+          this.showTransferModal = false;
+          this.nomenclature.count -= this.transferToStorageCount;
+          // this.nomenclature["group"] = {
+          //   id: response.data.storageGroupId
+          // };
+          // this.addNomenclature();
+        })
+        .catch(() => {
+          this.snackBar.value = true;
+          this.snackBar.text = this.$t("messages.error.errorText");
+          this.snackBar.color = "error";
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    },
+    showTransfer(nomenclature, group) {
+      this.nomenclature = nomenclature;
+      this.nomenclature["group"] = group;
+      this.showTransferModal = true;
+    },
     toggleGroup(open, group, groupedNomenclatures) {
       if (open) {
         this.arrowLoadingId = group.id;

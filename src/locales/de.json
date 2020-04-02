@@ -268,8 +268,8 @@
     }
   },
   "storage": {
-    "transferFromStorage": "Übertragen Sie den Artikel \n{name}",
-    "transferFromProject": "Übertragen Sie den Artikel \n{name}",
+    "transferFromStorage": "Übertragen Sie den Artikel \"{name}\"",
+    "transferFromProject": "Übertragen Sie den Artikel \"{name}\"",
     "transfer": "Übertragen",
     "projectToStorage": "Von der Baustelle \"{name}\" zum Lager",
     "storageToProject": "Vom Lager zur Baustelle \"{name}\""

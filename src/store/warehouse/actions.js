@@ -336,6 +336,33 @@ function transferFromStorage({ commit }, data) {
   });
 }
 
+function transferFromProject({ commit }, data) {
+  return new Promise((resolve, reject) => {
+    api
+      .post(`${warehouseUrls.projectToStorage}`, data.data)
+      .then(response => {
+        commit("ignore");
+        getProjectGroups({ commit }, { projectId: data.projectId });
+        getProjectNomenclatures(
+          { commit },
+          { data: { projectGroupId: response.data.projectGroupId, page: 0 } }
+        );
+
+        getNomenclatures(
+          { commit },
+          {
+            data: { storageGroupId: response.data.storageGroupId },
+            group: { id: response.data.storageGroupId, name: data.group.name }
+          }
+        );
+        resolve(response);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+}
+
 function getProjectGroups({ commit }, data) {
   return new Promise((resolve, reject) => {
     api
@@ -368,6 +395,7 @@ export {
   getAllSum,
   getGroupSum,
   transferFromStorage,
+  transferFromProject,
   getProjectGroups,
   getProjectNomenclatures
 };

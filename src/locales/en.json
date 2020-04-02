@@ -268,8 +268,8 @@
     }
   },
   "storage": {
-    "transferFromStorage": "Transfer item \n{name}",
-    "transferFromProject": "Transfer item \n{name}",
+    "transferFromStorage": "Transfer item \"{name}\"",
+    "transferFromProject": "Transfer item \"{name}\"",
     "transfer": "Transfer",
     "projectToStorage": "From construction site \"{name}\" to the warehouse",
     "storageToProject": "From warehouse to construction site \"{name}\""
