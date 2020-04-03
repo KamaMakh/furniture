@@ -117,17 +117,25 @@
                 {{ item.count }}
               </td>
               <td class="text-center">
-                <v-btn
-                  small
-                  icon
-                  class="text-center"
-                  @click="showTransfer(item, group)"
-                  :disabled="item.count < 1"
-                >
-                  <v-icon small :color="color">
-                    mdi-upload
-                  </v-icon>
-                </v-btn>
+                <v-tooltip top :color="color">
+                  <template v-slot:activator="{ on }">
+                    <v-btn
+                      v-on="on"
+                      small
+                      icon
+                      class="text-center"
+                      @click="showTransfer(item, group)"
+                      :disabled="item.count < 1"
+                    >
+                      <v-icon small :color="color">
+                        mdi-upload
+                      </v-icon>
+                    </v-btn>
+                  </template>
+                  <span>
+                    {{ $t("storage.transfer") }}
+                  </span>
+                </v-tooltip>
               </td>
             </tr>
           </tbody>

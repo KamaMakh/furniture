@@ -72,6 +72,29 @@ function setNomenclature(state, data) {
   }
 }
 
+function setNomenclatureAfterTransfer(state, data) {
+  let isNew = true;
+  data.response["groupId"] = data.group.id;
+  state.warehouseNomenclatures.forEach((item, key) => {
+    if (item.storageNomenclatureId === data.response.storageNomenclatureId) {
+      state.warehouseNomenclatures[key] = data.response;
+      isNew = false;
+    }
+  });
+  if (isNew) {
+    state.warehouseNomenclatures.push(data.response);
+  }
+  state.warehouseNomenclatures.unshift("trigger");
+  state.warehouseNomenclatures.shift();
+  if (state.warehouse[0].groups) {
+    state.warehouse[0].groups.forEach((item, key) => {
+      if (item.id === data.group.id) {
+        state.warehouse[0].groups[key]["totalSum"] = data.totalSum;
+      }
+    });
+  }
+}
+
 function setNomenclatures(state, data) {
   if (data.response) {
     data.response.forEach((item, key) => {
@@ -148,5 +171,6 @@ export {
   setProjectNomenclatures,
   updateNomenclaturePhoto,
   setTotalSum,
-  setProjectGroups
+  setProjectGroups,
+  setNomenclatureAfterTransfer
 };

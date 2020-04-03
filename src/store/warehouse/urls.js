@@ -20,5 +20,7 @@ export let warehouseUrls = {
   getAllSum: `${serverUrl}/storage/group/sum/all`,
   getGroupSum: `${serverUrl}/storage/group/sum`,
   storageToProject: `${serverUrl}/nomenclature/transfer/storagetoproject`,
-  projectToStorage: `${serverUrl}/nomenclature/transfer/projecttostorage`
+  projectToStorage: `${serverUrl}/nomenclature/transfer/projecttostorage`,
+  toStorage: `${serverUrl}/nomenclature/transfer/tostorage`,
+  fromStorage: `${serverUrl}/nomenclature/transfer/fromstorage`
 };

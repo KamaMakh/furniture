@@ -63,25 +63,41 @@
                 </v-btn>
               </th>
               <th class="text-right">
-                <v-btn
-                  icon
-                  small
-                  @click="showNomenclature(group, groupedItems[group.id])"
-                >
-                  <v-icon small :color="color">
-                    mdi-plus
-                  </v-icon>
-                </v-btn>
-                <v-btn
-                  small
-                  icon
-                  class="text-center"
-                  @click="showAddGroupModal(group)"
-                >
-                  <v-icon small :color="color">
-                    mdi-pencil
-                  </v-icon>
-                </v-btn>
+                <v-tooltip top :color="color">
+                  <template v-slot:activator="{ on }">
+                    <v-btn
+                      v-on="on"
+                      icon
+                      small
+                      @click="showNomenclature(group, groupedItems[group.id])"
+                    >
+                      <v-icon small :color="color">
+                        mdi-plus
+                      </v-icon>
+                    </v-btn>
+                  </template>
+                  <span>
+                    {{ $t("add_nomenclature") }}
+                  </span>
+                </v-tooltip>
+                <v-tooltip top :color="color">
+                  <template v-slot:activator="{ on }">
+                    <v-btn
+                      v-on="on"
+                      small
+                      icon
+                      class="text-center"
+                      @click="showAddGroupModal(group)"
+                    >
+                      <v-icon small :color="color">
+                        mdi-pencil
+                      </v-icon>
+                    </v-btn>
+                  </template>
+                  <span>
+                    {{ $t("edit_group") }}
+                  </span>
+                </v-tooltip>
               </th>
             </tr>
             <tr v-for="(item, nkey) in groupedItems[group.id]" :key="nkey">
@@ -142,22 +158,74 @@
                 {{ item.totalPrice }}
               </td>
               <td class="text-right">
-                <v-btn
-                  small
-                  icon
-                  class="text-center"
-                  @click="showTransfer(item)"
-                  :disabled="item.count < 1"
-                >
-                  <v-icon small :color="color">
-                    mdi-upload
-                  </v-icon>
-                </v-btn>
-                <v-btn icon small>
-                  <v-icon small :color="color">
-                    mdi-delete
-                  </v-icon>
-                </v-btn>
+                <v-tooltip top :color="color">
+                  <template v-slot:activator="{ on }">
+                    <v-btn
+                      small
+                      icon
+                      v-on="on"
+                      class="text-center"
+                      @click="showTransfer(item)"
+                      :disabled="item.count < 1"
+                    >
+                      <v-icon small :color="'#424242'">
+                        mdi-upload
+                      </v-icon>
+                    </v-btn>
+                  </template>
+                  <span>
+                    {{ $t("storage.transfer") }}
+                  </span>
+                </v-tooltip>
+                <v-tooltip top :color="color">
+                  <template v-slot:activator="{ on }">
+                    <v-btn
+                      v-on="on"
+                      small
+                      icon
+                      class="text-center"
+                      @click="showToOrFrom(item, true)"
+                    >
+                      <v-icon small :color="color">
+                        mdi-cart-arrow-down
+                      </v-icon>
+                    </v-btn>
+                  </template>
+                  <span>
+                    {{ $t("storage.toStorage") }}
+                  </span>
+                </v-tooltip>
+                <v-tooltip top :color="color">
+                  <template v-slot:activator="{ on }">
+                    <v-btn
+                      v-on="on"
+                      small
+                      icon
+                      class="text-center"
+                      @click="showToOrFrom(item, false)"
+                      :disabled="item.count < 1"
+                    >
+                      <v-icon small color="error">
+                        mdi-cart-remove
+                      </v-icon>
+                    </v-btn>
+                  </template>
+                  <span>
+                    {{ $t("storage.fromStorage") }}
+                  </span>
+                </v-tooltip>
+                <!--                <v-tooltip top :color="color">-->
+                <!--                  <template v-slot:activator="{ on }">-->
+                <!--                    <v-btn icon small v-on="on">-->
+                <!--                      <v-icon small :color="color">-->
+                <!--                        mdi-delete-->
+                <!--                      </v-icon>-->
+                <!--                    </v-btn>-->
+                <!--                  </template>-->
+                <!--                  <span>-->
+                <!--                    {{ $t("delete") }}-->
+                <!--                  </span>-->
+                <!--                </v-tooltip>-->
               </td>
             </tr>
             <tr v-if="group.totalSum" class="text-right">
@@ -327,6 +395,96 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <v-dialog v-model="showToOrFromModal" width="500">
+      <v-card>
+        <v-card-title class="headline">
+          {{ toStorage ? $t("storage.toStorage") : $t("storage.fromStorage") }}
+        </v-card-title>
+        <v-card-text>
+          <v-form
+            ref="toOrFromForm"
+            v-model="toOrFromValid"
+            @submit.prevent="toOrFromStorage"
+            lazy-validation
+          >
+            <span v-if="toStorage">
+              <v-row>
+                <v-col cols="12" sm="6">
+                  <v-text-field
+                    v-model="toOrFromStorageCount"
+                    :label="$t('count')"
+                    :rules="[rules.required, rules.naturalCount]"
+                    type="number"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12" sm="6">
+                  <v-text-field
+                    v-model="toStorageNomenclature.price"
+                    :label="$t('price')"
+                    :rules="[rules.required]"
+                    type="number"
+                    step="1000"
+                    @input="updateToStoragePrices"
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col cols="12" sm="6">
+                  <v-text-field
+                    v-model="toStorageNomenclature.ndsValue"
+                    :label="$t('ndsValue')"
+                    :placeholder="$t('ndsValue')"
+                    type="number"
+                    step="any"
+                    disabled
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12" sm="6">
+                  <v-text-field
+                    v-model="toStorageNomenclature.priceWithoutNds"
+                    :label="$t('priceWithoutNds')"
+                    :placeholder="$t('priceWithoutNds')"
+                    type="number"
+                    step="any"
+                    disabled
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+            </span>
+            <span v-else>
+              <v-row>
+                <v-col cols="12">
+                  <v-text-field
+                    v-model="toOrFromStorageCount"
+                    :label="$t('count')"
+                    :rules="[
+                      rules.required,
+                      rules.naturalCount,
+                      rules.maxCount
+                    ]"
+                    type="number"
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+            </span>
+          </v-form>
+        </v-card-text>
+        <v-card-actions class="text-right justify-end">
+          <v-btn color="grey darken-1" text @click="showToOrFromModal = false">
+            {{ $t("cancel") }}
+          </v-btn>
+
+          <v-btn
+            :color="color"
+            text
+            :loading="loading"
+            @click="toOrFromStorage"
+          >
+            {{ $t("ok") }}
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
     <v-dialog v-model="showTransferModal" width="500">
       <v-card>
         <v-card-title
@@ -404,7 +562,10 @@
                       :label="$t('construct_name')"
                       :placeholder="$t('construct_name')"
                       :rules="[rules.required]"
-                      :disabled="absolutesDisabled"
+                      :disabled="
+                        absolutesDisabled ||
+                          nomenclature.storageNomenclatureId !== undefined
+                      "
                     ></v-text-field>
                   </div>
                   <div class="col col-4">
@@ -429,7 +590,10 @@
                       :placeholder="$t('price')"
                       type="number"
                       step="1000"
-                      :disabled="absolutesDisabled"
+                      :disabled="
+                        absolutesDisabled ||
+                          nomenclature.storageNomenclatureId !== undefined
+                      "
                     ></v-text-field>
                   </div>
                   <div class="col col-lg-4 col-md-4 col-sm-12">
@@ -587,15 +751,20 @@ export default {
       group: {},
       addGroupValid: true,
       transferValid: true,
+      toOrFromValid: true,
       addWarehouseValid: true,
       color: "#688e74",
       showGroupModal: false,
       showNomekModal: false,
       showWarehouseModal: false,
       showTransferModal: false,
+      showToOrFromModal: false,
       showRemovePhotoModal: false,
       nomenclature: {},
+      localNomenclature: {},
+      toStorageNomenclature: {},
       transferToProjectCount: 0,
+      toOrFromStorageCount: 0,
       updatingId: null,
       price: 0,
       photos: [],
@@ -607,6 +776,7 @@ export default {
       search: "",
       loading: false,
       arrowLoadingId: null,
+      toStorage: false,
       rules: {
         required: value =>
           required(value) || this.$t("messages.error.required"),
@@ -645,7 +815,7 @@ export default {
             text: this.$t("simple_name"),
             value: "name",
             align: "left",
-            width: "35%"
+            width: "30%"
           },
           {
             text: `${this.$t("count")}`,
@@ -657,7 +827,7 @@ export default {
             text: this.$t("total"),
             value: "total",
             align: "center",
-            width: "30%"
+            width: "25%"
           }
         ];
       }
@@ -680,6 +850,48 @@ export default {
         .dispatch("warehouse/updateWarehouse", formData)
         .then(() => {
           this.showWarehouseModal = false;
+        })
+        .catch(() => {
+          this.snackBar.value = true;
+          this.snackBar.text = this.$t("messages.error.errorText");
+          this.snackBar.color = "error";
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    },
+    toOrFromStorage() {
+      this.loading = true;
+      if (!this.$refs.toOrFromForm.validate()) {
+        this.loading = false;
+        return;
+      }
+      let fromData = new FormData();
+      fromData.append("count", this.toOrFromStorageCount);
+      fromData.append(
+        "storageNomenclatureId",
+        this.toStorageNomenclature.storageNomenclatureId
+      );
+      if (this.toStorage) {
+        fromData.append("price", this.toStorageNomenclature.price);
+        fromData.append(
+          "priceWithoutNds",
+          this.toStorageNomenclature.priceWithoutNds
+        );
+        fromData.append("ndsValue", this.toStorageNomenclature.ndsValue);
+      }
+      this.$store
+        .dispatch(`warehouse/${this.toStorage ? "toStorage" : "fromStorage"}`, {
+          data: fromData,
+          group: { id: this.nomenclature.groupId }
+        })
+        .then(() => {
+          this.showToOrFromModal = false;
+          this.toStorageNomenclature = {};
+          this.toOrFromStorageCount = 0;
+          this.$store.dispatch("warehouse/getAllSum", {
+            storageId: this.warehouse["id"]
+          });
         })
         .catch(() => {
           this.snackBar.value = true;
@@ -741,6 +953,21 @@ export default {
     showTransfer(nomenclature) {
       this.nomenclature = nomenclature;
       this.showTransferModal = true;
+    },
+    showToOrFrom(nomenclature, toStorage) {
+      this.nomenclature = nomenclature;
+      this.toStorageNomenclature = {
+        price: nomenclature.price,
+        storageNomenclatureId: nomenclature.storageNomenclatureId,
+        ndsBool: nomenclature.ndsBool,
+        ndsValue: nomenclature.ndsBool ? nomenclature.ndsValue : 0,
+        priceWithoutNds: nomenclature.ndsBool
+          ? nomenclature.priceWithoutNds
+          : nomenclature.price,
+        nds: nomenclature.ndsBool ? nomenclature.nds : 0
+      };
+      this.showToOrFromModal = true;
+      this.toStorage = toStorage;
     },
     addGroup() {
       if (!this.$refs.addGroupForm.validate()) {
@@ -972,7 +1199,7 @@ export default {
     showEditNomenclature(item, group) {
       this.$store.dispatch("furniture/setUnits");
       this.showNomekModal = true;
-      this.nomenclature = item;
+      this.nomenclature = Object.assign({}, item);
       this.nomenclature["group"] = group;
       this.photos = [];
       this.files = [];
@@ -1012,6 +1239,32 @@ export default {
           this.nomenclature.nds = 0;
           this.nomenclature["ndsValue"] = 0;
           this.nomenclature["priceWithoutNds"] = this.nomenclature.price;
+        }
+      }
+    },
+    updateToStoragePrices() {
+      if (this.toStorageNomenclature.price) {
+        if (this.toStorageNomenclature.ndsBool) {
+          if (!this.toStorageNomenclature.nds) {
+            this.toStorageNomenclature.nds = this.construction.nds;
+          }
+          if (this.toStorageNomenclature.nds < 0) {
+            this.toStorageNomenclature.nds = 0;
+          }
+          let ndsPercentValue = this.toStorageNomenclature.nds / 100 + 1;
+          this.toStorageNomenclature["priceWithoutNds"] = (
+            this.toStorageNomenclature.price / parseFloat(ndsPercentValue)
+          ).toFixed(2);
+          this.toStorageNomenclature["ndsValue"] = (
+            this.toStorageNomenclature.price -
+            this.toStorageNomenclature["priceWithoutNds"]
+          ).toFixed(2);
+        } else {
+          this.toStorageNomenclature.nds = 0;
+          this.toStorageNomenclature["ndsValue"] = 0;
+          this.toStorageNomenclature[
+            "priceWithoutNds"
+          ] = this.toStorageNomenclature.price;
         }
       }
     },
@@ -1081,6 +1334,7 @@ export default {
             let start = this.warehouseNomenclatures.indexOf(item);
             this.warehouseNomenclatures.splice(start, 1);
           });
+          group.totalSum = null;
         }
       }
     }

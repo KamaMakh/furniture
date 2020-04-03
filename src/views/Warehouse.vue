@@ -28,6 +28,7 @@ export default {
   },
   mounted() {
     this.$store.state.warehouse.construction = {};
+    this.$store.state.warehouse.warehouseNomenclatures = [];
     /* eslint-disable-next-line */
     ym(57324937, "hit", "#/warehouse", {
       title: "Склад",
