@@ -192,6 +192,18 @@
             <v-toolbar-title>
               {{ $t("warehouse") }}
             </v-toolbar-title>
+            <v-btn
+              :color="color"
+              small
+              dark
+              icon
+              class="ml-2"
+              @click="showWarehouseModal = true"
+            >
+              <v-icon dark>
+                mdi-cog-outline
+              </v-icon>
+            </v-btn>
             <v-divider class="mx-4" inset vertical></v-divider>
             <v-spacer></v-spacer>
             <v-btn
@@ -258,6 +270,63 @@
     <!--<v-pagination v-model="page" :length="pageCount"></v-pagination>-->
 
     <!--modals-->
+    <v-dialog v-if="warehouse" v-model="showWarehouseModal" max-width="500px">
+      <v-card>
+        <v-card-title class="headline">
+          {{ $t("warehouse") }}
+        </v-card-title>
+        <v-card-text>
+          <v-form
+            ref="warehouseForm"
+            v-model="addWarehouseValid"
+            @submit.prevent="updateWarehouse"
+            lazy-validation
+          >
+            <v-row>
+              <v-col cols="12" sm="6">
+                <v-text-field
+                  v-model="warehouse.name"
+                  :label="$t('simple_name')"
+                  :rules="[rules.required]"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12" sm="6">
+                <v-text-field
+                  v-model="warehouse.nds"
+                  :label="$t('nds')"
+                  type="number"
+                  :rules="[rules.required, rules.nds]"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12">
+                <v-text-field
+                  v-model="warehouse.address"
+                  :label="$t('address')"
+                  :rules="[rules.required]"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+          </v-form>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="grey darken-1" text @click="showWarehouseModal = false">
+            {{ $t("close") }}
+          </v-btn>
+
+          <v-btn
+            :color="color"
+            text
+            :loading="loading"
+            @click="updateWarehouse"
+          >
+            {{ $t("save") }}
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
     <v-dialog v-model="showTransferModal" width="500">
       <v-card>
         <v-card-title
@@ -518,9 +587,11 @@ export default {
       group: {},
       addGroupValid: true,
       transferValid: true,
+      addWarehouseValid: true,
       color: "#688e74",
       showGroupModal: false,
       showNomekModal: false,
+      showWarehouseModal: false,
       showTransferModal: false,
       showRemovePhotoModal: false,
       nomenclature: {},
@@ -593,6 +664,32 @@ export default {
     })
   },
   methods: {
+    updateWarehouse() {
+      this.loading = true;
+      if (!this.$refs.warehouseForm.validate()) {
+        this.loading = false;
+        return;
+      }
+      let formData = new FormData();
+      formData.append("storageId", this.warehouse.id);
+      formData.append("name", this.warehouse.name);
+      formData.append("address", this.warehouse.address);
+      formData.append("nds ", this.warehouse.nds);
+
+      this.$store
+        .dispatch("warehouse/updateWarehouse", formData)
+        .then(() => {
+          this.showWarehouseModal = false;
+        })
+        .catch(() => {
+          this.snackBar.value = true;
+          this.snackBar.text = this.$t("messages.error.errorText");
+          this.snackBar.color = "error";
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    },
     transferToProject() {
       this.loading = true;
       if (!this.$refs.transferToProjectForm.validate()) {
@@ -855,7 +952,7 @@ export default {
       this.nomenclature = {
         group: item,
         groupId: item.id,
-        nds: this.construction.nds || 0,
+        nds: this.warehouse.nds || 0,
         price: 0,
         ndsValue: 0,
         count: 0,

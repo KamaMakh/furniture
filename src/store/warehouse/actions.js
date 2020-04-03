@@ -61,6 +61,19 @@ function getWarehouse({ commit }) {
   });
 }
 
+function updateWarehouse({ commit }, data) {
+  return new Promise((resolve, reject) => {
+    api
+      .post(warehouseUrls.update, data)
+      .then(response => {
+        commit("setWarehouse", [response.data]);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+}
+
 function setConstruction({ commit }, data) {
   commit("setConstruction", data);
 }
@@ -70,25 +83,16 @@ function updateConstruction({ commit }, data) {
     api
       .post(updateConstructUrl, data)
       .then(response => {
-        if (response.status === 200) {
-          if (data.get("active") !== null) {
-            commit("closeConstruction", response.data);
-            resolve();
-          } else {
-            commit("updateConstruction", response.data);
-            resolve(response.data);
-          }
+        if (data.get("active") !== null) {
+          commit("closeConstruction", response.data);
+          resolve();
         } else {
-          reject(response.data.message);
+          commit("updateConstruction", response.data);
+          resolve(response.data);
         }
       })
       .catch(error => {
-        if (error.response && error.response.status === 200) {
-          commit("updateConstruction", error.response.data);
-          resolve(error);
-        } else {
-          reject(error.response.data.message);
-        }
+        reject(error);
       });
   });
 }
@@ -110,12 +114,7 @@ function addConstruction({ commit }, data) {
         }
       })
       .catch(error => {
-        if (error.response && error.response.status === 200) {
-          commit("addConstruction", error.response.data);
-          resolve();
-        } else {
-          reject();
-        }
+        reject(error);
       });
   });
 }
@@ -380,6 +379,7 @@ function getProjectGroups({ commit }, data) {
 
 export {
   getWarehouse,
+  updateWarehouse,
   setConstruction,
   updateConstruction,
   getConstruction,
