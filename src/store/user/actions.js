@@ -69,19 +69,15 @@ function getCode({ commit }, data) {
     api.post(getCodeUrl, data)
       .then((response) => {
         if (response.data.error) {
-          Vue.notify({
-            group: 'warn',
-            type: 'error',
-            text: response.data.error
-          });
+          reject(response.data);
         } else if (response.data.status === "OK") {
           resolve();
         } else {
-          reject(error.response);
+          reject(response.data);
         }
       })
       .catch(error => {
-        reject(error.response)
+        reject(error)
       });
   });
 }

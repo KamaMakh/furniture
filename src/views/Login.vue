@@ -278,7 +278,9 @@ export default {
             group: "warn",
             type: "error",
             title: this.$i18n.messages[this.$i18n.locale]["attention"],
-            text: error
+            text: error.message
+              ? error.message
+              : this.$t("messages.error.errorText")
           });
         })
         .finally(() => {
