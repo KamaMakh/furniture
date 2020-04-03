@@ -50,7 +50,7 @@ function getAllTransfers({ commit }, data) {
     api
       .get(statisticsUrls.allTransfers, { params: data })
       .then(response => {
-        commit("setTransfers", response.data);
+        commit("setTransfers", { data: response.data, date: null });
         commit("ignore");
         resolve(response);
       })
@@ -65,7 +65,7 @@ function getAllTransfersByDate({ commit }, data) {
     api
       .get(statisticsUrls.searchTransfer, { params: data })
       .then(response => {
-        commit("setTransfers", response.data);
+        commit("setTransfers", { data: response.data, date: data });
         commit("ignore");
         resolve(response);
       })

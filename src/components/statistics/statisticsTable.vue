@@ -47,6 +47,7 @@
       v-model="page"
       :color="color"
       :length="pagesCount"
+      :disabled="pagesCount < 2"
     ></v-pagination>
   </div>
 </template>
@@ -79,6 +80,7 @@ export default {
         return filtered;
       },
       tableLoading: state => state.statistics.tableLoading,
+      datesInfo: state => state.statistics.datesInfo,
       user: state => state.user.user,
       lang: state => state.lang,
       pagesCount(state) {
@@ -223,25 +225,49 @@ export default {
   },
   watch: {
     page(value) {
-      this.$store.commit("statistics/setLoadingStatus", true);
-      this.$store
-        .dispatch("statistics/getAllTransfers", {
-          projectId: this.construction.id,
-          page: value - 1
-        })
-        .then(() => {
-          let scrollElement = document.querySelector(".content__body.ps");
-          setTimeout(() => {
-            scrollElement.scrollTo({
-              top: 0,
-              left: 0,
-              behavior: "smooth"
-            });
-          }, 300);
-          setTimeout(() => {
-            this.$store.commit("statistics/setLoadingStatus", false);
-          }, 500);
-        });
+      if (this.datesInfo) {
+        this.$store.commit("statistics/setLoadingStatus", true);
+        this.$store
+          .dispatch("statistics/getAllTransfersByDate", {
+            projectId: this.construction.id,
+            page: value - 1,
+            dateFrom: this.datesInfo.dateFrom,
+            dateTo: this.datesInfo.dateTo
+          })
+          .then(() => {
+            let scrollElement = document.querySelector(".content__body.ps");
+            setTimeout(() => {
+              scrollElement.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: "smooth"
+              });
+            }, 300);
+            setTimeout(() => {
+              this.$store.commit("statistics/setLoadingStatus", false);
+            }, 500);
+          });
+      } else {
+        this.$store.commit("statistics/setLoadingStatus", true);
+        this.$store
+          .dispatch("statistics/getAllTransfers", {
+            projectId: this.construction.id,
+            page: value - 1
+          })
+          .then(() => {
+            let scrollElement = document.querySelector(".content__body.ps");
+            setTimeout(() => {
+              scrollElement.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: "smooth"
+              });
+            }, 300);
+            setTimeout(() => {
+              this.$store.commit("statistics/setLoadingStatus", false);
+            }, 500);
+          });
+      }
     },
     construction() {
       this.page = 1;

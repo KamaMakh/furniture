@@ -3,5 +3,6 @@ export default {
   constructions: [],
   tableLoading: true,
   transfers: [],
-  totalTransfersCount: 1
+  totalTransfersCount: 1,
+  datesInfo: null
 };

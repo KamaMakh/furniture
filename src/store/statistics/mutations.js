@@ -1,10 +1,15 @@
 function setTransfers(state, transfers) {
-  if (!transfers) {
+  if (!transfers.data) {
     state.transfers = [];
     state.totalTransfersCount = 0;
   }
-  state.transfers = transfers.transfers;
-  state.totalTransfersCount = transfers.totalTransfersCount;
+  state.transfers = transfers.data.transfers;
+  state.totalTransfersCount = transfers.data.totalTransfersCount;
+  state.datesInfo = transfers.date;
+}
+
+function clearDates(state) {
+  state.datesInfo = null;
 }
 
 function setConstruction(state, construction) {
@@ -56,5 +61,6 @@ export {
   closeConstruction,
   ignore,
   addConstruction,
-  setLoadingStatus
+  setLoadingStatus,
+  clearDates
 };

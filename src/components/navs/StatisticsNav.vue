@@ -36,7 +36,6 @@
               :color="color"
               v-model="dates"
               range
-              scrollable
               reactive
               first-day-of-week="1"
             ></v-date-picker>
@@ -96,6 +95,7 @@ export default {
     clearFilter() {
       this.dates = [];
       this.chooseConstruction(this.construction);
+      this.$store.commit("statistics/clearDates");
     },
     getTransfersByDate() {
       this.$store.commit("statistics/setLoadingStatus", true);
@@ -107,6 +107,14 @@ export default {
           dateTo: this.formatDate(this.dates[1])
         })
         .then(() => {
+          let scrollElement = document.querySelector(".content__body.ps");
+          setTimeout(() => {
+            scrollElement.scrollTo({
+              top: 0,
+              left: 0,
+              behavior: "smooth"
+            });
+          }, 300);
           setTimeout(() => {
             this.$store.commit("statistics/setLoadingStatus", false);
           }, 500);
@@ -120,6 +128,7 @@ export default {
     },
     chooseConstruction(item) {
       this.dates = [];
+      this.$store.commit("statistics/clearDates");
       this.$store.commit("statistics/setLoadingStatus", true);
       this.$store
         .dispatch("statistics/getAllTransfers", {

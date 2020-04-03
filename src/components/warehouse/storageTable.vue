@@ -402,34 +402,7 @@
                       step="1"
                     ></v-text-field>
                   </div>
-                  <div class="col col-lg-4 col-md-4 col-sm-12">
-                    <v-menu
-                      v-model="menu2"
-                      :disabled="absolutesDisabled"
-                      :close-on-content-click="false"
-                      :nudge-right="40"
-                      transition="scale-transition"
-                      offset-y
-                      min-width="290px"
-                    >
-                      <template v-slot:activator="{ on }">
-                        <v-text-field
-                          v-model="nomenclature.term"
-                          :label="$t('term')"
-                          @blur="date = parseDate(nomenclature.term)"
-                          light
-                          v-on="on"
-                        ></v-text-field>
-                      </template>
-                      <v-date-picker
-                        v-model="date"
-                        @input="menu2 = false"
-                        :locale="lang"
-                        first-day-of-week="1"
-                      ></v-date-picker>
-                    </v-menu>
-                  </div>
-                  <div class="col col-lg-4 col-md-4 col-sm-12">
+                  <div class="col col-lg-8 col-md-8 col-sm-12">
                     <v-text-field
                       v-model="nomenclature.link"
                       :label="$t('link')"
@@ -767,12 +740,12 @@ export default {
       formData.append("count", this.nomenclature.count);
 
       // let term = this.parseDate(this.nomenclature.termString);
-      if (!this.nomenclature.term) {
-        this.nomenclature.term = this.formatDate(
-          new Date().toISOString().substr(0, 10)
-        );
-      }
-      formData.append("term", this.nomenclature.term);
+      // if (!this.nomenclature.term) {
+      //   this.nomenclature.term = this.formatDate(
+      //     new Date().toISOString().substr(0, 10)
+      //   );
+      // }
+      // formData.append("term", this.nomenclature.term);
       formData.append("ndsBool", this.nomenclature.ndsBool);
 
       if (this.nomenclature.ndsBool) {
