@@ -25,7 +25,10 @@
         >
           <AppLeft :navsType="navsType" ref="appLeft" />
         </v-navigation-drawer>
-        <perfect-scrollbar class="content__body">
+        <perfect-scrollbar
+          class="content__body"
+          :class="{ warehouse: $route.name === 'Warehouse' }"
+        >
           <router-view
             :leftMenuShow="leftMenuShow"
             @createConstruction="showConstructionModal"
@@ -139,12 +142,16 @@ export default {
     display: block;
     max-width: 100%;
     flex: 1 1 auto;
-    padding: 50px 20px;
+    padding: 30px 20px;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     overflow: hidden;
     background: url("../assets/authbg2.png") fixed repeat;
+    &.warehouse {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
   }
 }
 

@@ -8,10 +8,11 @@
         group-by="groupId"
         class="elevation-1"
         show-group-by
-        :page.sync="page"
         :items-per-page="itemsPerPage"
         hide-default-footer
         hide-default-header
+        fixed-header
+        :height="windowHeight - 100"
       >
         <template v-slot:header="{ props: { headers } }">
           <thead>
@@ -792,7 +793,7 @@ export default {
       },
       page: 1,
       pageCount: 5,
-      itemsPerPage: 25,
+      itemsPerPage: 500,
       date: new Date().toISOString().substr(0, 10),
       menu2: false
     };
@@ -1378,6 +1379,15 @@ export default {
         border-right: thin solid rgba(0, 0, 0, 0.12);
       }
     }
+  }
+  .theme--light.v-card {
+    background: rgba(255, 255, 255, 0.85);
+  }
+  .theme--light.v-data-table {
+    background: none;
+  }
+  table {
+    border-bottom: thin solid rgba(0, 0, 0, 0.12);
   }
 }
 </style>

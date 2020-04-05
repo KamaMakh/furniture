@@ -13,6 +13,8 @@
         hide-default-header
         :loading="tableLoading"
         :headers-length="100"
+        fixed-header
+        :height="windowHeight - 100"
       >
         <template v-slot:header="{ props: { headers } }">
           <thead>
@@ -518,6 +520,9 @@ export default {
     justify-content: center;
     background: #c4c4c4;
   }
+  table {
+    border-bottom: thin solid rgba(0, 0, 0, 0.12);
+  }
   .theme--light.v-data-table tbody tr td:not(.v-data-table__mobile-row) {
     border-right: thin solid rgba(0, 0, 0, 0.12);
   }
@@ -534,6 +539,12 @@ export default {
         border-right: thin solid rgba(0, 0, 0, 0.12);
       }
     }
+  }
+  .theme--light.v-card {
+    background: rgba(255, 255, 255, 0.85);
+  }
+  .theme--light.v-data-table {
+    background: none;
   }
 }
 </style>
