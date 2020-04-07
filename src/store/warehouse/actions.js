@@ -213,7 +213,9 @@ function getNomenclatures({ commit }, data) {
       .then(response => {
         getGroupSum({ commit }, { storageGroupId: data.group.id }).then(
           response2 => {
-            data.group["totalSum"] = response2.data;
+            if (response.data.length) {
+              data.group["totalSum"] = response2.data;
+            }
             commit("setNomenclatures", {
               response: response.data,
               group: data.group

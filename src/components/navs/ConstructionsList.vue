@@ -13,30 +13,33 @@
         {{ user.fio | truncate }}
       </div>
     </div>
-    <div class="sidebar__btn" @click="showAddConstModal">
-      {{ $t("add_constr") }}
-      <span class="icon">
-        <IconPlusSquared width="19" height="19" />
-      </span>
+    <div class="sidebar__btns-wrap">
+      <div class="sidebar__btn" @click="showAddConstModal">
+        <IconPlusSquared width="30" height="30" style="margin-right: 10px;" />
+        {{ $t("add_constr") }}
+      </div>
+      <div class="sidebar_list menu-left">
+        <ul v-if="constructions">
+          <li v-for="(item, key) in constructions" :key="key">
+            <a
+              :class="{ active: construction.id === item.id }"
+              @click="chooseConstruction(item)"
+            >
+              <span style="margin-right: 10px; height: 30px;">
+                <IconSettingsMenu
+                  width="27"
+                  height="30"
+                  v-if="item.creatorId === user.id"
+                  @click="editConstruction(item)"
+                />
+              </span>
+              {{ item.name | truncate }}
+            </a>
+          </li>
+        </ul>
+      </div>
+      <slot name="dates"></slot>
     </div>
-    <div class="sidebar_list menu-left">
-      <ul v-if="constructions">
-        <li v-for="(item, key) in constructions" :key="key">
-          <a
-            :class="{ active: construction.id === item.id }"
-            @click="chooseConstruction(item)"
-          >
-            <span
-              v-if="item.creatorId === user.id"
-              @click="editConstruction(item)"
-              class="icon"
-            ></span>
-            {{ item.name | truncate }}
-          </a>
-        </li>
-      </ul>
-    </div>
-    <slot name="dates"></slot>
     <!--dialogs-->
     <v-dialog v-model="showAddModal" width="500">
       <v-card>
@@ -355,6 +358,7 @@
 import { mapState } from "vuex";
 import { serverUrl } from "@/store/urls";
 import IconPlusSquared from "@/components/common/icons/IconPlusSquared";
+import IconSettingsMenu from "@/components/common/icons/IconSettingsMenu";
 import IconClose from "@/components/common/icons/IconClose";
 import { ndsCount } from "@/shared/validator";
 export default {
@@ -362,7 +366,8 @@ export default {
   props: ["module", "showConst"],
   components: {
     IconPlusSquared,
-    IconClose
+    IconClose,
+    IconSettingsMenu
   },
   data() {
     return {

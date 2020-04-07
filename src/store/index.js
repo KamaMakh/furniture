@@ -10,6 +10,7 @@ import photofixations from "./photofixations";
 import constructions from "./constructions";
 import warehouse from "./warehouse";
 import statistics from "./statistics";
+import themes from "../shared/themes";
 
 Vue.use(VueCookies);
 Vue.use(Vuex);
@@ -35,7 +36,8 @@ export default new Vuex.Store({
       color: "success",
       text: "Внимание!",
       button_text: "Ok"
-    }
+    },
+    theme: themes["simple"]
   },
   getters: {
     loggedIn(state) {

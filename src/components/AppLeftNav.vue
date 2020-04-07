@@ -81,15 +81,14 @@ export default {
   height: 100%;
 }
 .navs-wrap {
-  width: 300px;
   display: flex;
   flex-flow: nowrap column;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  padding-top: 60px;
-  padding-right: 20px;
-  background: #dadada;
+  /*padding-top: 60px;*/
+  /*padding-right: 20px;*/
+  background: #fff;
   overflow-y: scroll;
   .app-version {
     color: #688e74;

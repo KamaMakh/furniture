@@ -97,9 +97,17 @@ function setNomenclatureAfterTransfer(state, data) {
 
 function setNomenclatures(state, data) {
   if (data.response) {
+    let nomenclatures = [];
+    state.warehouseNomenclatures.forEach((item, key) => {
+      if (item["groupId"] !== data.group.id) {
+        nomenclatures[key] = item;
+      }
+    });
+    state.warehouseNomenclatures = nomenclatures;
     data.response.forEach((item, key) => {
       data.response[key]["groupId"] = data.group.id;
     });
+    state.warehouseNomenclatures = nomenclatures;
     state.warehouseNomenclatures.push(...data.response);
   }
 }

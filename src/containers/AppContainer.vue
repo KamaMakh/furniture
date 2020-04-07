@@ -1,41 +1,48 @@
 <template>
   <div style="height: 100%">
-    <div class="container-wrap">
-      <div class="container-wrap__navigation">
-        <AppTop
-          :leftMenuShow="leftMenuShow"
-          @clicked-to-logo="leftMenuToggle"
-        />
-      </div>
-      <div class="container-wrap__content content">
+    <v-row class="container-wrap ma-0">
+      <v-col
+        v-if="windowWidth > 960"
+        cols="2"
+        style="width: 308px; max-width: 308px; min-width: 308px; min-height: 100vh"
+        class="content__left-menu pa-0"
+        :class="{ opened: leftMenuShow }"
+      >
+        <AppLeft :navsType="navsType" ref="appLeft" />
+      </v-col>
+      <v-navigation-drawer
+        v-else
+        width="300"
+        v-model="leftMenuShow"
+        absolute
+        temporary
+        style="z-index: 60"
+      >
+        <AppLeft :navsType="navsType" ref="appLeft" />
+      </v-navigation-drawer>
+      <v-col class="pa-0">
         <div
-          v-if="windowWidth > 960"
-          class="content__left-menu"
-          :class="{ opened: leftMenuShow }"
+          class="container-wrap__navigation"
+          :style="{ background: $store.state.theme.main }"
         >
-          <AppLeft :navsType="navsType" ref="appLeft" />
-        </div>
-        <v-navigation-drawer
-          v-else
-          width="300"
-          v-model="leftMenuShow"
-          absolute
-          temporary
-          style="z-index: 60"
-        >
-          <AppLeft :navsType="navsType" ref="appLeft" />
-        </v-navigation-drawer>
-        <perfect-scrollbar
-          class="content__body"
-          :class="{ warehouse: $route.name === 'Warehouse' }"
-        >
-          <router-view
+          <AppTop
             :leftMenuShow="leftMenuShow"
-            @createConstruction="showConstructionModal"
+            @clicked-to-logo="leftMenuToggle"
           />
-        </perfect-scrollbar>
-      </div>
-    </div>
+        </div>
+        <div class="container-wrap__content content">
+          <perfect-scrollbar
+            class="content__body"
+            :class="{ warehouse: $route.name === 'Warehouse' }"
+          >
+            <router-view
+              :leftMenuShow="leftMenuShow"
+              @createConstruction="showConstructionModal"
+            />
+          </perfect-scrollbar>
+        </div>
+      </v-col>
+    </v-row>
 
     <!--modals-->
     <v-dialog v-model="showVerifyModal" width="500">
@@ -112,12 +119,15 @@ export default {
 
 <style scoped lang="scss">
 .container-wrap {
-  height: 100%;
-  display: flex;
-  flex-flow: nowrap column;
+  /*height: 100%;*/
+  min-height: 100%;
   &__navigation {
-    background: #364b3c;
-    height: 45px;
+    /*background: #246d57;*/
+    height: 80px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+    @media all and(max-width: 1280px) {
+      height: 45px;
+    }
   }
   &__content {
     min-height: 100%;
@@ -132,8 +142,9 @@ export default {
 .content {
   &__left-menu {
     transition: 0.5s;
-    margin-left: -100%;
+    margin-left: -308px;
     height: 100%;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
     &.opened {
       margin-left: 0;
     }
@@ -147,7 +158,7 @@ export default {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     overflow: hidden;
-    background: url("../assets/authbg2.png") fixed repeat;
+    /*background: url("../assets/authbg2.png") fixed repeat;*/
     &.warehouse {
       padding-top: 0;
       padding-bottom: 0;

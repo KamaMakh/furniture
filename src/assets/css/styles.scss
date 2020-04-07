@@ -542,34 +542,26 @@ $pink: #688e74;
     padding: 15px;
   }
 }
-.app-top {
-  &.locale-changer {
-    width: 45px;
-    margin-left: 1px;
-    &:hover {
-      background: #999;
-    }
-    select {
-      border: none;
-      font-family: "Roboto", sans-serif;
-      font-size: 21px;
-      color: #fff;
-      text-transform: uppercase;
-      background: transparent;
-      option {
-        background-color: transparent !important;
-        -webkit-box-shadow: none;
-        -moz-box-shadow: none;
-        box-shadow: none;
-        border: none;
-        color: #333;
-      }
-    }
-    .v-text-field.v-text-field--solo .v-input__append-inner, .v-text-field.v-text-field--solo .v-input__prepend-inner {
-      display: none;
-    }
-    .v-select__selection--comma {
-      margin-right: 0;
-    }
+
+.options-list {
+  border-radius: 0 !important;
+  .v-list-item--active {
+    color: #000;
+  }
+  .v-list-item {
+    min-height: 40px;
+    font-size: 16px;
+    color: #000;
+    line-height: 19px;
+    font-weight: 300;
+    text-align: left;
+    padding-left: 54px;
+    padding-right: 34px;
+  }
+  .v-list-item--link::before, .v-list-item--active::before {
+    background: linear-gradient(90deg, rgba(242, 90, 51, 0.15) 33.39%, rgba(242, 90, 51, 0) 100%) !important;
+  }
+  .v-list-item--link:hover::before, .v-list-item--active::before {
+    opacity: 1 !important;
   }
 }

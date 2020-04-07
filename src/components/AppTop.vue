@@ -1,40 +1,33 @@
 <template>
   <div>
     <div class="header" :class="{ scrollable: headerScroll }">
-      <div class="header__logo-wrap">
-        <a class="header__logo" @click="toggleLeftMenu"></a>
-        <div class="circle" style="animation-delay: 0s"></div>
-        <div class="circle" style="animation-delay: 1s"></div>
-        <div class="circle" style="animation-delay: 2s"></div>
-        <div class="circle" style="animation-delay: 3s"></div>
+      <div class="header__logo-wrap" :class="{ opened: leftMenuShow }">
+        <a class="header__logo" @click="toggleLeftMenu">
+          <IconBurger width="30" height="30" />
+        </a>
       </div>
       <div class="header__menu header-menu">
         <ul>
           <li>
+            <router-link :to="{ name: 'Warehouse' }">
+              <span class="header-menu__icon">
+                <IconWarehouse width="30" height="30" fill="#fff" />
+              </span>
+              {{ $t("warehouse") }}
+            </router-link>
+          </li>
+          <li>
             <router-link :to="{ name: 'Furniture' }">
               <span class="header-menu__icon">
-                <!--                <IconCart width="19" height="18" />-->
-                <v-icon dark>
-                  mdi-text-box-check-outline
-                </v-icon>
+                <IconCart width="30" height="30" />
               </span>
               {{ $t("furniture") }}
             </router-link>
           </li>
-          <!--<li v-if="modules.indexOf('Projects') > -1">-->
-          <!--<router-link :to="{ name: 'Projects' }">-->
-          <!--<span class="header-menu__icon">-->
-          <!--<IconHome width="22" height="19" />-->
-          <!--</span>-->
-          <!--{{ $t("projects") }}-->
-          <!--</router-link>-->
-          <!--</li>-->
           <li v-if="modules.indexOf('Statistics') > -1">
             <router-link :to="{ name: 'Statistics' }">
               <span class="header-menu__icon">
-                <v-icon dark>
-                  mdi-poll
-                </v-icon>
+                <IconStatistics width="30" height="30" />
               </span>
               {{ $t("statistics") }}
             </router-link>
@@ -42,91 +35,58 @@
           <li>
             <router-link :to="{ name: 'Documents' }">
               <span class="header-menu__icon">
-                <!--                <IconDocuments width="20" height="19" />-->
-                <v-icon dark>
-                  mdi-clipboard-file-outline
-                </v-icon>
+                <IconDocuments width="30" height="30" />
               </span>
               {{ $t("documents") }}
             </router-link>
           </li>
-          <!--<li v-if="modules.indexOf('Users') > -1">-->
-          <!--<router-link :to="{ name: 'Users' }">-->
-          <!--<span class="header-menu__icon">-->
-          <!--<IconUsers width="20" height="19" />-->
-          <!--</span>-->
-          <!--{{ $t("users") }}-->
-          <!--</router-link>-->
-          <!--</li>-->
           <li>
             <router-link :to="{ name: 'PhotoFixations' }">
               <span class="header-menu__icon">
-                <!--                <IconUsers width="20" height="19" />-->
-                <v-icon dark>
-                  mdi-camera-outline
-                </v-icon>
+                <IconPhoto width="30" height="30" />
               </span>
               {{ $t("photofixation") }}
-            </router-link>
-          </li>
-          <li>
-            <router-link :to="{ name: 'Warehouse' }">
-              <span class="header-menu__icon">
-                <!--                <IconHome width="22" height="19" />-->
-                <v-icon dark>
-                  mdi-warehouse
-                </v-icon>
-              </span>
-              {{ $t("warehouse") }}
             </router-link>
           </li>
         </ul>
       </div>
       <div class="header__options options">
-        <div class="header__contacts d-flex mr-0 mr-sm-2 align-center">
-          <span class="desktop">
-            {{ $t("support.default") }}:
-            <a href="tel:+7-903-903-39-29" class="pl-1">+7-903-903-39-29</a>
-            Telegram:
-            <a target="_blank" href="tg://resolve?domain=stroyassistent">
-              @stroyassistent</a
-            >
-          </span>
-          <span class="mobile flex-grow-1 flex-shrink-0">
-            <v-btn
-              icon
-              color="#fff"
-              href="tel:+7-903-903-39-29"
-              target="_blank"
-            >
-              <v-icon center>
-                mdi-phone
-              </v-icon>
-            </v-btn>
-            <v-btn
-              icon
-              color="#fff"
-              href="tg://resolve?domain=stroyassistent"
-              target="_blank"
-            >
-              <v-icon center>
-                mdi-telegram
-              </v-icon>
-            </v-btn>
-          </span>
-        </div>
-        <router-link :to="{ name: 'Settings' }" class="options__btn">
-          <!--          <span class="options__icon"></span>-->
-          <!--          {{ $t("settings") }}-->
-          <v-icon dark>
-            mdi-cog-outline
-          </v-icon>
-        </router-link>
         <div class="options__lang" @click="toggleLang">
-          <LocaleChanger :parentClass="'app-top'" bgColor="#688e74" />
+          <LocaleChanger :parentClass="'app-top'" bgColor="transparent" />
         </div>
+        <v-menu offset-y transition="slide-x-transition" bottom right offset-x>
+          <template v-slot:activator="{ on }">
+            <!--            :to="{ name: 'Settings' }"-->
+            <div class="options__btn" v-on="on">
+              <IconSettings width="30" height="30" />
+            </div>
+          </template>
+          <v-list width="301" tile class="options-list">
+            <v-list-item :to="{ name: 'Personal' }">
+              <v-list-item-title>
+                {{ $t("personalCabinet") }}
+              </v-list-item-title>
+            </v-list-item>
+            <v-list-item :to="{ name: 'Finances' }">
+              <v-list-item-title>
+                {{ $t("finances") }}
+              </v-list-item-title>
+            </v-list-item>
+            <v-list-item :to="{ name: 'Contacts' }">
+              <v-list-item-title>
+                {{ $t("contacts") }}
+              </v-list-item-title>
+            </v-list-item>
+            <v-list-item @click="downloadWithVueResource">
+              <v-list-item-title>
+                {{ $t("privacy") }}
+              </v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
         <div class="options__logout" @click="logout">
-          <span class="options__logout-icon"></span>
+          <!--          <span class="options__logout-icon"></span>-->
+          <IconLogout width="30" height="30" />
         </div>
       </div>
     </div>
@@ -136,26 +96,32 @@
 <script>
 import { mapState } from "vuex";
 import LocaleChanger from "@/components/LocaleChanger";
-// import IconCart from "@/components/common/icons/IconCart";
-// import IconHome from "@/components/common/icons/IconHome";
-// import IconTransport from "@/components/common/icons/IconTransport";
-// import IconStatistics from "@/components/common/icons/IconStatistics";
-// import IconDocuments from "@/components/common/icons/IconDocuments";
-// import IconUsers from "@/components/common/icons/IconUsers";
+import IconCart from "@/components/common/icons/IconCart";
+import IconPhoto from "@/components/common/icons/IconPhoto";
+import IconStatistics from "@/components/common/icons/IconStatistics";
+import IconDocuments from "@/components/common/icons/IconDocuments";
+import IconWarehouse from "@/components/common/icons/IconWarehouse";
+import IconBurger from "@/components/common/icons/IconBurger";
+import IconSettings from "@/components/common/icons/IconSettings";
+import IconLogout from "@/components/common/icons/IconLogout";
 export default {
   name: "AppTop",
   props: ["leftMenuShow"],
   components: {
-    LocaleChanger
-    // IconCart,
-    // IconHome,
-    // IconStatistics,
-    // IconDocuments,
-    // IconUsers
+    LocaleChanger,
+    IconWarehouse,
+    IconCart,
+    IconStatistics,
+    IconDocuments,
+    IconPhoto,
+    IconBurger,
+    IconSettings,
+    IconLogout
   },
   data() {
     return {
-      headerScroll: true
+      headerScroll: true,
+      url: "https://stroy-assist.ru/confirm.pdf"
     };
   },
   methods: {
@@ -167,7 +133,7 @@ export default {
       this.$store.dispatch("furniture/clearState", {});
     },
     toggleLang(e) {
-      if (
+      this.headerScroll = !(
         e.target &&
         (e.target.classList.contains("vs__selected-options") ||
           e.target.classList.contains("vs__dropdown-toggle") ||
@@ -175,11 +141,10 @@ export default {
           e.target.classList.contains("vs__selected") ||
           e.target.classList.contains("vs__open-indicator") ||
           e.target.classList.value === "")
-      ) {
-        this.headerScroll = false;
-      } else {
-        this.headerScroll = true;
-      }
+      );
+    },
+    downloadWithVueResource() {
+      window.open(this.url, "_blank");
     }
   },
   computed: {
@@ -197,58 +162,33 @@ $ffamily: "Roboto", sans-serif;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
-  height: 45px;
+  height: 80px;
   @media all and(max-width: 1280px) {
     max-width: 100%;
-  }
-  &__contacts {
-    color: #fff;
-    font-size: 12px;
-    justify-content: flex-end;
-    @media all and(max-width: 1024px) {
-      flex: 1 0 auto;
-    }
-    a {
-      font-size: 12px;
-      color: #688e74;
-    }
-    .desktop {
-      @media all and(max-width: 1024px) {
-        display: none;
-      }
-    }
-    .mobile {
-      display: none;
-      @media all and(max-width: 1024px) {
-        display: block;
-      }
-    }
+    height: 45px;
   }
   &__logo-wrap {
     position: relative;
     width: 50px;
-    margin-right: 11px;
+    /*margin-right: 11px;*/
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    &.opened {
+      width: 55px;
+      margin-left: -55px;
+      padding-right: 5px;
+    }
     @media all and(max-width: 480px) {
       flex: 1 0 auto;
-    }
-    .circle {
-      top: 0;
-      left: 0;
-      border-radius: 10%;
-      background-color: #abcab5;
-      width: 50px;
-      height: 45px;
-      position: absolute;
-      opacity: 0;
-      animation: scaleIn 4s infinite cubic-bezier(0.36, 0.11, 0.89, 0.32);
     }
   }
   &__logo {
     display: block;
-    width: 50px;
-    height: 45px;
-    background: url("../assets/logo.svg") 0 -3px no-repeat;
+    width: 35px;
+    height: 34px;
     cursor: pointer;
     position: relative;
     z-index: 50;
@@ -269,29 +209,33 @@ $ffamily: "Roboto", sans-serif;
       a {
         font-family: $ffamily;
         font-style: normal;
-        font-weight: normal;
         line-height: 21px;
         display: flex;
-        height: 45px;
+        height: 80px;
         align-items: center;
         text-align: center;
         justify-content: center;
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
         box-sizing: border-box;
-        padding: 13px;
+        padding: 13px 23px;
         margin-right: 1px;
         text-decoration: none;
         color: #fff;
-        background: #688e74;
         transition: all 0.3s;
         overflow: hidden;
         min-width: 0;
         width: auto;
-        font-size: 15px;
+        font-size: 16px;
+        font-weight: 300;
+        letter-spacing: 1px;
         &:hover,
         &.active {
-          background: #999;
+          background: linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.15) 51.06%,
+            rgba(255, 255, 255, 0) 100%
+          );
           width: auto;
           color: #fff;
           .header-menu__icon {
@@ -308,19 +252,21 @@ $ffamily: "Roboto", sans-serif;
     }
   }
   &__icon {
-    width: 22px;
-    height: 22px;
+    width: 30px;
+    height: 30px;
     margin-right: 11px;
   }
 }
 .options {
   display: flex;
+  width: 201px;
+  @media all and(max-width: 768px) {
+    width: auto;
+  }
   &__btn {
-    width: 45px !important;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    background: #688e74;
     font-family: "Roboto", sans-serif;
     font-style: normal;
     font-weight: normal;
@@ -341,7 +287,11 @@ $ffamily: "Roboto", sans-serif;
     flex: 1 0 auto;
     &:hover,
     &.active {
-      background: #999;
+      background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.15) 51.06%,
+        rgba(255, 255, 255, 0) 100%
+      );
       width: auto;
       color: #fff;
       .header-menu__icon {
@@ -367,20 +317,23 @@ $ffamily: "Roboto", sans-serif;
     background: url("../assets/logout.svg") 0 0 no-repeat;
   }
   &__logout {
-    width: 45px;
-    height: 45px;
-    background: #688e74;
     margin-left: 1px;
     transition: all 0.3s;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    flex: 1 0 auto;
+    background: none;
+    &:hover {
+      background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.15) 51.06%,
+        rgba(255, 255, 255, 0) 100%
+      );
+    }
     @media all and(max-width: 480px) {
       flex: 1 0 auto;
-    }
-    &:hover {
-      background: #999;
     }
   }
 }
@@ -396,7 +349,6 @@ $ffamily: "Roboto", sans-serif;
       li {
         a {
           font-size: 0 !important;
-          width: 45px !important;
           height: 45px !important;
           min-width: 0 !important;
         }
@@ -425,17 +377,6 @@ $ffamily: "Roboto", sans-serif;
     &__icon {
       margin: 0;
     }
-  }
-}
-
-@keyframes scaleIn {
-  from {
-    transform: scale(0.5, 0.5);
-    opacity: 0.3;
-  }
-  to {
-    transform: scale(1.5, 1.5);
-    opacity: 0;
   }
 }
 </style>

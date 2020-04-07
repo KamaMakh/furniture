@@ -8,19 +8,24 @@
       <template v-slot:dates>
         <div class="date-range">
           <div class="date-range__input">
-            <v-text-field
-              v-model="dateRangeText"
-              :label="$t('dateRange')"
-              prepend-icon="event"
-              :color="color"
-              readonly
-            >
-              <template v-if="dates && dates.length === 2" v-slot:append>
-                <v-icon right style="cursor: pointer" @click="clearFilter()">
-                  mdi-close
-                </v-icon>
-              </template>
-            </v-text-field>
+            <!--            <v-text-field-->
+            <!--              v-model="dateRangeText"-->
+            <!--              :label="$t('dateRange')"-->
+            <!--              prepend-icon="event"-->
+            <!--              :color="color"-->
+            <!--              readonly-->
+            <!--            >-->
+            <!--              <template v-if="dates && dates.length === 2" v-slot:append>-->
+            <!--                <v-icon right style="cursor: pointer" @click="clearFilter()">-->
+            <!--                  mdi-close-->
+            <!--                </v-icon>-->
+            <!--              </template>-->
+            <!--              <template v-slot:prepend>-->
+            <!--                <IconCalendar width="20" height="20" />-->
+            <!--              </template>-->
+            <!--            </v-text-field>-->
+            <IconCalendar v-if="dates.length" width="20" height="20" />
+            <span class="date-range__text" v-html="dateRangeText"></span>
           </div>
           <div class="date-range__info-text">
             <span v-if="dates.length === 0">
@@ -38,6 +43,7 @@
               range
               reactive
               first-day-of-week="1"
+              class="statistics-picker"
             ></v-date-picker>
           </div>
           <div class="date-range__btn mt-3 text-center">
@@ -60,16 +66,18 @@
 
 <script>
 import ConstructionsList from "./ConstructionsList";
+import IconCalendar from "@/components/common/icons/IconCalendar";
 import { mapState } from "vuex";
 
 export default {
   name: "StatisticsNav",
   components: {
-    ConstructionsList
+    ConstructionsList,
+    IconCalendar
   },
   data() {
     return {
-      color: "#688e74",
+      color: this.$store.state.theme.main,
       dates: []
     };
   },
@@ -83,12 +91,16 @@ export default {
       this.dates.forEach((item, key) => {
         formattedDates[key] = this.formatDate(item);
         if (key === 0) {
-          formattedDates[key] = `${this.$t("from")} ${formattedDates[key]}`;
+          formattedDates[key] = `${this.$t("from")} <b>${formattedDates[
+            key
+          ].slice(0, -2)}</b>`;
         } else {
-          formattedDates[key] = `${this.$t("to")} ${formattedDates[key]}`;
+          formattedDates[key] = `${this.$t("to")} <b>${formattedDates[
+            key
+          ].slice(0, -2)}</b>`;
         }
       });
-      return formattedDates.join(" - ");
+      return formattedDates.join(" ");
     }
   },
   methods: {

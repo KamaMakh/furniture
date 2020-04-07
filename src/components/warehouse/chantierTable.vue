@@ -14,6 +14,7 @@
         :loading="tableLoading"
         :headers-length="100"
         fixed-header
+        disable-pagination
         :height="windowHeight - 100"
       >
         <template v-slot:header="{ props: { headers } }">

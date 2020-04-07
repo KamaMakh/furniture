@@ -8,21 +8,21 @@
   >
     <g clip-path="url(#clip0)">
       <path
-        d="M26.7859 27.1426H23.9287V29.9997H26.7859V27.1426Z"
+        d="M8.15234 0V13.6956H22.5002V0H8.15234ZM19.2393 5.86957H11.4133V3.91307H19.2393V5.86957Z"
         :fill="active ? activeColor : fill || '#fff'"
       />
       <path
-        d="M3.21436 0V30H21.7858V25H26.7857V0H3.21436ZM8.57152 7.14287H15.0001V9.2857H8.57152V7.14287ZM15.0001 22.1429H8.57152V20H15.0001V22.1429ZM21.4286 17.8571H8.57152V15.7143H21.4287V17.8571H21.4286ZM21.4286 13.5714H8.57152V11.4286H21.4287V13.5714H21.4286Z"
+        d="M0.326172 15.6523V30.0002H14.0218V15.6523H0.326172ZM10.761 21.5219H3.58703V19.5654H10.761V21.5219Z"
+        :fill="active ? activeColor : fill || '#fff'"
+      />
+      <path
+        d="M15.978 15.6523V30.0002H29.6737V15.6523H15.978ZM26.4128 21.5219H19.2389V19.5654H26.4128V21.5219Z"
         :fill="active ? activeColor : fill || '#fff'"
       />
     </g>
     <defs>
       <clipPath id="clip0">
-        <rect
-          :width="width"
-          :height="height"
-          :fill="active ? activeColor : fill || '#fff'"
-        />
+        <rect width="30" height="30" fill="white" />
       </clipPath>
     </defs>
   </svg>
@@ -31,7 +31,7 @@
 <script>
 import icon_config from "@/mixins/icon_config";
 export default {
-  name: "IconDocuments",
+  name: "IconWarehouse",
   mixins: [icon_config]
 };
 </script>

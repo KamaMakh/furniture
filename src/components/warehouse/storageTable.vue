@@ -13,6 +13,7 @@
         hide-default-header
         fixed-header
         :height="windowHeight - 100"
+        disable-pagination
       >
         <template v-slot:header="{ props: { headers } }">
           <thead>

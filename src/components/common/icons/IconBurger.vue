@@ -2,12 +2,20 @@
   <svg
     :width="width"
     :height="height"
-    viewBox="0 0 30 30"
+    viewBox="0 0 35 34"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
-      d="M26.4258 25.1139V3.12891H21.1523V25.1139H17.6367V9.37049H12.3633V25.1139H8.84766V14.9771H3.57422V25.1139H0V26.8717H30V25.1139H26.4258Z"
+      d="M35 24.5547H0V28.3325H35V24.5547Z"
+      :fill="active ? activeColor : fill || '#fff'"
+    />
+    <path
+      d="M35 15.1113H0V18.8891H35V15.1113Z"
+      :fill="active ? activeColor : fill || '#fff'"
+    />
+    <path
+      d="M35 5.66602H0V9.44382H35V5.66602Z"
       :fill="active ? activeColor : fill || '#fff'"
     />
   </svg>
@@ -16,7 +24,7 @@
 <script>
 import icon_config from "@/mixins/icon_config";
 export default {
-  name: "IconStatistics",
+  name: "IconBurger",
   mixins: [icon_config]
 };
 </script>

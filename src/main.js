@@ -15,6 +15,7 @@ import Viewer from "v-viewer";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faPlus, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import h1Component from "@/components/common/h1Component";
 import VueWindowSize from "vue-window-size";
 const VueScrollTo = require("vue-scrollto");
 import Validations from "vuelidate";
@@ -25,8 +26,9 @@ import vuetify from "./plugins/vuetify";
 library.add(faPlus);
 library.add(faUserPlus);
 
-Vue.use(VueWindowSize);
+Vue.component("h1-component", h1Component);
 Vue.component("fa-icon", FontAwesomeIcon);
+Vue.use(VueWindowSize);
 Vue.use(Viewer);
 Vue.use(PerfectScrollbar);
 
