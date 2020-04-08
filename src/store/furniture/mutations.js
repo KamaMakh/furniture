@@ -16,8 +16,6 @@ function setConstruction(state, construction) {
 }
 
 function addConstruction(state, construction) {
-  /* eslint-disable */
-  console.log(construction);
   state.constructions.unshift(construction);
   setConstruction(state, construction);
 }

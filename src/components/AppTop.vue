@@ -242,7 +242,7 @@ $ffamily: "Roboto", sans-serif;
             margin-right: 11px;
           }
         }
-        @media all and(max-width: 1280px) {
+        @media all and(max-width: 1440px) {
           font-size: 14px;
           min-width: 0;
           width: auto;

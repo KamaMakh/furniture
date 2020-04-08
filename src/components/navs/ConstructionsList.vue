@@ -25,13 +25,12 @@
               :class="{ active: construction.id === item.id }"
               @click="chooseConstruction(item)"
             >
-              <span style="margin-right: 10px; height: 30px;">
-                <IconSettingsMenu
-                  width="27"
-                  height="30"
-                  v-if="item.creatorId === user.id"
-                  @click="editConstruction(item)"
-                />
+              <span
+                v-if="item.creatorId === user.id"
+                @click="editConstruction(item)"
+                style="margin-right: 10px; height: 30px;"
+              >
+                <IconSettingsMenu width="27" height="30" />
               </span>
               {{ item.name | truncate }}
             </a>

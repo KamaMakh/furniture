@@ -153,6 +153,7 @@
   "isYourEmail": "You cannot invite yourself to the construction site.",
   "search": "Search",
   "apply": "Apply",
+  "comment": "A comment",
   "support": {
     "default": "Technical Support Contacts",
     "telegram": "Tech support telegram"

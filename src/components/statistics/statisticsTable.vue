@@ -12,8 +12,9 @@
       group-by="groupIdentify"
       :show-group-by="false"
       hide-default-header
+      mobile-breakpoint="768"
     >
-      <template v-slot:header>
+      <template v-if="windowWidth > 768" v-slot:header>
         <thead hidden>
           <tr>
             <th width="60%"></th>
@@ -23,30 +24,23 @@
           </tr>
         </thead>
       </template>
-      <template v-slot:body="{ groupedItems }">
+      <template v-if="windowWidth > 768" v-slot:body="{ groupedItems }">
         <tbody
           v-for="(groups, key) in groupedItems"
           :key="key"
           v-html="createGroupRows(key, groups)"
         ></tbody>
       </template>
-      <template v-if="false" v-slot:group="{ group, options, items }">
-        <tr>
-          <td colspan="4" class="pa-0">
-            <table
-              class="custom"
-              v-html="createGroupRows(group, items)"
-            ></table>
-          </td>
-        </tr>
+      <template v-if="windowWidth <= 768" v-slot:group.header="{ group }">
+        {{ group }}
       </template>
     </v-data-table>
     <!--    </v-card>-->
     <v-pagination
+      v-if="pagesCount >= 2"
       v-model="page"
       :color="color"
       :length="pagesCount"
-      :disabled="pagesCount < 2"
     ></v-pagination>
   </div>
 </template>
@@ -87,52 +81,62 @@ export default {
       },
       snackBar: state => state.snackBar,
       headers() {
-        return [
-          // {
-          //   text: this.$t("date"),
-          //   align: "center",
-          //   value: "dateCreate"
-          // },
-          // {
-          //   text: `${this.$t("user")}`,
-          //   align: "center",
-          //   value: "creatorName"
-          // },
-          // {
-          //   text: `${this.$t("nomenclature")}`,
-          //   align: "center",
-          //   value: "nomenclatureName",
-          //   sortable: false,
-          //   width: "30%"
-          // },
-          {
-            text: this.$t("count"),
-            align: "center",
-            value: "count",
-            sortable: false,
-            width: "10%"
-          },
-          {
-            text: this.$t("price"),
-            align: "center",
-            value: "price",
-            sortable: false,
-            width: "10%"
-          },
-          {
-            text: this.$t("total"),
-            align: "center",
-            value: "total",
-            sortable: false,
-            width: "15%"
-          }
-          // {
-          //   text: this.$t("actions"),
-          //   align: "center",
-          //   value: "type",
-          //   sortable: false
-          // }
-        ];
+        if (this.windowWidth > 768) {
+          return [
+            {
+              text: this.$t("count"),
+              align: "center",
+              value: "count",
+              sortable: false,
+              width: "10%"
+            },
+            {
+              text: this.$t("price"),
+              align: "center",
+              value: "price",
+              sortable: false,
+              width: "10%"
+            },
+            {
+              text: this.$t("total"),
+              align: "center",
+              value: "total",
+              sortable: false,
+              width: "15%"
+            }
+          ];
+        } else {
+          return [
+            {
+              text: `${this.$t("nomenclature")}`,
+              align: "center",
+              value: "nomenclatureName",
+              sortable: false,
+              width: "30%"
+            },
+            {
+              text: this.$t("count"),
+              align: "center",
+              value: "count",
+              sortable: false,
+              width: "10%"
+            },
+            {
+              text: this.$t("price"),
+              align: "center",
+              value: "price",
+              sortable: false,
+              width: "10%"
+            },
+            {
+              text: this.$t("total"),
+              align: "center",
+              value: "total",
+              sortable: false,
+              width: "15%"
+            }
+          ];
+        }
       }
     })
   },
@@ -182,7 +186,18 @@ export default {
         // rows += `<tr><th class="text-left" colspan="4">${key}</th></tr>`;
         for (let transfer of groupRows) {
           let countColor = "green";
-          rows += `<tr><td class="text-left name-td" style="padding-left: 117px; font-size: 20px;">${transfer.nomenclatureName}</td>`;
+          let photo = `<span v-else class="icon no-img mr-2"></span>`;
+          if (transfer.photos && transfer.photos[0]) {
+            photo = `<span class="icon">
+                    <img src="${serverUrl +
+                      transfer.photos[0][
+                        "pathUrl"
+                      ]}&type=200px" width="81" height="54" alt="" class="mr-2" />
+                  </span>`;
+          }
+          rows += `<tr><td class="text-left name-td" style="font-size: 20px;">
+                    <span class="d-flex align-center">${photo} ${transfer.nomenclatureName}</span>
+                   </td>`;
           if (
             transfer.type === "storage to project" ||
             transfer.type === "from storage"
@@ -287,8 +302,8 @@ export default {
 .statistics-table {
   .no-img {
     margin-right: 14px;
-    width: 30px;
-    height: 26px;
+    width: 81px;
+    height: 54px;
     display: flex;
     align-items: center;
     justify-content: center;

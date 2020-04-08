@@ -57,8 +57,9 @@
             >
               <td
                 v-if="item.price === undefined && item.isTotal === undefined"
-                colspan="12"
+                :colspan="ndsColumns ? 12 : 9"
                 class="d-table-cell border-right"
+                :class="{ disabled: groupLoadingId === item.id }"
                 @click="toggleGroupRows(item, $event)"
                 :child="enabledGroups[item.id]"
               >
@@ -203,14 +204,20 @@
                 }}
               </td>
               <td
-                v-if="(item.price !== undefined && ndsColumns) || item.isTotal"
+                v-if="
+                  (item.price !== undefined && ndsColumns) ||
+                    (item.isTotal && ndsColumns)
+                "
                 width="5%"
                 @click="showEditNomenclature(item, $event)"
               >
                 {{ item.isTotal ? item.sumPrice : item.price }}
               </td>
               <td
-                v-if="(item.price !== undefined && ndsColumns) || item.isTotal"
+                v-if="
+                  (item.price !== undefined && ndsColumns) ||
+                    (item.isTotal && ndsColumns)
+                "
                 width="7%"
                 @click="showEditNomenclature(item, $event)"
               >
@@ -244,7 +251,7 @@
           </tbody>
           <tfoot>
             <tr
-              style="background: rgb(225, 225, 225, 0.2); font-size: 13px;"
+              style="background: rgb(225, 225, 225, 0.2); font-size: 13px; color: #999;"
               class="white--text text-center"
             >
               <th></th>
@@ -255,10 +262,10 @@
               <th>
                 {{ totalSum.sumWithoutNdsPrice }}
               </th>
-              <th>
+              <th v-if="ndsColumns">
                 {{ totalSum.sumPrice }}
               </th>
-              <th class="pl-1 pr-1">
+              <th v-if="ndsColumns" class="pl-1 pr-1">
                 {{ totalSum.sumNdsValue }}
               </th>
               <th>
@@ -722,6 +729,7 @@ export default {
       currentSort: "",
       currentSortDir: "asc",
       loading: false,
+      groupLoadingId: null,
       absolutesDisabled: false,
       addGroupValid: true,
       addNomenclatureValid: true,
@@ -1074,12 +1082,7 @@ export default {
       if (enableOpen) {
         this.$store.dispatch("furniture/setUnits");
         this.showNomekModal = true;
-
-        // let term = item.term.split(".");
-        // term = term[2] + "." + term[1] + "." + term[0];
-        /* eslint-disable */
-        //new Date(term).toISOString().substr(0, 10);
-        this.nomenclature = item;
+        this.nomenclature = Object.assign({}, item);
         // this.nomenclature.units["label"] = item.units.abName;
         this.photos = [];
         this.files = [];
@@ -1163,7 +1166,6 @@ export default {
         });
     },
     deleteNewPhoto(image) {
-      console.log(image);
       this.files = [];
       this.nomenclature.photos.splice(
         this.nomenclature.photos.indexOf(image),
@@ -1198,12 +1200,13 @@ export default {
     },
     toggleGroupRows(group, event) {
       if (
-        !event ||
+        (this.groupLoadingId !== group.id && !event) ||
         event.target.tagName === "TD" ||
         (event.target.tagName !== "svg" &&
           event.target.tagName !== "path" &&
           !event.target.classList.contains("icon"))
       ) {
+        this.groupLoadingId = group.id;
         if (!this.enabledGroups[group.id]) {
           // this.enabledGroups[group.id] = true;
           this.$store.dispatch("furniture/editEnabledGroups", {
@@ -1213,7 +1216,7 @@ export default {
           this.$store
             .dispatch("furniture/setNomenclature", group)
             .then(() => {
-              //ignore
+              this.groupLoadingId = null;
             })
             .catch(error => {
               this.$notify({
@@ -1230,6 +1233,7 @@ export default {
             id: group.id,
             value: false
           });
+          this.groupLoadingId = null;
         }
       }
     },
@@ -1268,7 +1272,7 @@ export default {
           if (this.nomenclature.nds < 0) {
             this.nomenclature.nds = 0;
           }
-          let ndsPercentValue = this.nomenclature.nds/100 + 1;
+          let ndsPercentValue = this.nomenclature.nds / 100 + 1;
           this.nomenclature["priceWithoutNds"] = (
             this.nomenclature.price / parseFloat(ndsPercentValue)
           ).toFixed(2);
@@ -1493,7 +1497,6 @@ export default {
     },
     date() {
       this.nomenclature.term = this.formatDate(this.date);
-      console.log(this.formatDate(this.date), this.nomenclature.term);
     },
     leftMenuShow() {
       this.getDocNameWidth();

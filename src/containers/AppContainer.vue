@@ -2,7 +2,7 @@
   <div style="height: 100%">
     <v-row class="container-wrap ma-0">
       <v-col
-        v-if="windowWidth > 960"
+        v-if="windowWidth > 1280"
         cols="2"
         style="width: 308px; max-width: 308px; min-width: 308px; min-height: 100vh"
         class="content__left-menu pa-0"

@@ -205,8 +205,6 @@ export default {
     })
   },
   mounted() {
-    /* eslint-disable */
-    console.log(this.user.userSubscription);
     if (
       this.user &&
       this.user.userSubscription &&

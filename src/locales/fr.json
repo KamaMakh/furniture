@@ -153,6 +153,7 @@
   "isYourEmail": "Vous ne pouvez pas vous inviter sur le chantier.",
   "search": "Chercher",
   "apply": "Appliquer",
+  "comment": "Commentaire",
   "support": {
     "default": "Contacts du support technique",
     "telegram": "Télégramme d'assistance technique"

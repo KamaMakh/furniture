@@ -50,7 +50,9 @@ function getWarehouse({ commit }) {
     api
       .get(warehouseUrls.getAll)
       .then(response => {
-        getAllSum({ commit }, { storageId: response.data[0].id });
+        if (response.data[0]) {
+          getAllSum({ commit }, { storageId: response.data[0].id });
+        }
         commit("setWarehouse", response.data);
         commit("setAccess", true);
         resolve(response);

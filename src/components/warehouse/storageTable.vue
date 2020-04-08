@@ -263,6 +263,7 @@
               {{ $t("warehouse") }}
             </v-toolbar-title>
             <v-btn
+              v-if="warehouse"
               :color="color"
               small
               dark

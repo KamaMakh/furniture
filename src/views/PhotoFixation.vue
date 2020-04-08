@@ -1,8 +1,6 @@
 <template>
   <div class="photofixation">
-    <h1 class="text-left mb-4">
-      {{ $t("photofixationH1") }}
-    </h1>
+    <h1-component :name="$t('photofixation')" icon="photo" />
     <PhotoFixationsList @createConstruction="createConstruction" />
   </div>
 </template>

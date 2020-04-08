@@ -1,6 +1,6 @@
 <template>
   <div class="flex-grow-1 statistics">
-    <h1-component :name="$t('statistics')" />
+    <h1-component :name="$t('statistics')" icon="statistics" />
     <v-row class="ma-0">
       <v-col>
         <statisticsTable />
