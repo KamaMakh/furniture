@@ -96,12 +96,17 @@
                 </perfect-scrollbar>
               </v-col>
               <v-col class="fotofixation-img-wrap">
-                <v-row class="ml-0 mr-0">
-                  <div
+                <v-row>
+                  <v-col
                     v-for="(photo, photoKey) in fixation.photos"
                     :key="photoKey + photo"
                     class="d-flex child-flex fotofixation-img"
                     style="position: relative;"
+                    xl="3"
+                    lg="4"
+                    md="4"
+                    sm="6"
+                    cols="12"
                   >
                     <div
                       v-if="construction.creatorId === user.id"
@@ -148,7 +153,7 @@
                         </template>
                       </v-img>
                     </v-card>
-                  </div>
+                  </v-col>
                   <div
                     v-if="
                       (fixation.photos.length === 2 ||
