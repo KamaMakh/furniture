@@ -105,9 +105,47 @@
   margin-top: 56px;
   min-width: 650px;
 }
+.new-table.furniture-table {
+  min-width: 1000px;
+}
+.new-table.furniture-table thead tr th {
+  font-size: 19px;
+}
+@media all and (max-width: 1280px) {
+  .new-table.furniture-table thead tr th {
+    font-size: 14px;
+    line-height: 17px;
+    height: 50px;
+  }
+}
+@media all and (max-width: 960px) {
+  .new-table.furniture-table thead tr th {
+    font-size: 12px;
+    line-height: 14px;
+    height: 45px;
+  }
+}
+.new-table.furniture-table tbody tr td {
+  font-size: 16px;
+  text-align: center;
+}
+@media all and (max-width: 1280px) {
+  .new-table.furniture-table tbody tr td {
+    font-size: 14px;
+    line-height: 17px;
+    height: 45px;
+  }
+}
+@media all and (max-width: 960px) {
+  .new-table.furniture-table tbody tr td {
+    font-size: 12px;
+    line-height: 14px;
+    height: 40px;
+  }
+}
 .new-table thead tr th {
   height: 76px;
-  border-right: 0;
+  border: none;
   font-weight: normal;
   font-size: 20px;
   line-height: 23px;
@@ -141,6 +179,9 @@
   border-left: none !important;
   height: 70px;
 }
+.new-table tbody tr td.furniture-td {
+  border-top: 1px solid #D9D9D9 !important;
+}
 @media all and (max-width: 1280px) {
   .new-table tbody tr td {
     font-size: 15px;
@@ -157,6 +198,55 @@
 }
 .new-table tbody tr td span {
   text-align: center !important;
+}
+.new-table tbody tr td .furniture-group {
+  background: #99A4A1;
+  border-radius: 0px 5px 5px 0px;
+  padding: 0 16px;
+  height: 36px;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 21px;
+  color: #FFFFFF;
+  min-width: 202px;
+}
+@media all and (max-width: 1280px) {
+  .new-table tbody tr td .furniture-group {
+    font-size: 15px;
+    line-height: 19px;
+  }
+}
+@media all and (max-width: 960px) {
+  .new-table tbody tr td .furniture-group {
+    font-size: 13px;
+    line-height: 15px;
+  }
+}
+.new-table tfoot tr {
+  background: rgba(153, 164, 161, 0.15);
+}
+.new-table tfoot tr th {
+  border: none;
+  border-top: 1px solid #808080 !important;
+  height: 60px;
+  font-size: 18px;
+  line-height: 21px;
+  color: #000;
+  font-weight: normal;
+}
+@media all and (max-width: 1280px) {
+  .new-table tfoot tr th {
+    font-size: 16px;
+    line-height: 19px;
+    height: 50px;
+  }
+}
+@media all and (max-width: 960px) {
+  .new-table tfoot tr th {
+    font-size: 14px;
+    line-height: 16px;
+    height: 45px;
+  }
 }
 
 .nomenclature-modal {

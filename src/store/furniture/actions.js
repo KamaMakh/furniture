@@ -334,7 +334,7 @@ function buyNomenclature({ commit }, data) {
         }
       })
       .catch(error => {
-        reject(error.response);
+        reject(error);
       });
   });
 }

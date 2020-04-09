@@ -111,11 +111,49 @@ $ffamily: "Roboto", sans-serif;
   border-spacing: 0;
   margin-top: 56px;
   min-width: 650px;
+  &.furniture-table {
+    min-width: 1000px;
+    thead {
+      tr {
+        th {
+          font-size: 19px;
+          @media all and(max-width: 1280px) {
+            font-size: 14px;
+            line-height: 17px;
+            height: 50px;
+          }
+          @media all and(max-width: 960px) {
+            font-size: 12px;
+            line-height: 14px;
+            height: 45px;
+          }
+        }
+      }
+    }
+    tbody {
+      tr {
+        td {
+          font-size: 16px;
+          text-align: center;
+          @media all and(max-width: 1280px) {
+            font-size: 14px;
+            line-height: 17px;
+            height: 45px;
+          }
+          @media all and(max-width: 960px) {
+            font-size: 12px;
+            line-height: 14px;
+            height: 40px;
+          }
+        }
+      }
+    }
+  }
   thead {
     tr {
       th {
         height: 76px;
-        border-right: 0;
+        border: none;
         font-weight: normal;
         font-size: 20px;
         line-height: 23px;
@@ -148,6 +186,9 @@ $ffamily: "Roboto", sans-serif;
         border-right: none !important;
         border-left: none !important;
         height: 70px;
+        &.furniture-td {
+          border-top: 1px solid #D9D9D9 !important;
+        }
         @media all and(max-width: 1280px) {
           font-size: 15px;
           line-height: 19px;
@@ -161,6 +202,49 @@ $ffamily: "Roboto", sans-serif;
       span {
         text-align: center !important;
       }
+        .furniture-group {
+          background: #99A4A1;
+          border-radius: 0px 5px 5px 0px;
+          padding: 0 16px;
+          height: 36px;
+          font-weight: normal;
+          font-size: 18px;
+          line-height: 21px;
+          color: #FFFFFF;
+          min-width: 202px;
+          @media all and(max-width: 1280px) {
+            font-size: 15px;
+            line-height: 19px;
+          }
+          @media all and(max-width: 960px) {
+            font-size: 13px;
+            line-height: 15px;
+          }
+        }
+      }
+    }
+  }
+  tfoot {
+    tr {
+      background: rgba(153, 164, 161, 0.15);
+      th {
+        border: none;
+        border-top: 1px solid #808080 !important;
+        height: 60px;
+        font-size: 18px;
+        line-height: 21px;
+        color: #000;
+        font-weight: normal;
+        @media all and(max-width: 1280px) {
+          font-size: 16px;
+          line-height: 19px;
+          height: 50px;
+        }
+        @media all and(max-width: 960px) {
+          font-size: 14px;
+          line-height: 16px;
+          height: 45px;
+        }
       }
     }
   }

@@ -147,15 +147,15 @@ function hideNomenclatures(state, data) {
   }
 }
 function updateNomenclature(state, data) {
+  data.response["group"] = data.nomenclature["group"];
+  data.totalSum["group"] = data.nomenclature["group"];
+  data.totalSum["isTotal"] = true;
+  state.furniture.groups.splice(
+    data.nomenclature["group"]["children"],
+    1,
+    data.totalSum
+  );
   if (state.furniture.groups.indexOf(data.nomenclature) > -1) {
-    data.response["group"] = data.nomenclature["group"];
-    data.totalSum["group"] = data.nomenclature["group"];
-    data.totalSum["isTotal"] = true;
-    state.furniture.groups.splice(
-      data.nomenclature["group"]["children"],
-      1,
-      data.totalSum
-    );
     state.furniture.groups[state.furniture.groups.indexOf(data.nomenclature)] =
       data.response;
   } else {
@@ -168,6 +168,8 @@ function updateNomenclature(state, data) {
       }
     });
   }
+  state.furniture.groups.unshift("trigger");
+  state.furniture.groups.shift();
 }
 
 function updateNomenclaturePhoto(state, data) {

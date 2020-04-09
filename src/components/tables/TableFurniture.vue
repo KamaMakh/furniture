@@ -18,104 +18,127 @@
         :tile="false"
         class="mx-auto"
       >
-        <table class="table" id="furnitureTable">
+        <table class="table new-table furniture-table" id="furnitureTable">
           <thead>
             <tr>
-              <td
+              <th width="2%">
+                <v-btn
+                  @click="showModal()"
+                  :title="$t('add_group')"
+                  icon
+                  style="cursor: pointer"
+                >
+                  <v-icon :color="color">
+                    mdi-plus
+                  </v-icon>
+                </v-btn>
+              </th>
+              <th
                 v-for="(item, key) in titles"
                 :key="key"
-                :width="tdWidths[key] + '%'"
+                :width="item.width"
                 :title="item.name"
                 @click="sort(item, $event)"
                 style="cursor: pointer"
                 :class="{ bold: item.code === currentSort }"
               >
                 <span
-                  v-if="key === 0"
-                  @click="showModal"
-                  :title="$t('add_group')"
-                  class="icon"
-                  style="cursor: pointer"
-                >
-                  <IconPlusSquared width="19" height="19" fill="#C4C4C4" />
-                </span>
-                <span
                   class="ellipsis"
                   :style="{ maxWidth: docNameWidth + 'px' }"
                 >
                   {{ item.name }}
                 </span>
-              </td>
+              </th>
             </tr>
           </thead>
           <tbody>
-            <tr
-              style="cursor: pointer"
-              v-for="(item, key) in rows"
-              :key="key"
-              :class="{ odd: key % 2 === 0 || key === 0 }"
-            >
+            <tr style="cursor: pointer" v-for="(item, key) in rows" :key="key">
+              <td
+                v-if="item.price !== undefined || item.isTotal !== undefined"
+                :class="{
+                  'furniture-td':
+                    item.price !== undefined && item.isTotal === undefined
+                }"
+              >
+                <v-btn
+                  v-if="item.creatorId === user.id"
+                  icon
+                  :title="$t('delete')"
+                  :color="'error'"
+                  @click.stop="showDeleteNomenModal(item)"
+                >
+                  <v-icon>
+                    mdi-close
+                  </v-icon>
+                </v-btn>
+              </td>
               <td
                 v-if="item.price === undefined && item.isTotal === undefined"
-                :colspan="ndsColumns ? 12 : 9"
-                class="d-table-cell border-right"
+                :colspan="ndsColumns ? 12 : 10"
+                class="d-table-cell border-right text-left pl-0"
                 :class="{ disabled: groupLoadingId === item.id }"
                 @click="toggleGroupRows(item, $event)"
                 :child="enabledGroups[item.id]"
               >
-                <span class="d-flex align-items-center justify-content-start">
-                  <span
+                <span
+                  class="d-inline-flex align-center justify-start furniture-group"
+                >
+                  <v-btn
                     v-if="!item.price && item.creatorId === user.id"
-                    @click="showModal(item)"
+                    @click.stop="showModal(item)"
                     :title="$t('edit_group')"
-                    class="setting-icon"
+                    icon
+                    dark
                   >
-                    <IconSettings width="18" height="18" fill="#dadada" />
-                  </span>
-                  <span
-                    class="icon"
-                    style="cursor: pointer"
+                    <v-icon>
+                      mdi-pencil
+                    </v-icon>
+                  </v-btn>
+                  <v-btn
+                    icon
+                    dark
                     :title="$t('add_nomenclature')"
-                    @click="showNomenclature(item)"
+                    @click.stop="showNomenclature(item)"
                   >
-                    <IconPlusSquared width="18" height="18" fill="#C4C4C4" />
-                  </span>
+                    <v-icon>
+                      mdi-plus
+                    </v-icon>
+                  </v-btn>
                   {{ item.name }}
                 </span>
               </td>
               <td v-else-if="item.isTotal"></td>
               <td
                 v-else
-                width="27%"
                 style="display: table-cell; padding: 10px 5px;"
                 @click="showEditNomenclature(item, $event)"
+                class="furniture-td"
               >
                 <div class="d-flex">
-                  <span v-if="item.photos && item.photos[0]" class="icon">
-                    <!--<img :src="serverUrl + item.photos[0]['pathUrl']" alt="" />-->
-                    <v-img
-                      :src="serverUrl + item.photos[0]['pathUrl']"
-                      contain
-                      class="grey lighten-2"
-                      max-width="30"
-                      max-height="30"
-                      light
-                    >
-                      <template v-slot:placeholder>
-                        <v-row
-                          class="fill-height ma-0"
-                          align="center"
-                          justify="center"
-                        >
-                          <v-progress-circular
-                            indeterminate
-                            color="grey lighten-5"
-                          ></v-progress-circular>
-                        </v-row>
-                      </template>
-                    </v-img>
-                  </span>
-                  <span v-else class="icon no-img"></span>
+                  <!--                  <span v-if="item.photos && item.photos[0]" class="icon">-->
+                  <!--                    <v-img-->
+                  <!--                      :src="serverUrl + item.photos[0]['pathUrl']"-->
+                  <!--                      contain-->
+                  <!--                      class="grey lighten-2"-->
+                  <!--                      max-width="30"-->
+                  <!--                      max-height="30"-->
+                  <!--                      light-->
+                  <!--                    >-->
+                  <!--                      <template v-slot:placeholder>-->
+                  <!--                        <v-row-->
+                  <!--                          class="fill-height ma-0"-->
+                  <!--                          align="center"-->
+                  <!--                          justify="center"-->
+                  <!--                        >-->
+                  <!--                          <v-progress-circular-->
+                  <!--                            indeterminate-->
+                  <!--                            color="grey lighten-5"-->
+                  <!--                          ></v-progress-circular>-->
+                  <!--                        </v-row>-->
+                  <!--                      </template>-->
+                  <!--                    </v-img>-->
+                  <!--                  </span>-->
+                  <!--                  <span v-else class="icon no-img"></span>-->
                   <span
                     class="ellipsis ml-0"
                     :title="item.name"
@@ -123,48 +146,35 @@
                   >
                     {{ item.name }}
                   </span>
-                  <span
-                    v-if="item.creatorId === user.id"
-                    :title="$t('delete')"
-                    style="width: 20px; height: 25px; cursor: pointer; margin-left: 5px;"
-                    @click="showDeleteNomenModal(item)"
-                  >
-                    <IconBasket
-                      width="18"
-                      height="18"
-                      fill="#999"
-                      stroke="#999"
-                    />
-                  </span>
                 </div>
               </td>
               <td
                 v-if="item.price !== undefined || item.isTotal"
-                width="5%"
                 @click="showEditNomenclature(item, $event)"
+                :class="{ 'furniture-td': item.isTotal === undefined }"
               >
                 {{ item.isTotal ? "" : item.count }}
               </td>
               <td
                 v-if="item.price !== undefined || item.isTotal"
-                width="5%"
                 @click="showEditNomenclature(item, $event)"
+                :class="{ 'furniture-td': item.isTotal === undefined }"
               >
                 {{ item.units ? item.units.abName : "" }}
               </td>
 
               <td
                 v-if="item.price !== undefined || item.isTotal"
-                width="10%"
                 @click="showEditNomenclature(item, $event)"
+                :class="{ 'furniture-td': item.isTotal === undefined }"
               >
                 {{ item.isTotal ? "" : item.term }}
               </td>
               <td
                 v-if="item.price !== undefined || item.isTotal"
-                width="9%"
                 style="word-break: initial"
                 @click="showEditNomenclature(item, $event)"
+                :class="{ 'furniture-td': item.isTotal === undefined }"
               >
                 <div v-if="!item.isTotal" id="anim">
                   <span class="tooltip-custom">
@@ -172,20 +182,22 @@
                       class="tooltip-html"
                       v-html="statusesHtml(item)"
                     ></span>
-                    <span v-if="item.buy">
-                      {{ $t("purchased") }}
-                    </span>
-                    <span
+                    <v-btn v-if="item.buy" :color="color" dark>
+                      {{ $t("purchased") | truncate(5) }}
+                    </v-btn>
+                    <v-btn
                       v-else-if="getStatus(item.status) === 'confirmed_simple'"
+                      color="success"
+                      dark
                     >
-                      {{ $t("confirmed_simple") }}
-                    </span>
-                    <span v-else>
-                      {{ $t("not_confirmed_simple") }}
-                    </span>
+                      {{ $t("confirmed_simple") | truncate(5) }}
+                    </v-btn>
+                    <v-btn v-else color="error" dark>
+                      {{ $t("not_confirmed_simple") | truncate(5) }}
+                    </v-btn>
                   </span>
                 </div>
-                <div v-else>{{ $t("total") }} "{{ item.group.name }}":</div>
+                <div v-else>{{ $t("total") }}:</div>
               </td>
               <!--<td-->
               <!--v-if="item.price !== undefined && ndsColumns"-->
@@ -196,8 +208,8 @@
               <!--</td>-->
               <td
                 v-if="item.price !== undefined || item.isTotal"
-                width="5%"
                 @click="showEditNomenclature(item, $event)"
+                :class="{ 'furniture-td': item.isTotal === undefined }"
               >
                 {{
                   item.isTotal ? item.sumWithoutNdsPrice : item.priceWithoutNds
@@ -208,8 +220,8 @@
                   (item.price !== undefined && ndsColumns) ||
                     (item.isTotal && ndsColumns)
                 "
-                width="5%"
                 @click="showEditNomenclature(item, $event)"
+                :class="{ 'furniture-td': item.isTotal === undefined }"
               >
                 {{ item.isTotal ? item.sumPrice : item.price }}
               </td>
@@ -218,28 +230,31 @@
                   (item.price !== undefined && ndsColumns) ||
                     (item.isTotal && ndsColumns)
                 "
-                width="7%"
                 @click="showEditNomenclature(item, $event)"
+                :class="{ 'furniture-td': item.isTotal === undefined }"
               >
                 {{ item.isTotal ? item.sumNdsValue : item.ndsValue }}
               </td>
               <td
                 v-if="item.price !== undefined || item.isTotal"
-                width="5%"
                 @click="showEditNomenclature(item, $event)"
+                :class="{ 'furniture-td': item.isTotal === undefined }"
               >
                 {{ item.isTotal ? item.sumTotalPrice : item.totalPrice }}
               </td>
               <td
                 v-if="item.price !== undefined || item.isTotal"
-                width="5%"
                 @click="showEditNomenclature(item, $event)"
+                :class="{ 'furniture-td': item.isTotal === undefined }"
               >
                 <span class="ellipsis">
                   {{ item.magazine }}
                 </span>
               </td>
-              <td v-if="item.price !== undefined || item.isTotal" width="18%">
+              <td
+                v-if="item.price !== undefined || item.isTotal"
+                :class="{ 'furniture-td': item.isTotal === undefined }"
+              >
                 <span
                   class="ellipsis"
                   style="max-width: 120px; text-align: left;"
@@ -254,6 +269,7 @@
               style="background: rgb(225, 225, 225, 0.2); font-size: 13px; color: #999;"
               class="white--text text-center"
             >
+              <th></th>
               <th></th>
               <th></th>
               <th></th>
@@ -306,11 +322,11 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="grey darken-1" text @click="showAddModal = false">
+          <v-btn :color="colorExtraHover" dark @click="showAddModal = false">
             {{ $t("close") }}
           </v-btn>
 
-          <v-btn :color="color" text :loading="loading" @click="addGroup">
+          <v-btn :color="colorExtra" dark :loading="loading" @click="addGroup">
             {{ $t("save") }}
           </v-btn>
         </v-card-actions>
@@ -322,67 +338,25 @@
         <v-card-title class="headline">
           {{ $t("delete") }} "{{ nomenclature.name }}"?
         </v-card-title>
-        <v-card-actions>
+        <v-card-actions class="justify-center">
           <v-btn
-            color="grey darken-1"
-            text
-            @click="showRemoveNomekModal = false"
-          >
-            {{ $t("close") }}
-          </v-btn>
-
-          <v-btn
-            color="color"
-            text
+            :color="colorExtra"
             :loading="loading"
+            dark
             @click="deleteNomenclature"
           >
             {{ $t("delete") }}
           </v-btn>
+          <v-btn
+            :color="colorExtraHover"
+            dark
+            @click="showRemoveNomekModal = false"
+          >
+            {{ $t("cancel") }}
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
-
-    <transition name="fade-none">
-      <div v-if="showAddPhotoModal">
-        <div class="modal-mask">
-          <div class="modal-wrapper">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-body">
-                  <div class="form-group row">
-                    <uploader
-                      v-model="files"
-                      limit="1"
-                      :title="$t('add_image')"
-                      :autoUpload="false"
-                      :multiple="true"
-                    ></uploader>
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-custom"
-                    @click="addPhoto"
-                  >
-                    {{ $t("save") }}
-                  </button>
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    @click="showAddPhotoModal = false"
-                  >
-                    {{ $t("close") }}
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </transition>
-
     <v-dialog v-model="showNomekModal" width="850">
       <v-card>
         <v-card-text>
@@ -585,14 +559,14 @@
                     :label="`${$t('confirmed')} ${item.nameMustConfirmed}`"
                   ></v-checkbox>
                 </div>
-                <div class="form-group row justify-space-between ml-0 mr-0">
+                <div class="form-group row justify-space-around ml-0 mr-0">
                   <v-btn
                     v-if="
                       (nomenclature.creatorId === user.id ||
                         !nomenclature.id) &&
                         !nomenclature.buy
                     "
-                    color="#688e74"
+                    :color="colorExtra"
                     class="ma-1 ml-0"
                     dark
                     :disabled="!addNomenclatureValid"
@@ -605,10 +579,10 @@
                   <v-btn
                     dark
                     @click="showNomekModal = false"
-                    color="#999"
+                    :color="colorExtraHover"
                     class="ma-1"
                   >
-                    {{ $t("close") }}
+                    {{ $t("cancel") }}
                   </v-btn>
 
                   <v-btn
@@ -616,7 +590,7 @@
                       getStatus(nomenclature.status) === 'confirmed_simple' &&
                         !nomenclature.buy
                     "
-                    color="#688e74"
+                    :color="color"
                     class="ma-1"
                     dark
                     :loading="loading"
@@ -628,7 +602,7 @@
                     v-else-if="
                       nomenclature.buy && nomenclature.buyerId === user.id
                     "
-                    color="#688e74"
+                    :color="color"
                     class="ma-1"
                     dark
                     :loading="loading"
@@ -651,14 +625,18 @@
         </v-card-title>
         <v-card-actions>
           <v-btn
-            color="grey darken-1"
+            :color="colorExtraHover"
             text
             @click="showRemovePhotoModal = false"
           >
-            {{ $t("close") }}
+            {{ $t("cancel") }}
           </v-btn>
-
-          <v-btn :color="color" text :loading="loading" @click="deletePhoto">
+          <v-btn
+            :color="colorExtra"
+            text
+            :loading="loading"
+            @click="deletePhoto"
+          >
             {{ $t("delete") }}
           </v-btn>
         </v-card-actions>
@@ -681,16 +659,16 @@
 
 <script>
 import Vue from "vue";
-import Uploader from "vux-uploader-component";
+// import Uploader from "vux-uploader-component";
 import { mapState } from "vuex";
 import VueMask from "v-mask";
 import { serverUrl } from "@/store/urls";
 import VCalendar from "v-calendar";
 import CustomGallery from "@/components/CustomGallery";
 import { userUrls } from "@/store/urls";
-import IconPlusSquared from "@/components/common/icons/IconPlusSquared";
-import IconSettings from "@/components/common/icons/IconSettings";
-import IconBasket from "@/components/common/icons/IconBasket";
+// import IconPlusSquared from "@/components/common/icons/IconPlusSquared";
+// import IconSettings from "@/components/common/icons/IconSettings";
+// import IconBasket from "@/components/common/icons/IconBasket";
 import { ndsCount } from "@/shared/validator";
 
 Vue.use(VCalendar);
@@ -699,11 +677,11 @@ export default {
   name: "TableFurniture",
   props: ["leftMenuShow"],
   components: {
-    Uploader,
-    CustomGallery,
-    IconPlusSquared,
-    IconSettings,
-    IconBasket
+    // Uploader,
+    CustomGallery
+    // IconPlusSquared,
+    // IconSettings,
+    // IconBasket
   },
   data() {
     return {
@@ -713,12 +691,11 @@ export default {
       showRemoveNomekModal: false,
       showNomekModal: false,
       showRemovePhotoModal: false,
-      showAddPhotoModal: false,
       group: {},
       nomenclature: {},
       showFormErrors: false,
       serverUrl: serverUrl,
-      tdWidths: [27, 5, 5, 7, 9, 5, 10, 5, 7, 5, 5, 16],
+      tdWidths: [20, 5, 5, 7, 9, 5, 10, 5, 7, 5, 5, 16],
       updatingId: null,
       price: 0,
       photos: [],
@@ -737,7 +714,9 @@ export default {
         nds: value => ndsCount(value) || this.$t("messages.error.nds")
       },
       rules: [v => !!v || this.$t("required")],
-      color: "#688e74",
+      color: this.$store.state.theme.main,
+      colorExtra: this.$store.state.theme.extra,
+      colorExtraHover: this.$store.state.theme.extraHover,
       emailRules: [
         v => !!v || this.$t("required"),
         v => /.+@.+\..+/.test(v) || this.$t("invalid_email")
@@ -1185,7 +1164,6 @@ export default {
           nomenclature: this.nomenclature
         })
         .then(() => {
-          this.showAddPhotoModal = false;
           this.nomenclature = {};
           this.files = [];
         })
@@ -1372,62 +1350,68 @@ export default {
             {
               name: state.furniture.construction.name,
               sortable: true,
-              code: "name"
+              code: "name",
+              width: "20%"
             },
             {
               name: this.$i18n.messages[state.lang]["count_sh"],
               sortable: true,
-              code: "count"
+              code: "count",
+              width: "5%"
             },
             {
               name: this.$i18n.messages[state.lang]["unit_sh"],
               sortable: false,
-              code: "units"
+              code: "units",
+              width: "5%"
             },
             {
               name: this.$i18n.messages[state.lang]["deadlines"],
               sortable: true,
-              code: "term"
+              code: "term",
+              width: "7%"
             },
             {
               name: this.$i18n.messages[state.lang]["status"],
               sortable: true,
-              code: "status"
+              code: "status",
+              width: "9%"
             },
-            // {
-            //   name: this.$i18n.messages[state.lang]["vatRate"],
-            //   sortable: true,
-            //   code: "nds"
-            // },
             {
               name: this.$i18n.messages[state.lang]["priceWithoutNds"],
               sortable: true,
-              code: "priceWithoutNds"
+              code: "priceWithoutNds",
+              width: "10%"
             },
             {
               name: this.$i18n.messages[state.lang]["price"],
               sortable: true,
-              code: "price"
+              code: "price",
+              width: "10%"
             },
             {
               name: this.$i18n.messages[state.lang]["nds"],
               sortable: true,
-              code: "ndsValue"
+              code: "ndsValue",
+              width: "5%"
             },
             {
               name: this.$i18n.messages[state.lang]["sum_price"],
               sortable: true,
-              code: "totalPrice"
+              code: "totalPrice",
+              width: "7%"
             },
             {
               name: this.$i18n.messages[state.lang]["magazine"],
               sortable: true,
-              code: "magazine"
+              code: "magazine",
+              width: "8%"
             },
             {
               name: this.$i18n.messages[state.lang]["link"],
               sortable: false,
-              code: "link"
+              code: "link",
+              width: "16%"
             }
           ];
         } else {
@@ -1435,47 +1419,56 @@ export default {
             {
               name: state.furniture.construction.name,
               sortable: true,
-              code: "name"
+              code: "name",
+              width: "20%"
             },
             {
               name: this.$i18n.messages[state.lang]["count_sh"],
               sortable: true,
-              code: "count"
+              code: "count",
+              width: "6%"
             },
             {
               name: this.$i18n.messages[state.lang]["unit_sh"],
               sortable: false,
-              code: "units"
+              code: "units",
+              width: "5%"
             },
             {
               name: this.$i18n.messages[state.lang]["deadlines"],
               sortable: true,
-              code: "term"
+              code: "term",
+              width: "10%"
             },
             {
               name: this.$i18n.messages[state.lang]["status"],
               sortable: false,
-              code: "status"
+              code: "status",
+              width: "10%"
             },
             {
               name: this.$i18n.messages[state.lang]["priceWithoutNds"],
               sortable: true,
-              code: "priceWithoutNds"
+              code: "priceWithoutNds",
+              width: "12%"
             },
             {
               name: this.$i18n.messages[state.lang]["sum_price"],
               sortable: true,
-              code: "totalPrice"
+              code: "totalPrice",
+              width: "5%"
             },
             {
               name: this.$i18n.messages[state.lang]["magazine"],
               sortable: true,
-              code: "magazine"
+              code: "magazine",
+              width: "10%"
             },
             {
               name: this.$i18n.messages[state.lang]["link"],
               sortable: false,
-              code: "link"
+              code: "link",
+              width: "20%"
             }
           ];
         }
@@ -1516,6 +1509,8 @@ $ffamily: "Roboto", sans-serif;
 .hidden {
   display: none;
 }
+@import "./assets/css/table.css";
+/*
 .table {
   font-family: $ffamily;
   border-collapse: collapse;
@@ -1558,7 +1553,6 @@ $ffamily: "Roboto", sans-serif;
     box-sizing: border-box;
     padding: 1px 9px;
     border-top: none;
-    /*width: 100%;*/
     word-break: break-word;
   }
   tbody {
@@ -1616,6 +1610,7 @@ $ffamily: "Roboto", sans-serif;
     }
   }
 }
+
 .nomenclature-modal {
   background: #fff;
   border-radius: 18px;
@@ -1670,6 +1665,7 @@ $ffamily: "Roboto", sans-serif;
     }
   }
 }
+
 .modal-mask {
   display: flex;
   justify-content: center;
@@ -1699,6 +1695,7 @@ $ffamily: "Roboto", sans-serif;
     }
   }
 }
+
 @media all and(max-width: 480px) {
   .nomenclature-column {
     flex-direction: column;
@@ -1750,4 +1747,5 @@ label.title {
   background: #688e74;
   border-color: #688e74;
 }
+ */
 </style>
