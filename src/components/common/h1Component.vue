@@ -4,6 +4,8 @@
       <span class="h1-component__icon d-flex align-center">
         <IconStatistics v-if="icon === 'statistics'" width="30" height="23" />
         <IconPhoto v-else-if="icon === 'photo'" width="30" height="23" />
+        <IconDocuments v-else-if="icon === 'document'" width="30" height="23" />
+        <IconCart v-else-if="icon === 'cart'" width="30" height="23" />
       </span>
       <h1>
         {{ name }}
@@ -15,12 +17,16 @@
 <script>
 import IconStatistics from "@/components/common/icons/IconStatistics";
 import IconPhoto from "@/components/common/icons/IconPhoto";
+import IconDocuments from "@/components/common/icons/IconDocuments";
+import IconCart from "@/components/common/icons/IconCart";
 export default {
   props: ["name", "icon"],
   name: "h1Component",
   components: {
     IconStatistics,
-    IconPhoto
+    IconPhoto,
+    IconDocuments,
+    IconCart
   }
 };
 </script>

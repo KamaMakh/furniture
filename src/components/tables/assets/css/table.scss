@@ -112,12 +112,14 @@ $ffamily: "Roboto", sans-serif;
   margin-top: 56px;
   min-width: 650px;
   &.furniture-table {
-    min-width: 1000px;
+    @media all and(max-width: 1280px) {
+      min-width: 1000px;
+    }
     thead {
       tr {
         th {
           font-size: 19px;
-          @media all and(max-width: 1280px) {
+          @media all and(max-width: 1440px) {
             font-size: 14px;
             line-height: 17px;
             height: 50px;
@@ -135,7 +137,24 @@ $ffamily: "Roboto", sans-serif;
         td {
           font-size: 16px;
           text-align: center;
-          @media all and(max-width: 1280px) {
+          @media all and(max-width: 1440px) {
+            font-size: 14px;
+            line-height: 17px;
+            height: 45px;
+          }
+          @media all and(max-width: 960px) {
+            font-size: 12px;
+            line-height: 14px;
+            height: 40px;
+          }
+        }
+      }
+    }
+    tfoot {
+      tr {
+        th {
+          font-size: 16px;
+          @media all and(max-width: 1440px) {
             font-size: 14px;
             line-height: 17px;
             height: 45px;
@@ -212,8 +231,9 @@ $ffamily: "Roboto", sans-serif;
           line-height: 21px;
           color: #FFFFFF;
           min-width: 202px;
-          @media all and(max-width: 1280px) {
+          @media all and(max-width: 1440px) {
             font-size: 15px;
+            height: 30px;
             line-height: 19px;
           }
           @media all and(max-width: 960px) {
@@ -378,7 +398,13 @@ label.title {
 .bold {
   font-weight: bold !important;
 }
-
+.custom-control {
+  justify-content: flex-end;
+  margin-top: -60px;
+  @media all and(max-width: 1280px) {
+    margin-top: 0;
+  }
+}
 .custom-control-input:checked ~ .custom-control-label::before {
   background: #688e74;
   border-color: #688e74;

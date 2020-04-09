@@ -1,7 +1,7 @@
 <template>
   <div class="flex-grow-1 furniture">
     <div class="col col-12 pa-0">
-      <h1-component :name="$t('documentsH1')" icon="photo" />
+      <h1-component :name="$t('documentsH1')" icon="document" />
       <TableDocuments
         :leftMenuShow="leftMenuShow"
         ref="table"
