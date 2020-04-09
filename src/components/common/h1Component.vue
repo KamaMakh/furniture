@@ -1,13 +1,15 @@
 <template>
-  <span class="h1-component">
-    <span class="h1-component__icon d-flex align-center">
-      <IconStatistics v-if="icon === 'statistics'" width="30" height="23" />
-      <IconPhoto v-else-if="icon === 'photo'" width="30" height="23" />
+  <div class="text-left">
+    <span class="h1-component">
+      <span class="h1-component__icon d-flex align-center">
+        <IconStatistics v-if="icon === 'statistics'" width="30" height="23" />
+        <IconPhoto v-else-if="icon === 'photo'" width="30" height="23" />
+      </span>
+      <h1>
+        {{ name }}
+      </h1>
     </span>
-    <h1>
-      {{ name }}
-    </h1>
-  </span>
+  </div>
 </template>
 
 <script>
@@ -25,9 +27,9 @@ export default {
 
 <style scoped lang="scss">
 .h1-component {
-  width: 221px;
+  width: auto;
   min-height: 42px;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   padding: 5px 24px;
   text-align: left;

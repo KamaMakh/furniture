@@ -9,10 +9,24 @@
         :tile="false"
         class="mx-auto"
       >
-        <table class="table" style="width: 100%" id="documentsTable">
+        <table class="table new-table" style="width: 100%" id="documentsTable">
           <thead>
             <tr style="background: rgb(255,255,255,0.2); border: none;">
-              <td
+              <th>
+                <v-btn
+                  v-if="access"
+                  @click="showDocModal()"
+                  :title="$t('add_group')"
+                  icon
+                  style="cursor: pointer"
+                >
+                  <!--                  <IconPlusSquared width="19" height="19" fill="#999" />-->
+                  <v-icon :color="color">
+                    mdi-plus
+                  </v-icon>
+                </v-btn>
+              </th>
+              <th
                 v-for="(item, key) in titles"
                 :key="key"
                 :width="tdWidths[key] + '%'"
@@ -21,15 +35,6 @@
                 style="cursor: pointer; text-align: center;"
                 :class="{ bold: item.code === currentSort }"
               >
-                <span
-                  v-if="key === 0 && access"
-                  @click="showDocModal()"
-                  :title="$t('add_group')"
-                  class="icon"
-                  style="cursor: pointer"
-                >
-                  <IconPlusSquared width="19" height="19" fill="#999" />
-                </span>
                 <span
                   :class="{
                     'ml-0': key === 0,
@@ -40,7 +45,7 @@
                 >
                   {{ key === 0 ? $t("documentName") : item.name }}
                 </span>
-              </td>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -50,9 +55,10 @@
               :key="key"
               :class="{ odd: key % 2 === 0 || key === 0 }"
             >
+              <td></td>
               <td style="display: table-cell; padding: 10px 5px;" id="docName">
                 <span
-                  class="ellipsis ml-0 text-left pl-3"
+                  class="ellipsis ml-0 pl-3"
                   :style="{ maxWidth: docNameWidth + 'px' }"
                   :title="item.name"
                 >
@@ -71,23 +77,24 @@
                   <template v-slot:activator="{ on }">
                     <v-btn
                       v-on="on"
-                      outlined
                       style="border: none; text-transform: none;"
                       color="#999"
+                      dark
+                      :small="windowWidth <= 1280"
                       :disabled="construction.creatorId !== user.id"
                       :class="{
-                        greenCustom: item.status === 'approved',
-                        redCustom: item.status === 'rejected'
+                        success: item.status === 'approved',
+                        error: item.status === 'rejected'
                       }"
                       :loading="statusLoadingId === item.id"
                     >
-                      <v-icon
-                        v-if="construction.creatorId === user.id"
-                        :color="'#999'"
-                        left
-                        >mdi-pencil</v-icon
-                      >
-                      {{ $t(item.status.toLowerCase()) }}
+                      <!--                      <v-icon-->
+                      <!--                        v-if="construction.creatorId === user.id"-->
+                      <!--                        :color="'#999'"-->
+                      <!--                        left-->
+                      <!--                        >mdi-pencil</v-icon-->
+                      <!--                      >-->
+                      {{ $t(item.status.toLowerCase()) | truncate(5) }}
                     </v-btn>
                   </template>
                   <v-list>
@@ -117,18 +124,6 @@
           </tbody>
         </table>
       </v-skeleton-loader>
-      <v-btn
-        :color="color"
-        dark
-        fixed
-        top
-        right
-        fab
-        style="top: 60px;"
-        @click="showDocModal()"
-      >
-        <v-icon>mdi-plus</v-icon>
-      </v-btn>
     </perfect-scrollbar>
     <!--modals-->
     <v-dialog v-model="showAddDocModal" width="600">
@@ -246,23 +241,23 @@
             </v-row>
           </v-form>
         </v-card-text>
-        <v-card-actions>
+        <v-card-actions class="justify-center">
           <v-btn
-            dark
-            @click="showAddDocModal = false"
-            color="#999"
-            class="ma-1"
-          >
-            {{ $t("close") }}
-          </v-btn>
-          <v-btn
-            :color="color"
+            :color="colorExtra"
             class="ma-1"
             dark
             :loading="loading"
             @click="addDoc"
           >
             {{ $t("add") }}
+          </v-btn>
+          <v-btn
+            dark
+            @click="showAddDocModal = false"
+            :color="colorExtraHover"
+            class="ma-1"
+          >
+            {{ $t("close") }}
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -286,12 +281,12 @@
 import { mapState } from "vuex";
 import { serverUrl } from "@/store/urls";
 import { documentsUrls } from "@/store/urls";
-import IconPlusSquared from "@/components/common/icons/IconPlusSquared";
+// import IconPlusSquared from "@/components/common/icons/IconPlusSquared";
 import { required, fileMaxSize, isEmail } from "@/shared/validator";
 export default {
   name: "TableDocuments",
   components: {
-    IconPlusSquared
+    // IconPlusSquared
   },
   props: ["leftMenuShow"],
   data() {
@@ -312,7 +307,9 @@ export default {
       statusLoadingId: null,
       price: 0,
       absolutesDisabled: false,
-      color: "#688e74",
+      color: this.$store.state.theme.main,
+      colorExtra: this.$store.state.theme.extra,
+      colorExtraHover: this.$store.state.theme.extraHover,
       docNameWidth: 330,
       rules: {
         required: value => required(value) || this.$t("required"),

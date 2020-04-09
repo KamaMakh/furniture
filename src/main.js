@@ -77,7 +77,7 @@ Vue.filter("truncate", function(value, length) {
   if (!length) length = 30;
   if (!value) return "";
   if (value.length > length) {
-    value = value.substring(0, length) + "...";
+    value = value.substring(0, length) + (length < 30 ? "." : "...");
   }
   return value;
 });
