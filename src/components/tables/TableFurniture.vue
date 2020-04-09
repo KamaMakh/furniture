@@ -1129,8 +1129,9 @@ export default {
           photoId: this.image.id,
           nomenclature: this.nomenclature
         })
-        .then(() => {
+        .then(response => {
           this.showRemovePhotoModal = false;
+          this.nomenclature.photos = response;
         })
         .catch(error => {
           this.$notify({

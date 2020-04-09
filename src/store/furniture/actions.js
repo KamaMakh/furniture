@@ -406,7 +406,7 @@ function deleteNomenclaturePhoto({ commit }, data) {
             response: response.data,
             nomenclature: data.nomenclature
           });
-          resolve();
+          resolve(response.data);
         } else {
           reject(response.data.message);
         }
