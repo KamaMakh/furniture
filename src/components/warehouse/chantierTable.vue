@@ -14,7 +14,7 @@
         :headers-length="100"
         fixed-header
         disable-pagination
-        :height="windowHeight - 100"
+        :height="windowWidth <= 960 ? undefined : windowHeight - 100"
       >
         <template v-slot:header="{ props: { headers } }">
           <thead>

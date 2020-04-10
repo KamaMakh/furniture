@@ -11,7 +11,7 @@
         hide-default-footer
         hide-default-header
         fixed-header
-        :height="windowHeight - 100"
+        :height="windowWidth <= 960 ? undefined : windowHeight - 100"
         disable-pagination
       >
         <template v-slot:header="{ props: { headers } }">

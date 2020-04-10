@@ -2,10 +2,10 @@
   <div>
     <h1-component :name="$t('warehouse')" icon="warehouse" />
     <v-row>
-      <v-col cols="12" md="5">
+      <v-col cols="12" sm="12" md="5">
         <chantierTable />
       </v-col>
-      <v-col cols="12" md="7">
+      <v-col cols="12" sm="12" md="7">
         <storageTable />
       </v-col>
     </v-row>
