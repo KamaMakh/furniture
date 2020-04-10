@@ -32,6 +32,7 @@
         </div>
         <div class="container-wrap__content content">
           <perfect-scrollbar
+            v-if="$route.name !== 'Warehouse'"
             class="content__body"
             :class="{ warehouse: $route.name === 'Warehouse' }"
           >
@@ -40,6 +41,16 @@
               @createConstruction="showConstructionModal"
             />
           </perfect-scrollbar>
+          <div
+            v-else
+            class="content__body"
+            :class="{ warehouse: $route.name === 'Warehouse' }"
+          >
+            <router-view
+              :leftMenuShow="leftMenuShow"
+              @createConstruction="showConstructionModal"
+            />
+          </div>
         </div>
       </v-col>
     </v-row>

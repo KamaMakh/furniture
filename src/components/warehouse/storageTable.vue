@@ -1,12 +1,11 @@
 <template>
-  <div class="storage-table">
+  <div class="storage-table warehouse-table">
     <v-card>
       <v-data-table
         :headers="headers"
         :items="warehouseNomenclatures"
         item-key="name"
         group-by="groupId"
-        class="elevation-1"
         show-group-by
         :items-per-page="itemsPerPage"
         hide-default-footer
@@ -41,25 +40,25 @@
               <th colspan="4" :title="group.name">
                 {{ group.name | truncate }}
                 <v-btn
+                  :small="windowWidth <= 1440"
                   v-if="groupedItems[group.id]"
                   @click="toggleGroup(false, group, groupedItems[group.id])"
                   class="ml-2"
                   icon
-                  small
                 >
-                  <v-icon small :color="color">
+                  <v-icon :small="windowWidth <= 1440" :color="'#000'">
                     mdi-arrow-up
                   </v-icon>
                 </v-btn>
                 <v-btn
+                  :small="windowWidth <= 1440"
                   v-else
                   class="ml-2"
                   icon
-                  small
                   @click="toggleGroup(true, group, groupedItems[group.id])"
                   :loading="arrowLoadingId === group.id"
                 >
-                  <v-icon small :color="color">
+                  <v-icon :small="windowWidth <= 1440" :color="'#000'">
                     mdi-arrow-down
                   </v-icon>
                 </v-btn>
@@ -68,12 +67,12 @@
                 <v-tooltip top :color="color">
                   <template v-slot:activator="{ on }">
                     <v-btn
+                      :small="windowWidth <= 1440"
                       v-on="on"
                       icon
-                      small
                       @click="showNomenclature(group, groupedItems[group.id])"
                     >
-                      <v-icon small :color="color">
+                      <v-icon :small="windowWidth <= 1440" :color="'#4D4D4D'">
                         mdi-plus
                       </v-icon>
                     </v-btn>
@@ -85,13 +84,13 @@
                 <v-tooltip top :color="color">
                   <template v-slot:activator="{ on }">
                     <v-btn
+                      :small="windowWidth <= 1440"
                       v-on="on"
-                      small
                       icon
                       class="text-center"
                       @click="showAddGroupModal(group)"
                     >
-                      <v-icon small :color="color">
+                      <v-icon :small="windowWidth <= 1440" :color="'#4D4D4D'">
                         mdi-pencil
                       </v-icon>
                     </v-btn>
@@ -159,19 +158,23 @@
               >
                 {{ item.totalPrice }}
               </td>
-              <td class="text-right">
+              <td class="text-right pl-1 pr-1">
                 <v-tooltip top :color="color">
                   <template v-slot:activator="{ on }">
                     <v-btn
-                      small
+                      :small="windowWidth <= 1440"
                       icon
                       v-on="on"
                       class="text-center"
                       @click="showTransfer(item)"
                       :disabled="item.count < 1"
                     >
-                      <v-icon small :color="'#424242'">
-                        mdi-upload
+                      <v-icon
+                        :small="windowWidth <= 1440"
+                        :color="'#4D4D4D'"
+                        style="transform: scaleX(-1);"
+                      >
+                        mdi-share
                       </v-icon>
                     </v-btn>
                   </template>
@@ -182,13 +185,13 @@
                 <v-tooltip top :color="color">
                   <template v-slot:activator="{ on }">
                     <v-btn
+                      :small="windowWidth <= 1440"
                       v-on="on"
-                      small
                       icon
                       class="text-center"
                       @click="showToOrFrom(item, true)"
                     >
-                      <v-icon small :color="color">
+                      <v-icon :small="windowWidth <= 1440" :color="color">
                         mdi-cart-arrow-down
                       </v-icon>
                     </v-btn>
@@ -200,14 +203,14 @@
                 <v-tooltip top :color="color">
                   <template v-slot:activator="{ on }">
                     <v-btn
+                      :small="windowWidth <= 1440"
                       v-on="on"
-                      small
                       icon
                       class="text-center"
                       @click="showToOrFrom(item, false)"
                       :disabled="item.count < 1"
                     >
-                      <v-icon small color="error">
+                      <v-icon :small="windowWidth <= 1440" color="error">
                         mdi-cart-remove
                       </v-icon>
                     </v-btn>
@@ -218,8 +221,8 @@
                 </v-tooltip>
                 <!--                <v-tooltip top :color="color">-->
                 <!--                  <template v-slot:activator="{ on }">-->
-                <!--                    <v-btn icon small v-on="on">-->
-                <!--                      <v-icon small :color="color">-->
+                <!--                    <v-btn :small="windowWidth <= 1440" icon small v-on="on">-->
+                <!--                      <v-icon :small="windowWidth <= 1440" small :color="color">-->
                 <!--                        mdi-delete-->
                 <!--                      </v-icon>-->
                 <!--                    </v-btn>-->
@@ -259,39 +262,39 @@
         </template>
         <template v-slot:top>
           <v-toolbar flat color="white">
-            <v-toolbar-title>
-              {{ $t("warehouse") }}
-            </v-toolbar-title>
+            <span class="d-flex align-center">
+              <v-toolbar-title>
+                {{ $t("warehouse") }}
+              </v-toolbar-title>
+              <v-btn
+                :small="windowWidth <= 1440"
+                v-if="warehouse"
+                :color="'#4D4D4D'"
+                dark
+                icon
+                class="ml-2"
+                @click="showWarehouseModal = true"
+              >
+                <v-icon :small="windowWidth <= 1440" dark>
+                  mdi-cog-outline
+                </v-icon>
+              </v-btn>
+            </span>
             <v-btn
-              v-if="warehouse"
-              :color="color"
-              small
+              :small="windowWidth <= 1440"
               dark
-              icon
-              class="ml-2"
-              @click="showWarehouseModal = true"
-            >
-              <v-icon dark>
-                mdi-cog-outline
-              </v-icon>
-            </v-btn>
-            <v-divider class="mx-4" inset vertical></v-divider>
-            <v-spacer></v-spacer>
-            <v-btn
-              dark
-              small
               :color="color"
               class="mb-2"
               @click="showAddGroupModal"
             >
-              <v-icon left small>
+              <v-icon :small="windowWidth <= 1440" left>
                 mdi-plus
               </v-icon>
               {{ $t("add_group") }}
             </v-btn>
-            <v-dialog v-model="showGroupModal" max-width="500px">
+            <v-dialog v-model="showGroupModal" max-width="510px">
               <v-card>
-                <v-card-title class="headline">
+                <v-card-title class="headline warehouse">
                   {{ group && group.id ? $t("edit_group") : $t("add_group") }}
                 </v-card-title>
                 <v-card-text>
@@ -313,19 +316,20 @@
                     </v-row>
                   </v-form>
                 </v-card-text>
-                <v-card-actions>
-                  <v-spacer></v-spacer>
+                <v-card-actions class="justify-center pb-8">
                   <v-btn
-                    color="grey darken-1"
-                    text
+                    :small="windowWidth <= 1440"
+                    :color="colorExtraHover"
+                    dark
                     @click="showGroupModal = false"
                   >
-                    {{ $t("close") }}
+                    {{ $t("cancel") }}
                   </v-btn>
 
                   <v-btn
-                    :color="color"
-                    text
+                    :small="windowWidth <= 1440"
+                    :color="colorExtra"
+                    dark
                     :loading="loading"
                     @click="addGroup"
                   >
@@ -341,9 +345,9 @@
     <!--<v-pagination v-model="page" :length="pageCount"></v-pagination>-->
 
     <!--modals-->
-    <v-dialog v-if="warehouse" v-model="showWarehouseModal" max-width="500px">
+    <v-dialog v-if="warehouse" v-model="showWarehouseModal" max-width="510px">
       <v-card>
-        <v-card-title class="headline">
+        <v-card-title class="headline warehouse">
           {{ $t("warehouse") }}
         </v-card-title>
         <v-card-text>
@@ -381,15 +385,20 @@
             </v-row>
           </v-form>
         </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="grey darken-1" text @click="showWarehouseModal = false">
+        <v-card-actions class="justify-center pb-8">
+          <v-btn
+            :small="windowWidth <= 1440"
+            dark
+            :color="colorExtraHover"
+            @click="showWarehouseModal = false"
+          >
             {{ $t("close") }}
           </v-btn>
 
           <v-btn
-            :color="color"
-            text
+            :small="windowWidth <= 1440"
+            dark
+            :color="colorExtra"
             :loading="loading"
             @click="updateWarehouse"
           >
@@ -400,7 +409,7 @@
     </v-dialog>
     <v-dialog v-model="showToOrFromModal" width="500">
       <v-card>
-        <v-card-title class="headline">
+        <v-card-title class="headline warehouse">
           {{ toStorage ? $t("storage.toStorage") : $t("storage.fromStorage") }}
         </v-card-title>
         <v-card-text>
@@ -472,14 +481,20 @@
             </span>
           </v-form>
         </v-card-text>
-        <v-card-actions class="text-right justify-end">
-          <v-btn color="grey darken-1" text @click="showToOrFromModal = false">
+        <v-card-actions class="justify-center pb-8">
+          <v-btn
+            :small="windowWidth <= 1440"
+            dark
+            :color="colorExtraHover"
+            @click="showToOrFromModal = false"
+          >
             {{ $t("cancel") }}
           </v-btn>
 
           <v-btn
-            :color="color"
-            text
+            :small="windowWidth <= 1440"
+            dark
+            :color="colorExtra"
             :loading="loading"
             @click="toOrFromStorage"
           >
@@ -491,7 +506,7 @@
     <v-dialog v-model="showTransferModal" width="500">
       <v-card>
         <v-card-title
-          class="headline"
+          class="headline warehouse"
           v-html="
             $t('storage.transferFromStorage', { name: nomenclature.name })
           "
@@ -516,14 +531,20 @@
             </v-row>
           </v-form>
         </v-card-text>
-        <v-card-actions class="text-right justify-end">
-          <v-btn color="grey darken-1" text @click="showTransferModal = false">
+        <v-card-actions class="justify-center pb-8">
+          <v-btn
+            :small="windowWidth <= 1440"
+            dark
+            :color="colorExtraHover"
+            @click="showTransferModal = false"
+          >
             {{ $t("cancel") }}
           </v-btn>
 
           <v-btn
-            :color="color"
-            text
+            :small="windowWidth <= 1440"
+            dark
+            :color="colorExtra"
             :loading="loading"
             @click="transferToProject"
           >
@@ -689,9 +710,10 @@
                     ></v-text-field>
                   </div>
                 </div>
-                <div class="form-group row justify-space-between ml-0 mr-0">
+                <div class="form-group row justify-center ml-0 mr-0 pb-8">
                   <v-btn
-                    color="#688e74"
+                    :small="windowWidth <= 1440"
+                    :color="colorExtra"
                     class="ma-1 ml-0"
                     dark
                     :disabled="!addNomenclatureValid"
@@ -702,9 +724,10 @@
                   </v-btn>
 
                   <v-btn
+                    :small="windowWidth <= 1440"
                     dark
                     @click="showNomekModal = false"
-                    color="#999"
+                    :color="colorExtraHover"
                     class="ma-1"
                   >
                     {{ $t("close") }}
@@ -718,19 +741,26 @@
     </v-dialog>
     <v-dialog v-model="showRemovePhotoModal" width="400">
       <v-card>
-        <v-card-title class="headline">
+        <v-card-title class="headline warehouse">
           {{ $t("delete") }} "{{ image.id }}"?
         </v-card-title>
-        <v-card-actions>
+        <v-card-actions class="justify-center pb-8">
           <v-btn
-            color="grey darken-1"
-            text
+            :small="windowWidth <= 1440"
+            :color="colorExtraHover"
             @click="showRemovePhotoModal = false"
+            dark
           >
-            {{ $t("close") }}
+            {{ $t("cancel") }}
           </v-btn>
 
-          <v-btn :color="color" text :loading="loading" @click="deletePhoto">
+          <v-btn
+            :small="windowWidth <= 1440"
+            dark
+            :color="colorExtra"
+            :loading="loading"
+            @click="deletePhoto"
+          >
             {{ $t("delete") }}
           </v-btn>
         </v-card-actions>
@@ -756,7 +786,9 @@ export default {
       transferValid: true,
       toOrFromValid: true,
       addWarehouseValid: true,
-      color: "#688e74",
+      color: this.$store.state.theme.main,
+      colorExtra: this.$store.state.theme.extra,
+      colorExtraHover: this.$store.state.theme.extraHover,
       showGroupModal: false,
       showNomekModal: false,
       showWarehouseModal: false,
@@ -817,7 +849,7 @@ export default {
           {
             text: this.$t("simple_name"),
             value: "name",
-            align: "left",
+            align: "center",
             width: "30%"
           },
           {

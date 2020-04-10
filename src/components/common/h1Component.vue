@@ -6,6 +6,11 @@
         <IconPhoto v-else-if="icon === 'photo'" width="30" height="23" />
         <IconDocuments v-else-if="icon === 'document'" width="30" height="23" />
         <IconCart v-else-if="icon === 'cart'" width="30" height="23" />
+        <IconWarehouse
+          v-else-if="icon === 'warehouse'"
+          width="30"
+          height="23"
+        />
       </span>
       <h1>
         {{ name }}
@@ -19,6 +24,7 @@ import IconStatistics from "@/components/common/icons/IconStatistics";
 import IconPhoto from "@/components/common/icons/IconPhoto";
 import IconDocuments from "@/components/common/icons/IconDocuments";
 import IconCart from "@/components/common/icons/IconCart";
+import IconWarehouse from "@/components/common/icons/IconWarehouse";
 export default {
   props: ["name", "icon"],
   name: "h1Component",
@@ -26,7 +32,8 @@ export default {
     IconStatistics,
     IconPhoto,
     IconDocuments,
-    IconCart
+    IconCart,
+    IconWarehouse
   }
 };
 </script>

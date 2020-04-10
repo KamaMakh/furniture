@@ -1,12 +1,11 @@
 <template>
-  <div class="chantier-table">
+  <div class="chantier-table warehouse-table">
     <v-card>
       <v-data-table
         :headers="headers"
         :items="projectNomenclatures"
         item-key="name"
         group-by="projectGroupId"
-        class="elevation-1"
         show-group-by
         :items-per-page="25"
         hide-default-footer
@@ -37,7 +36,6 @@
             <v-toolbar-title>
               {{ $t("construction") }}
             </v-toolbar-title>
-            <v-divider class="mx-4" inset vertical></v-divider>
             <v-spacer></v-spacer>
             {{ construction.name }}
           </v-toolbar>
@@ -55,9 +53,8 @@
                   @click="toggleGroup(false, group, groupedItems[group.id])"
                   class="ml-2"
                   icon
-                  small
                 >
-                  <v-icon small :color="color">
+                  <v-icon :small="windowWidth <= 1440" :color="'#4D4D4D'">
                     mdi-arrow-up
                   </v-icon>
                 </v-btn>
@@ -65,11 +62,10 @@
                   v-else
                   class="ml-2"
                   icon
-                  small
                   @click="toggleGroup(true, group, groupedItems[group.id])"
                   :loading="arrowLoadingId === group.id"
                 >
-                  <v-icon small :color="color">
+                  <v-icon :small="windowWidth <= 1440" :color="'#4D4D4D'">
                     mdi-arrow-down
                   </v-icon>
                 </v-btn>
@@ -80,7 +76,7 @@
                 class="text-left"
                 style="cursor:pointer;"
                 @click="showEditNomenclature(item, group)"
-                colspan="6"
+                colspan="4"
               >
                 <span class="d-flex align-center">
                   <span v-if="item.photos && item.photos[0]" class="icon mr-2">
@@ -119,19 +115,33 @@
               >
                 {{ item.count }}
               </td>
+              <td
+                class="text-center"
+                style="cursor:pointer;"
+                @click="showEditNomenclature(item, group)"
+              >
+                {{ item.price }}
+              </td>
+              <td
+                class="text-center"
+                style="cursor:pointer;"
+                @click="showEditNomenclature(item, group)"
+              >
+                {{ item.totalPrice }}
+              </td>
               <td class="text-center">
                 <v-tooltip top :color="color">
                   <template v-slot:activator="{ on }">
                     <v-btn
                       v-on="on"
-                      small
                       icon
+                      :small="windowWidth <= 1440"
                       class="text-center"
                       @click="showTransfer(item, group)"
                       :disabled="item.count < 1"
                     >
-                      <v-icon small :color="color">
-                        mdi-upload
+                      <v-icon :small="windowWidth <= 1440" :color="'#4D4D4D'">
+                        mdi-share
                       </v-icon>
                     </v-btn>
                   </template>
@@ -298,7 +308,7 @@
                   <v-btn
                     dark
                     @click="showNomekModal = false"
-                    color="#999"
+                    :color="colorExtraHover"
                     class="ma-1"
                   >
                     {{ $t("close") }}
@@ -313,7 +323,7 @@
     <v-dialog v-model="showTransferModal" width="500">
       <v-card>
         <v-card-title
-          class="headline"
+          class="headline warehouse"
           v-html="
             $t('storage.transferFromProject', { name: nomenclature.name })
           "
@@ -338,14 +348,18 @@
             </v-row>
           </v-form>
         </v-card-text>
-        <v-card-actions class="text-right justify-end">
-          <v-btn color="grey darken-1" text @click="showTransferModal = false">
+        <v-card-actions class="text-right justify-center pb-8">
+          <v-btn
+            dark
+            :color="colorExtraHover"
+            @click="showTransferModal = false"
+          >
             {{ $t("cancel") }}
           </v-btn>
 
           <v-btn
-            :color="color"
-            text
+            dark
+            :color="colorExtra"
             :loading="loading"
             @click="transferToStorage"
           >
@@ -370,7 +384,9 @@ export default {
   data() {
     return {
       transferValid: true,
-      color: "#688e74",
+      color: this.$store.state.theme.main,
+      colorExtra: this.$store.state.theme.extra,
+      colorExtraHover: this.$store.state.theme.extraHover,
       showNomekModal: false,
       showTransferModal: false,
       nomenclature: {},
@@ -415,18 +431,25 @@ export default {
         return [
           {
             text: this.$t("simple_name"),
-            colspan: "6",
-            align: "left"
+            colspan: "4",
+            align: "center",
+            width: "35%"
           },
           {
             text: `${this.$t("count")}`,
-            align: "center",
-            width: "20%"
+            align: "center"
+          },
+          {
+            text: `${this.$t("price")}`,
+            align: "center"
+          },
+          {
+            text: `${this.$t("total")}`,
+            align: "center"
           },
           {
             text: this.$t("actions"),
-            align: "center",
-            width: "10%"
+            align: "center"
           }
         ];
       }

@@ -1,6 +1,6 @@
 <template>
   <div v-if="construction && construction.id">
-    <div class="custom-control custom-switch d-flex mb-2">
+    <div class="custom-control custom-switch main d-flex mb-2">
       <v-switch
         v-model="ndsColumns"
         :label="$t('nds')"

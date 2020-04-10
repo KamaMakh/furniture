@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1-component :name="$t('warehouse')" icon="warehouse" />
     <v-row>
       <v-col cols="12" md="5">
         <chantierTable />

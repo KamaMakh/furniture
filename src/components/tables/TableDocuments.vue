@@ -88,12 +88,13 @@
                       }"
                       :loading="statusLoadingId === item.id"
                     >
-                      <!--                      <v-icon-->
-                      <!--                        v-if="construction.creatorId === user.id"-->
-                      <!--                        :color="'#999'"-->
-                      <!--                        left-->
-                      <!--                        >mdi-pencil</v-icon-->
-                      <!--                      >-->
+                      <v-icon
+                        v-if="construction.creatorId === user.id"
+                        :color="'#fff'"
+                        left
+                        small
+                        >mdi-pencil</v-icon
+                      >
                       {{ $t(item.status.toLowerCase()) | truncate(5) }}
                     </v-btn>
                   </template>
