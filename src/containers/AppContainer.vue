@@ -32,7 +32,7 @@
         </div>
         <div class="container-wrap__content content">
           <perfect-scrollbar
-            v-if="$route.name !== 'Warehouse'"
+            v-if="$route.name !== 'Warehouse' && $route.name !== 'statistics'"
             class="content__body"
             :class="{ warehouse: $route.name === 'Warehouse' }"
           >

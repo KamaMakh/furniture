@@ -177,14 +177,14 @@ $ffamily: "Roboto", sans-serif;
         font-size: 20px;
         line-height: 23px;
         color: #000000;
-        @media all and(max-width: 1280px) {
-          font-size: 16px;
-          line-height: 19px;
+        @media all and(max-width: 1440px) {
+          font-size: 14px;
+          line-height: 17px;
           height: 50px;
         }
         @media all and(max-width: 960px) {
-          font-size: 14px;
-          line-height: 16px;
+          font-size: 12px;
+          line-height: 14px;
           height: 45px;
         }
       }
@@ -208,16 +208,16 @@ $ffamily: "Roboto", sans-serif;
         &.furniture-td {
           border-top: 1px solid #D9D9D9 !important;
         }
-        @media all and(max-width: 1280px) {
-          font-size: 15px;
-          line-height: 19px;
-          height: 45px;
-        }
-        @media all and(max-width: 960px) {
-          font-size: 13px;
-          line-height: 15px;
-          height: 40px;
-        }
+          @media all and(max-width: 1440px) {
+            font-size: 14px;
+            line-height: 17px;
+            height: 45px;
+          }
+          @media all and(max-width: 960px) {
+            font-size: 12px;
+            line-height: 14px;
+            height: 40px;
+          }
       span {
         text-align: center !important;
       }
@@ -255,16 +255,16 @@ $ffamily: "Roboto", sans-serif;
         line-height: 21px;
         color: #000;
         font-weight: normal;
-        @media all and(max-width: 1280px) {
-          font-size: 16px;
-          line-height: 19px;
-          height: 50px;
-        }
-        @media all and(max-width: 960px) {
-          font-size: 14px;
-          line-height: 16px;
-          height: 45px;
-        }
+          @media all and(max-width: 1440px) {
+            font-size: 14px;
+            line-height: 17px;
+            height: 45px;
+          }
+          @media all and(max-width: 960px) {
+            font-size: 12px;
+            line-height: 14px;
+            height: 40px;
+          }
       }
     }
   }

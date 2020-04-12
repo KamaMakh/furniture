@@ -12,10 +12,10 @@
       group-by="groupIdentify"
       :show-group-by="false"
       hide-default-header
-      mobile-breakpoint="768"
+      :mobile-breakpoint="380"
       :group-desc="true"
     >
-      <template v-if="windowWidth > 768" v-slot:header>
+      <template v-if="windowWidth > 380" v-slot:header>
         <thead hidden>
           <tr>
             <th width="60%"></th>
@@ -25,14 +25,14 @@
           </tr>
         </thead>
       </template>
-      <template v-if="windowWidth > 768" v-slot:body="{ groupedItems }">
+      <template v-if="windowWidth > 380" v-slot:body="{ groupedItems }">
         <tbody
           v-for="(groups, key) in groupedItems"
           :key="key"
           v-html="createGroupRows(key, groups)"
         ></tbody>
       </template>
-      <template v-if="windowWidth <= 768" v-slot:group.header="{ group }">
+      <template v-if="windowWidth <= 380" v-slot:group.header="{ group }">
         {{ group }}
       </template>
     </v-data-table>
@@ -193,10 +193,10 @@ export default {
                     <img src="${serverUrl +
                       transfer.photos[0][
                         "pathUrl"
-                      ]}&type=200px" width="81" height="54" alt="" class="mr-2" />
+                      ]}&type=200px" alt="" class="mr-2" />
                   </span>`;
           }
-          rows += `<tr><td class="text-left name-td" style="font-size: 20px;">
+          rows += `<tr><td class="text-left name-td">
                     <span class="d-flex align-center">${photo} ${transfer.nomenclatureName}</span>
                    </td>`;
           if (
@@ -309,6 +309,14 @@ export default {
     align-items: center;
     justify-content: center;
     background: #c4c4c4;
+    @media all and(max-width: 1440px) {
+      width: 60px;
+      height: 40px;
+    }
+    @media all and(max-width: 1280px) {
+      width: 50px;
+      height: 30px;
+    }
   }
   .v-data-table {
     box-shadow: none !important;
@@ -345,6 +353,7 @@ export default {
     border-collapse: separate;
     border-radius: 5px;
     overflow: hidden;
+    min-width: 400px;
     tr {
       td,
       th {
@@ -389,6 +398,16 @@ export default {
       height: 70px;
       /*border: none !important;*/
       border-top: 1px solid #808080 !important;
+      @media all and(max-width: 1440px) {
+        font-size: 14px;
+        line-height: 17px;
+        height: 50px;
+      }
+      @media all and(max-width: 960px) {
+        font-size: 12px;
+        line-height: 14px;
+        height: 45px;
+      }
     }
     td {
       font-weight: 300;
@@ -401,6 +420,28 @@ export default {
       @media all and(max-width: 1200px) {
         &.name-td {
           padding-left: 25px !important;
+        }
+      }
+      @media all and(max-width: 1440px) {
+        font-size: 14px;
+        line-height: 17px;
+        height: 45px;
+      }
+      @media all and(max-width: 960px) {
+        font-size: 12px;
+        line-height: 14px;
+        height: 40px;
+      }
+      img {
+        width: 81px;
+        height: 54px;
+        @media all and(max-width: 1440px) {
+          width: 60px;
+          height: 40px;
+        }
+        @media all and(max-width: 1280px) {
+          width: 50px;
+          height: auto;
         }
       }
     }
