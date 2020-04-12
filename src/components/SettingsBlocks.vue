@@ -157,7 +157,9 @@
             subId = 3;
           "
         >
-          {{ $t("tariffsPage.premium.btnText") }}
+          {{ $t("tariffsPage.premium.btnText") }} ({{
+            formatDate(user.userSubscription.dateValid)
+          }})
         </v-btn>
         <div
           v-else-if="
@@ -167,7 +169,9 @@
           "
           class="btn"
         >
-          {{ $t("tariffsPage.free.btnText") }}
+          {{ $t("tariffsPage.free.btnText") }} ({{
+            formatDate(user.userSubscription.dateValid)
+          }})
         </div>
       </div>
     </v-col>
@@ -203,6 +207,19 @@ export default {
     ...mapState({
       user: state => state.user.user
     })
+  },
+  methods: {
+    formatDate(date) {
+      let d = new Date(date),
+        month = "" + (d.getMonth() + 1),
+        day = "" + d.getDate(),
+        year = d.getFullYear();
+
+      if (month.length < 2) month = "0" + month;
+      if (day.length < 2) day = "0" + day;
+
+      return [day, month, year].join(".");
+    }
   },
   mounted() {
     if (
