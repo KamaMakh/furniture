@@ -1,3 +1,5 @@
+import store from "../index";
+
 function setDocuments(state, documents) {
   if (!documents) {
     documents = [];
@@ -33,7 +35,16 @@ function updateDocumentStatus(state, data) {
 }
 
 function setConstructions(state, constructions) {
-  state.constructions = constructions;
+  let userId = store.state.user.user.id;
+  state.constructions = constructions.sort((a, b) => {
+    if (a.creatorId === userId && b.creatorId !== userId) {
+      return -1;
+    } else if (a.creatorId !== userId && b.creatorId === userId) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
 }
 
 function updateConstruction(state, construction) {

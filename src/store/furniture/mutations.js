@@ -1,3 +1,4 @@
+import store from "../../store";
 function setFurniture(state, furniture) {
   if (!furniture) {
     furniture = {};
@@ -6,7 +7,16 @@ function setFurniture(state, furniture) {
 }
 
 function setConstructions(state, constructions) {
-  state.constructions = constructions;
+  let userId = store.state.user.user.id;
+  state.constructions = constructions.sort((a, b) => {
+    if (a.creatorId === userId && b.creatorId !== userId) {
+      return -1;
+    } else if (a.creatorId !== userId && b.creatorId === userId) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
 }
 
 function setConstruction(state, construction) {
