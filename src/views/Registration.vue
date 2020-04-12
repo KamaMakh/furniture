@@ -17,6 +17,15 @@
         class="mb-2"
       ></v-text-field>
       <v-text-field
+        v-model="form.phone"
+        :label="$t('phone')"
+        :placeholder="$t('phone')"
+        v-mask="'+7 (###) ###-##-##'"
+        autocomplete="off"
+        dark
+        class="mb-2"
+      ></v-text-field>
+      <v-text-field
         v-model="form.password"
         :label="$t('password')"
         :placeholder="$t('password')"
