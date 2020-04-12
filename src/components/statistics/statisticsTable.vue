@@ -13,6 +13,7 @@
       :show-group-by="false"
       hide-default-header
       mobile-breakpoint="768"
+      :group-desc="true"
     >
       <template v-if="windowWidth > 768" v-slot:header>
         <thead hidden>

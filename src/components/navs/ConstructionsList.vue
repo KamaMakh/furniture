@@ -81,19 +81,17 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-
-          <v-btn color="red darken-1" text @click="showAddModal = false">
-            {{ $t("close") }}
-          </v-btn>
-
           <v-btn
-            color="#688e74"
-            text
+            :color="colorExtra"
+            dark
             :disabled="!addValid"
             :loading="loading"
             @click="addConstruction"
           >
             {{ $t("save") }}
+          </v-btn>
+          <v-btn :color="colorExtraHover" dark @click="showAddModal = false">
+            {{ $t("cancel") }}
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -303,9 +301,9 @@
                 </v-row>
               </perfect-scrollbar>
             </v-row>
-            <v-card-actions class="d-flex justify-space-between pl-0 pr-0">
+            <v-card-actions class="d-flex justify-space-around pl-0 pr-0">
               <v-btn
-                color="#688e74"
+                :color="colorExtra"
                 @click="addConstruction"
                 :loading="loading"
                 dark
@@ -315,13 +313,21 @@
                 {{ $t("save") }}
               </v-btn>
               <v-btn
-                color="blue-grey"
+                :color="color"
                 dark
                 large
                 width="150"
                 @click="showRemoveModal(newConstruction)"
               >
                 {{ $t("delete") }}
+              </v-btn>
+              <v-btn
+                :color="colorExtraHover"
+                dark
+                large
+                @click="showEditModal = false"
+              >
+                {{ $t("cancel") }}
               </v-btn>
             </v-card-actions>
           </v-card-text>
@@ -336,16 +342,16 @@
         </v-card-title>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue-grey" dark @click="removeModal = false">
-            {{ $t("cancel") }}
-          </v-btn>
           <v-btn
-            color="#688e74"
+            :color="colorExtra"
             dark
             :loading="loading"
             @click="removeConstruction"
           >
             {{ $t("delete") }}
+          </v-btn>
+          <v-btn :color="colorExtraHover" dark @click="removeModal = false">
+            {{ $t("cancel") }}
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -395,7 +401,10 @@ export default {
         v => !!v || this.$t("required"),
         v => /.+@.+\..+/.test(v) || this.$t("invalid_email")
       ],
-      isYourEmail: [v => v !== this.user.email || this.$t("isYourEmail")]
+      isYourEmail: [v => v !== this.user.email || this.$t("isYourEmail")],
+      color: this.$store.state.theme.main,
+      colorExtra: this.$store.state.theme.extra,
+      colorExtraHover: this.$store.state.theme.extraHover
     };
   },
   computed: {
@@ -545,7 +554,6 @@ export default {
           .catch(error => {
             if (error.subscribeError) {
               this.showAddModal = false;
-              // this.showSubscribeModal = true;
               this.$router.push({ name: "Finances" });
             } else {
               this.$notify({
@@ -577,7 +585,7 @@ export default {
           .then(response => {
             this.showAddModal = false;
             this.showEditModal = false;
-            this.chooseConstruction(response);
+            this.chooseConstruction(response, true);
             this.snackBar.value = true;
             this.snackBar.text = this.$t("messages.success.save");
             this.snackBar.color = "success";
@@ -596,20 +604,17 @@ export default {
           });
       }
     },
-    chooseConstruction(item) {
-      this.$emit("choose", item);
+    chooseConstruction(item, update) {
+      if (item.id !== this.construction.id || update) {
+        this.$emit("choose", item);
+      }
     },
     editConstruction(item) {
-      this.$store
-        .dispatch(`${this.module}/getConstruction`, item)
-        .then(() => {
-          this.newConstruction = this.construction;
-          this.invitedUser = {};
-          this.showEditModal = true;
-        })
-        .then(() => {
-          this.chooseConstruction(item);
-        });
+      this.$store.dispatch(`${this.module}/getConstruction`, item).then(() => {
+        this.newConstruction = Object.assign({}, this.construction);
+        this.invitedUser = {};
+        this.showEditModal = true;
+      });
     },
     showRemoveModal(item) {
       this.newConstruction = item;

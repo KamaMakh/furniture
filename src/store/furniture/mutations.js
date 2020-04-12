@@ -20,8 +20,8 @@ function setConstructions(state, constructions) {
 }
 
 function setConstruction(state, construction) {
-  state.groups = [];
-  state.furniture = {};
+  // state.groups = [];
+  // state.furniture = {};
   state.construction = construction;
 }
 
